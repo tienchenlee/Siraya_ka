@@ -166,3 +166,7 @@ cython_debug/
 #pdf
 Matthew.pdf
 John.pdf
+
+#txt
+Matthew.txt
+John.txt
