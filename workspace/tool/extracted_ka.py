@@ -37,7 +37,7 @@ def extracted_ka(txtFILE, jsonFILE):
 if __name__ == "__main__":
     pdfFILES = ("Matthew.pdf", "John.pdf")
     txtFILES = ("Matthew.txt", "John.txt")
-    jsonFILES = ("Matthew.json", "John.json")
+    jsonFILES = ("ka_in_Matthew.json", "ka_in_John.json")
     
     for p, t, j in zip(pdfFILES, txtFILES, jsonFILES):
         mktxt(p, t)
