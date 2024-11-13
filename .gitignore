@@ -163,10 +163,6 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-#pdf
-Matthew.pdf
-John.pdf
-
-#txt
-Matthew.txt
-John.txt
+# folder
+Gospel of John, 2024.9.03
+Gospel of Matthew, 2024.9.03
