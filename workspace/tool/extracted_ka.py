@@ -5,10 +5,21 @@ import json
 import os
 import re
 
+from ArticutAPI import Articut
 from docx import Document
 from pprint import pprint  
 
-folder_path = r"Gospel of Matthew, 2024.9.03"
+try:
+    with open("./account.info", encoding="utf-8") as f:
+        accountDICT = json.load(f)
+except:
+    accountDICT = {"username":"", "apikey":""}
+
+articut = Articut(username=accountDICT["username"], apikey=accountDICT["api_key"])
+
+pat1 = re.compile(r"^ka\b", re.IGNORECASE)
+pat2 = re.compile(r"\ska\b")
+
 def order_file(file_name):
     match = re.search(r"\d+", file_name)
     return int(match.group())
@@ -33,38 +44,53 @@ def mktxt_files():
         output_txt_path = os.path.join(folder_path, os.path.splitext(file)[0] + ".txt")
         docx_to_txt(file_path, output_txt_path)
         
-def extracted_ka():
+def read_txt():
     txtFILES = [f for f in os.listdir(folder_path) if f.endswith(".txt")]
     sorted_txtFILES = sorted(txtFILES, key=lambda f: order_file(f))
     
-    #kaDICT = {} 
     for file in sorted_txtFILES:
         file_path = os.path.join(folder_path, file)
-        with open(file_path, "r", encoding="utf-8") as txt:
-            content = txt.read()
-            #看一下內容長怎樣
-            #print(content)
-            
-            del_chinese = re.sub(r"[\u4e00-\u9fff]+", "", content)
-            print(del_chinese)
-            #sentences = re.findall(r"[a-zA-Z\.,:;-?].+\t[a-zA-Z\.,:;-?]+-?[a-zA-Z\.,:;?]+", content)
-            #chapters = re.findall(r"(?<=[.?:;]\n)\d+:\d+", content)
-            #print(sentences)
-            
-            #for ch in sorted(set(chapters), key=lambda x: tuple(map(int, x.split(":")))):            
-                #print(f"Gloss sentences for '{ch}':")
-
-            
+        with open(file_path, "r", encoding="utf-8") as f:
+            contentLIST = [r.replace("\n", "") for r in f.readlines(0)]
+        #看一下內容長怎樣
+        #print(contentLIST)
+    return contentLIST
+        
+def kaLIST(contentLIST):
+    sirayaLIST = []
+    for c in contentLIST:
+        if "\t" in c and c != "\t":
+            tmp = c
+            while "\t\t" in tmp:
+                tmp = tmp.replace("\t\t", "\t")
+            if tmp != "\t":
+                sirayaLIST.append(tmp)
+    #看一下內容長怎樣
+    #pprint(sirayaLIST)    
     
+    pairedLIST = []
+    for i in range(0, len(sirayaLIST), 2):
+        if len(sirayaLIST[i]) == 0:
+            pass
+        else:
+            pairedLIST.append([sirayaLIST[i].replace("\t", " ").replace("  ", " ").strip(), sirayaLIST[i+1].replace("\t", " ").replace("  ", " ").strip()])
+    #pprint(pairedLIST)
+    
+    kaLIST = []
+    for p, pair in enumerate(pairedLIST):
+        if pat1.match(pair[0]) and p > 0:
+            kaLIST.append((pairedLIST[p-1], pair))
+        if pat2.search(pair[0]):
+            kaLIST.append(pair)
+    return kaLIST    
     
 
 if __name__ == "__main__":
+    folder_path = r"Gospel of Matthew, 2024.9.03"
     mktxt_files()
-    extracted_ka()
-    #html_files = {
-        #"./Matthew Website.html": "ka_in_Matthew.json",
-        #"./John Website.html": "ka_in_John.json"
-    #}
+    contentLIST = read_txt()
+    kaLIST(contentLIST)
+ 
     #for htmlFILE, jsonFILE in html_files.items():
         #with open(htmlFILE, "r", encoding="utf-8") as web:
             #htmlSTR = web.read()
