@@ -5,9 +5,10 @@ import json
 import os
 import re
 
-from ArticutAPI import Articut
 from docx import Document
 from pprint import pprint  
+from requests import post
+from time import sleep
 
 try:
     with open("./account.info", encoding="utf-8") as f:
@@ -15,10 +16,9 @@ try:
 except:
     accountDICT = {"username":"", "apikey":""}
 
-articut = Articut(username=accountDICT["username"], apikey=accountDICT["api_key"])
-
 pat1 = re.compile(r"^ka\b", re.IGNORECASE)
 pat2 = re.compile(r"\ska\b")
+pat3 = re.compile(r"\b[A-Z]?[a-z]+\b")
 
 def order_file(file_name):
     match = re.search(r"\d+", file_name)
@@ -44,19 +44,21 @@ def mktxt_files():
         output_txt_path = os.path.join(folder_path, os.path.splitext(file)[0] + ".txt")
         docx_to_txt(file_path, output_txt_path)
         
-def read_txt():
+def read_txt(folder_path):
     txtFILES = [f for f in os.listdir(folder_path) if f.endswith(".txt")]
     sorted_txtFILES = sorted(txtFILES, key=lambda f: order_file(f))
+    all_contentLIST = []
     
     for file in sorted_txtFILES:
         file_path = os.path.join(folder_path, file)
         with open(file_path, "r", encoding="utf-8") as f:
             contentLIST = [r.replace("\n", "") for r in f.readlines(0)]
-        #看一下內容長怎樣
-        #print(contentLIST)
-    return contentLIST
+            all_contentLIST.append(contentLIST)
+    #看一下內容長怎樣
+    #pprint(all_contentLIST)
+    return all_contentLIST
         
-def kaLIST(contentLIST):
+def get_kaLIST(contentLIST):
     sirayaLIST = []
     for c in contentLIST:
         if "\t" in c and c != "\t":
@@ -84,17 +86,40 @@ def kaLIST(contentLIST):
             kaLIST.append(pair)
     return kaLIST    
     
+def get_engLIST(kaLIST):
+    engLIST = []
+    for k in kaLIST:
+        if isinstance(k, list):          
+            matches = pat3.findall(k[1])
+            engLIST.append(matches)
+        elif isinstance(k, tuple):
+            word = " ".join([lst[1] for lst in k])
+            matches = pat3.findall(word)
+            engLIST.append(matches)
+    #print(engLIST)
+    for lst in engLIST:
+        engSTR = " ".join(lst)
+        get_pos(engSTR)
+        sleep(0.5)
+        #print(engSTR)
+
+def get_pos(inputSTR):
+    url = "https://nlu.droidtown.co/Articut_EN/API/"
+    payload = {
+        "username": accountDICT["username"],
+        "api_key": accountDICT["api_key"],
+        "input_str": inputSTR
+    }    
+    response = post(url, json=payload).json()
+    print(response["result_pos"])  
 
 if __name__ == "__main__":
     folder_path = r"Gospel of Matthew, 2024.9.03"
     mktxt_files()
-    contentLIST = read_txt()
-    kaLIST(contentLIST)
- 
-    #for htmlFILE, jsonFILE in html_files.items():
-        #with open(htmlFILE, "r", encoding="utf-8") as web:
-            #htmlSTR = web.read()
-            #result = main(htmlSTR)
+    all_contentLIST = read_txt(folder_path)
+    for contentLIST in all_contentLIST:
+        kaLIST = get_kaLIST(contentLIST)
+        get_engLIST(kaLIST)
         
     #with open(jsonFILE, "w", encoding="utf-8") as js:
         #json.dump(sentenceDICT, js, ensure_ascii=False, indent=4)     
