@@ -16,9 +16,12 @@ try:
 except:
     accountDICT = {"username":"", "apikey":""}
 
-pat1 = re.compile(r"^ka\b", re.IGNORECASE)
-pat2 = re.compile(r"\ska\b")
-pat3 = re.compile(r"\b[A-Z]?[a-z]+\b")
+url = "https://nlu.droidtown.co/Articut_EN/API/"
+ChiPAT = re.compile(r"[\u4e00-\u9fff]")
+KaPAT1 = re.compile(r"^ka\b", re.IGNORECASE)
+KaPAT2 = re.compile(r"\ska\b")
+EngPAT = re.compile(r"\b[A-Z]?[a-z]+\b|\b[A-Z]\b")  #小寫字、人名、I
+PosPAT = re.compile(r"(?<=</)[^>]+(?=>)")
 
 def order_file(file_name):
     match = re.search(r"\d+", file_name)
@@ -35,7 +38,7 @@ def docx_to_txt(docx_path, txt_path):
             #clean_paragraph = re.sub(" ", "", paragraph.text)
             txt.write(paragraph.text + '\n')
 
-def mktxt_files():
+def mktxt_files(folder_path):
     docFILES = [f for f in os.listdir(folder_path) if f.endswith(".docx")]
     sorted_docFILES = sorted(docFILES, key=lambda f: order_file(f))
     
@@ -52,7 +55,7 @@ def read_txt(folder_path):
     for file in sorted_txtFILES:
         file_path = os.path.join(folder_path, file)
         with open(file_path, "r", encoding="utf-8") as f:
-            contentLIST = [r.replace("\n", "") for r in f.readlines(0)]
+            contentLIST = [r.replace("\n", "").strip() for r in f.readlines()]
             all_contentLIST.append(contentLIST)
     #看一下內容長怎樣
     #pprint(all_contentLIST)
@@ -61,12 +64,15 @@ def read_txt(folder_path):
 def get_kaLIST(contentLIST):
     sirayaLIST = []
     for c in contentLIST:
-        if "\t" in c and c != "\t":
+        if "\t" in c and c != "\t":     #拿有tab那行
             tmp = c
+            tmp = tmp.replace(" ", "")
             while "\t\t" in tmp:
                 tmp = tmp.replace("\t\t", "\t")
             if tmp != "\t":
                 sirayaLIST.append(tmp)
+        elif " " not in c and c != "" and not ChiPAT.search(c):  #該行只有一個字，且不是中文
+            sirayaLIST.append(c)
     #看一下內容長怎樣
     #pprint(sirayaLIST)    
     
@@ -80,46 +86,81 @@ def get_kaLIST(contentLIST):
     
     kaLIST = []
     for p, pair in enumerate(pairedLIST):
-        if pat1.match(pair[0]) and p > 0:
+        if KaPAT1.match(pair[0]) and p > 0:
             kaLIST.append((pairedLIST[p-1], pair))
-        if pat2.search(pair[0]):
+        if KaPAT2.search(pair[0]):
             kaLIST.append(pair)
     return kaLIST    
-    
-def get_engLIST(kaLIST):
-    engLIST = []
-    for k in kaLIST:
-        if isinstance(k, list):          
-            matches = pat3.findall(k[1])
-            engLIST.append(matches)
-        elif isinstance(k, tuple):
-            word = " ".join([lst[1] for lst in k])
-            matches = pat3.findall(word)
-            engLIST.append(matches)
-    #print(engLIST)
-    for lst in engLIST:
-        engSTR = " ".join(lst)
-        get_pos(engSTR)
-        sleep(0.5)
-        #print(engSTR)
 
-def get_pos(inputSTR):
-    url = "https://nlu.droidtown.co/Articut_EN/API/"
+def articutEN(inputSTR):
     payload = {
         "username": accountDICT["username"],
         "api_key": accountDICT["api_key"],
         "input_str": inputSTR
     }    
     response = post(url, json=payload).json()
-    print(response["result_pos"])  
+    print(f"詞性標記中：{response['result_pos']}")
+    return response["result_pos"]
+
+def align2DICT(inputLIST):
+    """
+    """
+    skipLIST = ["NOM", "DET", "FOC", "OBL", "LOC", "GEN", "PART", "Q", "REL", "PAST", "NEG"]
+    resultDICT = {"s": None, "g": None, "p": []}
+    if isinstance(inputLIST, list):
+        resultDICT["s"] = inputLIST[0]
+        resultDICT["g"] = inputLIST[1]
+        sirayaLIST = resultDICT["s"].split(" ")
+        glossLIST = resultDICT["g"].split(" ")
+        posLIST = []
+        for i in range(0, len(sirayaLIST)):
+            if sirayaLIST[i] == "ka":       #ka
+                posLIST.append("ka")
+            elif glossLIST[i] in skipLIST:  #functional word
+                posLIST.append(glossLIST[i])
+            else:                           #content word
+                engSTR = EngPAT.findall(glossLIST[i])[0]
+                posLIST.append(PosPAT.findall(articutEN(engSTR)[0])[0])
+                sleep(0.4)
+        resultDICT["p"] = " ".join(posLIST)
+    else:   #是 tuple
+        resultDICT["s"] = inputLIST[0][0] + " " + inputLIST[1][0]   #兩句相接
+        resultDICT["g"] = inputLIST[0][1] + " " + inputLIST[1][1]
+        sirayaLIST = resultDICT["s"].split(" ")
+        glossLIST = resultDICT["g"].split(" ")
+        posLIST = []
+        for i in range(0, len(sirayaLIST)):
+            if sirayaLIST[i] == "ka" or sirayaLIST[i] == "Ka":
+                posLIST.append("ka")
+            elif glossLIST[i] in skipLIST:  
+                posLIST.append(glossLIST[i])
+            else:
+                engSTR = EngPAT.findall(glossLIST[i])[0]
+                posLIST.append(PosPAT.findall(articutEN(engSTR)[0])[0])
+                sleep(0.4)
+        resultDICT["p"] = " ".join(posLIST)        
+
+    return resultDICT        
 
 if __name__ == "__main__":
-    folder_path = r"Gospel of Matthew, 2024.9.03"
-    mktxt_files()
-    all_contentLIST = read_txt(folder_path)
-    for contentLIST in all_contentLIST:
-        kaLIST = get_kaLIST(contentLIST)
-        get_engLIST(kaLIST)
+    resultLIST = []
+    files = {
+        "./Gospel of Matthew, 2024.9.03": "ka_in_Matthew.json",
+        "./Gospel of John, 2024.9.03": "ka_in_John.json"
+        }
+    
+    for folder_path, jsonFILE in files.items():
+        mktxt_files(folder_path)
+        all_contentLIST = read_txt(folder_path)
         
-    #with open(jsonFILE, "w", encoding="utf-8") as js:
-        #json.dump(sentenceDICT, js, ensure_ascii=False, indent=4)     
+        for contentLIST in all_contentLIST:
+            kaLIST = get_kaLIST(contentLIST)
+            pprint(kaLIST)
+            
+            for r_l in kaLIST:
+                tmpDICT = align2DICT(r_l)
+                pprint(tmpDICT)
+                resultLIST.append(tmpDICT)
+    
+        with open(jsonFILE, "w", encoding="utf-8") as f:
+            json.dump(resultLIST, f, ensure_ascii=False, indent=4)     
