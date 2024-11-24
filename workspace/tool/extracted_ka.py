@@ -20,7 +20,8 @@ url = "https://nlu.droidtown.co/Articut_EN/API/"
 ChiPAT = re.compile(r"[\u4e00-\u9fff]")
 KaPAT1 = re.compile(r"^ka\b", re.IGNORECASE)
 KaPAT2 = re.compile(r"\ska\b")
-EngPAT = re.compile(r"\b[A-Z]?[a-z]+\b|\b[A-Z]\b")  #小寫字、人名、I
+EngPAT1 = re.compile(r"[a-z]+(?:\.[a-z]+)+")        #compound, e.g. say.as.such
+EngPAT2 = re.compile(r"\b[A-Z]?[a-z]+\b|\b[A-Z]\b")  #小寫字、人名、I
 PosPAT = re.compile(r"(?<=</)[^>]+(?=>)")
 
 def order_file(file_name):
@@ -31,11 +32,8 @@ def docx_to_txt(docx_path, txt_path):
     # 讀取 Word 文件
     document = Document(docx_path)
 
-    # 開啟並寫入文字文件
     with open(txt_path, 'w', encoding='utf-8') as txt:
         for paragraph in document.paragraphs:
-            # 去除段落中的空格並寫入文本文件
-            #clean_paragraph = re.sub(" ", "", paragraph.text)
             txt.write(paragraph.text + '\n')
 
 def mktxt_files(folder_path):
@@ -118,8 +116,14 @@ def align2DICT(inputLIST):
                 posLIST.append("ka")
             elif glossLIST[i] in skipLIST:  #functional word
                 posLIST.append(glossLIST[i])
-            else:                           #content word
-                engSTR = EngPAT.findall(glossLIST[i])[0]
+            elif EngPAT1.search(glossLIST[i]):
+                engSTR = EngPAT1.findall(glossLIST[i])[0]
+                tmpSTR = " ".join(articutEN(engSTR))
+                posLIST.append(".".join(PosPAT.findall(tmpSTR)))
+                sleep(0.4)                
+            else:
+                engSTR = EngPAT2.findall(glossLIST[i])[0]
+                print(engSTR)
                 posLIST.append(PosPAT.findall(articutEN(engSTR)[0])[0])
                 sleep(0.4)
         resultDICT["p"] = " ".join(posLIST)
@@ -134,8 +138,14 @@ def align2DICT(inputLIST):
                 posLIST.append("ka")
             elif glossLIST[i] in skipLIST:  
                 posLIST.append(glossLIST[i])
+            elif EngPAT1.search(glossLIST[i]):
+                engSTR = EngPAT1.findall(glossLIST[i])[0]
+                tmpSTR = " ".join(articutEN(engSTR))
+                posLIST.append(".".join(PosPAT.findall(tmpSTR)))
+                sleep(0.4)               
             else:
-                engSTR = EngPAT.findall(glossLIST[i])[0]
+                engSTR = EngPAT2.findall(glossLIST[i])[0]
+                print(engSTR)
                 posLIST.append(PosPAT.findall(articutEN(engSTR)[0])[0])
                 sleep(0.4)
         resultDICT["p"] = " ".join(posLIST)        
