@@ -20,10 +20,9 @@ url = "https://nlu.droidtown.co/Articut_EN/API/"
 ChiPAT = re.compile(r"[\u4e00-\u9fff]")
 KaPAT1 = re.compile(r"^ka\b", re.IGNORECASE)
 KaPAT2 = re.compile(r"\ska\b")
-EngPAT1 = re.compile(r"[a-z]+(?:-[A-Z]+-[a-z]+)+")  # e.g. PAST-receive.at.home-PV-you.PL.GEN
-EngPAT2 = re.compile(r"[a-z]+(?:\.[a-z]+)+")        #compound, e.g. say.as.such
-EngPAT3 = re.compile(r"[a-z]+(?:-[A-Z]?[a-z]+|-I)+")    #compuond, e.g. have-also-I, from-Galilee
-EngPAT4 = re.compile(r"\b[A-Z]?[a-z]+\b|I") #小寫字、人名、I
+EngPAT1 = re.compile(r"(?:[A-Z]{2,}-).*|.*(?:[A-Z]{2,})")   #e.g. PAST-throughout-three.AV
+EngPAT2 = re.compile(r"[a-z]+(?:-[A-Za-z]+|\.[a-z]+)+")        #compuond, e.g. have-also-I, say.as.such
+EngPAT3 = re.compile(r"[A-Z]?[a-z]+|\bI\b")                 #小寫字、人名、I
 PosPAT = re.compile(r"(?<=</)[^>]+(?=>)")
 
 def order_file(file_name):
@@ -118,24 +117,36 @@ def align2DICT(inputLIST):
                 posLIST.append("ka")
             elif glossLIST[i] in skipLIST:  #functional word
                 posLIST.append(glossLIST[i])
-            elif EngPAT2.search(glossLIST[i]):
-                engSTR = EngPAT2.findall(glossLIST[i])[0]
-                print(engSTR)
-                tmpSTR = " ".join(articutEN(engSTR))
-                posLIST.append(".".join(PosPAT.findall(tmpSTR)))
+            elif EngPAT1.search(glossLIST[i]):      #e.g. PAST-throughout-three.AV
+                match = EngPAT1.search(glossLIST[i])
+                if match:
+                    before_pos = glossLIST[i]
+                    print("before_pos:", before_pos)
+                    engLIST = EngPAT3.findall(before_pos)
+                    print("engLIST:", engLIST)
+                    tmpSTR = glossLIST[i]
+                    for engSTR in engLIST:
+                        articut = articutEN(engSTR)
+                        pos = PosPAT.findall(" ".join(articut))[0] 
+                        tmpSTR = tmpSTR.replace(engSTR, pos)
+                    posLIST.append(tmpSTR)                
+                sleep(0.5)            
+            elif EngPAT2.search(glossLIST[i]):      #e.g. have-also-I, say.as.such
+                match = EngPAT2.search(glossLIST[i])
+                if match:
+                    before_pos = glossLIST[i]
+                    print("before_pos:", before_pos)
+                    engLIST = EngPAT3.findall(before_pos)
+                    print("engLIST:", engLIST)
+                    tmpSTR = glossLIST[i]
+                    for engSTR in engLIST:
+                        articut = articutEN(engSTR)
+                        pos = PosPAT.findall(" ".join(articut))[0] 
+                        tmpSTR = tmpSTR.replace(engSTR, pos)
+                    posLIST.append(tmpSTR)
                 sleep(0.5)
-            elif EngPAT3.search(glossLIST[i]):
-                engLIST = EngPAT4.findall(glossLIST[i])
-                print(engLIST)
-                tmpLIST = []
-                for engSTR in engLIST:
-                    articut = articutEN(engSTR)
-                    pos = PosPAT.findall(" ".join(articut)) 
-                    tmpLIST.extend(pos)
-                posLIST.append("-".join(tmpLIST))
-                sleep(0.5)           
             else:
-                engSTR = EngPAT4.findall(glossLIST[i])[0]
+                engSTR = EngPAT3.findall(glossLIST[i])[0]
                 print(engSTR)
                 posLIST.append(PosPAT.findall(articutEN(engSTR)[0])[0])
                 sleep(0.5)
@@ -151,24 +162,36 @@ def align2DICT(inputLIST):
                 posLIST.append("ka")
             elif glossLIST[i] in skipLIST:  
                 posLIST.append(glossLIST[i])
-            elif EngPAT2.search(glossLIST[i]):
-                engSTR = EngPAT2.findall(glossLIST[i])[0]
-                print(engSTR)
-                tmpSTR = " ".join(articutEN(engSTR))
-                posLIST.append(".".join(PosPAT.findall(tmpSTR)))
+            elif EngPAT1.search(glossLIST[i]):      #e.g. PAST-throughout-three.AV
+                match = EngPAT1.search(glossLIST[i])
+                if match:
+                    before_pos = glossLIST[i]
+                    print("before_pos:", before_pos)
+                    engLIST = EngPAT3.findall(before_pos)
+                    print("engLIST:", engLIST)
+                    tmpSTR = glossLIST[i]
+                    for engSTR in engLIST:
+                        articut = articutEN(engSTR)
+                        pos = PosPAT.findall(" ".join(articut))[0] 
+                        tmpSTR = tmpSTR.replace(engSTR, pos)
+                    posLIST.append(tmpSTR)                
+                sleep(0.5)            
+            elif EngPAT2.search(glossLIST[i]):      #e.g. have-also-I, say.as.such
+                match = EngPAT2.search(glossLIST[i])
+                if match:
+                    before_pos = glossLIST[i]
+                    print("before_pos:", before_pos)
+                    engLIST = EngPAT3.findall(before_pos)
+                    print("engLIST:", engLIST)
+                    tmpSTR = glossLIST[i]
+                    for engSTR in engLIST:
+                        articut = articutEN(engSTR)
+                        pos = PosPAT.findall(" ".join(articut))[0] 
+                        tmpSTR = tmpSTR.replace(engSTR, pos)
+                    posLIST.append(tmpSTR)
                 sleep(0.5)
-            elif EngPAT3.search(glossLIST[i]):
-                engLIST = EngPAT4.findall(glossLIST[i])
-                print(engLIST)
-                tmpLIST = []
-                for engSTR in engLIST:
-                    articut = articutEN(engSTR)
-                    pos = PosPAT.findall(" ".join(articut)) 
-                    tmpLIST.extend(pos)
-                posLIST.append("-".join(tmpLIST))
-                sleep(0.5)           
             else:
-                engSTR = EngPAT4.findall(glossLIST[i])[0]
+                engSTR = EngPAT3.findall(glossLIST[i])[0]
                 print(engSTR)
                 posLIST.append(PosPAT.findall(articutEN(engSTR)[0])[0])
                 sleep(0.5)
