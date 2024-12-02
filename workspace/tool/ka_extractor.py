@@ -154,14 +154,14 @@ def articutEN(inputSTR: str) -> list:
     print(f"詞性標記中：{response['result_pos']}")
     return response["result_pos"]
 
-def align2DICT(inputLIST: list[str], inputTUPLE: tuple[list[str], list[str]]) -> dict:
+def align2DICT(input_data: list[str]|tuple[list[str], list[str]]) -> dict:
     """
     處理兩種不同格式的資料：一個是字串列表，一個是包含兩個字串列表的元組。
     並且產生詞性標註（POS）結果。
 
     參數:
-    inputLIST (list[str]): 一個包含字串的列表。
-    inputTUPLE (tuple[list[str], list[str]]): 一個包含兩個字串列表的元組。
+    input_data (Union[list[str], tuple[list[str], list[str]]]): 
+    可以是字符串列表或包含兩個字符串列表的元組。
 
     返回:
     dict: 處理後的結果字典，格式為：
@@ -174,9 +174,9 @@ def align2DICT(inputLIST: list[str], inputTUPLE: tuple[list[str], list[str]]) ->
     """
     skipLIST = ["NOM", "DET", "FOC", "OBL", "LOC", "GEN", "PART", "Q", "REL", "PAST", "NEG"]
     resultDICT = {"s": None, "g": None, "p": []}
-    if isinstance(inputLIST, list):
-        resultDICT["s"] = inputLIST[0]
-        resultDICT["g"] = inputLIST[1]
+    if isinstance(input_data, list):
+        resultDICT["s"] = input_data[0]
+        resultDICT["g"] = input_data[1]
         sirayaLIST = resultDICT["s"].split(" ")
         glossLIST = resultDICT["g"].split(" ")
         posLIST = []
@@ -220,8 +220,8 @@ def align2DICT(inputLIST: list[str], inputTUPLE: tuple[list[str], list[str]]) ->
                 sleep(0.8)
         resultDICT["p"] = " ".join(posLIST)
     else:   #是 tuple
-        resultDICT["s"] = inputTUPLE[0][0] + " " + inputTUPLE[1][0]   #兩句相接
-        resultDICT["g"] = inputTUPLE[0][1] + " " + inputTUPLE[1][1]
+        resultDICT["s"] = input_data[0][0] + " " + input_data[1][0]   #兩句相接
+        resultDICT["g"] = input_data[0][1] + " " + input_data[1][1]
         sirayaLIST = resultDICT["s"].split(" ")
         glossLIST = resultDICT["g"].split(" ")
         posLIST = []
@@ -269,7 +269,7 @@ def align2DICT(inputLIST: list[str], inputTUPLE: tuple[list[str], list[str]]) ->
 
 if __name__ == "__main__":
     files = {
-        "./Gospel of Matthew, 2024.9.03": "ka_in_Matthew",
+        #"./Gospel of Matthew, 2024.9.03": "ka_in_Matthew",
         "./Gospel of John, 2024.9.03": "ka_in_John"
     }
     
@@ -278,8 +278,8 @@ if __name__ == "__main__":
         mktxt_files(folder_path)
         all_contentLIST = read_txt(folder_path)
         
-        file_cnt = 27    #指定檔名編號
-        for contentLIST in all_contentLIST[26:]:
+        file_cnt = 8    #指定檔名編號
+        for contentLIST in [all_contentLIST[7]]:
             kaLIST = get_kaLIST(contentLIST)
             pprint(kaLIST)
             
