@@ -23,7 +23,7 @@ KaPAT2 = re.compile(r"\ska\b")                  #句中ka
 EngPAT1 = re.compile(r"(?:[A-Z]{2,}-).*|.*(?:[A-Z]{2,})")   #e.g. PAST-throughout-three.AV
 EngPAT2 = re.compile(r"[a-z]+(?:-[A-Za-z]+|\.[a-z]+)+")     #compuond, e.g. have-also-I, say.as.such
 EngPAT3 = re.compile(r"[A-Z]?[a-z]+|\bI\b")                 #小寫字、人名、I
-PosPAT = re.compile(r"(?<=</)[^>]+(?=>)")
+PosPAT = re.compile(r"<[^/>]+>")
 
 def order_file(file_name: str) -> int:
     """
@@ -196,7 +196,7 @@ def align2DICT(input_data: list[str]|tuple[list[str], list[str]]) -> dict:
                     for engSTR in engLIST:
                         articut = articutEN(engSTR)
                         pos = PosPAT.findall(" ".join(articut))[0] 
-                        tmpSTR = tmpSTR.replace(engSTR, pos)
+                        tmpSTR = re.sub(r"\b" + engSTR + r"\b", pos, tmpSTR)
                     posLIST.append(tmpSTR)                
                 sleep(0.8)            
             elif EngPAT2.search(glossLIST[i]):      #e.g. have-also-I, say.as.such
@@ -210,7 +210,7 @@ def align2DICT(input_data: list[str]|tuple[list[str], list[str]]) -> dict:
                     for engSTR in engLIST:
                         articut = articutEN(engSTR)
                         pos = PosPAT.findall(" ".join(articut))[0] 
-                        tmpSTR = tmpSTR.replace(engSTR, pos)
+                        tmpSTR = re.sub(r"\b" + engSTR + r"\b", pos, tmpSTR)
                     posLIST.append(tmpSTR)
                 sleep(0.8)
             else:
@@ -241,7 +241,7 @@ def align2DICT(input_data: list[str]|tuple[list[str], list[str]]) -> dict:
                     for engSTR in engLIST:
                         articut = articutEN(engSTR)
                         pos = PosPAT.findall(" ".join(articut))[0] 
-                        tmpSTR = tmpSTR.replace(engSTR, pos)
+                        tmpSTR = re.sub(r"\b" + engSTR + r"\b", pos, tmpSTR)
                     posLIST.append(tmpSTR)                
                 sleep(0.8)            
             elif EngPAT2.search(glossLIST[i]):      #e.g. have-also-I, say.as.such
@@ -255,7 +255,7 @@ def align2DICT(input_data: list[str]|tuple[list[str], list[str]]) -> dict:
                     for engSTR in engLIST:
                         articut = articutEN(engSTR)
                         pos = PosPAT.findall(" ".join(articut))[0] 
-                        tmpSTR = tmpSTR.replace(engSTR, pos)
+                        tmpSTR = re.sub(r"\b" + engSTR + r"\b", pos, tmpSTR)
                     posLIST.append(tmpSTR)
                 sleep(0.8)
             else:

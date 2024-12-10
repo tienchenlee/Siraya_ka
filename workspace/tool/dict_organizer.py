@@ -3,8 +3,11 @@
 
 import json
 import os
+import re
 
 from pprint import pprint
+
+NounPAT = re.compile(r"(?<=ENTITY_)nouny|nounHead|oov")
 
 def read_json(folder_path: str) -> list:
     """
@@ -38,6 +41,9 @@ def read_json(folder_path: str) -> list:
         file_path = os.path.join(folder_path, jsonFILE)                
         with open(file_path, "r", encoding="utf-8") as f:
             contentLIST = json.load(f)             #contentLIST 是一個 jsonFILE 的內容
+            for dictionary in contentLIST:
+                dictionary["p"] = re.sub(NounPAT, "noun", dictionary["p"])
+                dictionary["g"] = dictionary["g"].replace("And", "and")
             folder_contentLIST.append(contentLIST) #folder_contentLIST 是一個 folder 內所有 jsonFILE 的內容
     return folder_contentLIST
 
@@ -75,12 +81,15 @@ def org_ka_POS(all_contentLIST: list) -> list:
             posLIST = resultDICT["p"].split(" ")
             for i in range(len(posLIST)):
                 if posLIST[i] == "ka":
+                    tmpPOSLIST = posLIST[:i]
+                    tmpPOSLIST.append("-ka-")
+                    tmpPOSLIST.extend(posLIST[i+1:])
                     if glossLIST[i] in posDICT:
-                        posDICT[glossLIST[i]].append(resultDICT["p"])
+                        posDICT[glossLIST[i]].append(tmpPOSLIST)
                     else:
-                        posDICT[glossLIST[i]] = [resultDICT["p"]]
-                    #if glossLIST[i] == "and":   #查看原句的 resultDICT
-                        #checkLIST.append({"p": resultDICT["p"], "s": resultDICT["s"], "g": resultDICT["g"]})
+                        posDICT[glossLIST[i]] = tmpPOSLIST
+                #if glossLIST[i] == "and":   #查看原句的 resultDICT
+                    #checkLIST.append({"p": resultDICT["p"], "s": resultDICT["s"], "g": resultDICT["g"]})
     #pprint(checkLIST)
     resultLIST.append(posDICT)
     return resultLIST  
