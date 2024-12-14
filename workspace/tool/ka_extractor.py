@@ -108,7 +108,7 @@ def get_kaLIST(contentLIST: list) -> list:
     for c in contentLIST:
         if "\t" in c and c != "\t":     #拿有tab那行
             tmp = c
-            tmp = tmp.replace(" ", "\t").replace("\t.", ".")    #處理格式不一致問題
+            tmp = tmp.replace(" -", "-").replace("- ", "-").replace(" ", "\t").replace("\t.", ".")    #處理格式不一致問題
             while "\t\t" in tmp:
                 tmp = tmp.replace("\t\t", "\t")
             if tmp != "\t":

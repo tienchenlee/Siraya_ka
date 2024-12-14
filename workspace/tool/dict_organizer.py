@@ -80,14 +80,30 @@ def org_ka_POS(all_contentLIST: list) -> list:
             glossLIST = resultDICT["g"].split(" ")
             posLIST = resultDICT["p"].split(" ")
             for i in range(len(posLIST)):
-                if posLIST[i] == "ka":
-                    tmpPOSLIST = posLIST[:i]
-                    tmpPOSLIST.append("-ka-")
-                    tmpPOSLIST.extend(posLIST[i+1:])
+                if posLIST[i] == "ka" and i != 0:
+                    posLIST[i] = posLIST[i].replace("ka", "-ka-")
+            resultDICT["p"] = " ".join(posLIST)
+            for i in range(len(posLIST)):
+                if posLIST[i] == "-ka-":
                     if glossLIST[i] in posDICT:
-                        posDICT[glossLIST[i]].append(tmpPOSLIST)
+                        if resultDICT["p"] not in posDICT[glossLIST[i]]:
+                            posDICT[glossLIST[i]].append(resultDICT["p"])
                     else:
-                        posDICT[glossLIST[i]] = tmpPOSLIST
+                        posDICT[glossLIST[i]] = [resultDICT["p"]]       
+            #pos + gloss
+            #for i in range(len(posLIST)):
+                #if posLIST[i] == "ka" and i != 0:
+                    #tmpPOSLIST = posLIST[:i]
+                    #tmpPOSLIST.append("-ka-")
+                    #tmpPOSLIST.extend(posLIST[i+1:])
+                    #tmpGLOSSLIST = glossLIST[:i]
+                    #tmpGLOSSLIST.append(f"-{glossLIST[i]}-")
+                    #tmpGLOSSLIST.extend(glossLIST[i+1:])
+                    #if glossLIST[i] in posDICT:
+                        #posDICT[glossLIST[i]].append([tmpPOSLIST, tmpGLOSSLIST])
+                    #else:
+                        #posDICT[glossLIST[i]] = [[tmpPOSLIST, tmpGLOSSLIST]]
+                
                 #if glossLIST[i] == "and":   #查看原句的 resultDICT
                     #checkLIST.append({"p": resultDICT["p"], "s": resultDICT["s"], "g": resultDICT["g"]})
     #pprint(checkLIST)
