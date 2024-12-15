@@ -3,11 +3,8 @@
 
 import json
 import os
-import re
 
 from pprint import pprint
-
-NounPAT = re.compile(r"(?<=ENTITY_)nouny|nounHead|oov")
 
 def read_json(folder_path: str) -> list:
     """
@@ -42,7 +39,6 @@ def read_json(folder_path: str) -> list:
         with open(file_path, "r", encoding="utf-8") as f:
             contentLIST = json.load(f)             #contentLIST 是一個 jsonFILE 的內容
             for dictionary in contentLIST:
-                dictionary["p"] = re.sub(NounPAT, "noun", dictionary["p"])
                 dictionary["g"] = dictionary["g"].replace("And", "and")
             folder_contentLIST.append(contentLIST) #folder_contentLIST 是一個 folder 內所有 jsonFILE 的內容
     return folder_contentLIST
@@ -74,22 +70,30 @@ def org_ka_POS(all_contentLIST: list) -> list:
     """
     posDICT = {}
     resultLIST = []
+    kaGlossSET = set()
     #checkLIST = []
     for contentLIST in all_contentLIST:
         for resultDICT in contentLIST:
             glossLIST = resultDICT["g"].split(" ")
             posLIST = resultDICT["p"].split(" ")
             for i in range(len(posLIST)):
-                if posLIST[i] == "ka" and i != 0:
-                    posLIST[i] = posLIST[i].replace("ka", "-ka-")
-            resultDICT["p"] = " ".join(posLIST)
+                if posLIST[i] == "ka":
+                    kaGlossSET.add(glossLIST[i])
+            markLIST = []
             for i in range(len(posLIST)):
-                if posLIST[i] == "-ka-":
-                    if glossLIST[i] in posDICT:
-                        if resultDICT["p"] not in posDICT[glossLIST[i]]:
-                            posDICT[glossLIST[i]].append(resultDICT["p"])
-                    else:
-                        posDICT[glossLIST[i]] = [resultDICT["p"]]       
+                if posLIST[i] == "ka" and i != 0 and glossLIST[i] in kaGlossSET:
+                    markLIST.append(i)
+            tmpPOSLIST = posLIST[:]
+            for i in markLIST:
+                tmpPOSLIST[i] = "-ka-"
+            markSTR = " ".join(tmpPOSLIST)
+            for i in markLIST:
+                if glossLIST[i] in posDICT:
+                    if markSTR not in posDICT[glossLIST[i]]:
+                        posDICT[glossLIST[i]].append(markSTR)
+                else:
+                    posDICT[glossLIST[i]] = [markSTR]
+                    
             #pos + gloss
             #for i in range(len(posLIST)):
                 #if posLIST[i] == "ka" and i != 0:
