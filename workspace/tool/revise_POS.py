@@ -27,7 +27,8 @@ def revise_POS(contentLIST) -> list:    #contentLIST 是一個 jsonFILE 的內�
                 posLIST[i] = posLIST[i].replace("<MODIFIER>", "<ENTITY_noun>")            
             if glossLIST[i] == "silver":
                 posLIST[i] = posLIST[i].replace("<MODIFIER>", "<ENTITY_noun>")            
-                      
+            if glossLIST[i] == "weed":
+                posLIST[i] = posLIST[i].replace("<MODIFIER>", "<ENTITY_noun>")                
             if glossLIST[i] == "beginning":
                 posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<ENTITY_noun>")
             if glossLIST[i] == "mourning":
@@ -36,6 +37,17 @@ def revise_POS(contentLIST) -> list:    #contentLIST 是一個 jsonFILE 的內�
                 posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<ENTITY_noun>")
             if glossLIST[i] == "seed":
                 posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<ENTITY_noun>")
+            if glossLIST[i] == "light":
+                posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<ENTITY_noun>")
+            if glossLIST[i] == "wind":
+                posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<ENTITY_noun>")
+            if glossLIST[i] == "grave":
+                posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<ENTITY_noun>")
+            if glossLIST[i] == "guard":
+                posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<ENTITY_noun>")
+            if glossLIST[i] == "drink":
+                posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<ENTITY_noun>")
+                                        
                                             
         resultDICT["p"] = " ".join(posLIST)        
     return contentLIST

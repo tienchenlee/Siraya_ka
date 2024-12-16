@@ -79,20 +79,22 @@ def org_ka_POS(all_contentLIST: list) -> list:
             for i in range(len(posLIST)):
                 if posLIST[i] == "ka":
                     kaGlossSET.add(glossLIST[i])
-            markLIST = []
-            for i in range(len(posLIST)):
-                if posLIST[i] == "ka" and i != 0 and glossLIST[i] in kaGlossSET:
-                    markLIST.append(i)
-            tmpPOSLIST = posLIST[:]
-            for i in markLIST:
-                tmpPOSLIST[i] = "-ka-"
-            markSTR = " ".join(tmpPOSLIST)
-            for i in markLIST:
-                if glossLIST[i] in posDICT:
-                    if markSTR not in posDICT[glossLIST[i]]:
-                        posDICT[glossLIST[i]].append(markSTR)
-                else:
-                    posDICT[glossLIST[i]] = [markSTR]
+            for gloss in kaGlossSET:
+                markLIST = []
+                for i in range(len(posLIST)):
+                    if posLIST[i] == "ka" and i != 0 and glossLIST[i] == gloss:
+                        markLIST.append(i)
+                tmpPOSLIST = posLIST[:]
+                for i in markLIST:
+                    tmpPOSLIST[i] = "-ka-"
+                markSTR = " ".join(tmpPOSLIST)
+                for i in markLIST:
+                    if glossLIST[i] == gloss:
+                        if gloss in posDICT:
+                            if markSTR not in posDICT[glossLIST[i]]:
+                                posDICT[glossLIST[i]].append(markSTR)
+                        else:
+                            posDICT[glossLIST[i]] = [markSTR]
                     
             #pos + gloss
             #for i in range(len(posLIST)):
