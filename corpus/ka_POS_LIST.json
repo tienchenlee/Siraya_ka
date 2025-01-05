@@ -4316,7 +4316,7 @@
             "<ENTITY_noun> <ENTITY_pronoun> <FUNC_determiner> -ka- PC.<ENTITY_noun>-LV.IRR <ENTITY_pronoun>.SG.GEN <ENTITY_pronoun>.SG-OBL <ACTION_verb>.<MODIFIER>.AV <ENTITY_pronoun>.EXCL-OBL",
             "<FUNC_negation> <ACTION_verb>.AV -ka- <ACTION_verb>-LV OBL <ENTITY_noun> NOM <ACTION_verb>.AV <ENTITY_pronoun>.GEN <FUNC_determiner> <ENTITY_pronoun>.PL-OBL",
             "PAST-<ACTION_verb>.AV <ENTITY_pronoun>.PL.NOM -ka- PAST-<ACTION_verb>-PV <ENTITY_pronoun>.GEN <ENTITY_pronoun>.PL-OBL",
-            "<MODAL> <ENTITY_pronoun>.PL.NOM <ENTITY_noun> <FUNC_inter> -ka- PART <ENTITY_noun> <ENTITY_noun>",
+            "<MODAL> <ENTITY_pronoun>.PL.NOM <ACTION_verb> <FUNC_inter> -ka- PART <ENTITY_noun> <ENTITY_noun>",
             "<MODIFIER> -ka- <ENTITY_pronoun> <ACTION_verb>-PFV ka <ACTION_verb>.AV-IRR <ENTITY_pronoun>.PL.NOM FOC",
             "<FUNC_inter> -ka- <ACTION_verb>.AV NOM <ENTITY_noun> OBL <ENTITY_noun> <FUNC_determiner>",
             "<FUNC_inter> <MODIFIER> -ka- <ACTION_verb>.AV-IRR NOM <ENTITY_noun> <ACTION_verb>-PV <ENTITY_pronoun>.GEN NOM <ENTITY_pronoun>",

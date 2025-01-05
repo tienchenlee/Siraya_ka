@@ -47,8 +47,16 @@ def revise_POS(contentLIST) -> list:    #contentLIST 是一個 jsonFILE 的內�
                 posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<ENTITY_noun>")
             if glossLIST[i] == "drink":
                 posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<ENTITY_noun>")
-                                        
-                                            
+            if glossLIST[i] == "instruct":
+                posLIST[i] = posLIST[i].replace("<ENTITY_noun>","<ACTION_verb>")
+            if glossLIST[i] == "nod":
+                posLIST[i] = posLIST[i].replace("<ENTITY_noun>","<ACTION_verb>")
+            if glossLIST[i] == "testify":
+                posLIST[i] = posLIST[i].replace("<ENTITY_noun>","<ACTION_verb>")     
+            if glossLIST[i] == "rejoice":
+                posLIST[i] = posLIST[i].replace("<ENTITY_noun>","<ACTION_verb>")
+            if glossLIST[i] == "exceeding":
+                posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<MODIFIER>")            
         resultDICT["p"] = " ".join(posLIST)        
     return contentLIST
   
