@@ -1,1 +1,1 @@
-{"PAT_":"((<FUNC_inter>)( <MODIFIER>(.AV)?|<FUNC_inter>)?|(<MODIFIER>)|(<MODAL>-PFV.*)|(Q <ACTION_verb>(.AV|-PV)?)) -ka-"}
+{"PAT_":"(((<FUNC_inter>)( <MODIFIER>(.AV)?| <FUNC_inter>| OBL <ENTITY_pronoun>)?)|((?<!OBL |NOM |LOC )(?<!<ENTITY_pronoun> )(?<!LOC <ENTITY_pronoun>-)(?<!<ENTITY_noun> )(?<!OBL PAST-<ENTITY_noun>.PV )(?<!OBL <MODIFIER>.<ENTITY_noun>-)(?<!OBL <FUNC_determiner>-)(?<!OBL <QUANTIFIER>-LV )(?<!<ENTITY_num> )(?<!OBL <ENTITY_num>-)(?<!<ENTITY_person> )<MODIFIER>)|(<MODAL>-PFV)|(Q <ACTION_verb>(.AV|-PV)?)) -ka-"}
