@@ -127,3 +127,13 @@ if __name__ == "__main__":
     resultLIST = org_ka_POS(all_contentLIST)
     with open("../../corpus/ka_POS_LIST.json", "w", encoding="utf-8") as f:
         json.dump(resultLIST, f, ensure_ascii=False, indent=4)
+    
+    all_argcontentLIST = []
+    folder_path = ["./ka_in_Matthew_arg", "ka_in_John_arg"]
+    for folder in folder_path:
+        folder_contentLIST = read_json(folder)
+        all_argcontentLIST.extend(folder_contentLIST)
+    
+    resultLIST = org_ka_POS(all_argcontentLIST)
+    with open("../../corpus/ka_POS_argLIST.json", "w", encoding="utf-8") as f:
+        json.dump(resultLIST, f, ensure_ascii=False, indent=4)    
