@@ -58,7 +58,19 @@ def revise_POS(contentLIST) -> list:    #contentLIST 是一個 jsonFILE 的內�
             if glossLIST[i] == "rejoice":
                 posLIST[i] = posLIST[i].replace("<ENTITY_noun>", "<ACTION_verb>")
             if glossLIST[i] == "exceeding":
-                posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<MODIFIER>")
+                posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<MODIFIER>") 
+            if glossLIST[i] == "when":
+                posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhenQ>")
+            if glossLIST[i] == "why":
+                posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhyQ>")
+            if glossLIST[i] == "what":
+                posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhatQ>")
+            if glossLIST[i] == "who":
+                posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhoQ>")
+            if glossLIST[i] == "where":
+                posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhatQ>")
+            if glossLIST[i] == "how":
+                posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_HowQ>")                   
             # put the verb back in resultDICT["p"]
             if re.search(VerbPAT, posLIST[i]):
                 posLIST[i] = glossLIST[i]

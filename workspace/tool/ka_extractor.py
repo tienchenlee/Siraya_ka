@@ -104,19 +104,40 @@ def get_kaLIST(contentLIST: list) -> list:
                 - 若直接匹配: [西拉雅, gloss]
                 - 若額外加入前一句: ([西拉雅, gloss], [西拉雅, gloss])
     """
+    
+    #print(contentLIST)
+    tmpLIST = [c for c in contentLIST if not re.search(r"\d+:", c) and c != ""]
+    for i, c in enumerate(tmpLIST):
+        if "章" in c:
+            tmpLIST = tmpLIST[i+1:]
+            break
+    #print(tmpLIST)
+    
     sirayaLIST = []
-    for c in contentLIST:
-        if "\t" in c and c != "\t":     #拿有tab那行
-            tmp = c
-            tmp = tmp.replace(" -", "-").replace("- ", "-").replace(" ", "\t").replace("\t.", ".")    #處理格式不一致問題
-            while "\t\t" in tmp:
-                tmp = tmp.replace("\t\t", "\t")
-            if tmp != "\t":
-                sirayaLIST.append(tmp)
-        elif " " not in c and c != "" and not ChiPAT.search(c):  #該行只有一個字，且不是中文
-            sirayaLIST.append(c)
-    #西拉雅和 gloss 一對一對應的所有句子
-    #pprint(sirayaLIST)    
+    alignLIST = []
+    i = 0
+    while i < len(tmpLIST):
+        while i < len(tmpLIST) and not re.search(ChiPAT, tmpLIST[i]):
+            sirayaLIST.append(tmpLIST[i].strip())
+            i += 1
+        if i < len(tmpLIST) and re.search(ChiPAT, tmpLIST[i]):
+            c_STR = tmpLIST[i].strip()
+            i += 1
+        else:
+            c_STR = ""
+    
+        if i < len(tmpLIST):
+            e_STR = tmpLIST[i].strip()
+            i += 1
+        else:
+            e_STR = ""
+    
+        alignLIST.append({
+            "s": sirayaLIST,
+            "c": c_STR,
+            "e": e_STR
+        })        
+        #print(alignLIST)
     
     pairedLIST = []
     for i in range(0, len(sirayaLIST), 2):
@@ -125,8 +146,18 @@ def get_kaLIST(contentLIST: list) -> list:
         else:
             pairedLIST.append([sirayaLIST[i].replace("\t", " ").replace("  ", " ").strip(), sirayaLIST[i+1].replace("\t", " ").replace("  ", " ").strip()])
     #一對一對應的句子成對放進列表
-    #pprint(pairedLIST)
+    #pprint(pairedLIST)     
     
+    paired_i = 0  # 用來追蹤配對列表的索引
+    for i, align_item in enumerate(alignLIST):
+        if paired_i < len(pairedLIST):
+            # 如果配對的數量是偶數，則將其放入兩層列表
+            alignLIST[i]["s"] = [pairedLIST[paired_i][:2], pairedLIST[paired_i+1][:2]]
+            paired_i += 2
+    #new alignLIST after pairing the sirayaLIST
+    pprint(alignLIST)   
+
+    #待改
     kaLIST = []
     for p, pair in enumerate(pairedLIST):
         if KaPAT1.match(pair[0]) and p > 0:
@@ -269,7 +300,7 @@ def align2DICT(input_data: list[str]|tuple[list[str], list[str]]) -> dict:
 
 if __name__ == "__main__":
     files = {
-        #"./Gospel of Matthew, 2024.9.03": "ka_in_Matthew",
+        "./Gospel of Matthew, 2024.9.03": "ka_in_Matthew",
         "./Gospel of John, 2024.9.03": "ka_in_John"
     }
     
@@ -278,8 +309,8 @@ if __name__ == "__main__":
         mktxt_files(folder_path)
         all_contentLIST = read_txt(folder_path)
         
-        file_cnt = 8    #指定檔名編號
-        for contentLIST in [all_contentLIST[7]]:
+        #file_cnt = 8    #指定檔名編號
+        for contentLIST in [all_contentLIST[1]]:
             kaLIST = get_kaLIST(contentLIST)
             pprint(kaLIST)
             
