@@ -9,6 +9,7 @@ from docx import Document
 from pprint import pprint  
 from requests import post
 from time import sleep
+from typing import Union
 
 try:
     with open("./account.info", encoding="utf-8") as f:
@@ -105,14 +106,15 @@ def get_kaLIST(contentLIST: list) -> list:
                 - 若額外加入前一句: ([西拉雅, gloss], [西拉雅, gloss])
     """
     
-    #print(contentLIST)
-    tmpLIST = [c for c in contentLIST if not re.search(r"\d+:", c) and c != ""]
+    #排除「第幾章」之前的文字、1:1 那行
+    tmpLIST = [c for c in contentLIST if isinstance(c, str) and not re.search(r"\d+:", c) and c != ""]
     for i, c in enumerate(tmpLIST):
         if "章" in c:
             tmpLIST = tmpLIST[i+1:]
             break
-    #print(tmpLIST)
+    #pprint(tmpLIST)
     
+    #將內容拆分為 Siraya + gloss 句子、中文句子及英文句子，並將其組織成對應的 `alignLIST`
     sirayaLIST = []
     alignLIST = []
     i = 0
@@ -136,35 +138,65 @@ def get_kaLIST(contentLIST: list) -> list:
             "s": sirayaLIST,
             "c": c_STR,
             "e": e_STR
-        })        
-        #print(alignLIST)
+        })
+        sirayaLIST = []
     
-    pairedLIST = []
-    for i in range(0, len(sirayaLIST), 2):
-        if len(sirayaLIST[i]) == 0:
-            pass
-        else:
-            pairedLIST.append([sirayaLIST[i].replace("\t", " ").replace("  ", " ").strip(), sirayaLIST[i+1].replace("\t", " ").replace("  ", " ").strip()])
-    #一對一對應的句子成對放進列表
-    #pprint(pairedLIST)     
+    #處理格式不一致問題，中英句子位置顛倒、英文有一句以上
+    for i, a in enumerate(alignLIST):
+        if "\t" in a["e"]:
+            if i + 1 < len(alignLIST):
+                alignLIST[i+1]["s"].insert(0, a["e"])
+            a["e"] = a["s"].pop()
+        for s in a["s"]:
+            if "\t" not in s and len(re.findall(r'\w+', s)) > 1:
+                if i > 0:
+                    alignLIST[i-1]["e"] += " " + s
+                a["s"].remove(s)
+    #pprint(alignLIST)
     
-    paired_i = 0  # 用來追蹤配對列表的索引
-    for i, align_item in enumerate(alignLIST):
-        if paired_i < len(pairedLIST):
-            # 如果配對的數量是偶數，則將其放入兩層列表
-            alignLIST[i]["s"] = [pairedLIST[paired_i][:2], pairedLIST[paired_i+1][:2]]
-            paired_i += 2
-    #new alignLIST after pairing the sirayaLIST
-    pprint(alignLIST)   
-
-    #待改
-    kaLIST = []
-    for p, pair in enumerate(pairedLIST):
-        if KaPAT1.match(pair[0]) and p > 0:
-            kaLIST.append((pairedLIST[p-1], pair))
-        if KaPAT2.search(pair[0]):
-            kaLIST.append(pair)
-    return kaLIST    
+    removeLIST = []
+    for a in alignLIST:
+        sirayaLIST = a["s"]
+        
+        # 將sirayaLIST進行配對處理
+        pairedLIST = []
+        for i in range(0, len(sirayaLIST) - 1, 2):  # 兩個一組
+            if len(sirayaLIST[i]) == 0 or len(sirayaLIST[i+1]) == 0:
+                continue  # 如果當前配對項目為空，跳過
+            # 清理多餘的空格和 tab
+            pairedLIST.append([
+                sirayaLIST[i].replace("\t", " ").replace("  ", " ").replace("  ", " ").strip(), 
+                sirayaLIST[i+1].replace("\t", " ").replace("  ", " ").replace("  ", " ").strip()
+            ])
+            
+        a["s"] = pairedLIST
+        
+        kaLIST = []
+        for p, pair in enumerate(pairedLIST):
+            if KaPAT1.match(pair[0]) and p > 0:
+                kaLIST.append((pairedLIST[p-1], pair))
+            if KaPAT2.search(pair[0]):
+                kaLIST.append(pair)
+        a["s"] = kaLIST
+        if not kaLIST:
+            removeLIST.append(a)
+        
+    # pair 完且有 ka 的 sirayaLIST 放回 alignLIST
+    for r in removeLIST:
+        alignLIST.remove(r)
+        
+    sceLIST = []    
+    for a in alignLIST:
+        for i, s_item in enumerate(a["s"]):
+            sceLIST.append({
+                "c": a["c"],
+                "e": a["e"],
+                "s": s_item
+            })
+    #pprint(sceLIST)
+        
+    #pprint(alignLIST)
+    return sceLIST   
 
 def articutEN(inputSTR: str) -> list:
     """
@@ -185,29 +217,33 @@ def articutEN(inputSTR: str) -> list:
     print(f"詞性標記中：{response['result_pos']}")
     return response["result_pos"]
 
-def align2DICT(input_data: list[str]|tuple[list[str], list[str]]) -> dict:
+def align2DICT(sceDICT: dict) -> dict:
     """
     處理兩種不同格式的資料：一個是字串列表，一個是包含兩個字串列表的元組。
     並且產生詞性標註（POS）結果。
 
     參數:
-    input_data (Union[list[str], tuple[list[str], list[str]]]): 
+    sceDICT["s"]: (Union[list[str], tuple[list[str], list[str]]]): 
     可以是字符串列表或包含兩個字符串列表的元組。
+    sceDICT["c"]: str
+    sceDICT["e"]: str
 
     返回:
     dict: 處理後的結果字典，格式為：
     {
         "s": "Siraya",    # 西拉雅
         "g": "gloss",     # 詞彙對應
-        "p": "pos"        # 詞性標記
+        "p": "pos",       # 詞性標記
+        "c": "chinese",   # 中文句子（來自 sceDICT 的 "c"）
+        "e": "english"    # 英文句子（來自 sceDICT 的 "e"）
     }
     
     """
     skipLIST = ["NOM", "DET", "FOC", "OBL", "LOC", "GEN", "PART", "Q", "REL", "PAST", "NEG"]
-    resultDICT = {"s": None, "g": None, "p": []}
-    if isinstance(input_data, list):
-        resultDICT["s"] = input_data[0]
-        resultDICT["g"] = input_data[1]
+    resultDICT = {"s": None, "g": None, "p": [], "c": sceDICT["c"], "e": sceDICT["e"]}
+    if isinstance(sceDICT["s"], list):
+        resultDICT["s"] = sceDICT["s"][0]
+        resultDICT["g"] = sceDICT["s"][1]
         sirayaLIST = resultDICT["s"].split(" ")
         glossLIST = resultDICT["g"].split(" ")
         posLIST = []
@@ -251,8 +287,8 @@ def align2DICT(input_data: list[str]|tuple[list[str], list[str]]) -> dict:
                 sleep(0.8)
         resultDICT["p"] = " ".join(posLIST)
     else:   #是 tuple
-        resultDICT["s"] = input_data[0][0] + " " + input_data[1][0]   #兩句相接
-        resultDICT["g"] = input_data[0][1] + " " + input_data[1][1]
+        resultDICT["s"] = sceDICT["s"][0][0] + " " + sceDICT["s"][1][0]   #兩句相接
+        resultDICT["g"] = sceDICT["s"][0][1] + " " + sceDICT["s"][1][1]
         sirayaLIST = resultDICT["s"].split(" ")
         glossLIST = resultDICT["g"].split(" ")
         posLIST = []
@@ -300,23 +336,25 @@ def align2DICT(input_data: list[str]|tuple[list[str], list[str]]) -> dict:
 
 if __name__ == "__main__":
     files = {
-        "./Gospel of Matthew, 2024.9.03": "ka_in_Matthew",
-        "./Gospel of John, 2024.9.03": "ka_in_John"
+        "./All chapters, Gospel of Matthew, 2024.12.02": "ka_in_Matthew",
+        "./All chapters, Gospel of John, 2024.12.02": "ka_in_John"
     }
     
     for folder_path, jsonFILE_base in files.items():
-        
+        if not os.path.exists(jsonFILE_base):
+            os.makedirs(jsonFILE_base)
+            
         mktxt_files(folder_path)
         all_contentLIST = read_txt(folder_path)
         
-        #file_cnt = 8    #指定檔名編號
-        for contentLIST in [all_contentLIST[1]]:
-            kaLIST = get_kaLIST(contentLIST)
-            pprint(kaLIST)
+        file_cnt = 1    #指定檔名編號
+        for contentLIST in all_contentLIST:
+            sceLIST = get_kaLIST(contentLIST)
+            pprint(sceLIST)
             
             resultLIST = []
-            for r_l in kaLIST:
-                tmpDICT = align2DICT(r_l)
+            for sceDICT in sceLIST:
+                tmpDICT = align2DICT(sceDICT)
                 pprint(tmpDICT)
                 resultLIST.append(tmpDICT)
             
@@ -324,4 +362,4 @@ if __name__ == "__main__":
             with open(jsonFILE, "w", encoding="utf-8") as f:
                 json.dump(resultLIST, f, ensure_ascii=False, indent=4)
             
-            #file_cnt += 1
+            file_cnt += 1
