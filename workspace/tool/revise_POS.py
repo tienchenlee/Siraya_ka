@@ -59,19 +59,19 @@ def revise_POS(contentLIST) -> list:    #contentLIST 是一個 jsonFILE 的內�
                 posLIST[i] = posLIST[i].replace("<ENTITY_noun>", "<ACTION_verb>")
             if glossLIST[i] == "exceeding":
                 posLIST[i] = posLIST[i].replace("<ACTION_verb>", "<MODIFIER>") 
-            if glossLIST[i] == "when":
-                posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhenQ>")
-            if glossLIST[i] == "why":
-                posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhyQ>")
-            if glossLIST[i] == "what":
-                posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhatQ>")
-            if glossLIST[i] == "who":
-                posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhoQ>")
-            if glossLIST[i] == "where":
-                posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhatQ>")
-            if glossLIST[i] == "how":
-                posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_HowQ>")                   
-            # put the verb back in resultDICT["p"]
+            #if glossLIST[i] == "when":
+                #posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhenQ>")
+            #if glossLIST[i] == "why":
+                #posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhyQ>")
+            #if glossLIST[i] == "what":
+                #posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhatQ>")
+            #if glossLIST[i] == "who":
+                #posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhoQ>")
+            #if glossLIST[i] == "where":
+                #posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_WhereQ>")
+            #if glossLIST[i] == "how":
+                #posLIST[i] = posLIST[i].replace("<ENTITY_pronoun>", "<CLAUSE_HowQ>")                   
+            # put the verb back in resultDICT["p"]，給 ka_in_Matthew_arg 和 ka_in_John_arg 使用
             if re.search(VerbPAT, posLIST[i]):
                 posLIST[i] = glossLIST[i]
         resultDICT["p"] = " ".join(posLIST)        
@@ -80,7 +80,8 @@ def revise_POS(contentLIST) -> list:    #contentLIST 是一個 jsonFILE 的內�
 
 
 if __name__ == "__main__":
-    folder_path = ["./ka_in_Matthew", "ka_in_John"]
+    #folder_path = ["./ka_in_Matthew", "ka_in_John"]
+    folder_path = ["./ka_in_Matthew_arg", "ka_in_John_arg"]    
     for folder in folder_path:
         jsonFILES = [file for file in os.listdir(folder) if file.endswith(".json")]        
         for jsonFILE in jsonFILES:

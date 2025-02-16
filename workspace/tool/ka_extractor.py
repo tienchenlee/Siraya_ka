@@ -49,9 +49,14 @@ def docx_to_txt(docx_path: str, txt_path: str):
     """
     document = Document(docx_path)
 
-    with open(txt_path, 'w', encoding='utf-8') as txt:
+    with open(txt_path, "w", encoding="utf-8") as txt:
         for paragraph in document.paragraphs:
-            txt.write(paragraph.text + '\n')
+            text = paragraph.text.strip()  # 去除首尾空白
+            
+            # 檢查是否包含「數字:數字」，如果有，則在前面加上換行符號（處理 docx 沒有分頁符號問題）
+            text = re.sub(r"(\d+:\d+)", r"\n\1", text)
+
+            txt.write(text + "\n")  # 正常寫入
 
 def mktxt_files(folder_path: str):
     """
@@ -292,6 +297,9 @@ def align2DICT(sceDICT: dict) -> dict:
         sirayaLIST = resultDICT["s"].split(" ")
         glossLIST = resultDICT["g"].split(" ")
         posLIST = []
+        for i in range(len(sirayaLIST) - 1, -1, -1):  # 反向刪除 sirayaLIST 中的空元素
+            if sirayaLIST[i] == "":
+                del sirayaLIST[i]        
         for i in range(0, len(sirayaLIST)):
             if sirayaLIST[i] == "ka" or sirayaLIST[i] == "Ka":
                 posLIST.append("ka")
@@ -347,8 +355,10 @@ if __name__ == "__main__":
         mktxt_files(folder_path)
         all_contentLIST = read_txt(folder_path)
         
-        file_cnt = 1    #指定檔名編號
-        for contentLIST in all_contentLIST:
+        file_cnt = 1   #指定開始檔案編號
+        for contentLIST in [all_contentLIST[0]]:  #只處理單一編號檔案
+        #for contentLIST in all_contentLIST[4:]:  #用 file_cnt 遞增編號處理
+        
             sceLIST = get_kaLIST(contentLIST)
             pprint(sceLIST)
             
@@ -362,4 +372,4 @@ if __name__ == "__main__":
             with open(jsonFILE, "w", encoding="utf-8") as f:
                 json.dump(resultLIST, f, ensure_ascii=False, indent=4)
             
-            file_cnt += 1
+            #file_cnt += 1
