@@ -158,7 +158,7 @@ def org_ka_gloss(all_contentLIST: list) -> list:
                     if keySTR in glossLIST and posLIST[i] == "ka":
                         if resultDICT["g"] not in glossDICT[keySTR]:
                             glossDICT[keySTR].append(resultDICT["g"])     
-        resultLIST.append(glossDICT)
+    resultLIST.append(glossDICT)
 
     return resultLIST  
 
