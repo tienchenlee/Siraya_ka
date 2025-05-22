@@ -57,10 +57,10 @@ def org_ka_POS(all_contentLIST: list) -> list:
         [
             {
                 "REL": [
-                    "ACTION_verb-PV-PFV NOM ENTITY_oov ka PAST-MODIFIER.AV"
+                    "<ACTION_verb-PV-PFV> NOM <ENTITY_oov> ka <PAST-MODIFIER.AV>"
                 ],
                 "COMP": [
-                    "FUNC_inter ka PAST-ACTION_verb.AV ENTITY_pronoun-OBL"
+                    "<FUNC_inter> ka <PAST-ACTION_verb.AV> <ENTITY_pronoun-OBL>"
                 ],
                 ...
             }
@@ -116,6 +116,52 @@ def org_ka_POS(all_contentLIST: list) -> list:
     resultLIST.append(posDICT)
     return resultLIST  
 
+def org_ka_gloss(all_contentLIST: list) -> list:
+    """
+    提取 "ka" 的 gloss 值與 POS 結構，並將其組織為指定的字典格式。
+    參數:
+        all_contentLIST (list): 包含多層結構的資料列表，外層為內容列表，
+            內層每個元素是一個字典，字典包含以下鍵:
+            - "s" (str): 西拉雅字串
+            - "g" (str): gloss，空格分隔的詞彙對應字串
+            - "p" (str): POS，空格分隔的詞性標記字串
+    回傳:
+        list: 包含一個字典的列表，該字典結構如下:
+        [
+            {
+                "REL": [
+                    "book OBL lineage GEN Jesus Christ REL PART son GEN David"
+                ],
+                "COMP": [
+                    "when COMP think-PV he.GEN NOM this"
+                ],
+                ...
+            }
+        ]
+        - 字典中的鍵為 ka 的所有可能 functions。
+        - 如果該句子有 ka，就將 gloss 句添加到該 function 的 value 中。
+    """
+    resultLIST = []
+    glossDICT = {"REL": [],
+                 "COMP": [],
+                 "so.that": [],
+                 "such.that": [],
+                 "and": [],
+                 "but": [],
+                 "for": []}        
+    for contentLIST in all_contentLIST:
+        for resultDICT in contentLIST:
+            glossLIST = resultDICT["g"].split(" ")
+            posLIST = resultDICT["p"].split(" ")
+            for i in range(len(posLIST)):
+                for keySTR in glossDICT:
+                    if keySTR in glossLIST and posLIST[i] == "ka":
+                        if resultDICT["g"] not in glossDICT[keySTR]:
+                            glossDICT[keySTR].append(resultDICT["g"])     
+        resultLIST.append(glossDICT)
+
+    return resultLIST  
+
 
 if __name__ == "__main__":
     all_contentLIST = []
@@ -128,6 +174,7 @@ if __name__ == "__main__":
     with open("../../corpus/ka_POS_LIST.json", "w", encoding="utf-8") as f:
         json.dump(resultLIST, f, ensure_ascii=False, indent=4)
     
+    # 動詞保留 (不換成 POS)
     all_argcontentLIST = []
     folder_path = ["./ka_in_Matthew_arg", "ka_in_John_arg"]
     for folder in folder_path:
@@ -136,4 +183,15 @@ if __name__ == "__main__":
     
     resultLIST = org_ka_POS(all_argcontentLIST)
     with open("../../corpus/ka_POS_argLIST.json", "w", encoding="utf-8") as f:
-        json.dump(resultLIST, f, ensure_ascii=False, indent=4)    
+        json.dump(resultLIST, f, ensure_ascii=False, indent=4)
+        
+    # 挑出 gloss 句
+    all_GcontentLIST = []
+    folder_path = ["./ka_in_Matthew", "ka_in_John"]
+    for folder in folder_path:
+        folder_contentLIST = read_json(folder)
+        all_GcontentLIST.extend(folder_contentLIST)
+    
+    gloss_resultLIST = org_ka_gloss(all_GcontentLIST)
+    with open("../../corpus/ka_gloss_LIST.json", "w", encoding="utf-8") as f:
+        json.dump(gloss_resultLIST, f, ensure_ascii=False, indent=4)
