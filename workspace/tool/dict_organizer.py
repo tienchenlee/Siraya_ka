@@ -154,10 +154,11 @@ def org_ka_gloss(all_contentLIST: list) -> list:
             glossLIST = resultDICT["g"].split(" ")
             posLIST = resultDICT["p"].split(" ")
             for i in range(len(posLIST)):
-                for keySTR in glossDICT:
-                    if keySTR in glossLIST and posLIST[i] == "ka":
-                        if resultDICT["g"] not in glossDICT[keySTR]:
-                            glossDICT[keySTR].append(resultDICT["g"])     
+                if posLIST[i] == "ka":                    
+                    for keySTR in glossDICT:
+                        if glossLIST[i] == keySTR:
+                            if resultDICT["g"] not in glossDICT[keySTR]:
+                                glossDICT[keySTR].append(resultDICT["g"])     
     resultLIST.append(glossDICT)
 
     return resultLIST  

@@ -1,0 +1,47 @@
+{
+    "_ka_": [
+        "ka"
+    ],
+    "_Mood_": [
+        "-IMP"
+    ],
+    "_Tense_": [
+        "-IRR",
+        "PAST-"
+    ],
+    "_Aspect_": [
+        "-PFV",
+        ".PFV"
+    ],
+    "_FuncWord_": [
+        "DET",
+        "FOC",
+        "Q"
+    ],
+    "_CaseMarker_": [
+        "-OBL",
+        ".GEN",
+        ".NOM",
+        ".OBL",
+        "GEN",
+        "NOM",
+        "OBL"
+    ],
+    "_PhiFeatures_": [
+        ".EXCL",
+        ".INCL",
+        ".PL",
+        ".SG"
+    ],
+    "_VoiceMarker_": [
+        "-IV",
+        "-LV",
+        "-PV",
+        ".AV",
+        ".LV",
+        ".PV"
+    ],
+    "_PrefixConcord_": [
+        "-PC"
+    ]
+}
