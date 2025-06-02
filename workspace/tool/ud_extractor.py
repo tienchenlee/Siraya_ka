@@ -25,17 +25,18 @@ def main(udDICT, inputSTR):
                 if valueSTR in inputSTR:
                     inputSTR = inputSTR.replace(valueSTR, f" {valueSTR} ")
 
-    # Step 2: 如果有兩個空格就替換成一個    
+    # Step 2: 如果有兩個空格就替換成一個，並去除開頭空格 
     while "  " in inputSTR:
         inputSTR = inputSTR.replace("  ", " ")
-    print(inputSTR)
+    
+    inputSTR = inputSTR.lstrip()
     
     # Step 3: 如果 inputSTR 有 "REL" or "COMP"，就替換成 "ka"
     outputSTR = inputSTR
-    kaLIST = ["REL", "COMP"]    #"and" 有可能是 "apa" or "ka" 所以不列，手動改
+    kaLIST = ["REL", "COMP"]
     for ka in kaLIST:
-        while ka in inputSTR:
-            outputSTR = inputSTR.replace(ka, "ka")
+        while ka in outputSTR:
+            outputSTR = outputSTR.replace(ka, "ka")
 
     return outputSTR
 
@@ -43,8 +44,20 @@ if __name__ == "__main__":
     udDICT = "../../corpus/USER_DEFINED.json"
     with open(udDICT, "r", encoding="utf-8") as f:
         udDICT = json.load(f)
+        
+    ka_gloss_LIST = "../../corpus/ka_gloss_LIST.json"
+    with open(ka_gloss_LIST, "r", encoding="utf-8") as f:
+        ka_gloss_LIST = json.load(f)
     
-    inputSTR = "because also COMP not need.AV NOM he COMP testify.AV-IRR NOM anyone OBL man for PC.self-PV he.GEN understand.AV NOM things REL at.inside.AV OBL man"
+    # 將所有 training data 前處理
+    #for kaDICT in ka_gloss_LIST:
+        #for valueLIST in kaDICT.values():
+            #for inputSTR in valueLIST:
+                #outputSTR = main(udDICT, inputSTR)
+                #print(outputSTR)
     
+    # 可放入一句需前處理的句子，並直接印出
+    inputSTR = "OBL this-also REL PAST-do-PV"
+    print(f"inputSTR:\n{inputSTR}")    
     outputSTR = main(udDICT, inputSTR)
-    print(outputSTR)
+    print(f"outputSTR:\n{outputSTR}")
