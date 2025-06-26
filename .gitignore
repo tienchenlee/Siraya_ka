@@ -175,3 +175,6 @@ ka_in_John_arg
 
 # json
 /corpus/ka_gloss_LIST.json
+
+#init
+__init__.py
