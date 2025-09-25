@@ -25,18 +25,13 @@
         "so.much.so",
         "to.such.extent"
     ],
-    "_FuncWord_": [
-        "DET",
-        "FOC",
-        "LOC",
-        "Q"
-    ],
     "_CaseMarker_": [
         "-OBL",
         ".GEN",
         ".NOM",
         ".OBL",
         "GEN",
+        "LOC",
         "NOM",
         "OBL",
         "PART"
@@ -54,6 +49,11 @@
         ".AV",
         ".LV",
         ".PV"
+    ],
+    "_FuncCategory_": [
+        "DET",
+        "FOC",
+        "Q"
     ],
     "_PrefixConcord_": [
         "PC-",

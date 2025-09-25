@@ -31,26 +31,26 @@ if __name__ == "__main__":
     
     for kaDICT in glossLIST:
         for k, valueLIST in kaDICT.items():
-            if k == "COMP":
+            #if k == "COMP":
+                #for inputSTR in valueLIST:
+                    #inputudSTR = udconv(udDICT, inputSTR)
+                    #lokiResult = main(inputudSTR)
+                    #sleep(0.8)
+                    #if not lokiResult["COMP_use"]:
+                        #print(inputSTR)
+                        #print(lokiResult)
+                        #print(f"pattern is not matched")
+                        #print(f"----------------------")
+                    #else:
+                        #print(f"測試句：\n{inputSTR}")
+                        #print(f"模型判斷意圖為：'COMP_use'")
+                        #print(f"-----------------------")
+            if k == "and":
                 for inputSTR in valueLIST:
                     inputudSTR = udconv(udDICT, inputSTR)
                     lokiResult = main(inputudSTR)
                     sleep(0.8)
-                    if not lokiResult["COMP_use"]:
-                        print(inputSTR)
-                        print(lokiResult)
-                        print(f"pattern is not matched")
-                        print(f"----------------------")
-                    else:
-                        print(f"測試句：\n{inputSTR}")
-                        print(f"模型判斷意圖為：'COMP_use'")
-                        print(f"-----------------------")
-            elif k == "and":
-                for inputSTR in valueLIST:
-                    inputudSTR = udconv(udDICT, inputSTR)
-                    lokiResult = main(inputudSTR)
-                    sleep(0.8)
-                    if not lokiResult["and_use"]:
+                    if not lokiResult["and_use"] and lokiResult["COMP_use"] is not True:
                         print(inputSTR)
                         print(lokiResult)
                         print(f"pattern is not matched")

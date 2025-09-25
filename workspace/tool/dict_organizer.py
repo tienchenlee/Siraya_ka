@@ -3,6 +3,7 @@
 
 import json
 import os
+import re
 
 from pprint import pprint
 
@@ -40,6 +41,8 @@ def read_json(folder_path: str) -> list:
             contentLIST = json.load(f)             #contentLIST 是一個 jsonFILE 的內容
             for dictionary in contentLIST:
                 dictionary["g"] = dictionary["g"].replace("And", "and")
+                dictionary["s"] = re.sub("\s{2,}", " ", dictionary["s"])    #check whether siraya sentence have multiple adjacent space
+                dictionary["s"] = dictionary["s"].replace("(ka", "ka")
             folder_contentLIST.append(contentLIST) #folder_contentLIST 是一個 folder 內所有 jsonFILE 的內容
     return folder_contentLIST
 
@@ -95,24 +98,7 @@ def org_ka_POS(all_contentLIST: list) -> list:
                                 posDICT[glossLIST[i]].append(markSTR)
                         else:
                             posDICT[glossLIST[i]] = [markSTR]
-                    
-            #pos + gloss
-            #for i in range(len(posLIST)):
-                #if posLIST[i] == "ka" and i != 0:
-                    #tmpPOSLIST = posLIST[:i]
-                    #tmpPOSLIST.append("-ka-")
-                    #tmpPOSLIST.extend(posLIST[i+1:])
-                    #tmpGLOSSLIST = glossLIST[:i]
-                    #tmpGLOSSLIST.append(f"-{glossLIST[i]}-")
-                    #tmpGLOSSLIST.extend(glossLIST[i+1:])
-                    #if glossLIST[i] in posDICT:
-                        #posDICT[glossLIST[i]].append([tmpPOSLIST, tmpGLOSSLIST])
-                    #else:
-                        #posDICT[glossLIST[i]] = [[tmpPOSLIST, tmpGLOSSLIST]]
-                
-                #if glossLIST[i] == "and":   #查看原句的 resultDICT
-                    #checkLIST.append({"p": resultDICT["p"], "s": resultDICT["s"], "g": resultDICT["g"]})
-    #pprint(checkLIST)
+
     resultLIST.append(posDICT)
     return resultLIST  
 
@@ -142,6 +128,7 @@ def org_ka_gloss(all_contentLIST: list) -> list:
         - 如果該句子有 ka，就將 gloss 句添加到該 function 的 value 中。
     """
     resultLIST = []
+    skipLIST = []
     glossDICT = {"REL": [],
                  "COMP": [],
                  "so.that": [],
@@ -151,6 +138,7 @@ def org_ka_gloss(all_contentLIST: list) -> list:
                  "for": []}        
     for contentLIST in all_contentLIST:
         for resultDICT in contentLIST:
+            sirayaLIST = resultDICT["s"].split(" ")
             glossLIST = resultDICT["g"].split(" ")
             posLIST = resultDICT["p"].split(" ")
             for i in range(len(posLIST)):
@@ -158,33 +146,55 @@ def org_ka_gloss(all_contentLIST: list) -> list:
                     for keySTR in glossDICT:
                         if glossLIST[i] == keySTR:
                             if resultDICT["g"] not in glossDICT[keySTR]:
-                                glossDICT[keySTR].append(resultDICT["g"])     
+                                glossDICT[keySTR].append(resultDICT["g"])
+                if glossLIST[i] == "and" and sirayaLIST[i] not in ["apa", "ka", "Ka", "ka,"]:
+                    print(sirayaLIST[i], i)
+                    print(glossLIST[i], i)
+                    print(resultDICT["s"])
+                    print(resultDICT["g"])
+                    print(f"--------------------")
+                #if glossLIST[i] == "REL" and sirayaLIST[i] not in ["ka", "Ka"]:
+                    #print(sirayaLIST[i], i)
+                    #print(glossLIST[i], i)
+                    #print(resultDICT["s"])
+                    #print(resultDICT["g"])
+                    #print(f"--------------------")
+                #if glossLIST[i] == "COMP" and sirayaLIST[i] not in ["ka", "Ka"]:
+                    #print(sirayaLIST[i], i)
+                    #print(glossLIST[i], i)
+                    #print(resultDICT["s"])
+                    #print(resultDICT["g"])
+                    #print(f"--------------------")
+                if sirayaLIST[i] == "apa" and glossLIST[i] == "and":
+                    skipLIST.append(resultDICT["g"])
+                
     resultLIST.append(glossDICT)
+    print(skipLIST)
 
     return resultLIST  
 
 
 if __name__ == "__main__":
-    all_contentLIST = []
-    folder_path = ["./ka_in_Matthew", "ka_in_John"]
-    for folder in folder_path:
-        folder_contentLIST = read_json(folder)
-        all_contentLIST.extend(folder_contentLIST)
+    #all_contentLIST = []
+    #folder_path = ["./ka_in_Matthew", "ka_in_John"]
+    #for folder in folder_path:
+        #folder_contentLIST = read_json(folder)
+        #all_contentLIST.extend(folder_contentLIST)
     
-    resultLIST = org_ka_POS(all_contentLIST)
-    with open("../../corpus/ka_POS_LIST.json", "w", encoding="utf-8") as f:
-        json.dump(resultLIST, f, ensure_ascii=False, indent=4)
+    #resultLIST = org_ka_POS(all_contentLIST)
+    #with open("../../corpus/ka_POS_LIST.json", "w", encoding="utf-8") as f:
+        #json.dump(resultLIST, f, ensure_ascii=False, indent=4)
     
-    # 動詞保留 (不換成 POS)
-    all_argcontentLIST = []
-    folder_path = ["./ka_in_Matthew_arg", "ka_in_John_arg"]
-    for folder in folder_path:
-        folder_contentLIST = read_json(folder)
-        all_argcontentLIST.extend(folder_contentLIST)
+    ## 動詞保留 (不換成 POS)
+    #all_argcontentLIST = []
+    #folder_path = ["./ka_in_Matthew_arg", "ka_in_John_arg"]
+    #for folder in folder_path:
+        #folder_contentLIST = read_json(folder)
+        #all_argcontentLIST.extend(folder_contentLIST)
     
-    resultLIST = org_ka_POS(all_argcontentLIST)
-    with open("../../corpus/ka_POS_argLIST.json", "w", encoding="utf-8") as f:
-        json.dump(resultLIST, f, ensure_ascii=False, indent=4)
+    #resultLIST = org_ka_POS(all_argcontentLIST)
+    #with open("../../corpus/ka_POS_argLIST.json", "w", encoding="utf-8") as f:
+        #json.dump(resultLIST, f, ensure_ascii=False, indent=4)
         
     # 挑出 gloss 句
     all_GcontentLIST = []
