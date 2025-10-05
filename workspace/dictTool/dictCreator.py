@@ -4,12 +4,14 @@
 import json
 import re
 
+from collections import defaultdict
 from docx import Document
 from pathlib import Path
 from pprint import pprint
 
 splitPat = re.compile(r"[\t]+")
-wordEndPat = re.compile(r"[\.,:?]$")
+wordEndPat = re.compile(r"(?:[\.,\):?;]+$|^\()")
+wordNormPat = re.compile(r"[-\.'’]")
 
 def orderFile(filePATH):
     """
@@ -100,7 +102,7 @@ def _dictAligner():
         for contentLIST in all_contentLIST:
             for textSTR in contentLIST:
                 if "\t" in textSTR:
-                    # 處理與料編撰時，不一致問題，像是沒用 tab 分開詞彙，或是多用空格分開了一個字
+                    # 處理語料編撰時，不一致問題，像是沒用 tab 分開詞彙，或是多用空格分開了一個字
                     if "  " in textSTR:
                         textSTR = textSTR.replace(" ", "\t")
                     else:
@@ -146,50 +148,37 @@ def checkPairs():
 def main():
     """"""
     alignLIST = checkPairs()
-    globalDICT = {}
-
-    #inputPATH = Path.cwd() / "alignLIST.json"
-    #with open(inputPATH, "r", encoding="utf-8") as f:
-        #alignLIST = json.load(f)
+    globalDICT = defaultdict(set)
 
     for item_d in alignLIST:
         glossLIST = item_d["g"]
         sirayaLIST = item_d["s"]
 
-        #for keySTR, valueSTR in zip(glossLIST, sirayaLIST):
-            #if keySTR not in globalDICT:
-                #globalDICT[keySTR] = set()
-            #globalDICT[keySTR].add(valueSTR)
-
         for keySTR, valueSTR in zip(sirayaLIST, glossLIST):
             # 去除字結尾的標點符號 (e.g. lava, -> lava)
-            keySTR = wordEndPat.sub("", keySTR)
+            keySTR = wordEndPat.sub("", keySTR).lower() # 另外讓 key 的大小寫不分
             valueSTR = wordEndPat.sub("", valueSTR)
 
-            if keySTR not in globalDICT:
-                globalDICT[keySTR] = set()  # 用 set 存唯一字，但現在只有大小寫差異的還是都加進去了！！
+            # 另外將所有 key 存一個沒有標點符號的版本
+            normKeySTR = wordNormPat.sub("", keySTR).lower()
+
+            # 分別用 keySTR & normKeySTR 組成字典
             globalDICT[keySTR].add(valueSTR)
+            globalDICT[normKeySTR].add(valueSTR)
 
-    for keySTR in globalDICT:
-        globalDICT[keySTR] = list(globalDICT[keySTR])   # 將 set 轉成 list
+    # 將 set 轉成 list
+    globalDICT = {k: list(v) for k, v in globalDICT.items()}
 
-    print(globalDICT)
+    print(f"寫出 globalDICT...")
+    dictPATH = Path.cwd() / "globalDICT.json"
+    with open(dictPATH, "w", encoding="utf-8") as f:
+        json.dump(globalDICT, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__":
     main()
 
-    #globalDICT = {"我": [I, me...],
-                  #"modal":[can, will...],
-                  #"negation":[no, not, never...],
-                  #"verb":{"說":[say, tell, speak...]},
-                  #"modifier":{"高興":[happy, exicted...]},
-                  #...
-                  #}
-
     #globalDICT = {
-                   #"iau":["I", "me"]
-                   #"verb":[
-                   # {"makutalum":["curse.AV", "slander.AV"]},
+                   #"iau":["I", "me"],
+                   # "makutalum":["curse.AV", "slander.AV"],
                    # ...
-                   # ]
     # }

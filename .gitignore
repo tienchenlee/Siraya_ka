@@ -178,6 +178,7 @@ John
 # json
 /corpus/ka_gloss_LIST.json
 alignLIST.json
+globalDICT.json
 
 #init
 __init__.py
