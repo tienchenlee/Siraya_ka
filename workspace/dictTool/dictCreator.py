@@ -13,7 +13,10 @@ splitPat = re.compile(r"[\t]+")
 wordEndPat = re.compile(r"(?:[\.,\):?;]+$|^\()")
 wordNormPat = re.compile(r"[-\.'’]")
 
-def orderFile(filePATH):
+dataDIR = Path.cwd().parent.parent / "data"
+dataDIR.mkdir(exist_ok=True, parents=True)
+
+def _orderFile(filePATH):
     """
     從檔案名稱中提取並返回數字部分，以便進行排序。
 
@@ -26,7 +29,7 @@ def orderFile(filePATH):
     match = re.search(r"\d+", filePATH)
     return int(match.group())
 
-def docx2Txt(docxPATH, txtPATH):
+def _docx2Txt(docxPATH, txtPATH):
     """
     讀取 docx 檔案內容，並寫成 txt 檔案。
 
@@ -45,22 +48,22 @@ def docx2Txt(docxPATH, txtPATH):
 
             f.write(textSTR + "\n")  # 正常寫入
 
-def txtCreator(folderPATH):
+def _txtCreator(folderPATH):
     """
     將資料夾內所有 docx 檔案依序轉換為對應的 txt 檔案。
-    調用 docx2Txt() 輸出同名的 txt 檔案，與 docx 保存於同一目錄下。
+    調用 _docx2Txt() 輸出同名的 txt 檔案，與 docx 保存於同一目錄下。
 
     參數:
         folderPATH: 包含 docx 檔案的資料夾路徑。
     """
     docxLIST = list(folderPATH.glob("*.docx"))
-    sortedLIST = sorted(docxLIST, key=lambda f: orderFile(str(f)))
+    sortedLIST = sorted(docxLIST, key=lambda f: _orderFile(str(f)))
 
     for filePATH in sortedLIST:
         txtPATH = filePATH.with_suffix(".txt")
-        docx2Txt(str(filePATH), str(txtPATH))
+        _docx2Txt(str(filePATH), str(txtPATH))
 
-def readTxt(folderPATH):
+def _readTxt(folderPATH):
     """
     讀取資料夾中的所有 txt 檔案內容，並將其整理為列表返回。
 
@@ -71,7 +74,7 @@ def readTxt(folderPATH):
         list: 一個嵌套列表，其中每個內部列表對應一個 txt 檔案的所有行內容。
     """
     txtLIST = list(folderPATH.glob("*.txt"))
-    sortedLIST = sorted(txtLIST, key=lambda f: orderFile(str(f)))
+    sortedLIST = sorted(txtLIST, key=lambda f: _orderFile(str(f)))
     allContentLIST = []
 
     for filePATH in sortedLIST:
@@ -84,20 +87,16 @@ def readTxt(folderPATH):
 
 def _dictAligner():
     """"""
-    fileDICT = {
-        "./All chapters, Gospel of Matthew, 2025.1.26": "Matthew",
-        "./All chapters, Gospel of John, 2025.1.26": "John"
-    }
+    fileLIST = ["./All chapters, Gospel of Matthew, 2025.1.26",
+                "./All chapters, Gospel of John, 2025.1.26"]
 
     textLIST = []
-    for folderSTR, bookSTR in fileDICT.items():
+
+    for folderSTR in fileLIST:
         folderPATH = Path(folderSTR)
-        bookPATH = Path(bookSTR)
 
-        bookPATH.mkdir(parents=True, exist_ok=True)
-
-        txtCreator(folderPATH)
-        all_contentLIST = readTxt(folderPATH)
+        _txtCreator(folderPATH)
+        all_contentLIST = _readTxt(folderPATH)
 
         for contentLIST in all_contentLIST:
             for textSTR in contentLIST:
@@ -111,7 +110,7 @@ def _dictAligner():
     #print(textLIST)
     return textLIST
 
-def checkPairs():
+def _checkPairs():
     """"""
     textLIST = _dictAligner()
 
@@ -139,7 +138,7 @@ def checkPairs():
             alignLIST.append(alignDICT)
 
     print(f"寫出 alignLIST...")
-    outputPATH = Path.cwd() / "alignLIST.json"
+    outputPATH = dataDIR / "alignLIST.json"
     with open(outputPATH, "w", encoding="utf-8") as f:
         json.dump(alignLIST, f, ensure_ascii=False, indent=4)
 
@@ -147,7 +146,7 @@ def checkPairs():
 
 def main():
     """"""
-    alignLIST = checkPairs()
+    alignLIST = _checkPairs()
     globalDICT = defaultdict(set)
 
     for item_d in alignLIST:
@@ -170,7 +169,7 @@ def main():
     globalDICT = {k: list(v) for k, v in globalDICT.items()}
 
     print(f"寫出 globalDICT...")
-    dictPATH = Path.cwd() / "globalDICT.json"
+    dictPATH = dataDIR / "globalDICT.json"
     with open(dictPATH, "w", encoding="utf-8") as f:
         json.dump(globalDICT, f, ensure_ascii=False, indent=4)
 

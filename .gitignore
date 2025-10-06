@@ -174,11 +174,10 @@ All chapters, Gospel of Matthew, 2025.1.26
 All chapters, Gospel of John, 2025.1.26
 Matthew
 John
+data
 
 # json
 /corpus/ka_gloss_LIST.json
-alignLIST.json
-globalDICT.json
 
 #init
 __init__.py
