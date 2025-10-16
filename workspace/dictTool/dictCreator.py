@@ -85,8 +85,12 @@ def _readTxt(folderPATH):
 
     return allContentLIST
 
-def _dictAligner():
-    """"""
+def _getText():
+    """
+    將馬太福音、約翰福音中的西拉雅語 & gloss 句子找出，彙整於一個列表中。
+
+    回傳：textLIST
+    """
     fileLIST = ["./All chapters, Gospel of Matthew, 2025.1.26",
                 "./All chapters, Gospel of John, 2025.1.26"]
 
@@ -96,11 +100,11 @@ def _dictAligner():
         folderPATH = Path(folderSTR)
 
         _txtCreator(folderPATH)
-        all_contentLIST = _readTxt(folderPATH)
+        allContentLIST = _readTxt(folderPATH)
 
-        for contentLIST in all_contentLIST:
+        for contentLIST in allContentLIST:
             for textSTR in contentLIST:
-                if "\t" in textSTR:
+                if "\t" in textSTR: # 找到西拉雅語段落
                     # 處理語料編撰時，不一致問題，像是沒用 tab 分開詞彙，或是多用空格分開了一個字
                     if "  " in textSTR:
                         textSTR = textSTR.replace(" ", "\t")
@@ -111,8 +115,10 @@ def _dictAligner():
     return textLIST
 
 def _checkPairs():
-    """"""
-    textLIST = _dictAligner()
+    """
+    確認所有句子總和是偶數句（西拉雅語 & gloss 句一對一對應），並且每個一對一對應的句子中，詞彙數量一致。
+    """
+    textLIST = _getText()
 
     alignLIST = []
 
@@ -145,7 +151,18 @@ def _checkPairs():
     return alignLIST
 
 def main():
-    """"""
+    """
+    建立一個詞彙字典。
+
+    output:
+        file: globalDICT.json
+
+    globalDICT = {
+                   "iau":["I", "me"],
+                   "makutalum":["curse.AV", "slander.AV"],
+                   ...
+    }
+    """
     alignLIST = _checkPairs()
     globalDICT = defaultdict(set)
 
@@ -176,8 +193,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-    #globalDICT = {
-                   #"iau":["I", "me"],
-                   # "makutalum":["curse.AV", "slander.AV"],
-                   # ...
-    # }

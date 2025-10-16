@@ -8,7 +8,7 @@ import requests
 from pathlib import Path
 from requests import post
 
-verbPat = re.compile(r"[\w\.]+(?=\.AV|-AV|\.PV|-PV|\.LV|-LV|-IV)")
+verbPat = re.compile(r"(?:[\w\.]+(?=\.AV|-AV|\.PV|-PV|\.LV|-LV|-IV|-IRR|-PFV)|(?<=PAST-)[\w\.]+)")  # 以語態、時貌標記找動詞
 
 dataDIR = Path.cwd().parent.parent / "data"
 
@@ -17,7 +17,12 @@ with open(accountPATH, "r", encoding="utf-8") as f:
     accountDICT = json.load(f)
 
 def _verbExtractor():
-    """"""
+    """
+    從 globalDICT 挑出動詞。
+
+    回傳：
+        verbSET
+    """
     dictPATH = dataDIR / "globalDICT.json"
     with open(dictPATH, "r", encoding="utf-8") as f:
         globalDICT = json.load(f)
@@ -34,8 +39,13 @@ def _verbExtractor():
     return verbSET
 
 def _call_LLM(verbSTR):
-    """"""
-    url = "https://nlu.droidtown.co/Loki_EN/Call/" # 英文版
+    """
+    呼叫 LLM 幫我分類動詞的 valency。
+
+    回傳：
+        valencySTR: V1 / V2 / V3
+    """
+    URL = "https://nlu.droidtown.co/Loki_EN/Call/" # 英文版
 
     payload = {
       "username": accountDICT["username"],
@@ -48,7 +58,7 @@ def _call_LLM(verbSTR):
       }
     }
 
-    response = post(url, json=payload)
+    response = post(URL, json=payload)
 
     if response.status_code != 200:
         return f"伺服器問題：{response.status_code}"
@@ -60,8 +70,17 @@ def _call_LLM(verbSTR):
     except requests.exceptions.JSONDecodeError:
         return f"JSON 格式錯誤：{response.text[:200]}"
 
-def verbClassifier():
-    """"""
+def _verbClassifier():
+    """
+    將 LLM 分類的結果紀錄至 valencyDICT。
+
+    回傳：valencyDICT
+
+    valencyDICT = {
+        "come": "V1",
+        "go": "V1",...
+    }
+    """
     verbSET = _verbExtractor()
     valencyDICT = {}
 
@@ -78,10 +97,24 @@ def verbClassifier():
     with open(valencyPATH, "w", encoding="utf-8") as f:
         json.dump(valencyDICT, f, ensure_ascii=False, indent=4)
 
+    return valencyDICT
+
 def main():
-    valencyPATH = dataDIR / "valencyDICT.json"
-    with open(valencyPATH, "r", encoding="utf-8") as f:
-        valencyDICT = json.load(f)
+    """
+    將 valencyDICT 紀錄的英文動詞分類，對照回去西拉雅語動詞。
+
+    寫出：
+        file: verbDICT
+
+    verbDICT = {
+        "mukua": {
+        "come.AV": "V1",
+        "go.AV": "V1"
+        }
+    }
+
+    """
+    valencyDICT = _verbClassifier()
 
     dictPATH = dataDIR / "globalDICT.json"
     with open(dictPATH, "r", encoding="utf-8") as f:
@@ -109,5 +142,4 @@ def main():
         json.dump(verbDICT, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__":
-    #verbClassifier()
     main()
