@@ -83,7 +83,7 @@ def _readTxt(folderPATH):
 
     return allContentLIST
 
-def _getVerse(contentLIST: list) -> list:
+def _getChapter(contentLIST: list) -> list:
     """
     從輸入的內容列表中篩選出包含 "ka" 的句子，如果 ka 位於句首會多拿前一句。
 
@@ -105,7 +105,7 @@ def _getVerse(contentLIST: list) -> list:
             break
     #pprint(tmpLIST)
 
-    verseLIST = []
+    chapterLIST = []
     currentDICT = defaultdict(list)
     for tmp_s in tmpLIST:
         if "\t" in tmp_s:
@@ -133,15 +133,35 @@ def _getVerse(contentLIST: list) -> list:
                     currentDICT["paraphrase"].clear()
                     continue
 
-                verseLIST.append(currentDICT)
+                chapterLIST.append(currentDICT)
                 currentDICT = defaultdict(list)
 
-    #print(verseLIST)
+    #print(chapterLIST)
 
-    return verseLIST
+    return chapterLIST
 
 def checkFormat():
-    """"""
+    """
+    確認 rawData 的格式一致性，以利後續處理。
+    - verse: 兩句一個 pair (siraya -> gloss)、每個 pair 中的詞彙數量要一樣
+    - paraphrase: 兩句 (Chinese, English)
+
+    output:
+    {bookname}_{chapter}.json (e.g. Matthew_1.json / John_1.json ...)
+    [
+        {
+        "verse": [
+            "sirayaSentence",
+            "glossSentence",...
+        ],
+        "paraphrase": [
+            "亞伯拉罕的後裔，大衛的子孫，耶穌基督的家譜．〔後裔子孫原文都作兒子下同〕",
+            "The book of the generation of Jesus Christ, the son of David, the son of Abraham."
+        ],...
+        }
+    ]
+
+    """
     fileDICT = {
         "./All chapters, Gospel of Matthew, 2025.1.26": "Matthew",
         "./All chapters, Gospel of John, 2025.1.26": "John"
@@ -156,10 +176,10 @@ def checkFormat():
         allContentLIST = _readTxt(inputPATH)
 
         for idx, contentLIST in enumerate(allContentLIST, start=1):
-            verseLIST = _getVerse(contentLIST)
-            #pprint(verseLIST)
+            chapterLIST = _getChapter(contentLIST)
+            #pprint(chapterLIST)
 
-            for item_d in verseLIST:
+            for item_d in chapterLIST:
                 if len(item_d["verse"]) % 2 != 0:   # 確保西拉雅語、英文標記有一對一的句子對應
                     raise ValueError(f"列表不是偶數，無法兩兩配對！")
 
@@ -182,50 +202,145 @@ def checkFormat():
 
             jsonFilePATH = outputDIR / f"{outputSTR}_{idx}.json"
             with open(jsonFilePATH, "w", encoding="utf-8") as f:
-                json.dump(verseLIST, f, ensure_ascii=False, indent=4)
+                json.dump(chapterLIST, f, ensure_ascii=False, indent=4)
+
+
+def getKaList():
+    """
+    用標點符號將 verse 斷句，最後輸出僅留下有 ka 的句子。
+
+    output:
+    {bookname}_{chapter}.json (e.g. Matthew_1.json / John_1.json ...)
+    [
+        {
+        "verse": [
+            "sirayaSentence",
+            "glossSentence",...
+        ],
+        "paraphrase": [
+            "亞伯拉罕的後裔，大衛的子孫，耶穌基督的家譜．〔後裔子孫原文都作兒子下同〕",
+            "The book of the generation of Jesus Christ, the son of David, the son of Abraham."
+        ],
+        "kaLIST":[
+            "glossSentence that has the functional word 'ka'"
+        ]
+        }
+    ]
+    """
+    #verseLIST = [
+            #"Sulat ki kavuilan ti Jesus Christus,",
+            #"book OBL lineage GEN Jesus Christ",
+            #"ka na alak ti David,",
+            #"REL PART son GEN David",
+            #"ka na alak ti Abraham.",
+            #"REL PART son GEN Abraham"
+        #]
+
+    ## 方法1.
+    #kaLIST = []
+    #for i in range(0, len(verseLIST), 2):
+        #siraya_s = verseLIST[i]
+        #gloss_s = verseLIST[i+1]
+
+        #if "ka" not in siraya_s:
+            #continue
+
+        ## 單一 verse 中，ka 在句首時，就添加前一行句子，直到不是以 ka 為句首
+        #if re.search(r"^ka", siraya_s):
+            #collectLIST = [gloss_s]
+            #prev_i = i - 2
+            #tmpLIST = []
+
+            #while prev_i >= 0:
+                #prevSiraya_s = verseLIST[prev_i]
+                #prevGloss_s = verseLIST[prev_i + 1]
+
+                #tmpLIST.append(prevGloss_s)
+
+                #if re.search(r"^ka", prevSiraya_s):
+                    #prev_i -= 2
+                #else:
+                    #break
+
+            #collectLIST = list(reversed(tmpLIST)) + collectLIST # 將順序反轉
+
+    #kaLIST.append(" ".join(collectLIST))
+        ##else:
+            ##kaLIST.append(gloss_s)
+    #print(collectLIST)
+
+    #print(kaLIST)
+    #=======
+
+    #方法2.
+    folderLIST = [Path.cwd() / "Matthew", Path.cwd() / "John"]
+    for bookDIR in folderLIST:
+        for jsonFILE in bookDIR.glob("*.json"):
+            with open(jsonFILE, "r", encoding="utf-8") as f:
+                chapterLIST = json.load(f)
+
+            for item_d in chapterLIST:
+                verseLIST = item_d["verse"]
+
+                # step 1: 檢查是否有 "ka"
+                if any("ka" in v_s.lower() for v_s in verseLIST):
+                    print("有 ka 存在")
+
+                    kaLIST = []
+
+                    sirayaLIST = verseLIST[::2]
+                    glossLIST = verseLIST[1::2]
+
+                    # step 2: 將西拉雅語中為 ka 的位置，在英文標記的相同位置換成 ka
+                    newSirayaLIST = []
+                    newGlossLIST = []
+
+                    for s_s, g_s in zip(sirayaLIST, glossLIST):
+                        sirayaWordLIST = s_s.split(" ")
+                        glossWordLIST = g_s.split(" ")
+
+                        for idx, wordSTR in enumerate(sirayaWordLIST):
+                            if wordSTR.lower() == "ka":
+                                glossWordLIST[idx] = "ka"
+
+                        newSirayaLIST.append(" ".join(sirayaWordLIST))
+                        newGlossLIST.append(" ".join(glossWordLIST))
+
+                    # step 3: 用標點符號將 verse 斷句，最後輸出僅留下有 ka 的句子
+                    tmpGlossLIST = []
+                    tmpSirayaSTR = ""
+
+                    for siraya_s, gloss_s in zip(newSirayaLIST, newGlossLIST):
+                        tmpGlossLIST.append(gloss_s)
+                        tmpSirayaSTR += " " + siraya_s  # 用於檢查標點與 ka
+
+                        if re.search(r"[.;:?]$", siraya_s.strip()):
+                            # 若整段西拉雅語中有 ka，保留這一組 gloss
+                            if "ka" in tmpSirayaSTR.lower():
+                                kaLIST.append(" ".join(tmpGlossLIST).strip())
+
+                            # 重置累積
+                            tmpGlossLIST = []
+                            tmpSirayaSTR = ""
+
+                    # 沒有斷句用的標點符號存在於 verse，但是有 ka 存在，就整個當一句。
+                    if tmpGlossLIST and "ka" in tmpSirayaSTR.lower():
+                        kaLIST.append(" ".join(tmpGlossLIST).strip())
+
+                    print(kaLIST)
+                    print()
+                    item_d["kaLIST"] = kaLIST
+
+                else:
+                    print("無 ka 存在")
+                    print()
+                    pass
+
+            with open(jsonFILE, "w", encoding="utf-8") as f:
+                json.dump(chapterLIST, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__":
+    getKaList()
     #checkFormat()
 
-    verseLIST = [
-            "Sulat ki kavuilan ti Jesus Christus,",
-            "book OBL lineage GEN Jesus Christ",
-            "ka na alak ti David,",
-            "REL PART son GEN David",
-            "ka na alak ti Abraham.",
-            "REL PART son GEN Abraham"
-        ]
 
-    kaLIST = []
-    for i in range(0, len(verseLIST), 2):
-        siraya_s = verseLIST[i]
-        gloss_s = verseLIST[i+1]
-
-        if "ka" not in siraya_s:
-            continue
-
-        # 單一 verse 中，ka 在句首時，就添加前一行句子，直到不是以 ka 為句首
-        if re.search(r"^ka", siraya_s):
-            collectLIST = [gloss_s]
-            prev_i = i - 2
-            tmpLIST = []
-
-            while prev_i >= 0:
-                prevSiraya_s = verseLIST[prev_i]
-                prevGloss_s = verseLIST[prev_i + 1]
-
-                tmpLIST.append(prevGloss_s)
-
-                if re.search(r"^ka", prevSiraya_s):
-                    prev_i -= 2
-                else:
-                    break
-
-            collectLIST = list(reversed(tmpLIST)) + collectLIST # 將順序反轉
-
-    kaLIST.append(" ".join(collectLIST))
-        #else:
-            #kaLIST.append(gloss_s)
-    print(collectLIST)
-
-    print(kaLIST)

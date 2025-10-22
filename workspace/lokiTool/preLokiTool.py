@@ -7,7 +7,7 @@ from pathlib import Path
 
 G_wordPat = re.compile(fr"\b[\w\-\.’']+\b")
 
-def siraya2gloss():
+def siraya2gloss(inputSTR):
     """
     當一個西拉雅句進來時，先從 globalDICT 轉成英文標記。再用空格切分。
 
@@ -18,7 +18,6 @@ def siraya2gloss():
     with open(dictPATH, "r", encoding="utf-8") as f:
         globalDICT = json.load(f)
 
-    inputSTR = "Maita ka pataixail-en au matai.nado iau-an, ra matiktik ta pataixail-en au:"
     inputSTR = inputSTR.lower()
     print(f"使用者輸入：")
     print(inputSTR)
@@ -37,6 +36,9 @@ def siraya2gloss():
             outputLIST.append(f"沒找到字")
 
     glossSTR = " ".join(outputLIST)
+    print(f"轉成英文標記：")
+    print(glossSTR)
+    print()
 
     return glossSTR
 
@@ -54,16 +56,18 @@ def main():
     with open(dictPATH, "r", encoding="utf-8") as f:
         udDICT = json.load(f)
 
-    glossSTR = siraya2gloss()
+    # 想要大量轉換要在這裡改 inputSTR
+    inputSTR = "Siaawx ki ana ni-dmarang ta ti Jesus muarux ki vaung ka tu Galilea, ka vaung ki Tiberias."
+    glossSTR = siraya2gloss(inputSTR)
 
     # Step 1: 在 inputSTR 中的 "." or "-" 符號的前後各加上一個空格
+    markerLIST = ["_Mood_", "_Tense_", "_Aspect_", "_CaseMarker_", "_PhiFeatures_", "_VoiceMarker_", "_FuncCategory_", "_PrefixConcord_"]
     for keySTR, valueLIST in udDICT.items():
-        if keySTR == "_asVerb":
-            continue
-        for valueSTR in valueLIST:
-            if "." in valueSTR or "-" in valueSTR:
-                if valueSTR in glossSTR:
-                    glossSTR = glossSTR.replace(valueSTR, f" {valueSTR} ")
+        if keySTR in markerLIST:
+            for valueSTR in valueLIST:
+                if "." in valueSTR or "-" in valueSTR:
+                    if valueSTR in glossSTR:
+                        glossSTR = glossSTR.replace(valueSTR, f" {valueSTR} ")
 
     # Step 2: 如果有兩個空格就替換成一個，並去除開頭空格
     while "  " in glossSTR:
