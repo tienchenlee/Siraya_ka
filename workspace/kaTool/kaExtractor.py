@@ -7,11 +7,12 @@ import re
 from collections import defaultdict
 from docx import Document
 from pathlib import Path
-from requests import post
-from typing import Union
+#from requests import post
+#from typing import Union
 
 G_chiPat = re.compile(r"[\u4e00-\u9fff]")
 G_splitPat = re.compile(r"\s")
+G_verbPat = re.compile(r"(?:[\w\.]+(?=\.AV|-AV|\.PV|-PV|\.LV|-LV|-IV|-IRR|-PFV)|(?<=PAST-)[\w\.]+)")  # 以語態、時貌標記找動詞
 
 def _orderFile(filePATH):
     """
@@ -339,8 +340,56 @@ def getKaList():
             with open(jsonFILE, "w", encoding="utf-8") as f:
                 json.dump(chapterLIST, f, ensure_ascii=False, indent=4)
 
-if __name__ == "__main__":
-    getKaList()
+def kaDictCreator():
+    """
+    把每小節的 kaLIST 的句子拿出來整合成一個 allKaLIST，
+    找到每個句子的第一個動詞，讀取 valencyDICT，根據 valency 分 intent，
+
+    output:
+    kaDICT = {
+        "V1":["sentence", "sentence"],
+        "V2":["sentence", "sentence"],
+        "V3":["sentence", "sentence"]
+    }
+    """
+    allKaLIST = []
+
+    folderLIST = [Path.cwd() / "Matthew", Path.cwd() / "John"]
+    for bookDIR in folderLIST:
+        for jsonFILE in bookDIR.glob("*.json"):
+            with open(jsonFILE, "r", encoding="utf-8") as f:
+                chapterLIST = json.load(f)
+                for item_d in chapterLIST:
+                    if "kaLIST" in item_d.keys():
+                        allKaLIST.extend(item_d["kaLIST"])
+
+    #print(allKaLIST)
+    print(f"總句數：{len(allKaLIST)} 句")
+
+    valencyPATH = Path.cwd().parent.parent / "data" / "valencyDICT.json"
+    with open(valencyPATH, "r", encoding="utf-8") as f:
+        valencyDICT = json.load(f)
+
+    kaDICT = defaultdict(list)
+    for k_s in allKaLIST:
+        match = re.search(G_verbPat, k_s)
+        if match:
+            verbStemSTR = match.group()
+
+            if verbStemSTR in valencyDICT.keys():
+                kaDICT[valencyDICT[verbStemSTR]].append(k_s)
+
+    print(kaDICT)
+    kaDictPATH = Path.cwd().parent.parent / "data" / "kaDICT.json"
+    with open(kaDictPATH, "w", encoding="utf-8") as f:
+        json.dump(kaDICT, f, ensure_ascii=False, indent=4)
+
+def main():
     #checkFormat()
+    getKaList()
+
+
+if __name__ == "__main__":
+    kaDictCreator()
 
 

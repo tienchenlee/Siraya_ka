@@ -114,7 +114,10 @@ def main():
     }
 
     """
-    valencyDICT = _verbClassifier()
+    #valencyDICT = _verbClassifier()
+    valencyPATH = dataDIR / "valencyDICT.json"
+    with open(valencyPATH, "r", encoding="utf-8") as f:
+        valencyDICT = json.load(f)
 
     dictPATH = dataDIR / "globalDICT.json"
     with open(dictPATH, "r", encoding="utf-8") as f:
@@ -136,10 +139,19 @@ def main():
         if subDICT:
             verbDICT[keySTR] = subDICT
 
-    print(verbDICT)
+    print(f"寫出 verbDICT...")
     verbPATH = dataDIR / "verbDICT.json"
     with open(verbPATH, "w", encoding="utf-8") as f:
         json.dump(verbDICT, f, ensure_ascii=False, indent=4)
+
+    #with open(verbPATH, "r", encoding="utf-8") as f:
+        #verbDICT = json.load(f)
+
+    for keySTR, valueDICT in verbDICT.items():
+        if len(valueDICT) > 1:  # 只有大於 1 個 gloss 才有可能有 valency 不一致問題
+            valencySET = set(valueDICT.values())
+            if len(valencySET) > 1:
+                print(f"動詞 {keySTR} 的 valency 不一致: {valencySET}")
 
 if __name__ == "__main__":
     main()

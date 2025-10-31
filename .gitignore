@@ -180,6 +180,7 @@ John
 /data/alignLIST.json
 /data/globalDICT.json
 /data/verbDICT.json
+/data/kaDICT.json
 
 #init
 __init__.py

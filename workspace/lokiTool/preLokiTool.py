@@ -42,7 +42,7 @@ def siraya2gloss(inputSTR):
 
     return glossSTR
 
-def main():
+def udFilter(glossSTR):
     """
     依據自定義辭典 udDICT，處理 glossSTR 的字串。
 
@@ -52,13 +52,9 @@ def main():
     回傳：
         outputSTR (str):進入 loki 的字串 (for either create utterance or test utterance)。
     """
-    dictPATH = Path.cwd().parent.parent / "corpus" / "USER_DEFINED.json"
-    with open(dictPATH, "r", encoding="utf-8") as f:
+    udPATH = Path.cwd().parent.parent / "data" / "userDefined.json"
+    with open(udPATH, "r", encoding="utf-8") as f:
         udDICT = json.load(f)
-
-    # 想要大量轉換要在這裡改 inputSTR
-    inputSTR = "Siaawx ki ana ni-dmarang ta ti Jesus muarux ki vaung ka tu Galilea, ka vaung ki Tiberias."
-    glossSTR = siraya2gloss(inputSTR)
 
     # Step 1: 在 inputSTR 中的 "." or "-" 符號的前後各加上一個空格
     markerLIST = ["_Mood_", "_Tense_", "_Aspect_", "_CaseMarker_", "_PhiFeatures_", "_VoiceMarker_", "_FuncCategory_", "_PrefixConcord_"]
@@ -78,6 +74,13 @@ def main():
     print(f"loki 輸入句：")
     print(outputSTR)
     return outputSTR
+
+def main():
+    """"""
+    # example:
+    inputSTR = "Siaawx ki ana ni-dmarang ta ti Jesus muarux ki vaung ka tu Galilea, ka vaung ki Tiberias."
+    glossSTR = siraya2gloss(inputSTR)
+    udFilter(glossSTR)
 
 if __name__ == "__main__":
     main()
