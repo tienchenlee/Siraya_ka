@@ -3,10 +3,12 @@
 
 import json
 
-from requests import post
+from math import ceil
 from pathlib import Path
 from pprint import pprint
 from preLokiTool import udFilter
+from requests import post
+from time import sleep
 
 lokiURL = "https://nlu.droidtown.co/Loki_EN/Call/"
 
@@ -48,20 +50,31 @@ def insertUtterance():
     with open(kaDictPATH, "r", encoding="utf-8") as f:
         kaDICT = json.load(f)
 
+    BATCH_SIZE = 20 # 每次送 20 筆
     for valencySTR, kaLIST in kaDICT.items():
-        print(f"句型：{(kaLIST[:5])}")
-        payload = {
-            "username" : accountDICT["username"],
-            "loki_key" : accountDICT["loki_key"],
-            "project": "Siraya_ka", #專案名稱
-            "intent": valencySTR, #意圖名稱
-            "func": "insert_utterance",
-            "data": {
-                "utterance": [udFilter(item_s) for item_s in kaLIST[:5]] # 小測資
+        batchesINT = ceil(len(kaLIST) / BATCH_SIZE) # 計算要送幾批
+        print(f"意圖：{valencySTR}，總共 {len(kaLIST)} 筆，分成 {num_batches} 批")
+
+        for i in range(batchesINT):
+            start = i * BATCH_SIZE
+            end = start + BATCH_SIZE
+            batchLIST = kaLIST[start:end]
+            utteranceLIST = [udFilter(item_s) for item_s in batchLIST]  # udFilter 為進入 loki 的字串前處理
+
+            payload = {
+                "username" : accountDICT["username"],
+                "loki_key" : accountDICT["loki_key"],
+                "project": "Siraya_ka", #專案名稱
+                "intent": valencySTR, #意圖名稱
+                "func": "insert_utterance",
+                "data": {
+                    "utterance": utteranceLIST
+                    #[udFilter(item_s) for item_s in kaLIST[:5]] # 小測資
+                }
             }
-        }
-        response = post(lokiURL, json=payload).json()
-        pprint(response)
+            response = post(lokiURL, json=payload).json()
+            pprint(response)
+            sleep(0.5)
 
 if __name__ == "__main__":
     updateUserDefined()
