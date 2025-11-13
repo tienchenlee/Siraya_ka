@@ -181,6 +181,8 @@ John
 /data/globalDICT.json
 /data/verbDICT.json
 /data/kaDICT.json
+/data/kaLIST.json
+/data/ansLIST.json
 
 #init
 __init__.py

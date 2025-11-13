@@ -288,6 +288,7 @@ def getKaList():
                     print("有 ka 存在")
 
                     kaLIST = []
+                    ansLIST = []
 
                     sirayaLIST = verseLIST[::2]
                     glossLIST = verseLIST[1::2]
@@ -295,6 +296,7 @@ def getKaList():
                     # step 2: 將西拉雅語中為 ka 的位置，在英文標記的相同位置換成 ka
                     newSirayaLIST = []
                     newGlossLIST = []
+                    newAnsLIST = []  # ansLIST 對齊斷句用
 
                     for s_s, g_s in zip(sirayaLIST, glossLIST):
                         sirayaWordLIST = s_s.split(" ")
@@ -302,35 +304,44 @@ def getKaList():
 
                         for idx, wordSTR in enumerate(sirayaWordLIST):
                             if re.search(r"\bka\b", wordSTR.lower()):
-                                glossWordLIST[idx] = "ka"
+                                if glossWordLIST[idx] in ["REL", "COMP", "and", "And"]:     #如果只先處理這三種
+                                    glossWordLIST[idx] = "ka"
 
                         newSirayaLIST.append(" ".join(sirayaWordLIST))
                         newGlossLIST.append(" ".join(glossWordLIST))
+                        newAnsLIST.append(" ".join(g_s.split(" ")))
 
                     # step 3: 用標點符號將 verse 斷句，最後輸出僅留下有 ka 的句子
                     tmpGlossLIST = []
                     tmpSirayaSTR = ""
 
-                    for siraya_s, gloss_s in zip(newSirayaLIST, newGlossLIST):
-                        tmpGlossLIST.append(gloss_s)    # 收集此次 verse 的 gloss
+                    tmpAnsLIST = []
+
+                    for siraya_s, gloss_s, ans_s in zip(newSirayaLIST, newGlossLIST, glossLIST):
+                        tmpGlossLIST.append(gloss_s)    # 收集此次 verse 的 gloss (替換成 ka)
                         tmpSirayaSTR += " " + siraya_s  # 收集此次 verse 的 siraya
+                        tmpAnsLIST.append(ans_s)        # 收集此次 verse 的 gloss (答案)
 
                         if re.search(r"[.:;?]$", siraya_s.strip()):
                             # 這一句結束，現在來看這一句裡有沒有 ka，若整段西拉雅語中有 ka，保留這一組 gloss
                             if re.search(r"\bka\b", tmpSirayaSTR.lower()):
                                 kaLIST.append(" ".join(tmpGlossLIST).strip())
+                                ansLIST.append(" ".join(tmpAnsLIST).strip())
 
                             # 重置累積
                             tmpGlossLIST = []
                             tmpSirayaSTR = ""
+                            tmpAnsLIST = []
 
                     # 沒有斷句用的標點符號存在於 verse，但是有 ka 存在，就整個當一句。
                     if tmpGlossLIST and re.search(r"\bka\b", tmpSirayaSTR.lower()):
                         kaLIST.append(" ".join(tmpGlossLIST).strip())
+                        ansLIST.append(" ".join(tmpAnsLIST).strip())
 
                     print(kaLIST)
                     print()
                     item_d["kaLIST"] = kaLIST
+                    item_d["ansLIST"] = ansLIST
 
                 else:
                     print("無 ka 存在")
@@ -353,6 +364,7 @@ def kaDictCreator():
     }
     """
     allKaLIST = []
+    allAnsLIST = []
 
     folderLIST = [Path.cwd() / "Matthew", Path.cwd() / "John"]
     for bookDIR in folderLIST:
@@ -362,27 +374,38 @@ def kaDictCreator():
                 for item_d in chapterLIST:
                     if "kaLIST" in item_d.keys():
                         allKaLIST.extend(item_d["kaLIST"])
+                    if "ansLIST" in item_d.keys():
+                        allAnsLIST.extend(item_d["ansLIST"])
 
     #print(allKaLIST)
-    print(f"總句數：{len(allKaLIST)} 句")
+    print(f"input：{len(allKaLIST)} 句")
+    print(f"ans：{len(allAnsLIST)} 句")
 
-    valencyPATH = Path.cwd().parent.parent / "data" / "valencyDICT.json"
-    with open(valencyPATH, "r", encoding="utf-8") as f:
-        valencyDICT = json.load(f)
+    #valencyPATH = Path.cwd().parent.parent / "data" / "valencyDICT.json"
+    #with open(valencyPATH, "r", encoding="utf-8") as f:
+        #valencyDICT = json.load(f)
 
-    kaDICT = defaultdict(list)
-    for k_s in allKaLIST:
-        match = re.search(G_verbPat, k_s)
-        if match:
-            verbStemSTR = match.group()
+    #kaDICT = defaultdict(list)
+    #for k_s in allKaLIST:
+        #match = re.search(G_verbPat, k_s)
+        #if match:
+            #verbStemSTR = match.group()
 
-            if verbStemSTR in valencyDICT.keys():
-                kaDICT[valencyDICT[verbStemSTR]].append(k_s)
+            #if verbStemSTR in valencyDICT.keys():
+                #kaDICT[valencyDICT[verbStemSTR]].append(k_s)
 
     #print(kaDICT)
-    kaDictPATH = Path.cwd().parent.parent / "data" / "kaDICT.json"
-    with open(kaDictPATH, "w", encoding="utf-8") as f:
-        json.dump(kaDICT, f, ensure_ascii=False, indent=4)
+    #kaDictPATH = Path.cwd().parent.parent / "data" / "kaDICT.json"
+    #with open(kaDictPATH, "w", encoding="utf-8") as f:
+        #json.dump(kaDICT, f, ensure_ascii=False, indent=4)
+
+    kaListPATH = Path.cwd().parent.parent / "data" / "kaLIST.json"
+    with open(kaListPATH, "w", encoding="utf-8") as f:
+        json.dump(allKaLIST, f, ensure_ascii=False, indent=4)
+
+    ansListPATH = Path.cwd().parent.parent / "data" / "ansLIST.json"
+    with open(ansListPATH, "w", encoding="utf-8") as f:
+        json.dump(allAnsLIST, f, ensure_ascii=False, indent=4)
 
 def kaDictChecker():
     """
@@ -398,7 +421,7 @@ def kaDictChecker():
                 raise ValueError(f"此句不存在 ka！請檢查 rawData 以及 getKaList() 演算法")
 
 def main():
-    #checkFormat()
+    checkFormat()
     getKaList()
     kaDictCreator()
     kaDictChecker()
