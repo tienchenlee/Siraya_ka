@@ -18,7 +18,7 @@ def siraya2gloss(inputSTR):
     with open(dictPATH, "r", encoding="utf-8") as f:
         globalDICT = json.load(f)
 
-    inputSTR = inputSTR.lower()
+    #inputSTR = inputSTR.lower()
     print(f"使用者輸入：")
     print(inputSTR)
     print()
@@ -29,8 +29,8 @@ def siraya2gloss(inputSTR):
     for sirayaSTR in inputLIST:
         if sirayaSTR.lower() == "ka":
             outputLIST.append("ka")
-        elif sirayaSTR in globalDICT.keys():
-            outputSTR = globalDICT[sirayaSTR][0]
+        elif sirayaSTR.lower() in globalDICT.keys():
+            outputSTR = globalDICT[sirayaSTR.lower()][0]
             outputLIST.append(outputSTR)
         else:
             outputLIST.append(f"沒找到字")
@@ -78,9 +78,9 @@ def udFilter(glossSTR):
 def main():
     """"""
     # example:
-    inputSTR = "Siaawx ki ana ni-dmarang ta ti Jesus muarux ki vaung ka tu Galilea, ka vaung ki Tiberias."
-    glossSTR = siraya2gloss(inputSTR)
-    udFilter(glossSTR)
+    inputSTR = "PAST-drive.out-PV he.GEN OBL word NOM spirit ka evil.AV"
+    #glossSTR = siraya2gloss(inputSTR)
+    udFilter(inputSTR)
 
 if __name__ == "__main__":
     main()

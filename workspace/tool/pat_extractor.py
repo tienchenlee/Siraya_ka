@@ -53,6 +53,7 @@ def main(inputSTR):
     outputSTR = outputSTR.replace("|VerbP)", "").replace("(ACTION_verb", "ACTION_verb")
     outputSTR = outputSTR.replace("|ModifierP)", "").replace("(MODIFIER", "MODIFIER")
     outputSTR = outputSTR.replace("(<", "(?:<")
+    outputSTR = outputSTR.replace("_(", "_(?:")
 
     return outputSTR
 
