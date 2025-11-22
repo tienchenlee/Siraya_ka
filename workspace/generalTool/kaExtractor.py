@@ -7,8 +7,7 @@ import re
 from collections import defaultdict
 from docx import Document
 from pathlib import Path
-#from requests import post
-#from typing import Union
+from preLokiTool import udFilter
 
 G_chiPat = re.compile(r"[\u4e00-\u9fff]")
 G_splitPat = re.compile(r"\s")
@@ -398,6 +397,9 @@ def kaDictCreator():
     #kaDictPATH = Path.cwd().parent.parent / "data" / "kaDICT.json"
     #with open(kaDictPATH, "w", encoding="utf-8") as f:
         #json.dump(kaDICT, f, ensure_ascii=False, indent=4)
+
+    allKaLIST = [udFilter(sentenceSTR) for sentenceSTR in allKaLIST]
+    allAnsLIST = [udFilter(sentenceSTR) for sentenceSTR in allAnsLIST]
 
     kaListPATH = Path.cwd().parent.parent / "data" / "kaLIST.json"
     with open(kaListPATH, "w", encoding="utf-8") as f:
