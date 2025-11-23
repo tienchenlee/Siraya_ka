@@ -61,6 +61,11 @@ def main():
     print(f"and: {len(andLIST)} 個")
     print(f"total: {len(targetLIST)} 個")
 
+    if len(relLIST) + len(compLIST) + len(andLIST) == len(targetLIST):
+        print(f"正解與測資的 ka 數量一致")
+    else:
+        raise ValueError(f"正解與測資的 ka 數量不一致，請檢查 ansLIST、kaLIST")
+
     ansDIR = Path.cwd().parent.parent / "data" / "answer"
     ansDIR.mkdir(exist_ok=True, parents=True)
 

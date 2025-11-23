@@ -21,6 +21,7 @@ from importlib.util import spec_from_file_location
 from random import sample
 import json
 import os
+import re
 
 INTENT_NAME = "V3"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -86,6 +87,26 @@ def getReply(utterance, args):
 
     return replySTR
 
+def _getKaIdx(inputSTR, utterPat, targetArgINT):
+    """
+    1. Articut inputSTR
+    2. Get the string that before the target 'ka'
+    3. Count the index of 'ka'
+    4. Return the index
+    """
+    engArticut = ARTICUT.parse(inputSTR, USER_DEFINED_FILE)
+    if engArticut["status"] == True:
+        inputPosSTR = engArticut["result_pos"][0].replace(" ", "")
+
+    kaIdxLIST = []
+
+    for k_t in [(k.start(targetArgINT+1), k.end(targetArgINT+1), k.group(targetArgINT+1)) for k in utterPat.finditer(inputPosSTR)]:
+        kaIdxLIST.append(k_t)
+
+    targetKaIdx = inputPosSTR[:kaIdxLIST[0][0]].count("</")
+
+    return targetKaIdx
+
 getResponse = getReply
 def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolkitDICT={}):
     debugInfo(inputSTR, utterance)
@@ -96,9 +117,18 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["response"] = replySTR
                 resultDICT["source"] = "reply"
         else:
-            if args[4] == "ka":
-                resultDICT["REL"].append({"V3": True})
+            targetArgLIST = [4]     # 在 Loki 上為第幾個 arg
+            REL = False
 
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    REL = True
+
+            if REL:
+                resultDICT["REL"].append({INTENT_NAME: True})
 
     if utterance == "PAST- give .AV NOM DET Moses you .PL -OBL OBL bread ka from-heaven .AV":
         if CHATBOT:
@@ -107,9 +137,18 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["response"] = replySTR
                 resultDICT["source"] = "reply"
         else:
-            if args[4] == "ka":
-                resultDICT["REL"].append({"V3": True})
+            targetArgLIST = [4]     # 在 Loki 上為第幾個 arg
+            REL = False
 
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    REL = True
+
+            if REL:
+                resultDICT["REL"].append({INTENT_NAME: True})
 
     return resultDICT
 
