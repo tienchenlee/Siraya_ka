@@ -6,8 +6,11 @@ import re
 from pathlib import Path
 
 G_kaPat = re.compile(r"\bka\b")
+G_ansDIR = Path.cwd().parent.parent / "data" / "answer"
+G_ansDIR.mkdir(exist_ok=True, parents=True)
+G_predictionDIR = Path.cwd().parent.parent / "data" / "training"
 
-def main():
+def createAnswer():
     """
     將 kaLIST 與 ansLIST 各自分詞（以空白分割），逐詞比對：
     若 Siraya 詞為 "ka"，則檢查 ansLIST 中相同詞位的對應標記：
@@ -66,20 +69,44 @@ def main():
     else:
         raise ValueError(f"正解與測資的 ka 數量不一致，請檢查 ansLIST、kaLIST")
 
-    ansDIR = Path.cwd().parent.parent / "data" / "answer"
-    ansDIR.mkdir(exist_ok=True, parents=True)
-
-    with open(ansDIR / "REL.json", "w", encoding="utf-8") as f:
+    with open(G_ansDIR / "REL.json", "w", encoding="utf-8") as f:
         json.dump(relLIST, f, ensure_ascii=False, indent=4)
 
-    with open(ansDIR / "COMP.json", "w", encoding="utf-8") as f:
+    with open(G_ansDIR / "COMP.json", "w", encoding="utf-8") as f:
         json.dump(compLIST, f, ensure_ascii=False, indent=4)
 
-    with open(ansDIR / "and.json", "w", encoding="utf-8") as f:
+    with open(G_ansDIR / "and.json", "w", encoding="utf-8") as f:
         json.dump(andLIST, f, ensure_ascii=False, indent=4)
 
     return None
 
+def getCoverage():
+    """
+    計算模型句型覆蓋率。
+    比對 Prediction 與 Answer 中的 ka_index。
+    """
+    with open(G_ansDIR / "REL.json", "r", encoding="utf-8") as f:
+        relAnsLIST = json.load(f)
+
+    with open(G_predictionDIR / "REL.json", "r", encoding="utf-8") as f:
+        relPredictionLIST = json.load(f)
+
+    relPreLIST = []
+    for item_d in relPredictionLIST:
+        ka_index = item_d["ka_index"]
+        relPreLIST.append(ka_index)
+
+    match = 0
+    unmatch = 0
+    for item_l in relPreLIST:
+        if item_l in relAnsLIST:
+            match += 1
+        else:
+            unmatch += 1
+
+    coverage = (match / (match + unmatch)) * 100
+    print(f"REL 覆蓋率：{coverage:.2f}%")
 
 if __name__ == "__main__":
-    main()
+    #createAnswer()
+    getCoverage()
