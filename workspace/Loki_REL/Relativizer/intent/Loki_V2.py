@@ -270,6 +270,146 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
             if REL:
                 resultDICT["REL"].append({INTENT_NAME: True})
 
+    if utterance == "teach .AV OBL doctrine ka PART commandment OBL man":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [2]     # 在 Loki 上為第幾個 arg
+            REL = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    REL = True
+
+            if REL:
+                resultDICT["REL"].append({INTENT_NAME: True})
+
+    if utterance == "guide ka blind .AV strain -PV you .PL .GEN NOM mosquito":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [1]     # 在 Loki 上為第幾個 arg
+            REL = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    REL = True
+
+            if REL:
+                resultDICT["REL"].append({INTENT_NAME: True})
+
+    if utterance == "NOM greet -PV also LOC public.place ka gather .PV he .GEN":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [1]     # 在 Loki 上為第幾個 arg
+            REL = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    REL = True
+
+            if REL:
+                resultDICT["REL"].append({INTENT_NAME: True})
+
+    if utterance == "have -LV .IRR I .GEN OBL life ka always .AV be.lasting .AV":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [3]     # 在 Loki 上為第幾個 arg
+            REL = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    REL = True
+
+            if REL:
+                resultDICT["REL"].append({INTENT_NAME: True})
+
+    if utterance == "swear -PV he .GEN OBL it anything also ka at.top -PV -PFV there":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [3]     # 在 Loki 上為第幾個 arg
+            REL = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    REL = True
+
+            if REL:
+                resultDICT["REL"].append({INTENT_NAME: True})
+
+    if utterance == "anyone also ka would enter .PV not you .PL .GEN allow -PV let.enter .AV NOM they":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [1]     # 在 Loki 上為第幾個 arg
+            REL = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    REL = True
+
+            if REL:
+                resultDICT["REL"].append({INTENT_NAME: True})
+
+    if utterance == "you .PL ka serpent ka PAST- brood OBL viper escape .AV -IRR you .PL .NOM how OBL curse OBL hell":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [1]     # 在 Loki 上為第幾個 arg
+            REL = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    REL = True
+
+            if REL:
+                resultDICT["REL"].append({INTENT_NAME: True})
+
     return resultDICT
 
 
