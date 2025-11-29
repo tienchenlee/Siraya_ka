@@ -92,19 +92,25 @@ def getCoverage():
         relPredictionLIST = json.load(f)
 
     relPreLIST = []
+    relPreSET = set()
     for item_d in relPredictionLIST:
-        ka_index = item_d["ka_index"]
-        relPreLIST.append(ka_index)
+        ka_indexLIST = item_d["ka_index"]
+        utter_index = item_d["utter_index"][0]
+        for ka_index in ka_indexLIST:
+            item = (utter_index, ka_index)
+            if item not in relPreSET:
+                relPreLIST.append([utter_index, ka_index])
+                relPreSET.add(item)
+
+    print(relPreLIST)
 
     match = 0
-    unmatch = 0
     for item_l in relPreLIST:
         if item_l in relAnsLIST:
             match += 1
-        else:
-            unmatch += 1
 
-    coverage = (match / (match + unmatch)) * 100
+    total = len(relAnsLIST)
+    coverage = (match / total) * 100
     print(f"REL 覆蓋率：{coverage:.2f}%")
 
 if __name__ == "__main__":

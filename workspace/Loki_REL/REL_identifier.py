@@ -2,10 +2,9 @@
 # -*- coding:utf-8 -*-
 
 import json
+import logging
 from Relativizer.main import askLoki
 from preLokiTool import udFilter
-from pathlib import Path
-import logging
 from pathlib import Path
 
 logging.basicConfig(
@@ -21,7 +20,8 @@ def main(inputSTR, utterIdx):
     """"""
     refDICT = {"inputSTR": [inputSTR],
                "REL": [],
-               "ka_index": [utterIdx]}
+               "ka_index": [],
+               "utter_index": [utterIdx]}
 
 
     resultDICT = askLoki(inputSTR, refDICT=refDICT)
@@ -33,13 +33,13 @@ if __name__ == "__main__":
         kaLIST = json.load(f)
 
     resultLIST = []
-    for utterIdx, inputSTR in enumerate(kaLIST[:200]):
+    for utterIdx, inputSTR in enumerate(kaLIST[:400]):
         resultDICT = main(inputSTR, utterIdx)
         print(resultDICT)
         print()
         resultLIST.append(resultDICT)
 
-    print(resultLIST)
+    #print(resultLIST)
 
     predictionDIR = Path.cwd().parent.parent / "data" / "training"
     predictionDIR.mkdir(exist_ok=True, parents=True)
