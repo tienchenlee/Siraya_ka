@@ -2003,6 +2003,9 @@
         "Xanthicus",
         "Ziv"
     ],
+    "_Negation_": [
+        "NEG"
+    ],
     "ENTITY_noun": [
         "Almighty God",
         "Amorite",
@@ -2070,6 +2073,7 @@
         "pine trees",
         "pines",
         "repayment offerings",
+        "synagogue-your",
         "watermelons"
     ],
     "TIME_holiday": [

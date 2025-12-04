@@ -67,3 +67,4 @@ def updateUd():
 if __name__ == "__main__":
     updateRegexVar()
     updateUd()
+    print(f"記得更新 ka 在不同 project 的 capturing group!")
