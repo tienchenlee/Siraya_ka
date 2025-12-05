@@ -107,7 +107,7 @@ def _getKaIdx(inputSTR, utterPat, targetArgINT):
     if kaIdxLIST:
         targetKaIdx = inputPosSTR[:kaIdxLIST[0][0]].count("</")
     else:
-        logging.error(f"找不到 kaIdxLIST")
+        logging.error(f"找不到 kaIdxLIST: {inputSTR}")
         return -1
 
     return targetKaIdx
@@ -123,16 +123,16 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["source"] = "reply"
         else:
             targetArgLIST = [2]     # 在 Loki 上為第幾個 arg
-            REL = False
+            COMP = False
 
             for targetArgINT in targetArgLIST:
                 if args[targetArgINT] == "ka":
                     utterPat = re.compile(pattern)
                     targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
                     resultDICT["ka_index"].append(targetKaIdx)
-                    REL = True
+                    COMP = True
 
-            if REL:
+            if COMP:
                 resultDICT["COMP"].append({INTENT_NAME: True})
 
     if utterance == "speak -PV I .GEN you .PL .NOM ka not so .AV PAST- PC. beautiful .AV cause.dress .AV NOM DET Solomon LOC all OBL greatness OBL status his same .AV OBL one OBL it":
@@ -143,16 +143,36 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["source"] = "reply"
         else:
             targetArgLIST = [3]     # 在 Loki 上為第幾個 arg
-            REL = False
+            COMP = False
 
             for targetArgINT in targetArgLIST:
                 if args[targetArgINT] == "ka":
                     utterPat = re.compile(pattern)
                     targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
                     resultDICT["ka_index"].append(targetKaIdx)
-                    REL = True
+                    COMP = True
 
-            if REL:
+            if COMP:
+                resultDICT["COMP"].append({INTENT_NAME: True})
+
+    if utterance == "again -PV I .GEN you .PL .NOM speak .AV ka more .AV be.able NOM large.animal ka heavy .AV OBL back go.through .AV LOC hole OBL needle":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [3]     # 在 Loki 上為第幾個 arg
+            COMP = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    COMP = True
+
+            if COMP:
                 resultDICT["COMP"].append({INTENT_NAME: True})
 
     return resultDICT

@@ -85,33 +85,41 @@ def getCoverage():
     計算模型句型覆蓋率。
     比對 Prediction 與 Answer 中的 ka_index。
     """
-    with open(G_ansDIR / "REL.json", "r", encoding="utf-8") as f:
-        relAnsLIST = json.load(f)
+    functionLIST = [
+        #"REL",
+        "COMP",
+        #"and"
+    ]
 
-    with open(G_predictionDIR / "REL.json", "r", encoding="utf-8") as f:
-        relPredictionLIST = json.load(f)
+    for functionSTR in functionLIST:
 
-    relPreLIST = []
-    relPreSET = set()
-    for item_d in relPredictionLIST:
-        ka_indexLIST = item_d["ka_index"]
-        utter_index = item_d["utter_index"][0]
-        for ka_index in ka_indexLIST:
-            item = (utter_index, ka_index)
-            if item not in relPreSET:
-                relPreLIST.append([utter_index, ka_index])
-                relPreSET.add(item)
+        with open(f"{G_ansDIR}/{functionSTR}.json", "r", encoding="utf-8") as f:
+            answerLIST = json.load(f)
 
-    print(relPreLIST)
+        with open(f"{G_predictionDIR}/{functionSTR}.json", "r", encoding="utf-8") as f:
+            predictionLIST = json.load(f)
 
-    match = 0
-    for item_l in relPreLIST:
-        if item_l in relAnsLIST:
-            match += 1
+        indexPredictionLIST = []
+        indexPredictionSET = set()
+        for item_d in predictionLIST:
+            ka_indexLIST = item_d["ka_index"]
+            utter_index = item_d["utter_index"][0]
+            for ka_index in ka_indexLIST:
+                item = (utter_index, ka_index)
+                if item not in indexPredictionSET:
+                    indexPredictionLIST.append([utter_index, ka_index])
+                    indexPredictionSET.add(item)
 
-    total = len(relAnsLIST)
-    coverage = (match / total) * 100
-    print(f"REL 覆蓋率：{coverage:.2f}%")
+        print(indexPredictionLIST)
+
+        match = 0
+        for item_l in indexPredictionLIST:
+            if item_l in answerLIST:
+                match += 1
+
+        total = len(answerLIST)
+        coverage = (match / total) * 100
+        print(f"{functionSTR} 覆蓋率：{coverage:.2f}%")
 
 if __name__ == "__main__":
     #createAnswer()
