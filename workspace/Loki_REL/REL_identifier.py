@@ -3,7 +3,7 @@
 
 import json
 import logging
-from Relativizer.main import askLoki
+from Loki_REL.Relativizer.main import askLoki
 from preLokiTool import udFilter
 from pathlib import Path
 
@@ -47,10 +47,10 @@ if __name__ == "__main__":
     with open(predictionDIR / "REL.json", "w", encoding="utf-8") as f:
         json.dump(resultLIST, f, ensure_ascii=False, indent=4)
 
-    #<單筆測試>
+    ##<單筆測試>
     #inputSTR ="when ka see-LV they.GEN NOM star then PAST-joyful.AV NOM they OBL joy ka exceeding.AV great.AV"
 
     #filterSTR = udFilter(inputSTR)
     #resultDICT = main(filterSTR, 0)  # 預設句子 index = 0
     #print(resultDICT)
-    #</單筆測試>
+    ##</單筆測試>

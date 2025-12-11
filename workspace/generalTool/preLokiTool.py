@@ -5,6 +5,7 @@ import json
 import re
 from pathlib import Path
 
+basePATH = Path(__file__).resolve()
 G_wordPat = re.compile(fr"\b[\w\-\.’']+\b")
 
 def siraya2gloss(inputSTR):
@@ -52,7 +53,7 @@ def udFilter(glossSTR):
     回傳：
         outputSTR (str):進入 loki 的字串 (for either create utterance or test utterance)。
     """
-    udPATH = Path.cwd().parent.parent / "data" / "userDefined.json"
+    udPATH = basePATH.parent.parent.parent / "data" / "userDefined.json"
     with open(udPATH, "r", encoding="utf-8") as f:
         udDICT = json.load(f)
 
@@ -73,6 +74,7 @@ def udFilter(glossSTR):
 
     print(f"loki 輸入句：")
     print(outputSTR)
+    print()
     return outputSTR
 
 def main():

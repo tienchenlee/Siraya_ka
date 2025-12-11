@@ -3,7 +3,7 @@
 
 import json
 import logging
-from Coordinator.main import askLoki
+from Loki_and.Coordinator.main import askLoki
 from preLokiTool import udFilter
 from pathlib import Path
 

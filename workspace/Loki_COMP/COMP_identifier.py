@@ -3,7 +3,7 @@
 
 import json
 import logging
-from Complementizer.main import askLoki
+from Loki_COMP.Complementizer.main import askLoki
 from preLokiTool import udFilter
 from pathlib import Path
 from time import sleep
