@@ -106,7 +106,7 @@ def _getKaIdx(inputSTR, utterPat, targetArgINT):
     if kaIdxLIST:
         targetKaIdx = inputPosSTR[:kaIdxLIST[0][0]].count("</")
     else:
-        logging.error(f"找不到 kaIdxLIST")
+        logging.error(f"找不到 kaIdxLIST: {inputSTR}")
         return -1
 
     return targetKaIdx

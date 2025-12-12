@@ -162,7 +162,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["response"] = replySTR
                 resultDICT["source"] = "reply"
         else:
-            targetArgLIST = [3]     # 在 Loki 上為第幾個 arg
+            targetArgLIST = [0]     # 在 Loki 上為第幾個 arg
             COMP = False
 
             for targetArgINT in targetArgLIST:
