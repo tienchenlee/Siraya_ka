@@ -8,14 +8,15 @@ from pathlib import Path
 G_kaPat = re.compile(r"\bka\b")
 G_ansDIR = Path.cwd().parent.parent / "data" / "answer"
 G_ansDIR.mkdir(exist_ok=True, parents=True)
-G_predictionDIR = Path.cwd().parent.parent / "data" / "training"
+G_predictionDIR = Path.cwd().parent.parent / "data" / "prediction"
+G_predictionDIR.mkdir(exist_ok=True, parents=True)
 
 def createAnswer():
     """
     將 kaLIST 與 ansLIST 各自分詞（以空白分割），逐詞比對：
     若 Siraya 詞為 "ka"，則檢查 ansLIST 中相同詞位的對應標記：
-    - 若為 "REL" → 加入 relLIST
-    - 若為 "COMP" → 加入 compLIST
+    - 若為 "REL" → 加入 RELLIST
+    - 若為 "COMP" → 加入 COMPLIST
     - 若為 "AND" 或 "and" → 加入 andLIST
 
     output:
@@ -40,8 +41,8 @@ def createAnswer():
         for m in re.finditer(G_kaPat, s):
             targetLIST.append((i, m.start(), m.end()))
 
-    relLIST = []
-    compLIST = []
+    RELLIST = []
+    COMPLIST = []
     andLIST = []
 
     kaWordLIST = [s.split() for s in kaLIST]
@@ -53,74 +54,121 @@ def createAnswer():
                 ansSTR = ans_s[word_i]  # 對應 ansLIST 同位置的 word
 
                 if ansSTR == "REL":
-                    relLIST.append([string_i, word_i])
+                    RELLIST.append([string_i, word_i])
                 elif ansSTR == "COMP":
-                    compLIST.append([string_i, word_i])
+                    COMPLIST.append([string_i, word_i])
                 elif ansSTR.lower() == "and":
                     andLIST.append([string_i, word_i])
 
-    print(f"REL: {len(relLIST)} 個")
-    print(f"COMP: {len(compLIST)} 個")
+    print(f"COMP: {len(COMPLIST)} 個")
     print(f"and: {len(andLIST)} 個")
+    print(f"REL: {len(RELLIST)} 個")
     print(f"total: {len(targetLIST)} 個")
 
-    if len(relLIST) + len(compLIST) + len(andLIST) == len(targetLIST):
+    if len(RELLIST) + len(COMPLIST) + len(andLIST) == len(targetLIST):
         print(f"正解與測資的 ka 數量一致")
+        print(f"================================")
     else:
-        raise ValueError(f"正解與測資的 ka 數量不一致，請檢查 ansLIST、kaLIST")
+        raise ValueError(f"!!!正解與測資的 ka 數量不一致，請檢查 ansLIST、kaLIST!!!")
 
     with open(G_ansDIR / "REL.json", "w", encoding="utf-8") as f:
-        json.dump(relLIST, f, ensure_ascii=False, indent=4)
+        json.dump(RELLIST, f, ensure_ascii=False, indent=4)
 
     with open(G_ansDIR / "COMP.json", "w", encoding="utf-8") as f:
-        json.dump(compLIST, f, ensure_ascii=False, indent=4)
+        json.dump(COMPLIST, f, ensure_ascii=False, indent=4)
 
     with open(G_ansDIR / "and.json", "w", encoding="utf-8") as f:
         json.dump(andLIST, f, ensure_ascii=False, indent=4)
 
-    return None
+    return COMPLIST, andLIST, RELLIST
 
-def getCoverage():
-    """
-    計算模型句型覆蓋率。
-    比對 Prediction 與 Answer 中的 ka_index。
-    """
-    functionLIST = [
-        #"REL",
-        "COMP",
-        #"and"
-    ]
+#def getCoverage():
+    #"""
+    #計算模型句型覆蓋率。
+    #比對 Prediction 與 Answer 中的 ka_index。
+    #"""
+    #functionLIST = [
+        ##"REL",
+        #"COMP",
+        ##"and"
+    #]
 
-    for functionSTR in functionLIST:
+    #for functionSTR in functionLIST:
 
-        with open(f"{G_ansDIR}/{functionSTR}.json", "r", encoding="utf-8") as f:
-            answerLIST = json.load(f)
+        #with open(f"{G_ansDIR}/{functionSTR}.json", "r", encoding="utf-8") as f:
+            #answerLIST = json.load(f)
 
-        with open(f"{G_predictionDIR}/{functionSTR}.json", "r", encoding="utf-8") as f:
-            predictionLIST = json.load(f)
+        #with open(f"{G_predictionDIR}/{functionSTR}.json", "r", encoding="utf-8") as f:
+            #predictionLIST = json.load(f)
 
-        indexPredictionLIST = []
-        indexPredictionSET = set()
-        for item_d in predictionLIST:
-            ka_indexLIST = item_d["ka_index"]
-            utter_index = item_d["utter_index"][0]
-            for ka_index in ka_indexLIST:
-                item = (utter_index, ka_index)
-                if item not in indexPredictionSET:
-                    indexPredictionLIST.append([utter_index, ka_index])
-                    indexPredictionSET.add(item)
+        #indexPredictionLIST = []
+        #indexPredictionSET = set()
+        #for item_d in predictionLIST:
+            #ka_indexLIST = item_d["ka_index"]
+            #utter_index = item_d["utter_index"][0]
+            #for ka_index in ka_indexLIST:
+                #item = (utter_index, ka_index)
+                #if item not in indexPredictionSET:
+                    #indexPredictionLIST.append([utter_index, ka_index])
+                    #indexPredictionSET.add(item)
 
-        print(indexPredictionLIST)
+        #print(indexPredictionLIST)
 
-        match = 0
-        for item_l in indexPredictionLIST:
-            if item_l in answerLIST:
-                match += 1
+        #match = 0
+        #for item_l in indexPredictionLIST:
+            #if item_l in answerLIST:
+                #match += 1
 
-        total = len(answerLIST)
-        coverage = (match / total) * 100
-        print(f"{functionSTR} 覆蓋率：{coverage:.2f}%")
+        #total = len(answerLIST)
+        #coverage = (match / total) * 100
+        #print(f"{functionSTR} 覆蓋率：{coverage*100:.2f}%")
+
+def makePrediction():
+    """"""
+    COMPLIST = []
+    andLIST = []
+    RELLIST = []
+
+    mapDICT = {"COMP": COMPLIST,
+               "and": andLIST,
+               "REL": RELLIST}
+
+    with open(Path.cwd().parent.parent / "data" / "training" / "predictionLIST.json", "r", encoding="utf-8") as f:
+        predictionLIST = json.load(f)
+
+    for lokiResultDICT in predictionLIST:   #處理每個 prediction item
+        for keySTR in mapDICT.keys():
+            if keySTR in lokiResultDICT.keys():
+                ka_indexLIST = lokiResultDICT["ka_index"]
+                utter_index = lokiResultDICT["utter_index"][0]
+                for ka_index in ka_indexLIST:
+                    mapDICT[keySTR].append([utter_index, ka_index])
+
+            with open(f"{G_predictionDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
+                json.dump(mapDICT[keySTR], f, ensure_ascii=False, indent=4)
+
+    return COMPLIST, andLIST, RELLIST
+
+def getCoverage(predLIST, ansLIST):
+    """"""
+    correct = 0
+    for item_l in predLIST:
+        if item_l in ansLIST:
+            correct += 1
+
+    print(f"正確預測：{correct}")
+    print(f"正確答案：{len(ansLIST)}")
+    coverage = correct / len(ansLIST)
+    print(f"coverage: {coverage * 100:.2f}%")
+    print(f"================================")
+
 
 if __name__ == "__main__":
-    #createAnswer()
-    getCoverage()
+    COMPAnsLIST, andAnsLIST, RELAnsLIST = createAnswer()
+    COMPPredLIST, andPredLIST, RELPredLIST = makePrediction()
+    print(f"[COMP]")
+    COMPCoverage = getCoverage(COMPPredLIST, COMPAnsLIST)
+    print(f"[and]")
+    andCoverage = getCoverage(andPredLIST, andAnsLIST)
+    print(f"[REL]")
+    RELCoverage = getCoverage(RELPredLIST, RELAnsLIST)

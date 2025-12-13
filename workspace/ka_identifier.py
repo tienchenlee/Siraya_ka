@@ -14,9 +14,22 @@ from time import sleep
 def main(inputSTR, utterIdx):
     """"""
     resultLIST = []
+    kaIdxSET = set()
     askLokiLIST = [askCOMP, askAnd, askREL]
 
-    kaIdxSET = set()
+    # <句首為 ka 預設為「然後的 and」>
+    inputWordLIST = inputSTR.split(" ")
+    if inputWordLIST[0] == "ka":
+        defaultKaDICT = {
+            "inputSTR": [inputSTR],
+            "and": [{"then": True}],
+            "ka_index": [0],
+            "utter_index": [utterIdx],
+        }
+
+        resultLIST.append(defaultKaDICT)
+    # <句首為 ka 預設為「然後的 and」>
+
     for func in askLokiLIST:
         attempts = 0
         success = False
@@ -57,7 +70,7 @@ if __name__ == "__main__":
         kaLIST = json.load(f)
 
     predictionLIST = []
-    for utterIdx, inputSTR in enumerate(kaLIST[:50]):
+    for utterIdx, inputSTR in enumerate(kaLIST):
         resultLIST = main(inputSTR, utterIdx)
         predictionLIST.extend(resultLIST)
 
