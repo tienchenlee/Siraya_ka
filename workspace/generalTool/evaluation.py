@@ -10,6 +10,8 @@ G_ansDIR = Path.cwd().parent.parent / "data" / "answer"
 G_ansDIR.mkdir(exist_ok=True, parents=True)
 G_predictionDIR = Path.cwd().parent.parent / "data" / "prediction"
 G_predictionDIR.mkdir(exist_ok=True, parents=True)
+G_trainingDIR = Path.cwd().parent.parent / "data" / "training"
+G_trainingDIR.mkdir(exist_ok=True, parents=True)
 
 def createAnswer():
     """
@@ -124,7 +126,9 @@ def createAnswer():
         #print(f"{functionSTR} 覆蓋率：{coverage*100:.2f}%")
 
 def makePrediction():
-    """"""
+    """
+    將 predictionLIST 中各個 project 的 lokiResultDICT 分別寫出與 answer/ 一樣的資料結構。
+    """
     COMPLIST = []
     andLIST = []
     RELLIST = []
@@ -133,7 +137,7 @@ def makePrediction():
                "and": andLIST,
                "REL": RELLIST}
 
-    with open(Path.cwd().parent.parent / "data" / "training" / "predictionLIST.json", "r", encoding="utf-8") as f:
+    with open(f"{G_trainingDIR}/predictionLIST.json", "r", encoding="utf-8") as f:
         predictionLIST = json.load(f)
 
     for lokiResultDICT in predictionLIST:   #處理每個 prediction item
@@ -150,7 +154,10 @@ def makePrediction():
     return COMPLIST, andLIST, RELLIST
 
 def getCoverage(predLIST, ansLIST):
-    """"""
+    """
+    正確答案中，有多少被模型預測到。
+    coverage = (∣Prediction ∩ Answer∣​ / |Answer∣) * 100
+    """
     correct = 0
     for item_l in predLIST:
         if item_l in ansLIST:
@@ -162,13 +169,31 @@ def getCoverage(predLIST, ansLIST):
     print(f"coverage: {coverage * 100:.2f}%")
     print(f"================================")
 
+def findUncoveredAnswer(predLIST, ansLIST, kaFunction):
+    """
+    正確答案中，沒有被模型預測到的資料。
+    """
+    missedLIST = []
+
+    for item_l in ansLIST:
+        if item_l not in predLIST:
+            missedLIST.append(item_l)
+
+    with open(f"{G_trainingDIR}/{kaFunction}.json", "w", encoding="utf-8") as f:
+        json.dump(missedLIST, f, ensure_ascii=False, indent=4)
+
 
 if __name__ == "__main__":
     COMPAnsLIST, andAnsLIST, RELAnsLIST = createAnswer()
     COMPPredLIST, andPredLIST, RELPredLIST = makePrediction()
-    print(f"[COMP]")
-    COMPCoverage = getCoverage(COMPPredLIST, COMPAnsLIST)
-    print(f"[and]")
-    andCoverage = getCoverage(andPredLIST, andAnsLIST)
-    print(f"[REL]")
-    RELCoverage = getCoverage(RELPredLIST, RELAnsLIST)
+
+    functionDICT = {
+        "COMP": (COMPPredLIST, COMPAnsLIST),
+        "and":  (andPredLIST,  andAnsLIST),
+        "REL":  (RELPredLIST,  RELAnsLIST),
+    }
+
+    for keySTR, (predLIST, ansLIST) in functionDICT.items():
+        print(f"[{keySTR}]")
+        coverage = getCoverage(predLIST, ansLIST)
+        findUncoveredAnswer(predLIST, ansLIST, keySTR)

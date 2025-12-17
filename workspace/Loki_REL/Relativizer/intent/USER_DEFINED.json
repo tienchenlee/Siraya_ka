@@ -1167,6 +1167,8 @@
         ".PFV"
     ],
     "_asVerb_": [
+        "In.so.much",
+        "So.much.so",
         "a.few",
         "able.to.do",
         "act.against",
@@ -1539,8 +1541,41 @@
         "for.long",
         "for.long.time",
         "for.nothing",
+        "for.purpose",
         "for.so",
         "for.two",
+        "from-Arimathaea",
+        "from-Arimathea",
+        "from-Bethany",
+        "from-Bethsaida",
+        "from-Cyrene",
+        "from-Galilee",
+        "from-God",
+        "from-Jerusalem",
+        "from-Judea",
+        "from-Kana",
+        "from-Nazareth",
+        "from-Nineveh",
+        "from-Samaria",
+        "from-Tiberias",
+        "from-above",
+        "from-begin",
+        "from-below",
+        "from-city",
+        "from-cloud",
+        "from-earth",
+        "from-east",
+        "from-far.above",
+        "from-heart",
+        "from-heaven",
+        "from-inside",
+        "from-man",
+        "from-mouth",
+        "from-seed",
+        "from-south",
+        "from-steep.place",
+        "from-west",
+        "from-world",
         "from.above",
         "from.beginning",
         "from.city",
@@ -1680,6 +1715,7 @@
         "its.own",
         "keep.saying",
         "kneel.down",
+        "know",
         "lay.down",
         "lay.foundation",
         "lay.hands",
@@ -1971,6 +2007,9 @@
         "Xanthicus",
         "Ziv"
     ],
+    "_Negation_": [
+        "NEG"
+    ],
     "ENTITY_noun": [
         "Almighty God",
         "Amorite",
@@ -2033,11 +2072,13 @@
         "oak trees",
         "oaks",
         "offerings for sin ",
+        "one.of.a.pair",
         "onions",
         "pine",
         "pine trees",
         "pines",
         "repayment offerings",
+        "synagogue-your",
         "watermelons"
     ],
     "TIME_holiday": [
@@ -3864,6 +3905,10 @@
         ".AV",
         ".LV",
         ".PV"
+    ],
+    "ENTITY_pronoun": [
+        "-we",
+        "-you"
     ],
     "_FuncCategory_": [
         "DET",

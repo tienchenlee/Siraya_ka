@@ -12,7 +12,10 @@ from preLokiTool import udFilter
 from time import sleep
 
 def main(inputSTR, utterIdx):
-    """"""
+    """
+    將 ka1, ka2, ka3 的比對順序設為 COMP, and, REL。
+    如果句首是 ka，則預設為「然後的 and」。
+    """
     resultLIST = []
     kaIdxSET = set()
     askLokiLIST = [askCOMP, askAnd, askREL]
@@ -51,8 +54,10 @@ def main(inputSTR, utterIdx):
                         if idx not in kaIdxSET:
                             kaIdxSET.add(idx)
                             newIdxLIST.append(idx)
+                        else:
+                            pass    # 如果在前面的 project 已有該 ka_index，則跳過
 
-                    if newIdxLIST:
+                    if newIdxLIST:  # 過濾後的 ka_index 放回 lokiResultDICT
                         filterDICT = lokiResultDICT.copy()
                         filterDICT["ka_index"] = newIdxLIST
 
@@ -74,18 +79,18 @@ if __name__ == "__main__":
         resultLIST = main(inputSTR, utterIdx)
         predictionLIST.extend(resultLIST)
 
-    predictionDIR = Path.cwd().parent / "data" / "training"
-    predictionDIR.mkdir(exist_ok=True, parents=True)
+    trainingDIR = Path.cwd().parent / "data" / "training"
+    trainingDIR.mkdir(exist_ok=True, parents=True)
 
-    with open(predictionDIR / "predictionLIST.json", "w", encoding="utf-8") as f:
+    with open(trainingDIR / "predictionLIST.json", "w", encoding="utf-8") as f:
         json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
 
 
     ##<單筆測試>
-    #inputSTR ="when ka see-LV they.GEN NOM star then PAST-joyful.AV NOM they OBL joy ka exceeding.AV great.AV"
+    #inputSTR ="So.much.so .AV ka PAST- marvel .AV NOM multitudes while see -LV they .GEN ka speak .AV NOM dumb .AV ka well .AV NOM maimed .AV ka walk .AV NOM lame .AV ka see .AV NOM blind .AV ka PAST- cause.high .AV NOM they cause.great -PV OBL status OBL God OBL Israel"
 
-    #filterSTR = udFilter(inputSTR)
-    #resultLIST = main(filterSTR, 0)  # 預設句子 index = 0
+    ##filterSTR = udFilter(inputSTR)
+    #resultLIST = main(inputSTR, 0)  # 預設句子 index = 0
     #print()
     #print(resultLIST)
     ##</單筆測試>

@@ -115,7 +115,7 @@ def _getKaIdx(inputSTR, utterPat, targetArgINT):
 getResponse = getReply
 def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolkitDICT={}):
     debugInfo(inputSTR, utterance)
-    if utterance == "because ka":
+    if utterance == "because ka speak -PV they .GEN however not they .GEN do -PV those":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -135,7 +135,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
             if COMP:
                 resultDICT["COMP"].append({INTENT_NAME: True})
 
-    if utterance == "when ka":
+    if utterance == "from.where .AV ka have-herb .AV ka not good .AV":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -155,11 +155,30 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
             if COMP:
                 resultDICT["COMP"].append({INTENT_NAME: True})
 
+    if utterance == "how ka see .AV -PFV now":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [0]     # 在 Loki 上為第幾個 arg
+            COMP = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    COMP = True
+
+            if COMP:
+                resultDICT["COMP"].append({INTENT_NAME: True})
     return resultDICT
 
 
 if __name__ == "__main__":
     from pprint import pprint
 
-    resultDICT = getResult("when ka", "when ka", [], {}, {})
+    resultDICT = getResult("because ka", "because ka", [], {}, {})
     pprint(resultDICT)
