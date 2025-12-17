@@ -1167,6 +1167,8 @@
         ".PFV"
     ],
     "_asVerb_": [
+        "In.so.much",
+        "So.much.so",
         "a.few",
         "able.to.do",
         "act.against",
@@ -1539,6 +1541,7 @@
         "for.long",
         "for.long.time",
         "for.nothing",
+        "for.purpose",
         "for.so",
         "for.two",
         "from-Arimathaea",
@@ -1712,6 +1715,7 @@
         "its.own",
         "keep.saying",
         "kneel.down",
+        "know",
         "lay.down",
         "lay.foundation",
         "lay.hands",
@@ -2068,6 +2072,7 @@
         "oak trees",
         "oaks",
         "offerings for sin ",
+        "one.of.a.pair",
         "onions",
         "pine",
         "pine trees",
@@ -3900,6 +3905,10 @@
         ".AV",
         ".LV",
         ".PV"
+    ],
+    "ENTITY_pronoun": [
+        "-we",
+        "-you"
     ],
     "_FuncCategory_": [
         "DET",
