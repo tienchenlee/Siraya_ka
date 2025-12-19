@@ -12,6 +12,7 @@ from preLokiTool import udFilter
 G_chiPat = re.compile(r"[\u4e00-\u9fff]")
 G_splitPat = re.compile(r"\s")
 G_verbPat = re.compile(r"(?:[\w\.]+(?=\.AV|-AV|\.PV|-PV|\.LV|-LV|-IV|-IRR|-PFV)|(?<=PAST-)[\w\.]+)")  # 以語態、時貌標記找動詞
+G_leftPeripheryPAT = re.compile(r"(?=\b(?:mama-ki-mang|mamay-mang|kaumang|iru|alay)\ska\b)")
 
 def _orderFile(filePATH):
     """
@@ -204,6 +205,47 @@ def checkFormat():
             with open(jsonFilePATH, "w", encoding="utf-8") as f:
                 json.dump(chapterLIST, f, ensure_ascii=False, indent=4)
 
+def _segment():
+    global tmpGlossLIST, tmpSirayaSTR, tmpAnsLIST
+    global kaLIST, ansLIST
+
+    cleanTmpSirayaSTR = tmpSirayaSTR.lower().strip()
+
+    # 沒 ka，直接丟掉
+    if not re.search(r"\bka\b", cleanTmpSirayaSTR):
+        tmpGlossLIST = []
+        tmpSirayaSTR = ""
+        tmpAnsLIST = []
+        return
+
+    # 主要斷句：left periphery（可能切多段）
+    if len(re.findall(G_leftPeripheryPAT, cleanTmpSirayaSTR)) > 1:
+        alaykaLIST = [
+            s.strip()
+            for s in re.split(G_leftPeripheryPAT, cleanTmpSirayaSTR)
+            if s.strip()
+        ]
+
+        ansWordLIST = " ".join(tmpAnsLIST).split()
+        idx = 0
+
+        for alayka in alaykaLIST:
+            wordCountINT = len(alayka.split())
+
+            kaLIST.append(alayka)
+            ansLIST.append(" ".join(ansWordLIST[idx:idx + wordCountINT]))
+
+            idx += wordCountINT
+
+    # 次要斷句：整句收
+    else:
+        kaLIST.append(" ".join(tmpGlossLIST).strip())
+        ansLIST.append(" ".join(tmpAnsLIST).strip())
+
+    # reset
+    tmpGlossLIST = []
+    tmpSirayaSTR = ""
+    tmpAnsLIST = []
 
 def getKaList():
     """
@@ -273,6 +315,9 @@ def getKaList():
     #=======
 
     #方法2.
+    global tmpGlossLIST, tmpSirayaSTR, tmpAnsLIST
+    global kaLIST, ansLIST
+
     folderLIST = [Path.cwd() / "Matthew", Path.cwd() / "John"]
     for bookDIR in folderLIST:
         for jsonFILE in bookDIR.glob("*.json"):
@@ -283,11 +328,8 @@ def getKaList():
                 verseLIST = item_d["verse"]
 
                 # step 1: 檢查是否有 "ka"
-                if any("ka" in v_s.lower() for v_s in verseLIST):
+                if any(re.search(r"\bka\b", v_s, re.I) for v_s in verseLIST):
                     print("有 ka 存在")
-
-                    kaLIST = []
-                    ansLIST = []
 
                     sirayaLIST = verseLIST[::2]
                     glossLIST = verseLIST[1::2]
@@ -313,29 +355,22 @@ def getKaList():
                     # step 3: 用標點符號將 verse 斷句，最後輸出僅留下有 ka 的句子
                     tmpGlossLIST = []
                     tmpSirayaSTR = ""
-
                     tmpAnsLIST = []
 
-                    for siraya_s, gloss_s, ans_s in zip(newSirayaLIST, newGlossLIST, glossLIST):
+                    kaLIST = []
+                    ansLIST = []
+
+                    for siraya_s, gloss_s, ans_s in zip(newSirayaLIST, newGlossLIST, newAnsLIST):
                         tmpGlossLIST.append(gloss_s)    # 收集此次 verse 的 gloss (替換成 ka)
                         tmpSirayaSTR += " " + siraya_s  # 收集此次 verse 的 siraya
+                        tmpSirayaSTR = tmpSirayaSTR.lower().strip()
                         tmpAnsLIST.append(ans_s)        # 收集此次 verse 的 gloss (答案)
 
-                        if re.search(r"[.:;?]$", siraya_s.strip()):
-                            # 這一句結束，現在來看這一句裡有沒有 ka，若整段西拉雅語中有 ka，保留這一組 gloss
-                            if re.search(r"\bka\b", tmpSirayaSTR.lower()):
-                                kaLIST.append(" ".join(tmpGlossLIST).strip())
-                                ansLIST.append(" ".join(tmpAnsLIST).strip())
+                        if re.search(r"[\.:;?]$", siraya_s.strip()):
+                            _segment()
 
-                            # 重置累積
-                            tmpGlossLIST = []
-                            tmpSirayaSTR = ""
-                            tmpAnsLIST = []
-
-                    # 沒有斷句用的標點符號存在於 verse，但是有 ka 存在，就整個當一句。
-                    if tmpGlossLIST and re.search(r"\bka\b", tmpSirayaSTR.lower()):
-                        kaLIST.append(" ".join(tmpGlossLIST).strip())
-                        ansLIST.append(" ".join(tmpAnsLIST).strip())
+                    if tmpGlossLIST:
+                        _segment()
 
                     print(kaLIST)
                     print()
@@ -430,4 +465,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
