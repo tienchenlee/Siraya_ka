@@ -2067,6 +2067,7 @@
         "juniper wood",
         "large.animal",
         "leeks",
+        "left.hand",
         "oak",
         "oak tree",
         "oak trees",
@@ -2078,6 +2079,8 @@
         "pine trees",
         "pines",
         "repayment offerings",
+        "right.hand",
+        "storage.place",
         "synagogue-your",
         "watermelons"
     ],
@@ -3908,7 +3911,8 @@
     ],
     "ENTITY_pronoun": [
         "-we",
-        "-you"
+        "-you",
+        "-your"
     ],
     "_FuncCategory_": [
         "DET",
