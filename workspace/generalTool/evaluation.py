@@ -46,6 +46,7 @@ def createAnswer():
     RELLIST = []
     COMPLIST = []
     andLIST = []
+    errorLIST = []
 
     kaWordLIST = [s.split() for s in kaLIST]
     ansWordLIST = [s.split() for s in ansLIST]
@@ -61,6 +62,8 @@ def createAnswer():
                     COMPLIST.append([string_i, word_i])
                 elif ansSTR.lower() == "and":
                     andLIST.append([string_i, word_i])
+                else:
+                    errorLIST.append([string_i, word_i, ansSTR])
 
     print(f"COMP: {len(COMPLIST)} 個")
     print(f"and: {len(andLIST)} 個")
@@ -71,7 +74,7 @@ def createAnswer():
         print(f"正解與測資的 ka 數量一致")
         print(f"================================")
     else:
-        raise ValueError(f"!!!正解與測資的 ka 數量不一致，請檢查 ansLIST、kaLIST!!!")
+        raise ValueError(f"!!!正解與測資的 ka 數量不一致，請檢查 errorLIST!!!")
 
     with open(G_ansDIR / "REL.json", "w", encoding="utf-8") as f:
         json.dump(RELLIST, f, ensure_ascii=False, indent=4)

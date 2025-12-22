@@ -12,7 +12,7 @@ from preLokiTool import udFilter
 G_chiPat = re.compile(r"[\u4e00-\u9fff]")
 G_splitPat = re.compile(r"\s")
 G_verbPat = re.compile(r"(?:[\w\.]+(?=\.AV|-AV|\.PV|-PV|\.LV|-LV|-IV|-IRR|-PFV)|(?<=PAST-)[\w\.]+)")  # 以語態、時貌標記找動詞
-G_leftPeripheryPAT = re.compile(r"(?=\b(?:mama-ki-mang|mamay-mang|kaumang|iru|alay)\ska\b)")
+G_leftPeripheryPAT = re.compile(r"(?=\b(?:mama-ki-mang|mamay-mang|malava|kaumang|aiku-an|iru|alay apa|alay)\ska\b)")
 
 def _orderFile(filePATH):
     """
@@ -55,7 +55,10 @@ def _txtCreator(folderPATH):
     參數:
         folderPATH: 包含 docx 檔案的資料夾路徑。
     """
-    docxLIST = list(folderPATH.glob("*.docx"))
+    docxLIST = [
+        f for f in folderPATH.glob("*.docx")
+        if not f.name.startswith("~$")
+    ]
     sortedLIST = sorted(docxLIST, key=lambda f: _orderFile(str(f)))
 
     for filePATH in sortedLIST:
@@ -226,14 +229,15 @@ def _segment():
             if s.strip()
         ]
 
-        ansWordLIST = " ".join(tmpAnsLIST).split()
+        tmpGlossWordLIST = " ".join(tmpGlossLIST).split()
+        tmpAnsWordLIST = " ".join(tmpAnsLIST).split()
         idx = 0
 
         for alayka in alaykaLIST:
             wordCountINT = len(alayka.split())
 
-            kaLIST.append(alayka)
-            ansLIST.append(" ".join(ansWordLIST[idx:idx + wordCountINT]))
+            kaLIST.append(" ".join(tmpGlossWordLIST[idx:idx + wordCountINT]))
+            ansLIST.append(" ".join(tmpAnsWordLIST[idx:idx + wordCountINT]))
 
             idx += wordCountINT
 
