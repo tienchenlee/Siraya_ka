@@ -1162,11 +1162,15 @@
         "the Syrian state of Zobah",
         "the Syrian states of Maacah"
     ],
+    "MODIFIER": [
+        "-still"
+    ],
     "_Aspect_": [
         "-PFV",
         ".PFV"
     ],
     "_asVerb_": [
+        ".so",
         "In.so.much",
         "So.much.so",
         "a.few",
@@ -1200,6 +1204,7 @@
         "at.left",
         "at.middle",
         "at.near",
+        "at.one's.will",
         "at.outside",
         "at.prior",
         "at.roof",
@@ -1513,6 +1518,7 @@
         "do.in.one",
         "do.labor",
         "do.not",
+        "do.on.one's.own",
         "do.on.one.own",
         "do.on.ones.own",
         "do.quick",
@@ -1681,6 +1687,7 @@
         "hear.accept",
         "hear.finish",
         "hear.mercy",
+        "heart",
         "hew.down",
         "hope.for",
         "how.long",
@@ -1700,6 +1707,7 @@
         "in.law",
         "in.middle",
         "in.neighboring.area",
+        "in.one's.will",
         "in.return",
         "in.room",
         "in.sackcloth",
@@ -1837,6 +1845,7 @@
         "not.have",
         "not.willing",
         "o.much.so",
+        "on.one's.own",
         "on.surface",
         "on.top",
         "one.another",
@@ -1992,6 +2001,9 @@
         "with.together",
         "with.two"
     ],
+    "FUNC_inter": [
+        "so.that"
+    ],
     "TIME_month": [
         "Abib",
         "Adar",
@@ -2049,6 +2061,7 @@
         "Syrians",
         "Zemarite",
         "Zemarites",
+        "at.the.moment",
         "burnt offering",
         "burnt offerings",
         "cedar",
@@ -2062,6 +2075,7 @@
         "gift",
         "grain offering",
         "grain offerings",
+        "high.priest",
         "juniper",
         "juniper logs",
         "juniper wood",
@@ -2075,13 +2089,16 @@
         "offerings for sin ",
         "one.of.a.pair",
         "onions",
+        "opposite.side",
         "pine",
         "pine trees",
         "pines",
         "repayment offerings",
         "right.hand",
+        "some.people",
         "storage.place",
         "synagogue-your",
+        "this.person",
         "watermelons"
     ],
     "TIME_holiday": [
@@ -3896,6 +3913,7 @@
         "meres"
     ],
     "_PhiFeatures_": [
+        ",PL",
         ".EXCL",
         ".INCL",
         ".PL",
