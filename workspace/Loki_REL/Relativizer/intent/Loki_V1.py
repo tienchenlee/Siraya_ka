@@ -106,6 +106,9 @@ def _getKaIdx(inputSTR, utterPat, targetArgINT):
 
     if kaIdxLIST:
         targetKaIdx = inputPosSTR[:kaIdxLIST[0][0]].count("</")
+        # 一個字會被 articut 切成兩個字
+        if re.search(r"<MODAL>do</MODAL><FUNC_negation>not</FUNC_negation>.*?<UserDefined>ka</UserDefined>", inputPosSTR):
+            targetKaIdx -= 1
     else:
         logging.error(f"找不到 kaIdxLIST: {inputSTR}")
         return -1

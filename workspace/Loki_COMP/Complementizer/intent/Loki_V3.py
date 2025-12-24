@@ -106,6 +106,9 @@ def _getKaIdx(inputSTR, utterPat, targetArgINT):
 
     if kaIdxLIST:
         targetKaIdx = inputPosSTR[:kaIdxLIST[0][0]].count("</")
+        # 一個字會被 articut 切成兩個字
+        if re.search(r"<MODAL>do</MODAL><FUNC_negation>not</FUNC_negation>.*?<UserDefined>ka</UserDefined>", inputPosSTR):
+            targetKaIdx -= 1
     else:
         logging.error(f"找不到 kaIdxLIST: {inputSTR}")
         return -1
@@ -163,6 +166,26 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["source"] = "reply"
         else:
             targetArgLIST = [0]     # 在 Loki 上為第幾個 arg
+            COMP = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    COMP = True
+
+            if COMP:
+                resultDICT["COMP"].append({INTENT_NAME: True})
+
+    if utterance == "see .AV NOM DET Jesus her -OBL ka cry .AV NOM she":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [3]     # 在 Loki 上為第幾個 arg
             COMP = False
 
             for targetArgINT in targetArgLIST:

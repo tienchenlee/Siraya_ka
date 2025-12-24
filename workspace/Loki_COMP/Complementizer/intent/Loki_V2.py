@@ -106,6 +106,9 @@ def _getKaIdx(inputSTR, utterPat, targetArgINT):
 
     if kaIdxLIST:
         targetKaIdx = inputPosSTR[:kaIdxLIST[0][0]].count("</")
+        # 一個字會被 articut 切成兩個字
+        if re.search(r"<MODAL>do</MODAL><FUNC_negation>not</FUNC_negation>.*?<UserDefined>ka</UserDefined>", inputPosSTR):
+            targetKaIdx -= 1
     else:
         logging.error(f"找不到 kaIdxLIST: {inputSTR}")
         return -1
@@ -362,7 +365,87 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["response"] = replySTR
                 resultDICT["source"] = "reply"
         else:
-            targetArgLIST = [1]     # 在 Loki 上為第幾個 arg
+            targetArgLIST = [2]     # 在 Loki 上為第幾個 arg
+            COMP = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    COMP = True
+
+            if COMP:
+                resultDICT["COMP"].append({INTENT_NAME: True})
+
+    if utterance == "want .AV you .PL .NOM Q ka release -PV .IRR I .GEN you .PL .NOM NOM ruler ka chief OBL Jew":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [2]     # 在 Loki 上為第幾個 arg
+            COMP = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    COMP = True
+
+            if COMP:
+                resultDICT["COMP"].append({INTENT_NAME: True})
+
+    if utterance == "speak.truly you .SG .NOM ka king I .NOM ka chief":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [2]     # 在 Loki 上為第幾個 arg
+            COMP = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    COMP = True
+
+            if COMP:
+                resultDICT["COMP"].append({INTENT_NAME: True})
+
+    if utterance == "not I .GEN you .SG .NOM Q PAST- see -LV LOC garden ka be.together .AV you .SG .NOM him -OBL":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [3]     # 在 Loki 上為第幾個 arg
+            COMP = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    COMP = True
+
+            if COMP:
+                resultDICT["COMP"].append({INTENT_NAME: True})
+
+    if utterance == "understand -LV DET Jesus PC. self .AV him -OBL ka murmur .AV because OBL this NOM disciple his":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [2]     # 在 Loki 上為第幾個 arg
             COMP = False
 
             for targetArgINT in targetArgLIST:
