@@ -12,7 +12,7 @@ from preLokiTool import udFilter
 G_chiPat = re.compile(r"[\u4e00-\u9fff]")
 G_splitPat = re.compile(r"\s")
 G_verbPat = re.compile(r"(?:[\w\.]+(?=\.AV|-AV|\.PV|-PV|\.LV|-LV|-IV|-IRR|-PFV)|(?<=PAST-)[\w\.]+)")  # 以語態、時貌標記找動詞
-G_leftPeripheryPAT = re.compile(r"(?=\b(?:mama-ki-mang|mamay-mang|malava|kaumang|aiku-an|iru|alay apa|alay)\ska\b)")
+G_leftPeripheryPAT = re.compile(r"(?=\b(?:mama-ki-mang|mamay-mang|malava|kaumang|aiku-an|hairu|iru|alay apa|alay)\ska\b)", re.I)
 
 def _orderFile(filePATH):
     """
@@ -212,7 +212,7 @@ def _segment():
     global tmpGlossLIST, tmpSirayaSTR, tmpAnsLIST
     global kaLIST, ansLIST
 
-    cleanTmpSirayaSTR = tmpSirayaSTR.lower().strip()
+    cleanTmpSirayaSTR = tmpSirayaSTR.lower().strip().replace("(", "").replace(")", "")
 
     # 沒 ka，直接丟掉
     if not re.search(r"\bka\b", cleanTmpSirayaSTR):
