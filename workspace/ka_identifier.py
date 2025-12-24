@@ -17,8 +17,9 @@ def main(inputSTR, utterIdx):
     如果句首是 ka，則預設為「然後的 and」。
     """
     resultLIST = []
-    kaIdxSET = set()
-    askLokiLIST = [askCOMP, askAnd, askREL]
+    #kaIdxSET = set()
+    askLokiLIST = [askAnd]
+    #[askCOMP, askAnd, askREL]
 
     # <句首為 ka 預設為「然後的 and」>
     inputWordLIST = inputSTR.split(" ")
@@ -47,22 +48,26 @@ def main(inputSTR, utterIdx):
             else:
                 success = True
 
-                if lokiResultDICT["ka_index"] != []:
-                    newIdxLIST = []
+                resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
+                print(lokiResultDICT)
 
-                    for idx in lokiResultDICT["ka_index"]:
-                        if idx not in kaIdxSET:
-                            kaIdxSET.add(idx)
-                            newIdxLIST.append(idx)
-                        else:
-                            pass    # 如果在前面的 project 已有該 ka_index，則跳過
+                # 有順序的比對結果
+                #if lokiResultDICT["ka_index"] != []:
+                    #newIdxLIST = []
 
-                    if newIdxLIST:  # 過濾後的 ka_index 放回 lokiResultDICT
-                        filterDICT = lokiResultDICT.copy()
-                        filterDICT["ka_index"] = newIdxLIST
+                    #for idx in lokiResultDICT["ka_index"]:
+                        #if idx not in kaIdxSET:
+                            #kaIdxSET.add(idx)
+                            #newIdxLIST.append(idx)
+                        #else:
+                            #pass    # 如果在前面的 project 已有該 ka_index，則跳過
 
-                        resultLIST.append(filterDICT)
-                        print(filterDICT)
+                    #if newIdxLIST:  # 過濾後的 ka_index 放回 lokiResultDICT
+                        #filterDICT = lokiResultDICT.copy()
+                        #filterDICT["ka_index"] = newIdxLIST
+
+                        #resultLIST.append(filterDICT)
+                        #print(filterDICT)
 
         if not success:
             logging.error(f"連續 3 次嘗試失敗，跳過此測試句: {lokiResultDICT}")
