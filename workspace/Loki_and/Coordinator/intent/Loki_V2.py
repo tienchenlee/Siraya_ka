@@ -358,6 +358,86 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
             if coordinator:
                 resultDICT["and"].append({INTENT_NAME: True})
 
+    if utterance == "PAST- PC. all .AV eat .AV ka be.satisfied .AV -PFV ka PAST- take .PV they .GEN collect OBL PAST- PC. left.over .AV OBL PART fragments":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [0, 1]     # 在 Loki 上為第幾個 arg
+            coordinator = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    coordinator = True
+
+            if coordinator:
+                resultDICT["and"].append({INTENT_NAME: True})
+
+    if utterance == "sell .AV -IRR OBL all.things your .SG ka give -LV .IRR -PFV OBL poor ka have .AV -IRR you .SG .NOM OBL treasure LOC far.above OBL heaven":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [0, 1]     # 在 Loki 上為第幾個 arg
+            coordinator = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    coordinator = True
+
+            if coordinator:
+                resultDICT["and"].append({INTENT_NAME: True})
+
+    if utterance == "PAST- PC. already .AV speak.end .AV OBL word this NOM DET Jesus ka PAST- leave .AV travel .AV LOC Galilea ka PAST- come .AV move.cross .AV OBL Jordan LOC border OBL Judea":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [0, 1]     # 在 Loki 上為第幾個 arg
+            coordinator = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    coordinator = True
+
+            if coordinator:
+                resultDICT["and"].append({INTENT_NAME: True})
+
+    if utterance == "when PAST- take .PV he .GEN NOM seven OBL bread OBL fish also ka when PAST- preach.return -PV he .GEN OBL praise PAST- break.into.fragments .AV ka PAST- give -LV he .GEN OBL disciple":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [0, 1]     # 在 Loki 上為第幾個 arg
+            coordinator = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    coordinator = True
+
+            if coordinator:
+                resultDICT["and"].append({INTENT_NAME: True})
+
     return resultDICT
 
 

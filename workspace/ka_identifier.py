@@ -40,7 +40,7 @@ def main(inputSTR, utterIdx):
 
         while attempts < 3 and not success:
             lokiResultDICT = func(inputSTR, utterIdx)
-            sleep(0.5)
+            sleep(3)
 
             if "status" in lokiResultDICT.keys():   # Server Error 會回傳 status
                 attempts += 1
