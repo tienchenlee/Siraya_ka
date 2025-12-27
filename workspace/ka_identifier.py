@@ -11,6 +11,15 @@ from pathlib import Path
 from preLokiTool import udFilter
 from time import sleep
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",        # 格式：時間 - 等級 - 訊息
+    handlers=[
+        logging.FileHandler(Path.cwd() / "ka_identifier.log", encoding="utf-8", mode="w"),
+        logging.StreamHandler()
+    ]
+)
+
 def main(inputSTR, utterIdx):
     """
     將 ka1, ka2, ka3 的比對順序設為 COMP, and, REL。
@@ -40,11 +49,12 @@ def main(inputSTR, utterIdx):
 
         while attempts < 3 and not success:
             lokiResultDICT = func(inputSTR, utterIdx)
-            sleep(3)
+            sleep(0.5)
 
-            if "status" in lokiResultDICT.keys():   # Server Error 會回傳 status
+            if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
                 attempts += 1
-                logging.warning(f"第 {attempts} 次嘗試: {lokiResultDICT}")
+                sleep(5)
+                logging.warning(f"第 {attempts} 次嘗試，{lokiResultDICT['msg']}: {lokiResultDICT}")
             else:
                 success = True
 

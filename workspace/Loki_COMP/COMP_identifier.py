@@ -8,15 +8,6 @@ from preLokiTool import udFilter
 from pathlib import Path
 from time import sleep
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",        # 格式：時間 - 等級 - 訊息
-    handlers=[
-        logging.FileHandler(Path.cwd() / "COMP_identifier.log", encoding="utf-8", mode="w"),
-        logging.StreamHandler()
-    ]
-)
-
 def main(inputSTR, utterIdx):
     """"""
     refDICT = {
