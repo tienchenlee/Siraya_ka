@@ -62,7 +62,7 @@ def udFilter(glossSTR):
     for keySTR, valueLIST in udDICT.items():
         if keySTR in markerLIST:
             for valueSTR in valueLIST:
-                if "." in valueSTR or "-" in valueSTR:
+                if "." in valueSTR or "-" in valueSTR or "," in valueSTR:
                     if valueSTR in glossSTR:
                         glossSTR = glossSTR.replace(valueSTR, f" {valueSTR} ")
 
