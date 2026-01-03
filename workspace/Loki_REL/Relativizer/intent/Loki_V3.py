@@ -237,6 +237,26 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
             if REL:
                 resultDICT["REL"].append({INTENT_NAME: True})
 
+    if utterance == "speak -LV .IRR I .GEN OBL man ka harvest .AV -IRR":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            targetArgLIST = [3]     # 在 Loki 上為第幾個 arg
+            REL = False
+
+            for targetArgINT in targetArgLIST:
+                if args[targetArgINT] == "ka":
+                    utterPat = re.compile(pattern)
+                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
+                    resultDICT["ka_index"].append(targetKaIdx)
+                    REL = True
+
+            if REL:
+                resultDICT["REL"].append({INTENT_NAME: True})
+
     return resultDICT
 
 
