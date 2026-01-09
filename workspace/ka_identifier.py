@@ -27,7 +27,7 @@ def main(inputSTR, utterIdx):
     """
     resultLIST = []
     #kaIdxSET = set()
-    askLokiLIST = [askAnd]
+    askLokiLIST = [askREL]
     #[askCOMP, askAnd, askREL]
 
     # <句首為 ka 預設為「然後的 and」>
@@ -49,7 +49,7 @@ def main(inputSTR, utterIdx):
 
         while attempts < 3 and not success:
             lokiResultDICT = func(inputSTR, utterIdx)
-            sleep(0.5)
+            sleep(0.8)
 
             if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
                 attempts += 1
