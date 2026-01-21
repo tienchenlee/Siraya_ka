@@ -21,9 +21,30 @@ from importlib.util import spec_from_file_location
 from random import sample
 import json
 import os
+from pathlib import Path
+import sys
+
+G_mainPath = Path(sys.argv[0]).resolve()
+if G_mainPath.name == "ka_testing.py":
+    try:
+        from Loki_REL.Relativizer.intent.kaCaptureTool import kaCapture
+    except:
+        from .Loki_REL.Relativizer.intent.kaCaptureTool import kaCapture
+else:
+    try:
+        from kaCaptureTool import kaCapture
+    except:
+        from .kaCaptureTool import kaCapture
+
 
 INTENT_NAME = "V2_and_VP"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
+G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
+
+with open(f"{CWD_PATH}/USER_DEFINED.json", "r", encoding="utf-8") as f:
+    udDICT = json.load(f)
+
+verbLIST = udDICT["_asVerb_"]
 
 def import_from_path(module_name, file_path):
     spec = spec_from_file_location(module_name, file_path)
@@ -96,9 +117,19 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["response"] = replySTR
                 resultDICT["source"] = "reply"
         else:
-            # write your code here
-            # resultDICT[key].append(value)
-            pass
+            checkLIST = []
+            for arg in args:
+                if not isinstance(arg, str):
+                    continue
+
+                m = re.search(G_notVerbPAT, arg)
+                if m:
+                    checkLIST.append(m.group(1))
+
+            if checkLIST and all(word not in verbLIST for word in checkLIST):
+                REL = kaCapture(args, pattern, inputSTR, resultDICT)
+                if REL:
+                    resultDICT["REL"].append({INTENT_NAME: True})
 
     if utterance == "PAST- send.forth .AV LOC surrounding OBL all OBL land ka LOC vicinity there ka PAST- bring .PV they .GEN cause.come .AV him -OBL NOM all ka sick .AV":
         if CHATBOT:
@@ -107,9 +138,19 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["response"] = replySTR
                 resultDICT["source"] = "reply"
         else:
-            # write your code here
-            # resultDICT[key].append(value)
-            pass
+            checkLIST = []
+            for arg in args:
+                if not isinstance(arg, str):
+                    continue
+
+                m = re.search(G_notVerbPAT, arg)
+                if m:
+                    checkLIST.append(m.group(1))
+
+            if checkLIST and all(word not in verbLIST for word in checkLIST):
+                REL = kaCapture(args, pattern, inputSTR, resultDICT)
+                if REL:
+                    resultDICT["REL"].append({INTENT_NAME: True})
 
     if utterance == "cause.rise -PV he .GEN NOM sun them -OBL ka not good .AV them -OBL also ka good .AV OBL heart ka cause.rain -PV he .GEN them -OBL ka righteous .AV them -OBL also ka not righteous .AV":
         if CHATBOT:
@@ -118,9 +159,19 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["response"] = replySTR
                 resultDICT["source"] = "reply"
         else:
-            # write your code here
-            # resultDICT[key].append(value)
-            pass
+            checkLIST = []
+            for arg in args:
+                if not isinstance(arg, str):
+                    continue
+
+                m = re.search(G_notVerbPAT, arg)
+                if m:
+                    checkLIST.append(m.group(1))
+
+            if checkLIST and all(word not in verbLIST for word in checkLIST):
+                REL = kaCapture(args, pattern, inputSTR, resultDICT)
+                if REL:
+                    resultDICT["REL"].append({INTENT_NAME: True})
 
     if utterance == "he .GEN send.forth .AV NOM other OBL servant ka PAST- say .AV tell -LV .IRR NOM PAST- drink.prepare -PV tell .AV see -LV .IRR PAST- prepare .PV I .GEN NOM dinner -PV .IRR my PAST- kill .PV NOM large.animal my ka PAST- castrate .PV OBL PAST- fatling .PV also ka large.animal":
         if CHATBOT:
@@ -129,9 +180,19 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["response"] = replySTR
                 resultDICT["source"] = "reply"
         else:
-            # write your code here
-            # resultDICT[key].append(value)
-            pass
+            checkLIST = []
+            for arg in args:
+                if not isinstance(arg, str):
+                    continue
+
+                m = re.search(G_notVerbPAT, arg)
+                if m:
+                    checkLIST.append(m.group(1))
+
+            if checkLIST and all(word not in verbLIST for word in checkLIST):
+                REL = kaCapture(args, pattern, inputSTR, resultDICT)
+                if REL:
+                    resultDICT["REL"].append({INTENT_NAME: True})
 
     if utterance == "hear .AV OBL this NOM ruler ka chief PAST- furious .AV NOM he ka when PAST- send.forth -PV he .GEN NOM many -LV OBL people ka fight .AV PAST- destroy .AV he .GEN NOM killer those ka PAST cause.burn .PV he .GEN OBL fire NOM city their":
         if CHATBOT:
@@ -140,9 +201,19 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["response"] = replySTR
                 resultDICT["source"] = "reply"
         else:
-            # write your code here
-            # resultDICT[key].append(value)
-            pass
+            checkLIST = []
+            for arg in args:
+                if not isinstance(arg, str):
+                    continue
+
+                m = re.search(G_notVerbPAT, arg)
+                if m:
+                    checkLIST.append(m.group(1))
+
+            if checkLIST and all(word not in verbLIST for word in checkLIST):
+                REL = kaCapture(args, pattern, inputSTR, resultDICT)
+                if REL:
+                    resultDICT["REL"].append({INTENT_NAME: True})
 
     return resultDICT
 
