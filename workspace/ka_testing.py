@@ -13,25 +13,27 @@ def main():
 
 
 if __name__ == "__main__":
-    andLIST = []
-    relLIST = []
-    compLIST = []
     attempts = 0
     success = False
 
     #with open("evaluation_data/kaLIST.json", encoding="utf-8") as kaFILE:
         #mixedLIST = json.load(kaFILE)
 
-    devMixedLIST = ["PAST- give .AV NOM DET Moses you .PL -OBL OBL bread ka from-heaven .AV"]
+    testLIST = ["yet time OBL day OBL hour also that not understand .AV NOM anyone not also NOM angel ka LOC far.above OBL heaven only ka father my LOC one"]
 
+    intentLIST = ["clausQ", "CP_Nominal_Predicate", "CP_taking_Verb", "CP_TP_and_V2", "Nominal_Predicate_RC6",
+                  "Nominal_Predicate", "Phrase", "RC_and_VP", "TopNP_and_VP", "TopNP_CP", "TopNP_V1", "TopNP_V2",
+                  "TP_and_V1", "TP_and_V2", "unsolved", "V1_and_VP_and_VP", "V1_and_VP", "V1_AV_RC2", "V1_AV_RC4",
+                  "V1_AV", "V1_NAV_RC5", "V1_NAV", "V2_and_VP_and_VP", "V2_and_VP", "V2_AV_RC2", "V2_AV_RC3",
+                  "V2_AV_RC4", "V2_AV_RC5", "V2_AV", "V2_NAV_RC3", "V2_NAV_RC4", "V2_NAV", "V3_AV", "V3_NAV"]
 
     refDICT = {"inputSTR":[], "ka_index":[], "utter_index":[], "COMP":[], "and":[], "REL":[]}
-    for ka_S in devMixedLIST:
+    for test_s in testLIST:
         attempts = 0
         success = False
 
         while attempts < 3 and not success:
-            relResult = askLokiREL(ka_S, filterLIST=["V3_AV"], refDICT=refDICT)
+            relResult = askLokiREL(test_s, filterLIST=["V2_AV"], refDICT=refDICT)
             sleep(0.8)
 
             if "msg" in relResult.keys():
@@ -46,7 +48,7 @@ if __name__ == "__main__":
         #relResult = askLokiREL(ka_S, refDICT=refDICT)
 
 
-    print("AND:")
+    print("REL:")
     #print(andResult)
 
     print("===")

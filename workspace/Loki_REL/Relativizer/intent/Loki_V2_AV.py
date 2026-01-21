@@ -21,6 +21,7 @@ from importlib.util import spec_from_file_location
 from random import sample
 import json
 import os
+import re
 from pathlib import Path
 import sys
 
@@ -279,6 +280,27 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                     resultDICT["REL"].append({INTENT_NAME: True})
 
     if utterance == "you .SG .GEN Q have.mercy -IRR NOM servant ka PART companion your .SG":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            checkLIST = []
+            for arg in args:
+                if not isinstance(arg, str):
+                    continue
+
+                m = re.search(G_notVerbPAT, arg)
+                if m:
+                    checkLIST.append(m.group(1))
+
+            if checkLIST and all(word not in verbLIST for word in checkLIST):
+                REL = kaCapture(args, pattern, inputSTR, resultDICT)
+                if REL:
+                    resultDICT["REL"].append({INTENT_NAME: True})
+
+    if utterance == "PAST- see .AV NOM DET Jesus DET Nathanael ka go .AV him -OBL":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
