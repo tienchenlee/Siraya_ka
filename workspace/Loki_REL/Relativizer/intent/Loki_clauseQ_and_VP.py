@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
-    Loki module for V2_AV_RC3
+    Loki module for V3_AV
 
     Input:
         inputSTR      str,
@@ -38,7 +38,7 @@ else:
         from .kaCaptureTool import kaCapture
 
 
-INTENT_NAME = "V2_AV_RC3"
+INTENT_NAME = "clauseQ_and_VP"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
 G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
 
@@ -46,6 +46,7 @@ with open(f"{CWD_PATH}/USER_DEFINED.json", "r", encoding="utf-8") as f:
     udDICT = json.load(f)
 
 verbLIST = udDICT["_asVerb_"]
+nounLIST = udDICT["ENTITY_noun"]
 nounLIST = udDICT["ENTITY_noun"]
 
 def import_from_path(module_name, file_path):
@@ -112,28 +113,7 @@ def getReply(utterance, args):
 getResponse = getReply
 def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolkitDICT={}):
     debugInfo(inputSTR, utterance)
-    if utterance == "be.like .AV NOM kingdom OBL far.above OBL heaven OBL man ka chief ruler ka PAST- think.prepare .AV OBL child his ka man OBL celebration OBL marriage":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                REL = kaCapture(args, pattern, inputSTR, resultDICT)
-                if REL:
-                    resultDICT["REL"].append({INTENT_NAME: True})
-
-    if utterance == "not break .AV OBL reed ka PAST- bruised not quench -PV .IRR he .GEN NOM flax ka smoke .AV LOC time -IRR until ka PC. complete .AV -IRR cause.appear .AV OBL judgment LOC victory":
+    if utterance == "how ka PAST- enter .AV OBL house OBL God ka PAST- eat .AV OBL bread OBL cause.public -PV ka not allow -PV let.eat .AV him -OBL OBL companion also his FOC":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -160,5 +140,5 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
 if __name__ == "__main__":
     from pprint import pprint
 
-    resultDICT = getResult("be.like .AV NOM kingdom OBL far.above OBL heaven OBL man ka chief ruler ka PAST- think.prepare .AV OBL child his ka man OBL celebration OBL marriage", "be.like .AV NOM kingdom OBL far.above OBL heaven OBL man ka chief ruler ka PAST- think.prepare .AV OBL child his ka man OBL celebration OBL marriage", [], {}, {})
+    resultDICT = getResult("they also ka disciple PAST- hand.over .AV OBL multitudes", "they also ka disciple PAST- hand.over .AV OBL multitudes", [], {}, {})
     pprint(resultDICT)

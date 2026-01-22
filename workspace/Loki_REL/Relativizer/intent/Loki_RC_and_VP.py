@@ -46,6 +46,7 @@ with open(f"{CWD_PATH}/USER_DEFINED.json", "r", encoding="utf-8") as f:
     udDICT = json.load(f)
 
 verbLIST = udDICT["_asVerb_"]
+nounLIST = udDICT["ENTITY_noun"]
 
 def import_from_path(module_name, file_path):
     spec = spec_from_file_location(module_name, file_path)
@@ -127,7 +128,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if m:
                     checkLIST.append(m.group(1))
 
-            if checkLIST and all(word not in verbLIST for word in checkLIST):
+            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
                 REL = kaCapture(args, pattern, inputSTR, resultDICT)
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
@@ -148,7 +149,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if m:
                     checkLIST.append(m.group(1))
 
-            if checkLIST and all(word not in verbLIST for word in checkLIST):
+            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
                 REL = kaCapture(args, pattern, inputSTR, resultDICT)
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})

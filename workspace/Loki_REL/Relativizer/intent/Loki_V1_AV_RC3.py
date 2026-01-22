@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
-    Loki module for V2_AV_RC3
+    Loki module for TopNP_CP
 
     Input:
         inputSTR      str,
@@ -38,7 +38,7 @@ else:
         from .kaCaptureTool import kaCapture
 
 
-INTENT_NAME = "V2_AV_RC3"
+INTENT_NAME = "V1_AV_RC3"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
 G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
 
@@ -112,28 +112,7 @@ def getReply(utterance, args):
 getResponse = getReply
 def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolkitDICT={}):
     debugInfo(inputSTR, utterance)
-    if utterance == "be.like .AV NOM kingdom OBL far.above OBL heaven OBL man ka chief ruler ka PAST- think.prepare .AV OBL child his ka man OBL celebration OBL marriage":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                REL = kaCapture(args, pattern, inputSTR, resultDICT)
-                if REL:
-                    resultDICT["REL"].append({INTENT_NAME: True})
-
-    if utterance == "not break .AV OBL reed ka PAST- bruised not quench -PV .IRR he .GEN NOM flax ka smoke .AV LOC time -IRR until ka PC. complete .AV -IRR cause.appear .AV OBL judgment LOC victory":
+    if utterance == "sad .AV NOM children ka be.with .AV OBL man ka new .AV when be.at .AV still them -OBL NOM man ka get.married .AV that":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -160,5 +139,5 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
 if __name__ == "__main__":
     from pprint import pprint
 
-    resultDICT = getResult("be.like .AV NOM kingdom OBL far.above OBL heaven OBL man ka chief ruler ka PAST- think.prepare .AV OBL child his ka man OBL celebration OBL marriage", "be.like .AV NOM kingdom OBL far.above OBL heaven OBL man ka chief ruler ka PAST- think.prepare .AV OBL child his ka man OBL celebration OBL marriage", [], {}, {})
+    resultDICT = getResult("servant ka evil .AV ka lazy .AV know -PV you .SG .GEN ka harvest .AV I .NOM LOC not I .GEN PAST sow", "servant ka evil .AV ka lazy .AV know -PV you .SG .GEN ka harvest .AV I .NOM LOC not I .GEN PAST sow", [], {}, {})
     pprint(resultDICT)

@@ -9,7 +9,6 @@ import logging
 import os
 import re
 
-INTENT_NAME = "V2_NAV"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
 
 def import_from_path(module_name, file_path):
@@ -69,16 +68,18 @@ def _getKaIdx(inputSTR, utterPat, targetArgINT):
     return targetKaIdx
 
 def kaCapture(args, pattern, inputSTR, resultDICT):
-    #targetArgLIST = [3]     # 在 Loki 上為第幾個 arg
+    targetArgLIST = []     # 在 Loki 上為第幾個 arg
+
     for i in range(0, len(args)):
         if args[i] == "ka":
-            targetArgLIST = [i]
+            targetArgLIST.append(i)
 
     REL = False
+
     for targetArgINT in targetArgLIST:
-        #if args[targetArgINT] == "ka":
         utterPat = re.compile(pattern)
         targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
         resultDICT["ka_index"].append(targetKaIdx)
         REL = True
+
     return REL
