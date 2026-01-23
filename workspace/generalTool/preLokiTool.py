@@ -61,10 +61,15 @@ def udFilter(glossSTR):
     markerLIST = ["_Mood_", "_Tense_", "_Aspect_", "_CaseMarker_", "_PhiFeatures_", "_VoiceMarker_", "_FuncCategory_", "_PrefixConcord_"]
     for keySTR, valueLIST in udDICT.items():
         if keySTR in markerLIST:
-            for valueSTR in valueLIST:
-                if "." in valueSTR or "-" in valueSTR or "," in valueSTR:
-                    if valueSTR in glossSTR:
-                        glossSTR = glossSTR.replace(valueSTR, f" {valueSTR} ")
+            for valueSTR in sorted(valueLIST, key=len, reverse=True):
+                if valueSTR == ".AVV":
+                    glossSTR = glossSTR.replace(valueSTR, f" {valueSTR} ")
+                elif valueSTR == ".AV":
+                    glossSTR = re.sub(r'\.AV(?!V)', ' .AV ', glossSTR)
+                elif valueSTR == ".EXC":
+                    glossSTR = glossSTR.replace(valueSTR, f" {valueSTR}")
+                elif "." in valueSTR or "-" in valueSTR or "," in valueSTR:
+                    glossSTR = glossSTR.replace(valueSTR, f" {valueSTR} ")
 
     # Step 2: 如果有兩個空格就替換成一個，並去除開頭空格
     while "  " in glossSTR:

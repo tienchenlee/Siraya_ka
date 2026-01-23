@@ -2049,6 +2049,7 @@
         "with.two"
     ],
     "FUNC_inter": [
+        "cause.before",
         "out.of",
         "so.that"
     ],
@@ -2183,6 +2184,7 @@
         "winnowing.fan",
         "wise",
         "wise.men",
+        "with.hearing",
         "write.on.surface",
         "young.men"
     ],
@@ -4001,6 +4003,7 @@
     ],
     "_PhiFeatures_": [
         ",PL",
+        ".EXC",
         ".EXCL",
         ".INCL",
         ".PL",
@@ -4022,7 +4025,8 @@
         "-we",
         "-you",
         "-your",
-        ".I"
+        ".I",
+        ".you"
     ],
     "_FuncCategory_": [
         "DET",
