@@ -57,6 +57,9 @@ def udFilter(glossSTR):
     with open(udPATH, "r", encoding="utf-8") as f:
         udDICT = json.load(f)
 
+    #if "LVIRR" in glossSTR:
+        #glossSTR = glossSTR.replace("LVIRR", "LV.IRR")
+
     # Step 1: 在 inputSTR 中的 "." or "-" 符號的前後各加上一個空格
     markerLIST = ["_Mood_", "_Tense_", "_Aspect_", "_CaseMarker_", "_PhiFeatures_", "_VoiceMarker_", "_FuncCategory_", "_PrefixConcord_"]
     for keySTR, valueLIST in udDICT.items():
@@ -66,8 +69,12 @@ def udFilter(glossSTR):
                     glossSTR = glossSTR.replace(valueSTR, f" {valueSTR} ")
                 elif valueSTR == ".AV":
                     glossSTR = re.sub(r'\.AV(?!V)', ' .AV ', glossSTR)
+                elif valueSTR == ".EXCL":
+                    glossSTR = glossSTR.replace(valueSTR, f" {valueSTR} ")
                 elif valueSTR == ".EXC":
-                    glossSTR = glossSTR.replace(valueSTR, f" {valueSTR}")
+                    glossSTR = re.sub(r'\.EXC(?!L)', ' .EXC ', glossSTR)
+                elif valueSTR == ".EX":
+                    glossSTR = re.sub(r'\.EX(?!C)', ' .EX ', glossSTR)
                 elif "." in valueSTR or "-" in valueSTR or "," in valueSTR:
                     glossSTR = glossSTR.replace(valueSTR, f" {valueSTR} ")
 
@@ -85,7 +92,7 @@ def udFilter(glossSTR):
 def main():
     """"""
     # example:
-    inputSTR = "PAST-drive.out-PV he.GEN OBL word NOM spirit ka evil.AV"
+    inputSTR = "see-LVIRR send.forth-PV I.GEN you.PL.NOM same.AV OBL sheep LOC middle OBL large.animal ka fall.down.AV"
     #glossSTR = siraya2gloss(inputSTR)
     udFilter(inputSTR)
 

@@ -49,18 +49,26 @@ def _getKaIdx(inputSTR, utterPat, targetArgINT):
     """
     engArticut = ARTICUT.parse(inputSTR, USER_DEFINED_FILE)
     if engArticut["status"] == True:
-        inputPosSTR = engArticut["result_pos"][0].replace(" ", "")
+        if "," in engArticut["result_pos"]:
+            posSTR = ",".join(engArticut["result_pos"]).replace(",", "")
+            engArticut["result_pos"] = [posSTR]
+
+        inputPosSTR = engArticut["result_pos"][0].replace("> <", "><")
 
     kaIdxLIST = []
 
     for k_t in [(k.start(targetArgINT+1), k.end(targetArgINT+1), k.group(targetArgINT+1)) for k in utterPat.finditer(inputPosSTR)]:
         kaIdxLIST.append(k_t)
 
+    kaIdxLIST = [kaIdx_t for kaIdx_t in kaIdxLIST if kaIdx_t[2] == "ka"]
     if kaIdxLIST:
         targetKaIdx = inputPosSTR[:kaIdxLIST[0][0]].count("</")
         # 一個字會被 articut 切成兩個字
         if re.search(r"<MODAL>do</MODAL><FUNC_negation>not</FUNC_negation>.*?<UserDefined>ka</UserDefined>", inputPosSTR):
             targetKaIdx -= 1
+        # 如果 ud 內的單字含空格，要補加一個 idx
+        if re.search(r"(?<=>)[^>]+\s.*?<UserDefined>ka<", inputPosSTR[:kaIdxLIST[0][1]+1]):
+            targetKaIdx += 1
     else:
         logging.error(f"找不到 kaIdxLIST: {inputSTR}")
         return -1
