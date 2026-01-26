@@ -1196,6 +1196,7 @@
         "as.one.will",
         "ask.again",
         "assign.work",
+        "at-far.above",
         "at.above",
         "at.all",
         "at.always",
@@ -1773,6 +1774,7 @@
         "leave.behind",
         "leave.joint",
         "leave.on.site",
+        "leaven",
         "left.over",
         "let.bury",
         "let.come",
@@ -1901,6 +1903,7 @@
         "person.self",
         "place.upon",
         "place.where",
+        "plait",
         "play.flute",
         "pluck.out",
         "possess.all",
@@ -2049,6 +2052,7 @@
         "with.two"
     ],
     "FUNC_inter": [
+        "cause.before",
         "out.of",
         "so.that"
     ],
@@ -2113,6 +2117,7 @@
         "another.one",
         "at.the.moment",
         "basin.for.foot.washing",
+        "beam",
         "blessed.one",
         "body.part",
         "burnt offering",
@@ -2125,12 +2130,14 @@
         "each.one",
         "either.side",
         "even.one",
+        "father",
         "fellowship offering",
         "fellowship offerings",
         "female.animal",
         "first",
         "garlic",
         "gift",
+        "good.things",
         "grain offering",
         "grain offerings",
         "guide",
@@ -2138,6 +2145,7 @@
         "his.own",
         "house.head",
         "house.owner",
+        "how.many",
         "jail.officer",
         "juniper",
         "juniper logs",
@@ -2154,6 +2162,7 @@
         "oaks",
         "offerings for sin ",
         "one.of.a.pair",
+        "one.th",
         "one.who.understand",
         "onions",
         "opposite.side",
@@ -2170,6 +2179,7 @@
         "storage.place",
         "synagogue-your",
         "table.master",
+        "tax.collector",
         "that.person",
         "the.one",
         "this.person",
@@ -2183,6 +2193,7 @@
         "winnowing.fan",
         "wise",
         "wise.men",
+        "with.hearing",
         "write.on.surface",
         "young.men"
     ],
@@ -3227,6 +3238,7 @@
         "Juda",
         "Judah",
         "Judas",
+        "Judas Iscariot",
         "Judith",
         "Julia",
         "Julius",
@@ -3340,6 +3352,7 @@
         "Manoah",
         "Maoch",
         "Mara",
+        "Maria Magdalene",
         "Mark",
         "Marsena",
         "Martha",
@@ -4001,6 +4014,8 @@
     ],
     "_PhiFeatures_": [
         ",PL",
+        ".EX",
+        ".EXC",
         ".EXCL",
         ".INCL",
         ".PL",
@@ -4022,7 +4037,8 @@
         "-we",
         "-you",
         "-your",
-        ".I"
+        ".I",
+        ".you"
     ],
     "_FuncCategory_": [
         "DET",
@@ -4030,7 +4046,8 @@
         "Q"
     ],
     "CLAUSE_particle": [
-        "Amen"
+        "Amen",
+        "lama sabachthani"
     ],
     "_PrefixConcord_": [
         "PC-",
