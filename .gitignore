@@ -16,7 +16,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -185,5 +184,3 @@ training
 /data/kaLIST.json
 /data/ansLIST.json
 
-#init
-__init__.py
