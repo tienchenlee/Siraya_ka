@@ -27,7 +27,7 @@ def main(inputSTR, utterIdx):
     """
     resultLIST = []
     #kaIdxSET = set()
-    askLokiLIST = [askREL]
+    askLokiLIST = [askCOMP]
     #[askCOMP, askAnd, askREL]
 
     # <句首為 ka 預設為「然後的 and」>
