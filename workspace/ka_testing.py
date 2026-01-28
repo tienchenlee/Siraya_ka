@@ -22,16 +22,17 @@ if __name__ == "__main__":
     with open(kaPATH, "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
-    toDoLIST = [1192]
+    toDoLIST = [1710]
     for utterINT in toDoLIST:
         testDICT = {utterINT: kaLIST[utterINT]}
+        #testDICT = {utterINT: "have .AV -also -I OBL sheep ka other ka not PART corral this"}
         print(f"Loki 測試句：")
         print(kaLIST[utterINT])
         print()
         #testLIST.append(kaLIST[utterINT])
 
     for key_s, test_s in testDICT.items():
-        originalSTR = test_s.replace(" -", "-").replace("- ", "-").replace(" .", ".").replace(". ", ".")
+        originalSTR = test_s.replace(" -", "-").replace("- ", "-").replace(" .", ".").replace(". ", ".").replace(" ,", ",")
         print(f"VS Code 原句：")
         print(originalSTR)
         print()
@@ -40,10 +41,10 @@ if __name__ == "__main__":
                   "CP_Nominal_Predicate", "CP_taking_Verb", "CP_TP_and_V2", "CP_V1_and_VP",
                   "Nominal_Predicate_RC6", "Nominal_Predicate",
                   "Phrase", "RC_and_VP", "unsolved", "vague",
-                  "TopNP_and_VP", "TopNP_CP", "TopNP_V1", "TopNP_V2",
+                  "TopNP_and_VP", "TopNP_CP", "TopNP_V1", "TopNP_V1_short", "TopNP_V2", "TopNP_V3"
                   "TP_and_V1", "TP_and_V2",
                   "V1_and_VP_and_VP_and_VP_and_VP", "V1_and_VP_and_VP", "V1_and_VP",
-                  "V1_AV_RC2", "V1_AV_RC3", "V1_AV_RC4", "V1_AV_RC5", "V1_AV",
+                  "V1_AV_RC2", "V1_AV_RC3", "V1_AV_RC4", "V1_AV_RC5", "V1_AV", "V1_AV_short",
                   "V1_NAV_RC5", "V1_NAV",
                   "V2_and_VP_and_VP", "V2_and_VP",
                   "V2_AV_RC2", "V2_AV_RC3", "V2_AV_RC4", "V2_AV_RC5", "V2_AV", "V2_AV_short",
@@ -51,7 +52,7 @@ if __name__ == "__main__":
                   "V3_AV", "V3_NAV"]
 
     refDICT = {"inputSTR":[], "ka_index":[], "utter_index":[], "COMP":[], "and":[], "REL":[]}
-    fewIntentLIST = ["V2_NAV", "V2_NAV_short"]
+    fewIntentLIST = ["V3_NAV"]
     for key_s, test_s in testDICT.items():
         resultLIST = []
 
@@ -75,26 +76,19 @@ if __name__ == "__main__":
                     print()
 
         #kaLIST = []
+        #matchIntentLIST=[]
         #for result_d in resultLIST:
             #if result_d["ka_index"]:
                 #kaLIST.append(result_d["ka_index"])
+                #matchIntentLIST.append(result_d["REL"])
                 #allInetentResultDICT = {
                     #"inputSTR":[test_s],
-                    #"ka_index": kaLIST,
+                    #"ka_index": list(set(kaLIST)),
                     #"utter_index":[key_s],
                     #"COMP":[],
                     #"and":[],
-                    #"REL":[result_d["REL"]]}
+                    #"REL":matchIntentLIST
+                    # }
 
         #print(resultLIST)
         #print(allInetentResultDICT)
-
-
-        #andResult = askLokiAND(ka_S, refDICT=refDICT)
-        #relResult = askLokiREL(ka_S, refDICT=refDICT)
-
-
-    #print("REL:")
-    #print("===")
-    #print(relResult)
-    #print(resultLIST)

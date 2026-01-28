@@ -61,7 +61,7 @@ def udFilter(glossSTR):
         #glossSTR = glossSTR.replace("LVIRR", "LV.IRR")
 
     # Step 1: 在 inputSTR 中的 "." or "-" 符號的前後各加上一個空格
-    markerLIST = ["_Mood_", "_Tense_", "_Aspect_", "_CaseMarker_", "_PhiFeatures_", "_VoiceMarker_", "_FuncCategory_", "_PrefixConcord_"]
+    markerLIST = ["_Mood_", "_Tense_", "_Aspect_", "_CaseMarker_", "_PhiFeatures_", "_VoiceMarker_", "_FuncCategory_", "_PrefixConcord_", "ENTITY_pronoun", "MODIFIER"]
     for keySTR, valueLIST in udDICT.items():
         if keySTR in markerLIST:
             for valueSTR in sorted(valueLIST, key=len, reverse=True):
