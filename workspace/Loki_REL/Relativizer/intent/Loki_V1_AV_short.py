@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
-    Loki module for V3_AV
+    Loki module for unsolved
 
     Input:
         inputSTR      str,
@@ -38,7 +38,7 @@ else:
         from .kaCaptureTool import kaCapture
 
 
-INTENT_NAME = "V3_AV"
+INTENT_NAME = "V1_AV_short"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
 G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
 
@@ -112,7 +112,7 @@ def getReply(utterance, args):
 getResponse = getReply
 def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolkitDICT={}):
     debugInfo(inputSTR, utterance)
-    if utterance == "PAST- give .AV NOM DET Moses you .PL -OBL OBL bread ka from-heaven .AV":
+    if utterance == "from.where .AV you .SG -OBL NOM water ka be.living":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -133,70 +133,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
 
-    if utterance == "he however not PAST- answer .AV her -OBL OBL even.one ka word":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                REL = kaCapture(args, pattern, inputSTR, resultDICT)
-                if REL:
-                    resultDICT["REL"].append({INTENT_NAME: True})
-
-    if utterance == "they also ka disciple PAST- hand.over .AV OBL multitudes":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                REL = kaCapture(args, pattern, inputSTR, resultDICT)
-                if REL:
-                    resultDICT["REL"].append({INTENT_NAME: True})
-
-    if utterance == "NOM father .LV your .PL ka LOC far.above OBL heaven give OBL good.things them -OBL ka ask .AV him -OBL":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                REL = kaCapture(args, pattern, inputSTR, resultDICT)
-                if REL:
-                    resultDICT["REL"].append({INTENT_NAME: True})
-
-    if utterance == "give .AV -IRR -PFV you .SG -OBL OBL water ka live":
+    if utterance == "LOC day ka first .AV OBL boundary OBL sabbath PAST- PC. early.in.morning .AV NOM DET Mary Magdalene when dark .AV still come .AV LOC grave":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -223,5 +160,5 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
 if __name__ == "__main__":
     from pprint import pprint
 
-    resultDICT = getResult("they also ka disciple PAST- hand.over .AV OBL multitudes", "they also ka disciple PAST- hand.over .AV OBL multitudes", [], {}, {})
+    resultDICT = getResult("you .PL ka foolish .AV ka blind .AV", "you .PL ka foolish .AV ka blind .AV", [], {}, {})
     pprint(resultDICT)
