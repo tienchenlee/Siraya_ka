@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
-    Loki module for V3
+    Loki module for vague
 
     Input:
         inputSTR      str,
@@ -37,7 +37,7 @@ else:
     except:
         from .kaCaptureTool import kaCapture
 
-INTENT_NAME = "V3"
+INTENT_NAME = "vague"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
 G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
 
@@ -111,7 +111,7 @@ def getReply(utterance, args):
 getResponse = getReply
 def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolkitDICT={}):
     debugInfo(inputSTR, utterance)
-    if utterance == "PAST- request .AV him -OBL ka PC. only .AV -IRR touch .AV OBL PART hem OBL garment his":
+    if utterance == "know .AV -IRR you .PL .NOM ka believe .AV -IRR you .PL .NOM ka be.in .AV NOM father me -OBL ka be.in .AV also-I .NOM him -OBL":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -132,7 +132,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
 
-    if utterance == "again -PV I .GEN you .PL .NOM speak .AV ka more .AV be.able NOM large.animal ka heavy .AV OBL back go.through .AV LOC hole OBL needle":
+    if utterance == "what ka hear .AV you .PL .NOM him -OBL":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -153,28 +153,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
 
-    if utterance == "see .AV NOM DET Jesus her -OBL ka cry .AV NOM she":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                COMP = kaCapture(args, pattern, inputSTR, resultDICT)
-                if COMP:
-                    resultDICT["COMP"].append({INTENT_NAME: True})
-
-    if utterance == "speak -PV I .GEN you .PL .NOM ka not so .AV PAST- PC. beautiful .AV cause.dress .AV NOM DET Solomon LOC all OBL greatness OBL status his same .AV OBL one OBL it":
+    if utterance == "whatever ka speak -IV .IRR he .GEN you .PL -OBL obey -PV .IRR -PFV":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -201,5 +180,5 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
 if __name__ == "__main__":
     from pprint import pprint
 
-    resultDICT = getResult("see .AV NOM DET Jesus her -OBL ka cry .AV NOM she", "see .AV NOM DET Jesus her -OBL ka cry .AV NOM she", [], {}, {})
+    resultDICT = getResult("what ka hear .AV you .PL .NOM him -OBL", "what ka hear .AV you .PL .NOM him -OBL", [], {}, {})
     pprint(resultDICT)

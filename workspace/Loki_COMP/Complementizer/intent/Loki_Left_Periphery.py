@@ -19,13 +19,33 @@
 from importlib.util import module_from_spec
 from importlib.util import spec_from_file_location
 from random import sample
-import logging
 import json
 import os
 import re
+from pathlib import Path
+import sys
+
+G_mainPath = Path(sys.argv[0]).resolve()
+if G_mainPath.name == "ka_testing.py":
+    try:
+        from Loki_COMP.Complementizer.intent.kaCaptureTool import kaCapture
+    except:
+        from .Loki_COMP.Complementizer.intent.kaCaptureTool import kaCapture
+else:
+    try:
+        from kaCaptureTool import kaCapture
+    except:
+        from .kaCaptureTool import kaCapture
 
 INTENT_NAME = "Left_Periphery"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
+G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
+
+with open(f"{CWD_PATH}/USER_DEFINED.json", "r", encoding="utf-8") as f:
+    udDICT = json.load(f)
+
+verbLIST = udDICT["_asVerb_"]
+nounLIST = udDICT["ENTITY_noun"]
 
 def import_from_path(module_name, file_path):
     spec = spec_from_file_location(module_name, file_path)
@@ -88,33 +108,6 @@ def getReply(utterance, args):
 
     return replySTR
 
-def _getKaIdx(inputSTR, utterPat, targetArgINT):
-    """
-    1. Articut inputSTR
-    2. Get the string that before the target 'ka'
-    3. Count the index of 'ka'
-    4. Return the index
-    """
-    engArticut = ARTICUT.parse(inputSTR, USER_DEFINED_FILE)
-    if engArticut["status"] == True:
-        inputPosSTR = engArticut["result_pos"][0].replace(" ", "")
-
-    kaIdxLIST = []
-
-    for k_t in [(k.start(targetArgINT+1), k.end(targetArgINT+1), k.group(targetArgINT+1)) for k in utterPat.finditer(inputPosSTR)]:
-        kaIdxLIST.append(k_t)
-
-    if kaIdxLIST:
-        targetKaIdx = inputPosSTR[:kaIdxLIST[0][0]].count("</")
-        # 一個字會被 articut 切成兩個字
-        if re.search(r"<MODAL>do</MODAL><FUNC_negation>not</FUNC_negation>.*?<UserDefined>ka</UserDefined>", inputPosSTR):
-            targetKaIdx -= 1
-    else:
-        logging.error(f"找不到 kaIdxLIST: {inputSTR}")
-        return -1
-
-    return targetKaIdx
-
 getResponse = getReply
 def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolkitDICT={}):
     debugInfo(inputSTR, utterance)
@@ -125,38 +118,19 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["response"] = replySTR
                 resultDICT["source"] = "reply"
         else:
-            targetArgLIST = [0]     # 在 Loki 上為第幾個 arg
-            COMP = False
+            checkLIST = []
+            for arg in args:
+                if not isinstance(arg, str):
+                    continue
 
-            for targetArgINT in targetArgLIST:
-                if args[targetArgINT] == "ka":
-                    utterPat = re.compile(pattern)
-                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
-                    resultDICT["ka_index"].append(targetKaIdx)
-                    COMP = True
+                m = re.search(G_notVerbPAT, arg)
+                if m:
+                    checkLIST.append(m.group(1))
 
-            if COMP:
-                resultDICT["COMP"].append({INTENT_NAME: True})
-
-    if utterance == "from.where .AV ka have-herb .AV ka not good .AV":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            targetArgLIST = [0]     # 在 Loki 上為第幾個 arg
-            COMP = False
-
-            for targetArgINT in targetArgLIST:
-                if args[targetArgINT] == "ka":
-                    utterPat = re.compile(pattern)
-                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
-                    resultDICT["ka_index"].append(targetKaIdx)
-                    COMP = True
-
-            if COMP:
-                resultDICT["COMP"].append({INTENT_NAME: True})
+            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
+                COMP = kaCapture(args, pattern, inputSTR, resultDICT)
+                if COMP:
+                    resultDICT["COMP"].append({INTENT_NAME: True})
 
     if utterance == "how ka see .AV -PFV now":
         if CHATBOT:
@@ -165,23 +139,25 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["response"] = replySTR
                 resultDICT["source"] = "reply"
         else:
-            targetArgLIST = [0]     # 在 Loki 上為第幾個 arg
-            COMP = False
+            checkLIST = []
+            for arg in args:
+                if not isinstance(arg, str):
+                    continue
 
-            for targetArgINT in targetArgLIST:
-                if args[targetArgINT] == "ka":
-                    utterPat = re.compile(pattern)
-                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
-                    resultDICT["ka_index"].append(targetKaIdx)
-                    COMP = True
+                m = re.search(G_notVerbPAT, arg)
+                if m:
+                    checkLIST.append(m.group(1))
 
-            if COMP:
-                resultDICT["COMP"].append({INTENT_NAME: True})
+            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
+                COMP = kaCapture(args, pattern, inputSTR, resultDICT)
+                if COMP:
+                    resultDICT["COMP"].append({INTENT_NAME: True})
+
     return resultDICT
 
 
 if __name__ == "__main__":
     from pprint import pprint
 
-    resultDICT = getResult("because ka", "because ka", [], {}, {})
+    resultDICT = getResult("how ka see .AV -PFV now", "how ka see .AV -PFV now", [], {}, {})
     pprint(resultDICT)
