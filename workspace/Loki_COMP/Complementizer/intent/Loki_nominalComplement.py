@@ -26,7 +26,7 @@ from pathlib import Path
 import sys
 
 G_mainPath = Path(sys.argv[0]).resolve()
-if G_mainPath.name == "ka_testing.py":
+if G_mainPath.name in ["ka_testing.py", "ka_identifier.py"]:
     try:
         from Loki_COMP.Complementizer.intent.kaCaptureTool import kaCapture
     except:
