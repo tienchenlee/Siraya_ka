@@ -22,10 +22,10 @@ if __name__ == "__main__":
     with open(kaPATH, "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
-    toDoLIST = [1710]
+    toDoLIST = [2236]
     for utterINT in toDoLIST:
         testDICT = {utterINT: kaLIST[utterINT]}
-        #testDICT = {utterINT: "have .AV -also -I OBL sheep ka other ka not PART corral this"}
+        #testDICT = {utterINT: "PAST- believe .AV him -OBL NOM anyone OBL ruler anyone or ka PART Pharisee"}
         print(f"Loki 測試句：")
         print(kaLIST[utterINT])
         print()
@@ -38,21 +38,21 @@ if __name__ == "__main__":
         print()
 
     intentLIST = ["clauseQ", "clauseQ_and_VP",
-                  "CP_Nominal_Predicate", "CP_taking_Verb", "CP_TP_and_V2", "CP_V1_and_VP",
+                  "CP_Nominal_Predicate", "CP_taking_Verb", "CP_taking_Verb_short", "CP_TP_and_V2", "CP_V1_and_VP",
                   "Nominal_Predicate_RC6", "Nominal_Predicate",
                   "Phrase", "RC_and_VP", "unsolved", "vague",
-                  "TopNP_and_VP", "TopNP_CP", "TopNP_V1", "TopNP_V1_short", "TopNP_V2", "TopNP_V3"
+                  "TopNP_and_VP", "TopNP_CP", "TopNP_V1", "TopNP_V1_short", "TopNP_V2", "TopNP_V2_short", "TopNP_V3"
                   "TP_and_V1", "TP_and_V2",
                   "V1_and_VP_and_VP_and_VP_and_VP", "V1_and_VP_and_VP", "V1_and_VP",
                   "V1_AV_RC2", "V1_AV_RC3", "V1_AV_RC4", "V1_AV_RC5", "V1_AV", "V1_AV_short",
                   "V1_NAV_RC5", "V1_NAV",
-                  "V2_and_VP_and_VP", "V2_and_VP",
+                  "V2_and_VP_and_VP", "V2_and_VP", "V2",
                   "V2_AV_RC2", "V2_AV_RC3", "V2_AV_RC4", "V2_AV_RC5", "V2_AV", "V2_AV_short",
                   "V2_NAV_RC3", "V2_NAV_RC4", "V2_NAV", "V2_NAV_short",
                   "V3_AV", "V3_NAV"]
 
     refDICT = {"inputSTR":[], "ka_index":[], "utter_index":[], "COMP":[], "and":[], "REL":[]}
-    fewIntentLIST = ["V3_NAV"]
+    fewIntentLIST = ["V1_AV", "V1_AV_short"]
     for key_s, test_s in testDICT.items():
         resultLIST = []
 
