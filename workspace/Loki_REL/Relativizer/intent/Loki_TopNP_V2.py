@@ -154,69 +154,6 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
 
-    if utterance == "they ka children OBL kingdom cast.outside -IV .IRR LOC darkness":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                REL = kaCapture(args, pattern, inputSTR, resultDICT)
-                if REL:
-                    resultDICT["REL"].append({INTENT_NAME: True})
-
-    if utterance == "whatever ka bind -PV .IRR you .PL .GEN LOC earth bind -LV .IRR NOM it LOC far.above OBL heaven":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                REL = kaCapture(args, pattern, inputSTR, resultDICT)
-                if REL:
-                    resultDICT["REL"].append({INTENT_NAME: True})
-
-    if utterance == "you .PL ka serpent ka PAST- brood OBL viper escape .AV -IRR you .PL .NOM how OBL curse OBL hell":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                REL = kaCapture(args, pattern, inputSTR, resultDICT)
-                if REL:
-                    resultDICT["REL"].append({INTENT_NAME: True})
-
     if utterance == "anyone NOM speak.against .AV -IRR -PFV OBL spirit ka truly .AV righteous .AV not forgive -LV .IRR him -OBL NOM it not LOC world this ka now not LOC it-also ka come .AV -IRR while be.future .AV":
         if CHATBOT:
             replySTR = getReply(utterance, args)
@@ -239,27 +176,6 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                     resultDICT["REL"].append({INTENT_NAME: True})
 
     if utterance == "man ka good .AV bring.forth .AV OBL good .AV OBL treasure ka good .AV OBL heart man instead ka evil .AV bring.forth .AV OBL not good .AV OBL treasure ka evil .AV":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                REL = kaCapture(args, pattern, inputSTR, resultDICT)
-                if REL:
-                    resultDICT["REL"].append({INTENT_NAME: True})
-
-    if utterance == "anyone ka have-ear .AV OBL with.hearing hear .AV -IRR -PFV":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -323,27 +239,6 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                     resultDICT["REL"].append({INTENT_NAME: True})
 
     if utterance == "all OBL everyone ka hear .AV OBL words my this when obey .AV liken -PV .IRR I .GEN him -OBL OBL man ka wise .AV ka PAST- build .AV OBL house his LOC moutain ka stone":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                REL = kaCapture(args, pattern, inputSTR, resultDICT)
-                if REL:
-                    resultDICT["REL"].append({INTENT_NAME: True})
-
-    if utterance == "he NOM deny -IV .IRR I .GEN LOC openness father my ka LOC far.above ONL heaven":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:

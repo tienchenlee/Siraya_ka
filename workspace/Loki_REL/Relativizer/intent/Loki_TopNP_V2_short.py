@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
-    Loki module for unsolved
+    Loki module for TopNP_V2
 
     Input:
         inputSTR      str,
@@ -38,7 +38,7 @@ else:
         from .kaCaptureTool import kaCapture
 
 
-INTENT_NAME = "TopNP_V3"
+INTENT_NAME = "TopNP_V2"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
 G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
 
@@ -112,7 +112,7 @@ def getReply(utterance, args):
 getResponse = getReply
 def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolkitDICT={}):
     debugInfo(inputSTR, utterance)
-    if utterance == "all ka PAST- give -PV you .SG .GEN him -OBL give -LV .IRR he .GEN them -OBL NOM life ka always .AV be.lasting .AV":
+    if utterance == "they ka children OBL kingdom cast.outside -IV .IRR LOC darkness":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -133,7 +133,70 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
 
-    if utterance == "whatever ka ask -PV .IRR you .GEN OBL God ka give .AV -IRR OBL it NOM God you -OBL":
+    if utterance == "whatever ka bind -PV .IRR you .PL .GEN LOC earth bind -LV .IRR NOM it LOC far.above OBL heaven":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            checkLIST = []
+            for arg in args:
+                if not isinstance(arg, str):
+                    continue
+
+                m = re.search(G_notVerbPAT, arg)
+                if m:
+                    checkLIST.append(m.group(1))
+
+            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
+                REL = kaCapture(args, pattern, inputSTR, resultDICT)
+                if REL:
+                    resultDICT["REL"].append({INTENT_NAME: True})
+
+    if utterance == "you .PL ka serpent ka PAST- brood OBL viper escape .AV -IRR you .PL .NOM how OBL curse OBL hell":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            checkLIST = []
+            for arg in args:
+                if not isinstance(arg, str):
+                    continue
+
+                m = re.search(G_notVerbPAT, arg)
+                if m:
+                    checkLIST.append(m.group(1))
+
+            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
+                REL = kaCapture(args, pattern, inputSTR, resultDICT)
+                if REL:
+                    resultDICT["REL"].append({INTENT_NAME: True})
+
+    if utterance == "anyone ka have-ear .AV OBL with.hearing hear .AV -IRR -PFV":
+        if CHATBOT:
+            replySTR = getReply(utterance, args)
+            if replySTR:
+                resultDICT["response"] = replySTR
+                resultDICT["source"] = "reply"
+        else:
+            checkLIST = []
+            for arg in args:
+                if not isinstance(arg, str):
+                    continue
+
+                m = re.search(G_notVerbPAT, arg)
+                if m:
+                    checkLIST.append(m.group(1))
+
+            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
+                REL = kaCapture(args, pattern, inputSTR, resultDICT)
+                if REL:
+                    resultDICT["REL"].append({INTENT_NAME: True})
+
+    if utterance == "he NOM deny -IV .IRR I .GEN LOC openness father my ka LOC far.above ONL heaven":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -160,5 +223,5 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
 if __name__ == "__main__":
     from pprint import pprint
 
-    resultDICT = getResult("you .PL ka foolish .AV ka blind .AV", "you .PL ka foolish .AV ka blind .AV", [], {}, {})
+    resultDICT = getResult("they ka children OBL kingdom cast.outside -IV .IRR LOC darkness", "they ka children OBL kingdom cast.outside -IV .IRR LOC darkness", [], {}, {})
     pprint(resultDICT)
