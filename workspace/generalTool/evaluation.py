@@ -188,15 +188,15 @@ def findUncoveredAnswer(predLIST, ansLIST, kaFunction):
 
 if __name__ == "__main__":
     COMPAnsLIST, andAnsLIST, RELAnsLIST = createAnswer()
-    COMPPredLIST, andPredLIST, RELPredLIST = makePrediction()
+    #COMPPredLIST, andPredLIST, RELPredLIST = makePrediction()
 
-    functionDICT = {
-        "COMP": (COMPPredLIST, COMPAnsLIST),
-        "and":  (andPredLIST,  andAnsLIST),
-        "REL":  (RELPredLIST,  RELAnsLIST),
-    }
+    #functionDICT = {
+        #"COMP": (COMPPredLIST, COMPAnsLIST),
+        #"and":  (andPredLIST,  andAnsLIST),
+        #"REL":  (RELPredLIST,  RELAnsLIST),
+    #}
 
-    for keySTR, (predLIST, ansLIST) in functionDICT.items():
-        print(f"[{keySTR}]")
-        coverage = getCoverage(predLIST, ansLIST)
-        findUncoveredAnswer(predLIST, ansLIST, keySTR)
+    #for keySTR, (predLIST, ansLIST) in functionDICT.items():
+        #print(f"[{keySTR}]")
+        #coverage = getCoverage(predLIST, ansLIST)
+        #findUncoveredAnswer(predLIST, ansLIST, keySTR)

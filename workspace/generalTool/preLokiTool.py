@@ -57,24 +57,47 @@ def udFilter(glossSTR):
     with open(udPATH, "r", encoding="utf-8") as f:
         udDICT = json.load(f)
 
-    #if "LVIRR" in glossSTR:
-        #glossSTR = glossSTR.replace("LVIRR", "LV.IRR")
+    if "LVIRR" in glossSTR:
+        glossSTR = glossSTR.replace("LVIRR", "LV.IRR")
 
     # Step 1: 在 inputSTR 中的 "." or "-" 符號的前後各加上一個空格
-    markerLIST = ["_Mood_", "_Tense_", "_Aspect_", "_CaseMarker_", "_PhiFeatures_", "_VoiceMarker_", "_FuncCategory_", "_PrefixConcord_", "ENTITY_pronoun", "MODIFIER"]
+    markerLIST = ["_Mood_", "_Tense_", "_Aspect_", "_CaseMarker_", "_PhiFeatures_", "_VoiceMarker_", "_FuncCategory_", "_PrefixConcord_"]
+    hyphenLIST = ["_Negation_", "ENTITY_pronoun", "MODIFIER"]
+
     for keySTR, valueLIST in udDICT.items():
-        if keySTR in markerLIST:
+        if keySTR in hyphenLIST:
+            for valueSTR in sorted(valueLIST, key=len, reverse=True):
+                if valueSTR == ".I":
+                    pass
+                elif valueSTR == "-I":
+                    glossSTR = re.sub(r"also-I", "also -I ", glossSTR)
+                elif valueSTR == "-son":
+                    glossSTR = re.sub(r"(REL|ka)-son\b", r"\1 -son ", glossSTR)
+                elif valueSTR == "-we":
+                    glossSTR = re.sub(r"(\w+)-we\b", r"\1 -we ", glossSTR)
+                elif valueSTR == "-your":
+                    glossSTR = re.sub(r"([A-Z]+)-your\b", r"\1 -your ", glossSTR)
+                elif valueSTR == "-you":
+                    glossSTR = re.sub(r"(\w+)-you\b", r"\1 -you ", glossSTR)
+                elif valueSTR == ".you":
+                    glossSTR = re.sub(r"(\w+)\.you\b", r"\1 .you ", glossSTR)
+                elif valueSTR == ".also":
+                    glossSTR = re.sub(r"([A-Z]+)\.also\b", r"\1 .also ", glossSTR)
+                else:
+                    glossSTR = re.sub(fr"(\w+){valueSTR}\b", fr"\1 {valueSTR} ", glossSTR)
+
+        elif keySTR in markerLIST:
             for valueSTR in sorted(valueLIST, key=len, reverse=True):
                 if valueSTR == ".AVV":
                     glossSTR = glossSTR.replace(valueSTR, f" {valueSTR} ")
                 elif valueSTR == ".AV":
-                    glossSTR = re.sub(r'\.AV(?!V)', ' .AV ', glossSTR)
+                    glossSTR = re.sub(r"\.AV(?!V)", " .AV ", glossSTR)
                 elif valueSTR == ".EXCL":
                     glossSTR = glossSTR.replace(valueSTR, f" {valueSTR} ")
                 elif valueSTR == ".EXC":
-                    glossSTR = re.sub(r'\.EXC(?!L)', ' .EXC ', glossSTR)
+                    glossSTR = re.sub(r"\.EXC(?!L)", " .EXC ", glossSTR)
                 elif valueSTR == ".EX":
-                    glossSTR = re.sub(r'\.EX(?!C)', ' .EX ', glossSTR)
+                    glossSTR = re.sub(r"\.EX(?!C)", " .EX ", glossSTR)
                 elif "." in valueSTR or "-" in valueSTR or "," in valueSTR:
                     glossSTR = glossSTR.replace(valueSTR, f" {valueSTR} ")
 
@@ -82,7 +105,7 @@ def udFilter(glossSTR):
     while "  " in glossSTR:
         glossSTR = glossSTR.replace("  ", " ")
 
-    outputSTR = glossSTR.lstrip()
+    outputSTR = glossSTR.strip()
 
     print(f"loki 輸入句：")
     print(outputSTR)

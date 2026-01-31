@@ -1168,6 +1168,7 @@
     "MODIFIER": [
         "-also",
         "-instead",
+        "-lay",
         "-still",
         ".also"
     ],
@@ -1887,6 +1888,7 @@
         "move.oppose",
         "move.up",
         "move.upward",
+        "n.so.much",
         "near",
         "not.entrust",
         "not.exist",
@@ -1940,6 +1942,9 @@
         "righteous",
         "rise",
         "rule.over",
+        "s.own",
+        "s.own.will",
+        "s.will",
         "say.indicate",
         "say.so",
         "say.so.also",
@@ -2083,6 +2088,7 @@
         "Ziv"
     ],
     "_Negation_": [
+        "-not",
         "NEG"
     ],
     "ENTITY_noun": [
@@ -4058,6 +4064,8 @@
     ],
     "ENTITY_pronoun": [
         "-I",
+        "-child",
+        "-children",
         "-son",
         "-we",
         "-you",

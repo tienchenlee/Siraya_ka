@@ -351,6 +351,9 @@ def getKaList():
                             if re.search(r"\bka\b", wordSTR.lower()):
                                 if glossWordLIST[idx] in ["REL", "COMP", "and", "And"]:     #如果只先處理這三種
                                     glossWordLIST[idx] = "ka"
+                            if re.search(r"\bk-[a-z]+\b", wordSTR.lower()):
+                                if re.search(r"\b(?:REL|COMP|[Aa]nd)-", glossWordLIST[idx]):
+                                    glossWordLIST[idx] = re.sub(r"\b(?:REL|COMP|[Aa]nd)-", "ka-", glossWordLIST[idx])
 
                         newSirayaLIST.append(" ".join(sirayaWordLIST))
                         newGlossLIST.append(" ".join(glossWordLIST))
