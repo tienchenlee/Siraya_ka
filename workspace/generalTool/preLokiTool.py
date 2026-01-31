@@ -71,6 +71,7 @@ def udFilter(glossSTR):
                     pass
                 elif valueSTR == "-I":
                     glossSTR = re.sub(r"also-I", "also -I ", glossSTR)
+                    glossSTR = re.sub(r"still-I", "still -I ", glossSTR)
                 elif valueSTR == "-son":
                     glossSTR = re.sub(r"(REL|ka)-son\b", r"\1 -son ", glossSTR)
                 elif valueSTR == "-we":
