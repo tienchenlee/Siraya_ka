@@ -173,6 +173,8 @@ All chapters, Gospel of John, 2025.1.26
 Matthew
 John
 training
+All Questions, Catechism, 2025.1.26
+Catechism
 
 # json
 /corpus/ka_gloss_LIST.json
@@ -182,4 +184,5 @@ training
 /data/kaDICT.json
 /data/kaLIST.json
 /data/ansLIST.json
-
+/data/kaLIST_eval.json
+/data/ansLIST_eval.json
