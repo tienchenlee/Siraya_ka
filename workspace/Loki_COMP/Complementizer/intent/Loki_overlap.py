@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
-    Loki module for V3
+    Loki module for V2
 
     Input:
         inputSTR      str,
@@ -37,7 +37,7 @@ else:
     except:
         from .kaCaptureTool import kaCapture
 
-INTENT_NAME = "V3"
+INTENT_NAME = "overlap"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
 G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
 
@@ -111,7 +111,7 @@ def getReply(utterance, args):
 getResponse = getReply
 def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolkitDICT={}):
     debugInfo(inputSTR, utterance)
-    if utterance == "PAST- request .AV him -OBL ka PC. only .AV -IRR touch .AV OBL PART hem OBL garment his":
+    if utterance == "witness you .PL .NOM me -OBL NOM you .PL self .AV ka PAST- speak -PV I .GEN not DET I NOM DET Christ":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -132,7 +132,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
 
-    if utterance == "again -PV I .GEN you .PL .NOM speak .AV ka more .AV be.able NOM large.animal ka heavy .AV OBL back go.through .AV LOC hole OBL needle":
+    if utterance == "know .AV or NOM anyone ka at.where .AV NOM he":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -153,7 +153,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
 
-    if utterance == "see .AV NOM DET Jesus her -OBL ka cry .AV NOM she":
+    if utterance == "when ka give.mercy .AV you .SG .NOM OBL mercy":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -174,7 +174,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
 
-    if utterance == "speak -PV I .GEN you .PL .NOM ka not so .AV PAST- PC. beautiful .AV cause.dress .AV NOM DET Solomon LOC all OBL greatness OBL status his same .AV OBL one OBL it":
+    if utterance == "this -instead NOM judgment ka come .AV -PFV NOM light LOC world":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -195,49 +195,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
 
-    if utterance == "worry .AV OBL heart OBL life your .PL ka what NOM eat -PV .IRR you .PL .GEN ka what NOM drink -PV .IRR you .PL .GEN do.not worry .AV also OBL body your .PL ka what NOM wear -LV .IRR you .PL .GEN":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                COMP = kaCapture(args, pattern, inputSTR, resultDICT)
-                if COMP:
-                    resultDICT["COMP"].append({INTENT_NAME: True})
-
-    if utterance == "keep.saying .AV lord ka DET son GEN David have.mercy .AV -PFV us .EXCL -OBL":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                COMP = kaCapture(args, pattern, inputSTR, resultDICT)
-                if COMP:
-                    resultDICT["COMP"].append({INTENT_NAME: True})
-
-    if utterance == "know .AV you .PL .NOM NOM you ka evil .AV OBL status":
+    if utterance == "angry .AV Q you .PL .NOM me -OBL ka PAST- PC. entire .PV I .GEN cure .AV NOM man LOC day OBL sabbath":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -264,5 +222,5 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
 if __name__ == "__main__":
     from pprint import pprint
 
-    resultDICT = getResult("see .AV NOM DET Jesus her -OBL ka cry .AV NOM she", "see .AV NOM DET Jesus her -OBL ka cry .AV NOM she", [], {}, {})
+    resultDICT = getResult("speak.truly you .SG .NOM ka king I .NOM ka chief", "speak.truly you .SG .NOM ka king I .NOM ka chief", [], {}, {})
     pprint(resultDICT)

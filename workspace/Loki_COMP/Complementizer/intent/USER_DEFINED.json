@@ -1168,6 +1168,8 @@
     "MODIFIER": [
         "-also",
         "-instead",
+        "-lay",
+        "-rather",
         "-still",
         ".also"
     ],
@@ -1560,6 +1562,7 @@
         "drive.out",
         "each.other",
         "early.in.morning",
+        "enter",
         "enter.house",
         "even.though",
         "every.where",
@@ -1887,6 +1890,7 @@
         "move.oppose",
         "move.up",
         "move.upward",
+        "n.so.much",
         "near",
         "not.entrust",
         "not.exist",
@@ -1900,6 +1904,7 @@
         "on.top",
         "one",
         "one.another",
+        "one.of.a.pair",
         "one.self",
         "only.beget",
         "originate.from.evil",
@@ -1940,6 +1945,9 @@
         "righteous",
         "rise",
         "rule.over",
+        "s.own",
+        "s.own.will",
+        "s.will",
         "say.indicate",
         "say.so",
         "say.so.also",
@@ -2057,7 +2065,8 @@
         "with.force",
         "with.hear",
         "with.together",
-        "with.two"
+        "with.two",
+        "witness"
     ],
     "FUNC_inter": [
         "belong.to",
@@ -2083,6 +2092,7 @@
         "Ziv"
     ],
     "_Negation_": [
+        "-not",
         "NEG"
     ],
     "ENTITY_noun": [
@@ -2134,6 +2144,7 @@
         "burnt offering",
         "burnt offerings",
         "cedar",
+        "children",
         "cucumbers",
         "cypress",
         "cypress trees",
@@ -2208,6 +2219,7 @@
         "water",
         "watermelons",
         "whatever",
+        "whoever",
         "wicked.one",
         "wife",
         "winnowing.fan",
@@ -4058,6 +4070,8 @@
     ],
     "ENTITY_pronoun": [
         "-I",
+        "-child",
+        "-children",
         "-son",
         "-we",
         "-you",

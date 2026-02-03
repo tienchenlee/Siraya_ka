@@ -111,7 +111,7 @@ def getReply(utterance, args):
 getResponse = getReply
 def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolkitDICT={}):
     debugInfo(inputSTR, utterance)
-    if utterance == "LOC law your .PL ka true .AV NOM testify -PV OBL word OBL two OBL man":
+    if utterance == "NOM word this LOC brothers ka not die .AV -IRR NOM disciple that":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -132,7 +132,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
 
-    if utterance == "NOM word this LOC brothers ka not die .AV -IRR NOM disciple that":
+    if utterance == "this -rather NOM life ka always .AV be.lasting .AV ka know .AV -IRR NOM they you .SG -OBL only one OBL God ka true .AV DET Jesus -OBL also ka DET Christ ka PAST- send.forth -PV you .SG .GEN":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
