@@ -149,10 +149,12 @@ def makePrediction():
                 ka_indexLIST = lokiResultDICT["ka_index"]
                 utter_index = lokiResultDICT["utter_index"][0]
                 for ka_index in ka_indexLIST:
-                    mapDICT[keySTR].append([utter_index, ka_index])
+                    if [utter_index, ka_index] not in mapDICT[keySTR]:
+                        mapDICT[keySTR].append([utter_index, ka_index])
 
-            with open(f"{G_predictionDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
-                json.dump(mapDICT[keySTR], f, ensure_ascii=False, indent=4)
+    for keySTR in mapDICT:
+        with open(f"{G_predictionDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
+            json.dump(mapDICT[keySTR], f, ensure_ascii=False, indent=4)
 
     return COMPLIST, andLIST, RELLIST
 
@@ -188,15 +190,15 @@ def findUncoveredAnswer(predLIST, ansLIST, kaFunction):
 
 if __name__ == "__main__":
     COMPAnsLIST, andAnsLIST, RELAnsLIST = createAnswer()
-    #COMPPredLIST, andPredLIST, RELPredLIST = makePrediction()
+    COMPPredLIST, andPredLIST, RELPredLIST = makePrediction()
 
-    #functionDICT = {
-        #"COMP": (COMPPredLIST, COMPAnsLIST),
-        #"and":  (andPredLIST,  andAnsLIST),
-        #"REL":  (RELPredLIST,  RELAnsLIST),
-    #}
+    functionDICT = {
+        "COMP": (COMPPredLIST, COMPAnsLIST),
+        "and":  (andPredLIST,  andAnsLIST),
+        "REL":  (RELPredLIST,  RELAnsLIST),
+    }
 
-    #for keySTR, (predLIST, ansLIST) in functionDICT.items():
-        #print(f"[{keySTR}]")
-        #coverage = getCoverage(predLIST, ansLIST)
-        #findUncoveredAnswer(predLIST, ansLIST, keySTR)
+    for keySTR, (predLIST, ansLIST) in functionDICT.items():
+        print(f"[{keySTR}]")
+        coverage = getCoverage(predLIST, ansLIST)
+        findUncoveredAnswer(predLIST, ansLIST, keySTR)
