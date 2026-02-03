@@ -64,7 +64,7 @@ def _getKaIdx(inputSTR, utterPat, targetArgINT):
     if kaIdxLIST:
         targetKaIdx = inputPosSTR[:kaIdxLIST[0][0]].count("</")
         # 一個字會被 articut 切成兩個字
-        if re.search(r"<MODAL>do</MODAL><FUNC_negation>not</FUNC_negation>.*?<UserDefined>ka</UserDefined>", inputPosSTR):
+        if re.search(r"<MODAL>do</MODAL><FUNC_negation>not</FUNC_negation>.*?<UserDefined>ka</UserDefined>", inputPosSTR[:kaIdxLIST[0][1]+1]):
             targetKaIdx -= 1
         # 如果 ud 內的單字含空格，要補加一個 idx
         if re.search(r"(?<=>)[^>]+\s.*?<UserDefined>ka<", inputPosSTR[:kaIdxLIST[0][1]+1]):

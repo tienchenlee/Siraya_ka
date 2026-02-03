@@ -23,19 +23,19 @@ if __name__ == "__main__":
     Holiday1 = "Shelters|Rededication|Unleavened Bread"
     Holiday2 = "New Moon Festival|New Moon Festivals|Passover Festival|Day of Atonement|Pentecost|Purim|Sabbath|Sabbaths|Harvest Festival"
     Location = "Gergesenes|Gennesaret|Gethsemane|Bethabara|Bethlehem|Bethsaida|Capernaum|Decapolis|Jerusalem|Magdalene|Bethesda|Chorazin|Gabbatha|Golgotha|Philippi|Tiberias|Babylon|Bethany|Ephraim|Galilee|Jericho|Samaria|Canaan|Hebrew|Israel|Jordan|Judaea|Judea|Cedron|Sychar|Greek|Salim|Sidon|Sodom|Abel|Aram|Cana|Rama|Tyre|Zion|Jew"
-    CP_taking_Verb = "understand|speak.one.another|speak.publically|speak.already|speak.truly|speak.what|make.know|maintain.so|So.much.so|so.much.so|In.so.much|call.name|remember|consider|indicate|perceive|send.forth|let.know|for.long|speak.so|for.so|from.where|keep.saying|how.long|good|suppose|believe|signify|declare|testify|explain|promise|prophesize|command|confess|imagine|observe|request|forget|expect|notice|assess|reveal|answer|preach|report|inform|advise|forbid|think|doubt|marvel|judge|speak|reply|swear|write|teach|Teach|great|instruct|allow|careful|persuade|witness|know|Same|same|deny|need|hear|find|read|tell|seal|must|pray|order|want|like|say|See|see|ask|so|urge"
+    CP_taking_Verb = "understand|speak.one.another|speak.publically|speak.already|speak.truly|speak.what|make.know|maintain.so|So.much.so|so.much.so|In.so.much|call.name|remember|consider|indicate|perceive|send.forth|let.know|for.long|speak.so|for.so|from.where|keep.saying|how.long|good|suppose|believe|signify|declare|testify|explain|promise|prophesize|command|confess|imagine|observe|request|forget|expect|notice|assess|reveal|answer|preach|report|inform|advise|forbid|think|doubt|marvel|judge|speak|reply|swear|write|teach|Teach|great|instruct|allow|careful|persuade|witness|know|Same|same|deny|need|hear|find|read|tell|seal|must|pray|order|want|like|say|See|see|ask|so|urge|to.such.extent|such|let.teach|Careful|worry|indeed|rejoice|marvellous|speak.closely|angry|glad"
     ACTION_Verb = "MODIFIER|FUNC_determiner|FUNC_negation|FUNC_inner|ACTION_verb|UserDefined|QUANTIFIER|LOCATION|ENTITY_nouny|ENTITY_oov|ENTITY_num|MODAL"
     inputLIST = Person.split("|")
     #inputLIST = V1.split("|")
     #inputLIST = V2.split("|")
     #inputLIST = V3.split("|")
     #inputLIST = Verb.split("|")
-    inputLIST = Noun.split("|")
+    #inputLIST = Noun.split("|")
     #inputLIST = Month.split("|")
     #inputLIST = Holiday1.split("|")
     #inputLIST = Holiday2.split("|")
     #inputLIST = Location.split("|")
-    #inputLIST = CP_taking_Verb.split("|")
+    inputLIST = CP_taking_Verb.split("|")
     #inputLIST = ACTION_Verb.split("|")
     print(inputLIST)
     triePAT = list2trie(inputLIST)
