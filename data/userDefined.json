@@ -2065,7 +2065,8 @@
         "with.force",
         "with.hear",
         "with.together",
-        "with.two"
+        "with.two",
+        "witness"
     ],
     "FUNC_inter": [
         "belong.to",
