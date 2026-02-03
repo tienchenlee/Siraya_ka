@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
-    Loki module for CP_taking_Verb
+    Loki module for V1_and_VP_and_VP_and_VP
 
     Input:
         inputSTR      str,
@@ -37,7 +37,7 @@ else:
     except:
         from .kaCaptureTool import kaCapture
 
-INTENT_NAME = "CP_taking_Verb"
+INTENT_NAME = "V1_and_VP_and_VP_and_VP"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
 G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
 
@@ -111,7 +111,7 @@ def getReply(utterance, args):
 getResponse = getReply
 def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolkitDICT={}):
     debugInfo(inputSTR, utterance)
-    if utterance == "PAST- believe .AV we .EXCL .NOM ka PAST- understand .AV we .EXCL .NOM ka DET Christ you .SG .NOM son OBL God ka live .AV":
+    if utterance == "Come .AV -PFV NOM son OBL man ka eat .AV ka drink .AV ka say .PV they .GEN FOC see -LV .IRR NOM man ka gluttonous .AV ka alcoholist friend OBL tax.collector OBL sinner also":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -132,7 +132,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
 
-    if utterance == "PAST- know .PV LOC time until that ka come .AV NOM flood ka great .AV ka PAST- PC. all .AV take.away .AV them -OBL":
+    if utterance == "PAST- come.down .AV NOM torrential.rain ka PAST- come .AV NOM flood PAST- blow .AV NOM wind ka PAST- beat .AV OBL house that ka not PAST- fall .AV FOC":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -153,7 +153,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
 
-    if utterance == "PAST- read .AV LOC law ka PAST- profane .AV NOM priest OBL day OBL sabbath LOC PAST- make.distinct -PV ka house when PART day OBL rest ka not PAST- sin .AV NOM they":
+    if utterance == "dark -LV .IRR NOM sun ka not clean .AV -IRR NOM moon ka move.down .AV -IRR from-heaven .AV NOM stars ka move -LV .IRR NOM power OBL far.above OBL heaven":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -174,7 +174,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
 
-    if utterance == "PAST- see -LV -we .EXCL .GEN ka when you .SG -OBL ka sick .AV you .SG .NOM ka LOC prison ka PAST- go -LV -we .EXCL .GEN you .SG -OBL":
+    if utterance == "dwell .AV you .PL .NOM me -OBL ka when dwell .AV you .PL -OBL NOM word my ka things ka want -LV .IRR you .PL .GEN ask -PV .IRR -PFV ka do -LV .IRR you .PL -OBL":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -195,7 +195,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
 
-    if utterance == "believe .AV -IRR you .PL .NOM ka DET Jesus NOM DET Christ son OBL God ka when believe .AV you .PL .NOM ka have .AV -IRR you .PL .NOM OBL life LOC name his":
+    if utterance == "many .AV NOM multitudes ka PAST- come .AV him -OBL ka PAST- cause.be.with .AV them -OBL OBL cripple .AV OBL blind .AV OBL dumb .AV OBL maimed .AV OBL other also ka many .AV OBL man ka PAST- throw .AV them -OBL at.front .AV LOC foot GEN Jesus ka PAST- heal -PV NOM they":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -216,28 +216,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
 
-    if utterance == "not you .SG .NOM Q understand .AV ka have-power .AV I .NOM LOC crucify -OBL you .SG -OBL ka have-power .AV also-I .NOM LOC release -PV you .SG -OBL":
-        if CHATBOT:
-            replySTR = getReply(utterance, args)
-            if replySTR:
-                resultDICT["response"] = replySTR
-                resultDICT["source"] = "reply"
-        else:
-            checkLIST = []
-            for arg in args:
-                if not isinstance(arg, str):
-                    continue
-
-                m = re.search(G_notVerbPAT, arg)
-                if m:
-                    checkLIST.append(m.group(1))
-
-            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                Cord = kaCapture(args, pattern, inputSTR, resultDICT)
-                if Cord:
-                    resultDICT["and"].append({INTENT_NAME: True})
-
-    if utterance == "understand -LV whatever ka go.into.mouth .AV ka go.into.belly .AV ka throw .PV LOC draught NOM it":
+    if utterance == "tell .AV OBL disciple his ka must -PFV OBL leave -LV .IRR he .GEN go .AV LOC Jerusalem ka endure .AV -IRR OBL many .AV them -OBL ka elder OBL people ka chief ka priest ka scribe ka kill -PV .IRR ka cause.wake -LV .IRR also LOC third OBL day":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
@@ -264,5 +243,5 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
 if __name__ == "__main__":
     from pprint import pprint
 
-    resultDICT = getResult("understand -LV whatever ka go.into.mouth .AV ka go.into.belly .AV ka throw .PV LOC draught NOM it", "understand -LV whatever ka go.into.mouth .AV ka go.into.belly .AV ka throw .PV LOC draught NOM it", [], {}, {})
+    resultDICT = getResult("PAST- come.down .AV NOM torrential.rain ka PAST- come .AV NOM flood PAST- blow .AV NOM wind ka PAST- beat .AV OBL house that ka not PAST- fall .AV FOC", "PAST- come.down .AV NOM torrential.rain ka PAST- come .AV NOM flood PAST- blow .AV NOM wind ka PAST- beat .AV OBL house that ka not PAST- fall .AV FOC", [], {}, {})
     pprint(resultDICT)

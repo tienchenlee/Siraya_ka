@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 """
-    Loki module for V3
+    Loki module for CP_V1_and_VP_and_VP
 
     Input:
         inputSTR      str,
@@ -19,13 +19,33 @@
 from importlib.util import module_from_spec
 from importlib.util import spec_from_file_location
 from random import sample
-import logging
 import json
 import os
 import re
+from pathlib import Path
+import sys
 
-INTENT_NAME = "V3"
+G_mainPath = Path(sys.argv[0]).resolve()
+if G_mainPath.name in ["ka_testing.py", "ka_identifier.py"]:
+    try:
+        from Loki_and.Coordinator.intent.kaCaptureTool import kaCapture
+    except:
+        from .Loki_and.Coordinator.intent.kaCaptureTool import kaCapture
+else:
+    try:
+        from kaCaptureTool import kaCapture
+    except:
+        from .kaCaptureTool import kaCapture
+
+INTENT_NAME = "CP_V1_and_VP_and_VP"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
+G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
+
+with open(f"{CWD_PATH}/USER_DEFINED.json", "r", encoding="utf-8") as f:
+    udDICT = json.load(f)
+
+verbLIST = udDICT["_asVerb_"]
+nounLIST = udDICT["ENTITY_noun"]
 
 def import_from_path(module_name, file_path):
     spec = spec_from_file_location(module_name, file_path)
@@ -88,75 +108,50 @@ def getReply(utterance, args):
 
     return replySTR
 
-def _getKaIdx(inputSTR, utterPat, targetArgINT):
-    """
-    1. Articut inputSTR
-    2. Get the string that before the target 'ka'
-    3. Count the index of 'ka'
-    4. Return the index
-    """
-    engArticut = ARTICUT.parse(inputSTR, USER_DEFINED_FILE)
-    if engArticut["status"] == True:
-        inputPosSTR = engArticut["result_pos"][0].replace(" ", "")
-
-    kaIdxLIST = []
-
-    for k_t in [(k.start(targetArgINT+1), k.end(targetArgINT+1), k.group(targetArgINT+1)) for k in utterPat.finditer(inputPosSTR)]:
-        kaIdxLIST.append(k_t)
-
-    if kaIdxLIST:
-        targetKaIdx = inputPosSTR[:kaIdxLIST[0][0]].count("</")
-        # 一個字會被 articut 切成兩個字
-        if re.search(r"<MODAL>do</MODAL><FUNC_negation>not</FUNC_negation>.*?<UserDefined>ka</UserDefined>", inputPosSTR):
-            targetKaIdx -= 1
-    else:
-        logging.error(f"找不到 kaIdxLIST: {inputSTR}")
-        return -1
-
-    return targetKaIdx
-
 getResponse = getReply
 def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolkitDICT={}):
     debugInfo(inputSTR, utterance)
-    if utterance == "give you .PL .NOM OBL part ka one ten OBL mint OBL dill OBL cumin also ka not you .PL .GEN do -PV NOM more big LOC law":
+    if utterance == "know -LV -we .EXCL .GEN ka righteous .AV you .SG .NOM OBL word ka teach .AV you .SG .NOM OBL road OBL God LOC truth ka what -PV .IRR you .SG .GEN NOM anyone ka people":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
                 resultDICT["response"] = replySTR
                 resultDICT["source"] = "reply"
         else:
-            targetArgLIST = [0]     # 在 Loki 上為第幾個 arg
-            coordinator = False
+            checkLIST = []
+            for arg in args:
+                if not isinstance(arg, str):
+                    continue
 
-            for targetArgINT in targetArgLIST:
-                if args[targetArgINT] == "ka":
-                    utterPat = re.compile(pattern)
-                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
-                    resultDICT["ka_index"].append(targetKaIdx)
-                    coordinator = True
+                m = re.search(G_notVerbPAT, arg)
+                if m:
+                    checkLIST.append(m.group(1))
 
-            if coordinator:
-                resultDICT["and"].append({INTENT_NAME: True})
+            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
+                Cord = kaCapture(args, pattern, inputSTR, resultDICT)
+                if Cord:
+                    resultDICT["and"].append({INTENT_NAME: True})
 
-    if utterance == "send.forth -PV I .GEN you .PL .NOM NOM prophet NOM wise.men OBL scribe also ka kill .AV -IRR you .PL .NOM OBL some crucify also them -OBL ka punish .AV -IRR you .PL .NOM scourge .AV OBL some LOC synagogue-your .PL ka persecute .AV -IRR you .PL .NOM them -OBL LOC cities":
+    if utterance == "speak -LV .IRR ka sit .AV -IRR NOM two ka sons my these ka one -IRR LOC right your .SG ka one -IRR LOC left your .SG LOC kingdom your .SG":
         if CHATBOT:
             replySTR = getReply(utterance, args)
             if replySTR:
                 resultDICT["response"] = replySTR
                 resultDICT["source"] = "reply"
         else:
-            targetArgLIST = [0, 1, 2]     # 在 Loki 上為第幾個 arg
-            coordinator = False
+            checkLIST = []
+            for arg in args:
+                if not isinstance(arg, str):
+                    continue
 
-            for targetArgINT in targetArgLIST:
-                if args[targetArgINT] == "ka":
-                    utterPat = re.compile(pattern)
-                    targetKaIdx = _getKaIdx(inputSTR, utterPat, targetArgINT)   # 找到 ka 在 inputSTR 的第幾個字
-                    resultDICT["ka_index"].append(targetKaIdx)
-                    coordinator = True
+                m = re.search(G_notVerbPAT, arg)
+                if m:
+                    checkLIST.append(m.group(1))
 
-            if coordinator:
-                resultDICT["and"].append({INTENT_NAME: True})
+            if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
+                Cord = kaCapture(args, pattern, inputSTR, resultDICT)
+                if Cord:
+                    resultDICT["and"].append({INTENT_NAME: True})
 
     return resultDICT
 
@@ -164,5 +159,5 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
 if __name__ == "__main__":
     from pprint import pprint
 
-    resultDICT = getResult("give you .PL .NOM OBL part ka one ten OBL mint OBL dill OBL cumin also ka not you .PL .GEN do -PV NOM more big LOC law", "give you .PL .NOM OBL part ka one ten OBL mint OBL dill OBL cumin also ka not you .PL .GEN do -PV NOM more big LOC law", [], {}, {})
+    resultDICT = getResult("speak -LV .IRR ka sit .AV -IRR NOM two ka sons my these ka one -IRR LOC right your .SG ka one -IRR LOC left your .SG LOC kingdom your .SG", "speak -LV .IRR ka sit .AV -IRR NOM two ka sons my these ka one -IRR LOC right your .SG ka one -IRR LOC left your .SG LOC kingdom your .SG", [], {}, {})
     pprint(resultDICT)
