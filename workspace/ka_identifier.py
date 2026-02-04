@@ -4,11 +4,12 @@
 import json
 import logging
 
-#from Loki_COMP.COMP_identifier import main as askCOMP
+from Loki_COMP.COMP_identifier import main as askCOMP
 from Loki_and.and_identifier import main as askAnd
-#from Loki_REL.REL_identifier import main as askREL
+from Loki_REL.REL_identifier import main as askREL
 from pathlib import Path
 #from preLokiTool import udFilter
+from requests import post
 from time import sleep
 
 logging.basicConfig(
@@ -20,6 +21,45 @@ logging.basicConfig(
     ]
 )
 
+accountPATH = Path.cwd() / "account.info"
+with open(accountPATH, "r", encoding="utf-8") as f:
+    accountDICT = json.load(f)
+
+def _getIntentLIST(kaFunction):
+    """"""
+    intentLIST = []
+    url = "https://nlu.droidtown.co/Loki_EN/Call/"
+
+    projectDICT = {
+        "and": "Coordinator",
+        "COMP": "Complementizer",
+        "REL": "Relativizer"
+    }
+
+    project = projectDICT[kaFunction]
+
+    payload = {
+        "username" : accountDICT["username"],
+        "loki_key": accountDICT[project],
+        "project": project,
+        "func": "get_info",
+        "data": {}
+    }
+
+    response = post(url, json=payload)
+
+    try:
+        resultDICT = response.json()
+        intentDICT = resultDICT["result"]["intent"]
+    except:
+        print(response.status_code)
+        print(response.text)
+
+    for keySTR in intentDICT.keys():
+        intentLIST.append(keySTR)
+
+    return intentLIST
+
 def main(inputSTR, utterIdx):
     """
     將 ka1, ka2, ka3 的比對順序設為 COMP, and, REL。
@@ -27,8 +67,12 @@ def main(inputSTR, utterIdx):
     """
     resultLIST = []
     #kaIdxSET = set()
-    askLokiLIST = [askAnd]
-    #[askCOMP, askAnd, askREL]
+
+    functionDICT = {
+        "and": askAnd,
+        #"COMP": askAnd,
+        #"REL": askAnd
+    }
 
     # <句首為 ka 預設為「然後的 and」>
     inputWordLIST = inputSTR.split(" ")
@@ -43,44 +87,46 @@ def main(inputSTR, utterIdx):
         resultLIST.append(defaultKaDICT)
     # <句首為 ka 預設為「然後的 and」>
 
-    for func in askLokiLIST:
-        attempts = 0
-        success = False
+    for kaSTR, func in functionDICT.items():
+        intentLIST = _getIntentLIST(kaSTR)
+        for intent_s in intentLIST:
+            attempts = 0
+            success = False
 
-        while attempts < 3 and not success:
-            lokiResultDICT = func(inputSTR, utterIdx)
-            sleep(0.8)
+            while attempts < 3 and not success:
+                lokiResultDICT = func(inputSTR, intent_s, utterIdx)
+                sleep(0.8)
 
-            if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
-                attempts += 1
-                sleep(5)
-                logging.warning(f"第 {attempts} 次嘗試，{lokiResultDICT['msg']}: {lokiResultDICT}")
-            else:
-                success = True
+                if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
+                    attempts += 1
+                    sleep(5)
+                    logging.warning(f"第 {attempts} 次嘗試，{lokiResultDICT['msg']}: {lokiResultDICT}")
+                else:
+                    success = True
 
-                resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
-                print(lokiResultDICT)
+                    resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
+                    print(lokiResultDICT)
 
-                # 有順序的比對結果
-                #if lokiResultDICT["ka_index"] != []:
-                    #newIdxLIST = []
+                    # 有順序的比對結果
+                    #if lokiResultDICT["ka_index"] != []:
+                        #newIdxLIST = []
 
-                    #for idx in lokiResultDICT["ka_index"]:
-                        #if idx not in kaIdxSET:
-                            #kaIdxSET.add(idx)
-                            #newIdxLIST.append(idx)
-                        #else:
-                            #pass    # 如果在前面的 project 已有該 ka_index，則跳過
+                        #for idx in lokiResultDICT["ka_index"]:
+                            #if idx not in kaIdxSET:
+                                #kaIdxSET.add(idx)
+                                #newIdxLIST.append(idx)
+                            #else:
+                                #pass    # 如果在前面的 project 已有該 ka_index，則跳過
 
-                    #if newIdxLIST:  # 過濾後的 ka_index 放回 lokiResultDICT
-                        #filterDICT = lokiResultDICT.copy()
-                        #filterDICT["ka_index"] = newIdxLIST
+                        #if newIdxLIST:  # 過濾後的 ka_index 放回 lokiResultDICT
+                            #filterDICT = lokiResultDICT.copy()
+                            #filterDICT["ka_index"] = newIdxLIST
 
-                        #resultLIST.append(filterDICT)
-                        #print(filterDICT)
+                            #resultLIST.append(filterDICT)
+                            #print(filterDICT)
 
-        if not success:
-            logging.error(f"連續 3 次嘗試失敗，跳過此測試句: {lokiResultDICT}")
+            if not success:
+                logging.error(f"連續 3 次嘗試失敗，跳過此測試句: {lokiResultDICT}")
 
     return resultLIST
 
