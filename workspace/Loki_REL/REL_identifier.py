@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 
 from Loki_REL.Relativizer.main import askLoki
-from preLokiTool import udFilter
+#from preLokiTool import udFilter
 
 def main(inputSTR, utterIdx):
     """"""
