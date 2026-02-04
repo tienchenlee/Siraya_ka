@@ -95,7 +95,7 @@ def main(inputSTR, utterIdx):
 
             while attempts < 3 and not success:
                 lokiResultDICT = func(inputSTR, [intent_s], utterIdx)
-                sleep(0.8)
+                #sleep(0.8)
 
                 if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
                     attempts += 1
