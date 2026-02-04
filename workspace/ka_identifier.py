@@ -4,8 +4,8 @@
 import json
 import logging
 
-from Loki_COMP.COMP_identifier import main as askCOMP
-#from Loki_and.and_identifier import main as askAnd
+#from Loki_COMP.COMP_identifier import main as askCOMP
+from Loki_and.and_identifier import main as askAnd
 #from Loki_REL.REL_identifier import main as askREL
 from pathlib import Path
 #from preLokiTool import udFilter
@@ -27,7 +27,7 @@ def main(inputSTR, utterIdx):
     """
     resultLIST = []
     #kaIdxSET = set()
-    askLokiLIST = [askCOMP]
+    askLokiLIST = [askAnd]
     #[askCOMP, askAnd, askREL]
 
     # <句首為 ka 預設為「然後的 and」>
