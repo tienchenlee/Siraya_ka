@@ -4,7 +4,7 @@
 from Loki_REL.Relativizer.main import askLoki
 #from preLokiTool import udFilter
 
-def main(inputSTR, filterLIST, utterIdx):
+def main(inputSTR, utterIdx):
     """"""
     refDICT = {"inputSTR": [inputSTR],
                "REL": [],
@@ -12,7 +12,7 @@ def main(inputSTR, filterLIST, utterIdx):
                "utter_index": [utterIdx]}
 
 
-    resultDICT = askLoki(inputSTR, filterLIST=filterLIST, refDICT=refDICT)
+    resultDICT = askLoki(inputSTR, refDICT=refDICT)
     return resultDICT
 
 if __name__ == "__main__":

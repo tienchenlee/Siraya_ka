@@ -4,7 +4,7 @@
 from Loki_COMP.Complementizer.main import askLoki
 #from preLokiTool import udFilter
 
-def main(inputSTR, filterLIST, utterIdx):
+def main(inputSTR, utterIdx):
     """"""
     refDICT = {
         "inputSTR": [inputSTR],
@@ -13,7 +13,7 @@ def main(inputSTR, filterLIST, utterIdx):
         "utter_index": [utterIdx],
     }
 
-    resultDICT = askLoki(inputSTR, filterLIST=filterLIST, refDICT=refDICT)
+    resultDICT = askLoki(inputSTR, refDICT=refDICT)
 
     return resultDICT
 

@@ -4,9 +4,9 @@
 import json
 import logging
 
-from Loki_COMP.COMP_identifier import main as askCOMP
-from Loki_and.and_identifier import main as askAnd
-from Loki_REL.REL_identifier import main as askREL
+from Loki_and.Coordinator.main import askLoki as askLokiAND
+from Loki_REL.Relativizer.main import askLoki as askLokiREL
+from Loki_COMP.Complementizer.main import askLoki as askLokiCOMP
 from pathlib import Path
 #from preLokiTool import udFilter
 from requests import post
@@ -69,10 +69,12 @@ def main(inputSTR, utterIdx):
     #kaIdxSET = set()
 
     functionDICT = {
-        "and": askAnd,
-        #"COMP": askCOMP,
-        #"REL": askREL
+        "and": askLokiAND,
+        #"COMP": askLokiCOMP,
+        #"REL": askLokiREL
     }
+
+    refDICT = {"inputSTR":[inputSTR], "ka_index":[], "utter_index":[utterIdx], "COMP":[], "and":[], "REL":[]}
 
     # <句首為 ka 預設為「然後的 and」>
     inputWordLIST = inputSTR.split(" ")
@@ -94,7 +96,7 @@ def main(inputSTR, utterIdx):
         success = False
 
         while attempts < 3 and not success:
-            lokiResultDICT = func(inputSTR, utterIdx)
+            lokiResultDICT = func(inputSTR, refDICT=refDICT)
             #sleep(0.8)
 
             if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
@@ -137,7 +139,7 @@ if __name__ == "__main__":
         kaLIST = json.load(f)
 
     predictionLIST = []
-    for utterIdx, inputSTR in enumerate(kaLIST):
+    for utterIdx, inputSTR in enumerate(kaLIST[:5]):
         resultLIST = main(inputSTR, utterIdx)
         predictionLIST.extend(resultLIST)
 
