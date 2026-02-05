@@ -90,46 +90,46 @@ def main(inputSTR, utterIdx):
     # <句首為 ka 預設為「然後的 and」>
 
     for kaSTR, func in functionDICT.items():
-        #intentLIST = _getIntentLIST(kaSTR)   # 跑單一 intent 結果 in case of timeout when running all intents
-        #for intent_s in intentLIST:
-        attempts = 0
-        success = False
+        intentLIST = _getIntentLIST(kaSTR)   # 跑單一 intent 結果 in case of timeout when running all intents
+        for intent_s in intentLIST:
+            attempts = 0
+            success = False
 
-        while attempts < 3 and not success:
-            lokiResultDICT = func(inputSTR, refDICT=refDICT)
-            #sleep(0.8)
+            while attempts < 3 and not success:
+                lokiResultDICT = func(inputSTR, filterLIST=[intent_s], refDICT=refDICT)
+                #sleep(0.8)
 
-            if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
-                attempts += 1
-                sleep(5)
-                logging.warning(f"第 {attempts} 次嘗試，{lokiResultDICT['msg']}: {lokiResultDICT}")
-            else:
-                success = True
+                if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
+                    attempts += 1
+                    sleep(5)
+                    logging.warning(f"第 {attempts} 次嘗試，{lokiResultDICT['msg']}: {lokiResultDICT}")
+                else:
+                    success = True
 
-                if lokiResultDICT["ka_index"]:
-                    resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
-                    print(lokiResultDICT)
+                    if lokiResultDICT["ka_index"]:
+                        resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
+                        print(lokiResultDICT)
 
-                # 有順序的比對結果
-                #if lokiResultDICT["ka_index"] != []:
-                    #newIdxLIST = []
+                    # 有順序的比對結果
+                    #if lokiResultDICT["ka_index"] != []:
+                        #newIdxLIST = []
 
-                    #for idx in lokiResultDICT["ka_index"]:
-                        #if idx not in kaIdxSET:
-                            #kaIdxSET.add(idx)
-                            #newIdxLIST.append(idx)
-                        #else:
-                            #pass    # 如果在前面的 project 已有該 ka_index，則跳過
+                        #for idx in lokiResultDICT["ka_index"]:
+                            #if idx not in kaIdxSET:
+                                #kaIdxSET.add(idx)
+                                #newIdxLIST.append(idx)
+                            #else:
+                                #pass    # 如果在前面的 project 已有該 ka_index，則跳過
 
-                    #if newIdxLIST:  # 過濾後的 ka_index 放回 lokiResultDICT
-                        #filterDICT = lokiResultDICT.copy()
-                        #filterDICT["ka_index"] = newIdxLIST
+                        #if newIdxLIST:  # 過濾後的 ka_index 放回 lokiResultDICT
+                            #filterDICT = lokiResultDICT.copy()
+                            #filterDICT["ka_index"] = newIdxLIST
 
-                        #resultLIST.append(filterDICT)
-                        #print(filterDICT)
+                            #resultLIST.append(filterDICT)
+                            #print(filterDICT)
 
-        if not success:
-            logging.error(f"連續 3 次嘗試失敗，跳過此測試句: {lokiResultDICT}")
+            if not success:
+                logging.error(f"連續 3 次嘗試失敗，跳過此測試句: {lokiResultDICT}")
 
     return resultLIST
 
