@@ -5,7 +5,7 @@ import json
 from requests import post
 from pathlib import Path
 
-accountPATH = Path.cwd() / "account.info"
+accountPATH = Path.cwd().parent / "account.info"
 with open(accountPATH, "r", encoding="utf-8") as f:
     accountDICT = json.load(f)
 
@@ -18,7 +18,7 @@ def updateRegexVar():
         varDICT = json.load(f)
 
     url = "https://nlu.droidtown.co/Loki_EN/Call/"
-    loki_keys = ["COMP_loki_key", "cord_loki_key", "REL_loki_key"]
+    loki_keys = ["Complementizer", "Coordinator", "Relativizer"]
     for loki_key in loki_keys:
         payload = {
           "username": accountDICT["username"],
@@ -47,7 +47,7 @@ def updateUd():
         udDICT = json.load(f)
 
     url = "https://nlu.droidtown.co/Loki_EN/Call/"
-    loki_keys = ["COMP_loki_key", "cord_loki_key", "REL_loki_key"]
+    loki_keys = ["Complementizer", "Coordinator", "Relativizer"]
     for loki_key in loki_keys:
 
         payload = {

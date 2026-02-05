@@ -1168,6 +1168,8 @@
     "MODIFIER": [
         "-also",
         "-instead",
+        "-lay",
+        "-rather",
         "-still",
         ".also"
     ],
@@ -1560,6 +1562,7 @@
         "drive.out",
         "each.other",
         "early.in.morning",
+        "enter",
         "enter.house",
         "even.though",
         "every.where",
@@ -1900,6 +1903,7 @@
         "on.top",
         "one",
         "one.another",
+        "one.of.a.pair",
         "one.self",
         "only.beget",
         "originate.from.evil",
@@ -2057,7 +2061,8 @@
         "with.force",
         "with.hear",
         "with.together",
-        "with.two"
+        "with.two",
+        "witness"
     ],
     "FUNC_inter": [
         "belong.to",
@@ -2083,6 +2088,7 @@
         "Ziv"
     ],
     "_Negation_": [
+        "-not",
         "NEG"
     ],
     "ENTITY_noun": [
@@ -2134,6 +2140,7 @@
         "burnt offering",
         "burnt offerings",
         "cedar",
+        "children",
         "cucumbers",
         "cypress",
         "cypress trees",
@@ -2169,6 +2176,7 @@
         "leeks",
         "left.hand",
         "little.ones",
+        "lords",
         "necessary.things",
         "oak",
         "oak tree",
@@ -2208,6 +2216,7 @@
         "water",
         "watermelons",
         "whatever",
+        "whoever",
         "wicked.one",
         "wife",
         "winnowing.fan",
@@ -4058,6 +4067,8 @@
     ],
     "ENTITY_pronoun": [
         "-I",
+        "-child",
+        "-children",
         "-son",
         "-we",
         "-you",
