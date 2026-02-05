@@ -69,9 +69,9 @@ def main(inputSTR, utterIdx):
     #kaIdxSET = set()
 
     functionDICT = {
-        "and": askLokiAND,
+        #"and": askLokiAND,
         #"COMP": askLokiCOMP,
-        #"REL": askLokiREL
+        "REL": askLokiREL
     }
 
     refDICT = {"inputSTR":[inputSTR], "ka_index":[], "utter_index":[utterIdx], "COMP":[], "and":[], "REL":[]}
@@ -90,7 +90,7 @@ def main(inputSTR, utterIdx):
     # <句首為 ka 預設為「然後的 and」>
 
     for kaSTR, func in functionDICT.items():
-        #intentLIST = _getIntentLIST(kaSTR)
+        #intentLIST = _getIntentLIST(kaSTR)   # 跑單一 intent 結果 in case of timeout when running all intents
         #for intent_s in intentLIST:
         attempts = 0
         success = False
@@ -139,7 +139,7 @@ if __name__ == "__main__":
         kaLIST = json.load(f)
 
     predictionLIST = []
-    for utterIdx, inputSTR in enumerate(kaLIST[:5]):
+    for utterIdx, inputSTR in enumerate(kaLIST):
         resultLIST = main(inputSTR, utterIdx)
         predictionLIST.extend(resultLIST)
 
