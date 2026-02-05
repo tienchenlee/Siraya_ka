@@ -8,6 +8,7 @@ from collections import defaultdict
 from docx import Document
 from pathlib import Path
 from preLokiTool import udFilter
+import random
 
 G_chiPat = re.compile(r"[\u4e00-\u9fff]")
 G_splitPat = re.compile(r"\s")
@@ -120,17 +121,6 @@ def _getChapter(contentLIST: list) -> list:
     #排除「第幾章」之前的文字、1:1 那行
     tmpLIST = [c for c in contentLIST if isinstance(c, str) and not re.search(r"^\d+[:：]\s?\d+\.?$", c) and c != ""]
 
-    #removeIdxLIST = []
-    #keywordLIST = ["See the ", "See (", "earlier in", "(The above)", "see the part", "See what follows"]
-    #for i, c in enumerate(tmpLIST):
-        #if any(keyword_s in c for keyword_s in keywordLIST):
-            #removeIdxLIST.append(i)
-
-    #for i in reversed(removeIdxLIST):
-        #start = max(0, i-5)
-        #del tmpLIST[start:i+1]
-    #print(tmpLIST)
-
     chapterLIST = []
     currentDICT = defaultdict(list)
     for i, tmp_s in enumerate(tmpLIST):
@@ -218,9 +208,6 @@ def checkFormat():
                         print()
 
                 if not any(re.search(G_chiPat, s) for s in item_d["paraphrase"]):  # 如果 paraphrase 的第一個元素不是中文
-                    #if re.search(G_chiPat, item_d["paraphrase"][1]):  # 先檢查是不是被放到第二個元素的位置，是的話先交換位置
-                        #item_d["paraphrase"][0], item_d["paraphrase"][1] = item_d["paraphrase"][1], item_d["paraphrase"][0]
-                    #else:
                     raise ValueError(f"無法在 paraphrase 找到中文！請檢查 {item_d['verse']} 以及 {item_d['paraphrase']}")
 
             jsonFilePATH = outputDIR / f"{outputSTR}_{idx}.json"
@@ -292,51 +279,6 @@ def getKaList():
         }
     ]
     """
-    #verseLIST = [
-            #"Sulat ki kavuilan ti Jesus Christus,",
-            #"book OBL lineage GEN Jesus Christ",
-            #"ka na alak ti David,",
-            #"REL PART son GEN David",
-            #"ka na alak ti Abraham.",
-            #"REL PART son GEN Abraham"
-        #]
-
-    ## 方法1.
-    #kaLIST = []
-    #for i in range(0, len(verseLIST), 2):
-        #siraya_s = verseLIST[i]
-        #gloss_s = verseLIST[i+1]
-
-        #if "ka" not in siraya_s:
-            #continue
-
-        ## 單一 verse 中，ka 在句首時，就添加前一行句子，直到不是以 ka 為句首
-        #if re.search(r"^ka", siraya_s):
-            #collectLIST = [gloss_s]
-            #prev_i = i - 2
-            #tmpLIST = []
-
-            #while prev_i >= 0:
-                #prevSiraya_s = verseLIST[prev_i]
-                #prevGloss_s = verseLIST[prev_i + 1]
-
-                #tmpLIST.append(prevGloss_s)
-
-                #if re.search(r"^ka", prevSiraya_s):
-                    #prev_i -= 2
-                #else:
-                    #break
-
-            #collectLIST = list(reversed(tmpLIST)) + collectLIST # 將順序反轉
-
-    #kaLIST.append(" ".join(collectLIST))
-        ##else:
-            ##kaLIST.append(gloss_s)
-    #print(collectLIST)
-
-    #print(kaLIST)
-    #=======
-
     #方法2.
     global tmpGlossLIST, tmpSirayaSTR, tmpAnsLIST
     global kaLIST, ansLIST
@@ -441,34 +383,43 @@ def kaDictCreator():
     print(f"input：{len(allKaLIST)} 句")
     print(f"ans：{len(allAnsLIST)} 句")
 
-    #valencyPATH = Path.cwd().parent.parent / "data" / "valencyDICT.json"
-    #with open(valencyPATH, "r", encoding="utf-8") as f:
-        #valencyDICT = json.load(f)
-
-    #kaDICT = defaultdict(list)
-    #for k_s in allKaLIST:
-        #match = re.search(G_verbPat, k_s)
-        #if match:
-            #verbStemSTR = match.group()
-
-            #if verbStemSTR in valencyDICT.keys():
-                #kaDICT[valencyDICT[verbStemSTR]].append(k_s)
-
-    #print(kaDICT)
-    #kaDictPATH = Path.cwd().parent.parent / "data" / "kaDICT.json"
-    #with open(kaDictPATH, "w", encoding="utf-8") as f:
-        #json.dump(kaDICT, f, ensure_ascii=False, indent=4)
-
     allKaLIST = [udFilter(sentenceSTR) for sentenceSTR in allKaLIST]
     allAnsLIST = [udFilter(sentenceSTR) for sentenceSTR in allAnsLIST]
 
+    kaLIST = ["COMP", "REL", "and"]
+
+    singleKaDICT = {
+        "COMP": [],
+        "REL": [],
+        "and": []
+    }
+
+    for idx, eval_s in enumerate(allAnsLIST):
+        kaSET = set()
+        for ka in kaLIST:
+            if ka in eval_s:
+                kaSET.add(ka)
+
+        if len(kaSET) == 1:
+            keySTR = next(iter(kaSET))
+            singleKaDICT[keySTR].append(idx)
+
+    allEvaluationIdxLIST = []
+    for idxLIST in singleKaDICT.values():
+        k = min(100, len(idxLIST))
+        evaluationLIST = random.sample(idxLIST, k=k)
+        allEvaluationIdxLIST.extend(evaluationLIST)
+
+    allEvaluationKaLIST  = [allKaLIST[i]  for i in allEvaluationIdxLIST]
+    allEvaluationAnsLIST = [allAnsLIST[i] for i in allEvaluationIdxLIST]
+
     kaListPATH = Path.cwd().parent.parent / "data" / "kaLIST_eval.json"
     with open(kaListPATH, "w", encoding="utf-8") as f:
-        json.dump(allKaLIST, f, ensure_ascii=False, indent=4)
+        json.dump(allEvaluationKaLIST, f, ensure_ascii=False, indent=4)
 
     ansListPATH = Path.cwd().parent.parent / "data" / "ansLIST_eval.json"
     with open(ansListPATH, "w", encoding="utf-8") as f:
-        json.dump(allAnsLIST, f, ensure_ascii=False, indent=4)
+        json.dump(allEvaluationAnsLIST, f, ensure_ascii=False, indent=4)
 
 def kaDictChecker():
     """
@@ -491,3 +442,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
