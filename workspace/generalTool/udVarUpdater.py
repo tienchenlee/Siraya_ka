@@ -53,6 +53,8 @@ def updateUd():
         payload = {
             "username": accountDICT["username"],
             "loki_key": accountDICT[loki_key],
+            "func": "reset_userdefined",
+            "data": {},
             "func": "update_userdefined",
             "data": {
                 "user_defined": udDICT
