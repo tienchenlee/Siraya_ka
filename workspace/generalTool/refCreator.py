@@ -15,21 +15,21 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",        # 格式：時間 - 等級 - 訊息
     handlers=[
-        logging.FileHandler(Path.cwd() / "insertUtter.log", encoding="utf-8", mode="w"),
+        logging.FileHandler(Path.cwd() / "refCreator.log", encoding="utf-8", mode="w"),
         logging.StreamHandler()
     ]
 )
 
-accountPATH = Path.cwd().parent / "account.info"
+accountPATH = Path(f"{Path.cwd().parent}/account.info")
 with open(accountPATH, "r", encoding="utf-8") as f:
     accountDICT = json.load(f)
 
-G_projectDICT = {
-    "and": "Coordinator",
-    "COMP": "Complementizer",
-    "REL": "Relativizer"
-}
+G_udPATH = Path(f"{Path.cwd().parent.parent}/data/userDefined.json")
+with open(G_udPATH, "r", encoding="utf-8") as f:
+    G_udDICT = json.load(f)
 
+G_projectLIST = ["testing"]
+#["Coordinator_Dep", "Complementizer_Dep", "Relativizer_Dep"]
 G_lokiCallURL = "https://nlu.droidtown.co/Loki_EN/Call/"
 
 def _articutEN(inputSTR, udDICT):
@@ -50,14 +50,16 @@ def _articutEN(inputSTR, udDICT):
         "user_defined_dict_file": udDICT
     }
 
-    try:
-        response = post(G_lokiCallURL, json=payload)
-        resultDICT = response.json()
-    except:
-        print(response.status_code)
-        print(response.text)
+    response = post(url="https://nlu.droidtown.co/Articut_EN/API/", json=payload)
 
-    return resultDICT
+    try:
+        resultDICT = response.json()
+        return resultDICT
+    except ValueError:
+        logging.warning(f"non-JSON response:{inputSTR}")
+        logging.warning(f"status={response.status_code}")
+        logging.warning(response.text)
+        return None
 
 def _getPosSTR(inputSTR):
     """
@@ -69,16 +71,39 @@ def _getPosSTR(inputSTR):
     return:
         posSTR 為 inputSTR 的 POS 結果。
     """
-    udPATH = Path.cwd().parent.parent / "data" / "userDefined.json"
-    with open(udPATH, "r", encoding="utf-8") as f:
-        udDICT =json.load(f)
+    resultDICT = _articutEN(inputSTR, G_udDICT)
+    sleep(0.8)
 
-    resultDICT = _articutEN(inputSTR, udDICT)
-    posSTR = resultDICT["result_pos"][0].replace(" ", "")
+    try:
+        posSTR = resultDICT["result_pos"][0].replace(" ", "")
+        return posSTR
+    except Exception as e:
+        logging.warning(f"pos parse failed: {e}")
+        logging.warning(resultDICT)
+        return None
 
-    return posSTR
+def _verifyPattern(projectSTR, inputSTR, patternSTR):
+    """"""
+    payload = {
+      "username": accountDICT["username"],
+      "loki_key": accountDICT[projectSTR],
+      "intent": "test",
+      "func": "verify_pattern",
+      "data": {
+        "utterance": inputSTR,
+        "pattern": patternSTR
+      }
+    }
 
-def createRef():
+    resultDICT = post(G_lokiCallURL, json=payload).json()
+    print(f"比對句型：{resultDICT}")
+
+    if resultDICT["msg"] == "Success!":
+        return True
+
+    return False
+
+def createRef(projectSTR):
     """
     寫出 refFILE
     """
@@ -87,22 +112,23 @@ def createRef():
     with open(file=f"{outputDIR}/newIntentDICT.json", mode="r", encoding="utf-8") as f:
         verbDICT = json.load(f)
 
-    testLIST = ["speak"]
     for verbSTR, uttLIST in verbDICT.items():
-        if verbSTR in testLIST:
-            refDICT = {
-                "language": "en-us",
-                "type": "advance",
-                "version": {
-                    "atk": "v102",
-                    "intent": "1.0"
-                    },
-                "utterance": {}
-            }
+        print(f"寫出意圖：{verbSTR}")
+        refDICT = {
+            "language": "en-us",
+            "type": "advance",
+            "version": {
+                "atk": "v102",
+                "intent": "1.0"
+                },
+            "utterance": {}
+        }
 
-            for pairLIST in uttLIST:
-                inputSTR = pairLIST[0]
-                patternSTR = pairLIST[1]
+        for pairLIST in uttLIST:
+            inputSTR = pairLIST[0]
+            patternSTR = pairLIST[1]
+
+            if _verifyPattern(projectSTR, inputSTR, patternSTR):
                 posSTR = _getPosSTR(inputSTR)
 
                 refDICT["utterance"][inputSTR] = {
@@ -110,23 +136,21 @@ def createRef():
                     "pattern": patternSTR
                 }
 
-            refPATH = outputDIR / f"{verbVarKey}_{verbSTR}.ref"
-            with open(refPATH, "w", encoding="utf-8") as f:
-                json.dump(refDICT, f, ensure_ascii=False, indent=4)
+        refPATH = outputDIR / f"{verbSTR}.ref"
+        with open(refPATH, "w", encoding="utf-8") as f:
+            json.dump(refDICT, f, ensure_ascii=False, indent=4)
 
-def updateRegexVar():
+def updateRegexVar(projectSTR):
     """
     Align regex var in three projects (Relativizer, Complementizer, Coordinator).
     """
-    varPATH = Path.cwd().parent.parent / "data" / "Complementizer_var.json"
+    varPATH = Path(f"{Path.cwd().parent.parent}/data/{projectSTR}_var.json")
     with open(varPATH, "r", encoding="utf-8") as f:
         varDICT = json.load(f)
 
-    #loki_keys = ["Complementizer", "Coordinator", "Relativizer"]
-    #for loki_key in loki_keys:
     payload = {
       "username": accountDICT["username"],
-      "loki_key": "URFmzUpw636F27Q7Hlq$h^l@Ep4OKVi",
+      "loki_key": accountDICT[projectSTR],
       # Reset Var
       "func": "reset_var",
       "data": {},
@@ -137,63 +161,48 @@ def updateRegexVar():
       }
     }
 
-    #resultDICT = post(G_lokiCallURL, json=payload).json()
-    ##print(f"Update regex Var with {loki_key}:")
-    #print(resultDICT)
-    #print()
     try:
         response = post(G_lokiCallURL, json=payload)
         resultDICT = response.json()
-        print(f"更新 var：{resultDICT}")
+        print(f"更新 {projectSTR} 變數：{resultDICT}")
     except:
         print(response.status_code)
         print(response.text)
 
-    return resultDICT
-
-def updateUd():
+def updateUd(projectSTR):
     """
     Align ud in three projects (Relativizer, Complementizer, Coordinator).
     """
-    udPATH = Path.cwd().parent.parent / "data" / "userDefined.json"
-    with open(udPATH, "r", encoding="utf-8") as f:
-        udDICT = json.load(f)
-
-    #loki_keys = ["Complementizer", "Coordinator", "Relativizer"]
-    #for loki_key in loki_keys:
-
     payload = {
         "username": accountDICT["username"],
-        "loki_key": "URFmzUpw636F27Q7Hlq$h^l@Ep4OKVi",
+        "loki_key": accountDICT[projectSTR],
         "func": "reset_userdefined",
         "data": {},
         "func": "update_userdefined",
         "data": {
-            "user_defined": udDICT
+            "user_defined": G_udDICT
         }
     }
 
     try:
         response = post(G_lokiCallURL, json=payload)
         resultDICT = response.json()
-        print(f"更新 ud：{resultDICT}")
+        print(f"更新 {projectSTR} 自定義辭典：{resultDICT}")
     except:
         print(response.status_code)
         print(response.text)
 
-    return resultDICT
-
-def importRef():
+def importRef(projectSTR):
     refDIR = Path(f"{Path.cwd()}/Complementizer/optimized/")
     refLIST = [file for file in refDIR.rglob("*.ref")]
 
-    for refFILE in refLIST:
+    for idx, refFILE in enumerate(refLIST, start=1):
         refDICT = json.load(open(refFILE, encoding="utf-8"))
-        intentSTR = refFILE.stem
+        intentSTR = refFILE.stem.replace(".", "_").replace("-", "_")
 
         payload = {
           "username": accountDICT["username"],
-          "loki_key": "URFmzUpw636F27Q7Hlq$h^l@Ep4OKVi",
+          "loki_key": accountDICT[projectSTR],
           "intent": intentSTR,
           "func": "import_ref",
           "data": {"ref": refDICT}
@@ -202,17 +211,17 @@ def importRef():
         try:
             response = post(G_lokiCallURL, json=payload)
             resultDICT = response.json()
-            print(f"匯入意圖：{resultDICT}")
-        except:
-            print(response.status_code)
-            print(response.text)
+            print(f"匯入意圖 {idx}：{resultDICT}")
+        except ValueError:
+            logging.warning(f"non-JSON response:{intentSTR}")
+            logging.warning(f"status={response.status_code}")
+            logging.warning(response.text)
+            return None
 
-        return resultDICT
-
-def deployModel():
+def deployModel(projectSTR):
     payload = {
         "username" : accountDICT["username"],
-        "loki_key" : "URFmzUpw636F27Q7Hlq$h^l@Ep4OKVi",
+        "loki_key" : accountDICT[projectSTR],
         "func": "deploy_model",
         "data": {}
     }
@@ -221,19 +230,19 @@ def deployModel():
         response = post(G_lokiCallURL, json=payload)
         resultDICT = response.json()
         print(f"部署模型：{resultDICT}")
-    except:
-        print(response.status_code)
-        print(response.text)
-
-    return resultDICT
+    except ValueError:
+        logging.warning(f"non-JSON response: Deploy Model")
+        logging.warning(f"status={response.status_code}")
+        logging.warning(response.text)
+        return None
 
 def main():
-    #updateRegexVar()
-    #updateUd()
-    importRef()
-    deployModel()
+    for projectSTR in G_projectLIST:
+        createRef(projectSTR)
+        updateRegexVar(projectSTR)
+        updateUd(projectSTR)
+        importRef(projectSTR)
+        deployModel(projectSTR)
 
 if __name__ == "__main__":
     main()
-    #resultDICT = importRef()
-    #print(resultDICT)
