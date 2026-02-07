@@ -109,7 +109,7 @@ def main(inputSTR, utterIdx):
 
                     if lokiResultDICT["ka_index"]:
                         resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
-                        print(lokiResultDICT)
+                        logging.info(lokiResultDICT)
 
                     # 有順序的比對結果
                     #if lokiResultDICT["ka_index"] != []:
@@ -130,7 +130,7 @@ def main(inputSTR, utterIdx):
                             #print(filterDICT)
 
             if not success:
-                logging.error(f"連續 3 次嘗試失敗，跳過此測試句: {lokiResultDICT}")
+                logging.error(f"連續 3 次嘗試失敗，跳過此測試句: {intent_s}")
 
     return resultLIST
 
