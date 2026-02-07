@@ -51,14 +51,15 @@ def _getIntentLIST(kaFunction):
     try:
         resultDICT = response.json()
         intentDICT = resultDICT["result"]["intent"]
+
+        for keySTR in intentDICT.keys():
+            intentLIST.append(keySTR)
+
+        return intentLIST
+
     except:
         print(response.status_code)
         print(response.text)
-
-    for keySTR in intentDICT.keys():
-        intentLIST.append(keySTR)
-
-    return intentLIST
 
 def main(inputSTR, utterIdx):
     """
