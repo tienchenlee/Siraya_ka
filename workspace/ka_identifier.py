@@ -140,7 +140,7 @@ if __name__ == "__main__":
         kaLIST = json.load(f)
 
     predictionLIST = []
-    for utterIdx, inputSTR in enumerate(kaLIST):
+    for utterIdx, inputSTR in enumerate(kaLIST[:2]):
         resultLIST = main(inputSTR, utterIdx)
         predictionLIST.extend(resultLIST)
 
