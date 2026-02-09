@@ -3,6 +3,7 @@
 
 import json
 import re
+from itertools import permutations
 from pathlib import Path
 
 G_kaPat = re.compile(r"\bka\b")
@@ -30,11 +31,11 @@ def createAnswer():
     - word_index：該句中詞彙（word）的索引位置。
 
     """
-    kaPATH = Path.cwd().parent.parent / "data" / "kaLIST.json"
+    kaPATH = Path.cwd().parent.parent / "data" / "kaLIST_test.json"
     with open(kaPATH, "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
-    ansPATH = Path.cwd().parent.parent / "data" / "ansLIST.json"
+    ansPATH = Path.cwd().parent.parent / "data" / "ansLIST_test.json"
     with open(ansPATH, "r", encoding="utf-8") as f:
         ansLIST = json.load(f)
 
@@ -86,47 +87,6 @@ def createAnswer():
         json.dump(andLIST, f, ensure_ascii=False, indent=4)
 
     return COMPLIST, andLIST, RELLIST
-
-#def getCoverage():
-    #"""
-    #計算模型句型覆蓋率。
-    #比對 Prediction 與 Answer 中的 ka_index。
-    #"""
-    #functionLIST = [
-        ##"REL",
-        #"COMP",
-        ##"and"
-    #]
-
-    #for functionSTR in functionLIST:
-
-        #with open(f"{G_ansDIR}/{functionSTR}.json", "r", encoding="utf-8") as f:
-            #answerLIST = json.load(f)
-
-        #with open(f"{G_predictionDIR}/{functionSTR}.json", "r", encoding="utf-8") as f:
-            #predictionLIST = json.load(f)
-
-        #indexPredictionLIST = []
-        #indexPredictionSET = set()
-        #for item_d in predictionLIST:
-            #ka_indexLIST = item_d["ka_index"]
-            #utter_index = item_d["utter_index"][0]
-            #for ka_index in ka_indexLIST:
-                #item = (utter_index, ka_index)
-                #if item not in indexPredictionSET:
-                    #indexPredictionLIST.append([utter_index, ka_index])
-                    #indexPredictionSET.add(item)
-
-        #print(indexPredictionLIST)
-
-        #match = 0
-        #for item_l in indexPredictionLIST:
-            #if item_l in answerLIST:
-                #match += 1
-
-        #total = len(answerLIST)
-        #coverage = (match / total) * 100
-        #print(f"{functionSTR} 覆蓋率：{coverage*100:.2f}%")
 
 def makePrediction():
     """
@@ -187,10 +147,73 @@ def findUncoveredAnswer(predLIST, ansLIST, kaFunction):
     with open(f"{G_trainingDIR}/{kaFunction}.json", "w", encoding="utf-8") as f:
         json.dump(missedLIST, f, ensure_ascii=False, indent=4)
 
+def getFalsePositive(predLIST, ansLIST):
+    """
+    不是正確答案，卻被模型預測到的資料。
+    """
+    incorrect = 0
+    for item_l in predLIST:
+        if item_l not in ansLIST:
+            incorrect += 1
+
+    print(f"錯誤預測：{incorrect}")
+    print(f"正確答案：{len(ansLIST)}")
+    FT = incorrect / len(ansLIST)
+    print(f"falsePositive: {FT* 100:.2f}%")
+    print(f"================================")
+
+def _oderedPredLIST(order, mapDICT):
+    """
+    predLIST2 (list of list) 的 item_l 不能與 predLIST1 重複；
+    predLIST3 (list of list) 的 item_l 不能與 predLIST1, predLIST2 重複
+    """
+    seenSET = set()
+    newMapDICT = {}
+
+    for key in order:
+        newLIST = []
+        for item_l in mapDICT[key]:
+            t = tuple(item_l)
+            if t not in seenSET:
+                seenSET.add(t)
+                newLIST.append(item_l)
+        newMapDICT[key] = newLIST
+
+    return newMapDICT
+
+def tryPermutation(COMPPredLIST, andPredLIST, RELPredLIST,
+                   COMPAnsLIST, andAnsLIST, RELAnsLIST):
+    """
+    記錄不同排列方式的 Coverage, falsePositive
+    """
+    functionLIST = ["COMP", "and", "REL"]
+
+    predMapDICT = {
+        "COMP": COMPPredLIST,
+        "and": andPredLIST,
+        "REL": RELPredLIST
+    }
+
+    ansMapDICT = {
+        "COMP": COMPAnsLIST,
+        "and": andAnsLIST,
+        "REL": RELAnsLIST
+    }
+
+    for order in permutations(functionLIST):
+        print(f"===== Order: {order} =====")
+
+        newPredDICT = _oderedPredLIST(order, predMapDICT)
+
+        for keySTR in functionLIST:
+            print(f"[{keySTR}]")
+            getCoverage(newPredDICT[keySTR], ansMapDICT[keySTR])
+            getFalsePositive(newPredDICT[keySTR], ansMapDICT[keySTR])
+            #findUncoveredAnswer(newPredDICT[keySTR], ansMapDICT[keySTR], keySTR)
 
 if __name__ == "__main__":
     COMPAnsLIST, andAnsLIST, RELAnsLIST = createAnswer()
-    COMPPredLIST, andPredLIST, RELPredLIST = makePrediction()
+    COMPPredLIST, andPredLIST, RELPredLIST = makePrediction()   # The prediction is made respectively
 
     functionDICT = {
         "COMP": (COMPPredLIST, COMPAnsLIST),
@@ -198,7 +221,15 @@ if __name__ == "__main__":
         "REL":  (RELPredLIST,  RELAnsLIST),
     }
 
+    print(f"===== 個別 Project 結果 =====")
     for keySTR, (predLIST, ansLIST) in functionDICT.items():
         print(f"[{keySTR}]")
-        coverage = getCoverage(predLIST, ansLIST)
+        getCoverage(predLIST, ansLIST)
+        getFalsePositive(predLIST, ansLIST)
         findUncoveredAnswer(predLIST, ansLIST, keySTR)
+
+    print("===== 排列實驗結果 =====")
+    tryPermutation(
+        COMPPredLIST, andPredLIST, RELPredLIST,
+        COMPAnsLIST, andAnsLIST, RELAnsLIST
+    )
