@@ -28,8 +28,6 @@ G_udPATH = Path(f"{Path.cwd().parent.parent}/data/userDefined.json")
 with open(G_udPATH, "r", encoding="utf-8") as f:
     G_udDICT = json.load(f)
 
-G_projectLIST = ["testing"]
-#["Coordinator_Dep", "Complementizer_Dep", "Relativizer_Dep"]
 G_lokiCallURL = "https://nlu.droidtown.co/Loki_EN/Call/"
 
 def _articutEN(inputSTR, udDICT):
@@ -103,15 +101,18 @@ def _verifyPattern(projectSTR, inputSTR, patternSTR):
 
     return False
 
-def createRef(projectSTR):
+def createRef(verbVarKey, projectSTR):
     """
     寫出 refFILE
     """
-    verbVarKey = "CP_taking_Verb"
-    outputDIR = Path(f"{Path.cwd()}/Complementizer/optimized/{verbVarKey}")
+    outputDIR = Path(f"{Path.cwd()}/{projectSTR}/optimized/{verbVarKey}")
     with open(file=f"{outputDIR}/newIntentDICT.json", mode="r", encoding="utf-8") as f:
         verbDICT = json.load(f)
 
+    with open(file=f"{outputDIR}/noV2LIST.json", mode="r", encoding="utf-8") as f:
+        noV2LIST = json.load(f)
+
+    # 寫出 pattern 中，有 V2 的 intent
     for verbSTR, uttLIST in verbDICT.items():
         print(f"寫出意圖：{verbSTR}")
         refDICT = {
@@ -136,7 +137,42 @@ def createRef(projectSTR):
                     "pattern": patternSTR
                 }
 
-        refPATH = outputDIR / f"{verbSTR}.ref"
+        refPATH = outputDIR / f"{verbVarKey}_{verbSTR}.ref"
+        with open(refPATH, "w", encoding="utf-8") as f:
+            json.dump(refDICT, f, ensure_ascii=False, indent=4)
+
+    # 寫出 pattern 中，沒有 V2 的 intent
+    BATCH_SIZE = 10 # 每 10 句為一個 intent
+    batchesINT = ceil(len(noV2LIST) / BATCH_SIZE) # 計算要送幾批
+    print(f"沒有 V2 的句型：總共 {len(kaLIST)} 筆，分成 {batchesINT} 批")
+
+    for i in range(batchesINT):
+        start = i * BATCH_SIZE
+        end = start + BATCH_SIZE
+        intentLIST = noV2LIST[start:end]
+
+        print(f"寫出意圖：noV2_{i}")
+        refDICT = {
+            "language": "en-us",
+            "type": "advance",
+            "version": {
+                "atk": "v102",
+                "intent": "1.0"
+                },
+            "utterance": {}
+        }
+
+        for item_l in intentLIST:
+            inputSTR = item_l[0]
+            patternSTR = item_l[1]
+            posSTR = _getPosSTR(inputSTR)
+
+            refDICT["utterance"][inputSTR] = {
+                            "pos": posSTR,
+                            "pattern": patternSTR
+                        }
+
+        refPATH = outputDIR / f"noV2_{i}.ref"
         with open(refPATH, "w", encoding="utf-8") as f:
             json.dump(refDICT, f, ensure_ascii=False, indent=4)
 
@@ -193,7 +229,7 @@ def updateUd(projectSTR):
         print(response.text)
 
 def importRef(projectSTR):
-    refDIR = Path(f"{Path.cwd()}/Complementizer/optimized/")
+    refDIR = Path(f"{Path.cwd()}/{projectSTR}/optimized/")
     refLIST = [file for file in refDIR.rglob("*.ref")]
 
     for idx, refFILE in enumerate(refLIST, start=1):
@@ -237,8 +273,11 @@ def deployModel(projectSTR):
         return None
 
 def main():
-    for projectSTR in G_projectLIST:
-        createRef(projectSTR)
+    verbVarKey = "V2"
+    projectLIST = ["Coordinator_Dep", "Relativizer_Dep"]
+
+    for projectSTR in projectLIST:
+        createRef(verbVarKey, projectSTR)
         updateRegexVar(projectSTR)
         updateUd(projectSTR)
         importRef(projectSTR)
