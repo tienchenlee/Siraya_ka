@@ -61,6 +61,62 @@ def _getIntentLIST(kaFunction):
         print(response.status_code)
         print(response.text)
 
+def createTestingLIST():
+    """
+    找出建模的句子，將建模的句子從 testingLIST 排除。
+    使用 kaTestingLIST 作為測試資料。
+    """
+    projectLIST = ["Complementizer", "Coordinator", "Relativizer"]
+    excludeLIST = ["vague.ref", "unsolved.ref", "test.ref"]
+
+    for projectSTR in projectLIST:
+        refDIR = Path(f"{Path.cwd()}/{projectSTR}/ref/")
+        refLIST = [file for file in refDIR.glob("*.ref") if file.name not in excludeLIST]
+
+        excludeLIST = []
+        allExcludeLIST = []
+
+        for refFILE in refLIST:
+            refDICT = json.load(open(refFILE, encoding="utf-8"))
+            for utteranceSTR in refDICT["utterance"]:
+                if utteranceSTR not in excludeLIST:
+                    excludeLIST.append(utteranceSTR)
+
+            allExcludeLIST.extend(excludeLIST)
+
+    kaPATH = Path.cwd().parent / "data" / "kaLIST.json"
+    with open(kaPATH, "r", encoding="utf-8") as f:
+        kaLIST = json.load(f)
+
+    ansPATH = Path.cwd().parent / "data" / "ansLIST.json"
+    with open(ansPATH, "r", encoding="utf-8") as f:
+        ansLIST = json.load(f)
+
+    excludeIdxSET = set()
+
+    for utteranceSTR in allExcludeLIST:
+        for idx, ka_s in enumerate(kaLIST):
+            if utteranceSTR in ka_s:
+                excludeIdxSET.add(idx)
+
+    kaTestingLIST = []
+    ansTestingLIST = []
+
+    for idx, (ka_s, ans_s) in enumerate(zip(kaLIST, ansLIST)):
+        if idx not in excludeIdxSET:
+            kaTestingLIST.append(ka_s)
+            ansTestingLIST.append(ans_s)
+
+    kaTestPATH = Path.cwd().parent / "data" / "kaLIST_test.json"
+    with open(kaTestPATH, "w", encoding="utf-8") as f:
+        json.dump(kaTestingLIST, f, ensure_ascii=False, indent=4)
+
+    ansTestPATH = Path.cwd().parent / "data" / "ansLIST_test.json"
+    with open(ansTestPATH, "r", encoding="utf-8") as f:
+        json.dump(ansTestingLIST, f, ensure_ascii=False, indent=4)
+
+    return kaTestingLIST
+
 def main(inputSTR, utterIdx):
     """
     將 ka1, ka2, ka3 的比對順序設為 COMP, and, REL。
@@ -111,36 +167,16 @@ def main(inputSTR, utterIdx):
                         resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
                         logging.info(lokiResultDICT)
 
-                    # 有順序的比對結果
-                    #if lokiResultDICT["ka_index"] != []:
-                        #newIdxLIST = []
-
-                        #for idx in lokiResultDICT["ka_index"]:
-                            #if idx not in kaIdxSET:
-                                #kaIdxSET.add(idx)
-                                #newIdxLIST.append(idx)
-                            #else:
-                                #pass    # 如果在前面的 project 已有該 ka_index，則跳過
-
-                        #if newIdxLIST:  # 過濾後的 ka_index 放回 lokiResultDICT
-                            #filterDICT = lokiResultDICT.copy()
-                            #filterDICT["ka_index"] = newIdxLIST
-
-                            #resultLIST.append(filterDICT)
-                            #print(filterDICT)
-
             if not success:
                 logging.error(f"連續 3 次嘗試失敗，跳過此測試句: {intent_s}")
 
     return resultLIST
 
 if __name__ == "__main__":
-    kaPATH = Path.cwd().parent / "data" / "kaLIST.json"
-    with open(kaPATH, "r", encoding="utf-8") as f:
-        kaLIST = json.load(f)
+    kaTestingLIST = createTestingLIST()
 
     predictionLIST = []
-    for utterIdx, inputSTR in enumerate(kaLIST):
+    for utterIdx, inputSTR in enumerate(kaTestingLIST):
         resultLIST = main(inputSTR, utterIdx)
         predictionLIST.extend(resultLIST)
 
