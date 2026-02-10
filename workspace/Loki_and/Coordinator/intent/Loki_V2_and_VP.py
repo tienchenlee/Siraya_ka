@@ -44,13 +44,33 @@ G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
 accDICT = json.load(open(f"{Path(CWD_PATH).parent}/account.info", "r", encoding="utf-8"))
 def tmpAskLoki(inputSTR):
     url = accDICT["server"]
+    intentLIST = []
     payload = {
-        #"username": accDICT["username"],
+        "username" : accDICT["username"],
+        "loki_key": accDICT["loki_key"],
         "project": accDICT["loki_project"],
-        "input_str": inputSTR
+        "func": "get_info",
+        "data": {}
     }
-    response = post(url, json=payload).json()
-    return response
+    intentLIST = post(url="https://nlu.droidtown.co/Loki_EN/Call/", json=payload).json()["result"]["intent"].keys()
+
+    resultLIST = []
+    for intent_s in intentLIST:
+        payload = {
+            "project": accDICT["loki_project"],
+            "input_str": inputSTR,
+            "intent": intent_s
+        }
+
+        response = post(url, json=payload)
+        print(response)
+        response = response.json()
+        resultLIST.append(response)
+
+        if response["results"] != []:
+            break
+
+    return resultLIST
 
 with open(f"{CWD_PATH}/USER_DEFINED.json", "r", encoding="utf-8") as f:
     udDICT = json.load(f)
@@ -368,9 +388,8 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                         kaIdx = getKaCharIdx(inputSTR=inputSTR, utterPat=utterPat, targetArgINT=i)
                         tmpInputSTR = inputSTR[:kaIdx]
                         #tmpRefDICT = {"inputSTR":[inputSTR], "utterance": [], "ka_index":[], "utter_index":[0], "COMP":[], "and":[], "REL":[]}
-                        tmpLokiDICT = tmpAskLoki(tmpInputSTR)
-
-                        if tmpLokiDICT["results"] == []:
+                        tmpLokiResultLIST = tmpAskLoki(tmpInputSTR)
+                        if all(tmpLokiDICT["results"] == [] for tmpLokiDICT in tmpLokiResultLIST):
                             if Cord:
                                 resultDICT["and"].append({INTENT_NAME: True})
                                 resultDICT["utterance"].append(utterance)
