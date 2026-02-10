@@ -41,7 +41,7 @@ else:
 INTENT_NAME = "V2_and_VP"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
 G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
-accDICT = json.load(open(f"{CWD_PATH.parent}/account.info", "r", encoding="utf-8"))
+accDICT = json.load(open(f"{Path(CWD_PATH).parent}/account.info", "r", encoding="utf-8"))
 def tmpAskLoki(inputSTR):
     url = accDICT["server"]
     payload = {
