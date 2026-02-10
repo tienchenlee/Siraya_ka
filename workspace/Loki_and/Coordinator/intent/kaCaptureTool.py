@@ -40,6 +40,23 @@ USER_DEFINED_DICT = MODULE_DICT["Account"].USER_DEFINED_DICT
 getLLM = MODULE_DICT["LLM"].getLLM
 
 
+
+def getKaCharIdx(inputSTR, utterPat, targetArgINT):
+    """"""
+    engArticut = ARTICUT.parse(inputSTR, USER_DEFINED_FILE)
+    if engArticut["status"] == True:
+        if "," in engArticut["result_pos"]:
+            posSTR = ",".join(engArticut["result_pos"]).replace(",", "")
+            engArticut["result_pos"] = [posSTR]
+
+        inputPosSTR = engArticut["result_pos"][0].replace("> <", "><")
+
+    for k_t in [(k.start(targetArgINT+1), k.end(targetArgINT+1), k.group(targetArgINT+1)) for k in utterPat.finditer(inputPosSTR)]:
+        if k_t[2] == "ka":
+            kaCharIdx = k_t[0]
+
+    return kaCharIdx
+
 def _getKaIdx(inputSTR, utterPat, targetArgINT):
     """
     1. Articut inputSTR
