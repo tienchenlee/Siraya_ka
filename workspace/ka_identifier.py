@@ -126,8 +126,8 @@ def main(inputSTR, utterIdx):
     #kaIdxSET = set()
 
     functionDICT = {
-        #"and": askLokiAND,
-        "COMP": askLokiCOMP,
+        "and": askLokiAND,
+        #"COMP": askLokiCOMP,
         #"REL": askLokiREL
     }
 
