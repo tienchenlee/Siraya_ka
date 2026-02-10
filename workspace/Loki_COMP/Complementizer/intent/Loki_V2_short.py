@@ -131,6 +131,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "PAST- hear .AV NOM DET Jesus ka PAST- deliver .PV cause.in.prison NOM DET John PAST- return .AV be.destined .AV go .AV LOC Galilee":
         if CHATBOT:
@@ -152,6 +153,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "careful .AV -IRR ka not you .PL .NOM give.mercy .AV OBL merciful -PV -your .PL PC. public OBL man LOC see -PV they .GEN":
         if CHATBOT:
@@ -173,6 +175,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "not I .GEN you .SG .NOM Q PAST- see -LV LOC garden ka be.together .AV you .SG .NOM him -OBL":
         if CHATBOT:
@@ -194,6 +197,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "speak.so .AV OBL word NOM you .PL ka PAST- come .AV ka night -LV NOM disciple his":
         if CHATBOT:
@@ -215,6 +219,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "testify .AV you .PL .NOM PC. against .AV you .PL -OBL self .AV ka DET children you .PL .NOM their ka PAST- kill .AV OBL PART prophet":
         if CHATBOT:
@@ -236,6 +241,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "think .AV PC. heart .AV ka come .AV -PFV I .NOM OBL bring -PV .IRR I .GEN NOM peace LOC earth":
         if CHATBOT:
@@ -257,6 +263,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "understand -LV DET Jesus PC. self .AV him -OBL ka murmur .AV because OBL this NOM disciple his":
         if CHATBOT:
@@ -278,6 +285,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "want .AV you .PL .NOM Q ka release -PV .IRR I .GEN you .PL .NOM NOM ruler ka chief OBL Jew":
         if CHATBOT:
@@ -299,6 +307,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "who NOM PAST- understand .AV accept .AV OBL testify -PV he .GEN PAST- seal .PV PC. surely .AV ka true .AV OBL word NOM God":
         if CHATBOT:
@@ -320,6 +329,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "see -LV GEN Herod ka PAST- deceive .AV him -OBL NOM wise observe":
         if CHATBOT:
@@ -341,6 +351,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "know -PV I .GEN ka life ka always .AV be.lasting .AV NOM command -PV he .GEN":
         if CHATBOT:
@@ -362,6 +373,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "So.much.so .AV ka PAST- marvel .AV NOM multitudes while see -LV they .GEN ka speak .AV NOM dumb .AV":
         if CHATBOT:
@@ -383,6 +395,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "PAST- allow -PV you .PL GEN Moses because OBL hardness your OBL heart ka cause.leave .AV -IRR you .PL .NOM OBL wife your .PL":
         if CHATBOT:
@@ -404,6 +417,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 COMP = kaCapture(args, pattern, inputSTR, resultDICT)
                 if COMP:
                     resultDICT["COMP"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     return resultDICT
 
