@@ -131,6 +131,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 Cord = kaCapture(args, pattern, inputSTR, resultDICT)
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "PAST- speak -PV I .GEN you .PL .NOM ka PAST- see -LV you .PL .GEN me -OBL ka not you .PL .NOM believe .AV -PFV":
         if CHATBOT:
@@ -152,6 +153,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 Cord = kaCapture(args, pattern, inputSTR, resultDICT)
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "know -LV -we .EXCL .GEN now ka PC. all.inclusive .AV you .SG .NOM know .AV OBL things ka not you .SG .NOM need ka ask -PV you .SG .NOM anyone":
         if CHATBOT:
@@ -173,6 +175,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 Cord = kaCapture(args, pattern, inputSTR, resultDICT)
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "know -LV you .PL .GEN ka chief OBL people NOM rule .AV them -OBL ka lords NOM have.authority .AV OBL power them -OBL":
         if CHATBOT:
@@ -194,6 +197,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 Cord = kaCapture(args, pattern, inputSTR, resultDICT)
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "know .AV -IRR you .PL .NOM ka believe .AV -IRR you .PL .NOM ka be.in .AV NOM father me -OBL ka be.in .AV also-I .NOM him -OBL":
         if CHATBOT:
@@ -215,6 +219,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 Cord = kaCapture(args, pattern, inputSTR, resultDICT)
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     return resultDICT
 

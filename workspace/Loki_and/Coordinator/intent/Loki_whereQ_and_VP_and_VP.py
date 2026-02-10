@@ -131,6 +131,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 Cord = kaCapture(args, pattern, inputSTR, resultDICT)
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     return resultDICT
 

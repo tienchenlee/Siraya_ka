@@ -126,9 +126,9 @@ def main(inputSTR, utterIdx):
     #kaIdxSET = set()
 
     functionDICT = {
-        #"and": askLokiAND,
+        "and": askLokiAND,
         #"COMP": askLokiCOMP,
-        "REL": askLokiREL
+        #"REL": askLokiREL
     }
 
     refDICT = {"inputSTR":[inputSTR], "utterance": [], "ka_index":[], "utter_index":[utterIdx], "COMP":[], "and":[], "REL":[]}

@@ -131,6 +131,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 Cord = kaCapture(args, pattern, inputSTR, resultDICT)
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "PAST- touch .AV OBL hand his ka PAST- leave .AV NOM fever her -OBL ka PAST- rise .AV ka PAST- serve .PV she .GEN him -OBL":
         if CHATBOT:
@@ -152,6 +153,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 Cord = kaCapture(args, pattern, inputSTR, resultDICT)
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "send.forth -PV I .GEN you .PL .NOM NOM prophet NOM wise.men OBL scribe also ka kill .AV -IRR you .PL .NOM OBL some crucify also them -OBL ka punish .AV -IRR you .PL .NOM scourge .AV OBL some LOC synagogue-your .PL ka persecute .AV -IRR you .PL .NOM them -OBL LOC cities":
         if CHATBOT:
@@ -173,6 +175,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 Cord = kaCapture(args, pattern, inputSTR, resultDICT)
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     return resultDICT
 
