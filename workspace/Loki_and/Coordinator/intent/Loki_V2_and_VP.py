@@ -24,23 +24,19 @@ import os
 import re
 from pathlib import Path
 import sys
+from ...Coordinator.main import askLoki
 
 G_mainPath = Path(sys.argv[0]).resolve()
 if G_mainPath.name in ["ka_testing.py", "ka_identifier.py"]:
     try:
         from Loki_and.Coordinator.intent.kaCaptureTool import kaCapture, getKaCharIdx
-        from Loki_and.Coordinator.main import askLoki
     except:
         from .Loki_and.Coordinator.intent.kaCaptureTool import kaCapture, getKaCharIdx
-        from .Loki_and.Coordinator.main import askLoki
-
 else:
     try:
         from kaCaptureTool import kaCapture, getKaCharIdx
-        from main import askLoki
     except:
         from .kaCaptureTool import kaCapture, getKaCharIdx
-        from ..main import askLoki
 
 INTENT_NAME = "V2_and_VP"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
