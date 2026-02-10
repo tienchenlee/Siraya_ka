@@ -24,7 +24,7 @@ import os
 import re
 from pathlib import Path
 import sys
-from ...Coordinator.main import askLoki
+from ..Coordinator.main import askLoki
 
 G_mainPath = Path(sys.argv[0]).resolve()
 if G_mainPath.name in ["ka_testing.py", "ka_identifier.py"]:
