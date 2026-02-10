@@ -23,8 +23,8 @@ import json
 import os
 import re
 from pathlib import Path
+from requests import post
 import sys
-from ..Coordinator.main import askLoki
 
 G_mainPath = Path(sys.argv[0]).resolve()
 if G_mainPath.name in ["ka_testing.py", "ka_identifier.py"]:
@@ -41,6 +41,16 @@ else:
 INTENT_NAME = "V2_and_VP"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
 G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
+accDICT = json.load(open("../account.info", "r", encoding="utf-8"))
+def tmpAskLoki(inputSTR):
+    url = accDICT["server"]
+    payload = {
+        #"username": accDICT["username"],
+        "project": accDICT["loki_project"],
+        "input_str": inputSTR
+    }
+    response = post(url, json=payload).json()
+    return response
 
 with open(f"{CWD_PATH}/USER_DEFINED.json", "r", encoding="utf-8") as f:
     udDICT = json.load(f)
@@ -357,9 +367,10 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                         utterPat = re.compile(pattern)
                         kaIdx = getKaCharIdx(inputSTR=inputSTR, utterPat=utterPat, targetArgINT=i)
                         tmpInputSTR = inputSTR[:kaIdx]
-                        tmpRefDICT = {"inputSTR":[inputSTR], "utterance": [], "ka_index":[], "utter_index":[0], "COMP":[], "and":[], "REL":[]}
-                        tmpLokiDICT = askLoki(tmpInputSTR, refDICT=tmpRefDICT)
-                        if tmpLokiDICT["and"] == []:
+                        #tmpRefDICT = {"inputSTR":[inputSTR], "utterance": [], "ka_index":[], "utter_index":[0], "COMP":[], "and":[], "REL":[]}
+                        tmpLokiDICT = tmpAskLoki(tmpInputSTR)
+
+                        if tmpLokiDICT["results"] == []:
                             if Cord:
                                 resultDICT["and"].append({INTENT_NAME: True})
                                 resultDICT["utterance"].append(utterance)
