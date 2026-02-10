@@ -132,6 +132,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 REL = kaCapture(args, pattern, inputSTR, resultDICT)
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "not break .AV OBL reed ka PAST- bruised not quench -PV .IRR he .GEN NOM flax ka smoke .AV LOC time -IRR until ka PC. complete .AV -IRR cause.appear .AV OBL judgment LOC victory":
         if CHATBOT:
@@ -153,6 +154,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 REL = kaCapture(args, pattern, inputSTR, resultDICT)
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     return resultDICT
 

@@ -132,6 +132,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 REL = kaCapture(args, pattern, inputSTR, resultDICT)
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "shine -PV .IRR so .AV NOM light your .PL LOC openness OBL people ka see .AV -IRR OBL PART work your .PL ka good .AV ka make.great .AV -IRR also OBL status OBL father your .PL ka LOC far.above OBL heaven":
         if CHATBOT:
@@ -153,6 +154,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 REL = kaCapture(args, pattern, inputSTR, resultDICT)
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "Come .AV -PFV NOM son OBL man ka eat .AV ka drink .AV ka say .PV they .GEN FOC see -LV .IRR NOM man ka gluttonous .AV ka alcoholist friend OBL tax.collector OBL sinner also":
         if CHATBOT:
@@ -174,6 +176,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 REL = kaCapture(args, pattern, inputSTR, resultDICT)
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "enter .AV -IRR LOC room your .SG ka LOC inside ka when PAST- close .AV you .SG .NOM OBL door your .SG pray .AV -IRR OBL father .LV your .SG ka LOC darkness ka father .LV your .SG ka PC. dark .AV see .AV PC. back .AV -IRR reward .AV you .SG -OBL LOC openness FOC":
         if CHATBOT:
@@ -195,6 +198,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 REL = kaCapture(args, pattern, inputSTR, resultDICT)
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     return resultDICT
 

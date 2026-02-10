@@ -131,7 +131,7 @@ def main(inputSTR, utterIdx):
         "REL": askLokiREL
     }
 
-    refDICT = {"inputSTR":[inputSTR], "ka_index":[], "utter_index":[utterIdx], "COMP":[], "and":[], "REL":[]}
+    refDICT = {"inputSTR":[inputSTR], "utterance": [], "ka_index":[], "utter_index":[utterIdx], "COMP":[], "and":[], "REL":[]}
 
     # <句首為 ka 預設為「然後的 and」>
     inputWordLIST = inputSTR.split(" ")

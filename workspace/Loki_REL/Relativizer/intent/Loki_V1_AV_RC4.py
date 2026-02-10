@@ -132,6 +132,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 REL = kaCapture(args, pattern, inputSTR, resultDICT)
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "speak.so .AV .IRR .also OBL word NOM ruler ka chief them -OBL ka at .AV LOC right his come .AV here NOM you .PL ka PAST- bless -PV you .PL .NOM OBL word OBL father my inherit .AV -PFV OBL kingdom ka PAST- prepare -PV you .PL -OBL from time OBL PAST- put.foundation -PV NOM basis OBL world":
         if CHATBOT:
@@ -153,6 +154,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 REL = kaCapture(args, pattern, inputSTR, resultDICT)
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "speak.so .AV .IRR .also OBL word them -OBL ka at.left .AV depart .AV -IRR me -OBL you .PL ka PAST- curse -PV go .AV LOC fire ka always .AV be.lasting .AV ka PAST- prepare -PV OBL belong-devil .AV -IRR OBL angel also his":
         if CHATBOT:
@@ -174,6 +176,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 REL = kaCapture(args, pattern, inputSTR, resultDICT)
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     if utterance == "OBL water ka give -IV .IRR I .GEN him -OBL not thirsty .AV -IRR LOC always -LV be.lasting .AV then water ka give -IV .IRR I .GEN him -OBL become.fountain .AV -IRR -PFV him -OBL OBL water ka spring.up LOC life ka always .AV be.lasting .AV":
         if CHATBOT:
@@ -195,6 +198,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 REL = kaCapture(args, pattern, inputSTR, resultDICT)
                 if REL:
                     resultDICT["REL"].append({INTENT_NAME: True})
+                    resultDICT["utterance"].append(utterance)
 
     return resultDICT
 
