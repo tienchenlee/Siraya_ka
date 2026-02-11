@@ -52,7 +52,7 @@ def tmpAskLoki(inputSTR):
         "func": "get_info",
         "data": {}
     }
-    print("getIntent")
+    #print("getIntent")
     response = post(url="https://nlu.droidtown.co/Loki_EN/Call/", json=payload)
     try:
         response = response.json()
@@ -74,7 +74,7 @@ def tmpAskLoki(inputSTR):
             "input_str": inputSTR,
             "intent": intent_s
         }
-        print("askLoki")
+        #print("askLoki")
         response = post(f"{url}/Loki_EN/API/", json=payload)
 
         try:
@@ -410,6 +410,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                         tmpInputSTR = inputSTR[:kaIdx]
                         #tmpRefDICT = {"inputSTR":[inputSTR], "utterance": [], "ka_index":[], "utter_index":[0], "COMP":[], "and":[], "REL":[]}
                         tmpLokiResultLIST = tmpAskLoki(tmpInputSTR)
+                        print(tmpLokiResultLIST)
                         if any(tmpLokiDICT.get("results") for tmpLokiDICT in tmpLokiResultLIST):
                             if Cord:
                                 resultDICT["and"].append({INTENT_NAME: True})
