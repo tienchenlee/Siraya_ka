@@ -198,7 +198,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
 
                 #<ka_capture_test>
                 for i in range(0, len(args)):
-                    print(args)
+                    #print(args)
                     if args[i] == "ka":
                         utterPat = re.compile(pattern)
                         kaIdx = getKaCharIdx(inputSTR=inputSTR, utterPat=utterPat, targetArgINT=i)
