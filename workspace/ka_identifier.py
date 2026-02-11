@@ -163,7 +163,7 @@ def main(inputSTR, utterIdx):
                 else:
                     success = True
 
-                    if lokiResultDICT["ka_index"]:
+                    if lokiResultDICT["ka_index"] and lokiResultDICT["and"]:
                         resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
                         logging.info(lokiResultDICT)
 

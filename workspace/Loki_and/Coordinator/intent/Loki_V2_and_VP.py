@@ -401,23 +401,20 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
 
             if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
                 Cord = kaCapture(args, pattern, inputSTR, resultDICT)
-                #<ka_capture_test>
 
+                #<ka_capture_test>
                 for i in range(0, len(args)):
                     if args[i] == "ka":
                         utterPat = re.compile(pattern)
                         kaIdx = getKaCharIdx(inputSTR=inputSTR, utterPat=utterPat, targetArgINT=i)
                         tmpInputSTR = inputSTR[:kaIdx]
-                        #tmpRefDICT = {"inputSTR":[inputSTR], "utterance": [], "ka_index":[], "utter_index":[0], "COMP":[], "and":[], "REL":[]}
                         tmpLokiResultLIST = tmpAskLoki(tmpInputSTR)
-                        print(tmpLokiResultLIST)
                         if any(tmpLokiDICT.get("results") for tmpLokiDICT in tmpLokiResultLIST):
                             if Cord:
                                 resultDICT["and"].append({INTENT_NAME: True})
                                 resultDICT["utterance"].append(utterance)
                         else:
                             pass
-
                 #</ka_capture_test>
 
 
