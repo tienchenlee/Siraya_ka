@@ -71,9 +71,10 @@ def tmpAskLoki(inputSTR):
 
     intentLIST = _getIntent()
     if not intentLIST:
-        sleep(0.8)
+        sleep(5)
         intentLIST = _getIntent()
 
+    got_results = False
     for intent_s in intentLIST:
         payload = {
             "project": accDICT["loki_project"],
@@ -81,20 +82,33 @@ def tmpAskLoki(inputSTR):
             "intent": intent_s
         }
         #print("askLoki")
-        response = post(f"{url}/Loki_EN/API/", json=payload)
 
-        try:
-            response = response.json()
-            resultLIST.append(response)
+        for retry in range(3):
+            response = post(f"{url}/Loki_EN/API/", json=payload)
 
-            if response.get("results"):
+            if response.status_code == 504:
+                sleep(5)
+                logging.warning(f"504 retry: {retry + 1}, intent: {intent_s}")
+                continue
+
+            elif response.status_code != 200:
+                logging.error(f"HTTP {response.status_code}, payload={payload}")
                 break
 
-        except Exception as e:
-            print(e)
-            print(payload)
-            print(f"askLoki:{response}")
-            logging.error(f"跳過此句: {inputSTR}")
+            try:
+                response = response.json()
+                resultLIST.append(response)
+
+                if response.get("results"):
+                    got_results = True
+                    break
+
+            except Exception as e:
+                logging.error(f"e: {e}, 跳過此句: {inputSTR}")
+                break
+
+        if got_results:
+            break
 
     return resultLIST
 
