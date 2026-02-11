@@ -29,69 +29,18 @@ import sys
 G_mainPath = Path(sys.argv[0]).resolve()
 if G_mainPath.name in ["ka_testing.py", "ka_identifier.py"]:
     try:
-        from Loki_and.Coordinator.intent.kaCaptureTool import kaCapture, getKaCharIdx
+        from Loki_and.Coordinator.intent.kaCaptureTool import kaCapture, getKaCharIdx, tmpAskLoki
     except:
-        from .Loki_and.Coordinator.intent.kaCaptureTool import kaCapture, getKaCharIdx
+        from .Loki_and.Coordinator.intent.kaCaptureTool import kaCapture, getKaCharIdx, tmpAskLoki
 else:
     try:
-        from kaCaptureTool import kaCapture, getKaCharIdx
+        from kaCaptureTool import kaCapture, getKaCharIdx, tmpAskLoki
     except:
-        from .kaCaptureTool import kaCapture, getKaCharIdx
+        from .kaCaptureTool import kaCapture, getKaCharIdx, tmpAskLoki
 
 INTENT_NAME = "V2_and_VP"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
 G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
-accDICT = json.load(open(f"{Path(CWD_PATH).parent}/account.info", "r", encoding="utf-8"))
-def tmpAskLoki(inputSTR):
-    url = accDICT["server"]
-    intentLIST = []
-    payload = {
-        "username" : accDICT["username"],
-        "loki_key": accDICT["loki_key"],
-        "project": accDICT["loki_project"],
-        "func": "get_info",
-        "data": {}
-    }
-    #print("getIntent")
-    response = post(url="https://nlu.droidtown.co/Loki_EN/Call/", json=payload)
-    try:
-        response = response.json()
-        if response["status"] == True:
-            intentDICT = response["result"]["intent"]
-            intentLIST = [intent for intent in intentDICT.keys()]
-            print(intentLIST)
-        else:
-            print(f"getIntent:{response}")
-            return None
-    except:
-        print(response["msg"])
-
-    resultLIST = []
-
-    for intent_s in intentLIST:
-        payload = {
-            "project": accDICT["loki_project"],
-            "input_str": inputSTR,
-            "intent": intent_s
-        }
-        #print("askLoki")
-        response = post(f"{url}/Loki_EN/API/", json=payload)
-
-        try:
-            response = response.json()
-            resultLIST.append(response)
-
-            if response.get("results"):
-                break
-
-        except Exception as e:
-            print(e)
-            print(payload)
-            print(f"askLoki:{response}")
-            raise
-
-    return resultLIST
-
 
 with open(f"{CWD_PATH}/USER_DEFINED.json", "r", encoding="utf-8") as f:
     udDICT = json.load(f)
