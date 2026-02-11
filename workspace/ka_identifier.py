@@ -175,7 +175,7 @@ def main(inputSTR, utterIdx):
 if __name__ == "__main__":
     #kaTestingLIST = createTestingLIST()
 
-    kaPATH = Path.cwd().parent / "data" / "andFP_relTP.json.json"
+    kaPATH = Path.cwd().parent / "data" / "andFP_relTP.json"
     with open(kaPATH, "r", encoding="utf-8") as f:
         intersectionLIST = json.load(f)
 
