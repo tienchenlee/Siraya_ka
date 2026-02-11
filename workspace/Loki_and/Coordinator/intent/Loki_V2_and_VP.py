@@ -53,7 +53,6 @@ def tmpAskLoki(inputSTR):
         "data": {}
     }
     response = post(url="https://nlu.droidtown.co/Loki_EN/Call/", json=payload)
-    print(f"getIntent:{response}")
     try:
         response = response.json()
         if response["status"] == True:
@@ -61,7 +60,7 @@ def tmpAskLoki(inputSTR):
             intentLIST = [intent for intent in intentDICT.keys()]
             print(intentLIST)
         else:
-            print(response)
+            print(f"getIntent:{response}")
             return None
     except:
         print(response["msg"])
@@ -76,14 +75,19 @@ def tmpAskLoki(inputSTR):
         }
 
         response = post(url, json=payload)
-        print(f"askLoki:{response}")
-        response = response.json()
-        resultLIST.append(response)
 
-        if response["results"] != []:
-            break
+        try:
+            response = response.json()
+            resultLIST.append(response)
+
+            if response["results"] != []:
+                break
+
+        except:
+            print(f"askLoki:{response}")
 
     return resultLIST
+
 
 with open(f"{CWD_PATH}/USER_DEFINED.json", "r", encoding="utf-8") as f:
     udDICT = json.load(f)
