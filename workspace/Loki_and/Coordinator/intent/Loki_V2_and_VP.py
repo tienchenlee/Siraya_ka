@@ -57,16 +57,14 @@ def tmpAskLoki(inputSTR):
     #response = response.json()["result"]["intent"].keys()
     try:
         response = response.json()
-        if response["status_code"] == "200":
+        if response["status"] == True:
             intentLIST = response["result"]["intent"].keys()
+            print(intentLIST)
         else:
             print(response)
             return None
     except:
         print(response["msg"])
-
-    #intentLIST = [i for i in intentLIST]
-    print(intentLIST)
 
     resultLIST = []
 
