@@ -181,10 +181,11 @@ if __name__ == "__main__":
 
     predictionLIST = []
     #for utterIdx, inputSTR in enumerate(kaTestingLIST):
-    for utterIdx, inputSTR in enumerate(intersectionLIST):
-        resultLIST = main(inputSTR, utterIdx)
-        predictionLIST.extend(resultLIST)
-        #print(predictionLIST)
+    #for utterIdx, inputSTR in enumerate(intersectionLIST):
+    inputSTR = "because OBL that PAST- PC. more .AV seek .AV NOM Jew OBL kill -IV .IRR him -OBL because ka not nly spoil -LV he .GEN NOM day OBL sabbath FOC PAST- say .AV also ka God NOM father his ka true .AV"
+    resultLIST = main(inputSTR, 0)
+    predictionLIST.extend(resultLIST)
+    #print(predictionLIST)
 
     trainingDIR = Path.cwd().parent / "data" / "training"
     trainingDIR.mkdir(exist_ok=True, parents=True)
