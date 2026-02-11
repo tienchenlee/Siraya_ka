@@ -52,7 +52,9 @@ def tmpAskLoki(inputSTR):
         "func": "get_info",
         "data": {}
     }
-    intentLIST = post(url, json=payload).json()
+    response = post(url, json=payload)
+    print(response)
+    response = response.json()
     intentLIST = [i for i in intentLIST["result"]["intent"].keys()]
     print(intentLIST)
 
