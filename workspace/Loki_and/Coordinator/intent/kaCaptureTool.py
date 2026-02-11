@@ -81,7 +81,7 @@ def tmpAskLoki(inputSTR):
             resultLIST.append(response)
 
             if response.get("results"):
-                breakkaCaptureTool.py
+                break
 
         except Exception as e:
             print(e)
@@ -98,7 +98,7 @@ def getKaCharIdx(inputSTR, utterPat, targetArgINT):
         if "," in engArticut["result_pos"]:
             posSTR = ",".join(engArticut["result_pos"]).replace(",", "")
             engArticut["result_pos"] = [posSTR]
-kaCaptureTool.py
+
         inputPosSTR = engArticut["result_pos"][0].replace("> <", "><")
 
     for k_t in [(k.start(targetArgINT+1), k.end(targetArgINT+1), k.group(targetArgINT+1)) for k in utterPat.finditer(inputPosSTR)]:
