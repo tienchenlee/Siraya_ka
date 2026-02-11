@@ -52,9 +52,12 @@ def tmpAskLoki(inputSTR):
         "func": "get_info",
         "data": {}
     }
-    intentLIST = post(url="https://nlu.droidtown.co/Loki_EN/Call/", json=payload).json()["result"]["intent"].keys()
+    intentLIST = post(url, json=payload).json()
+    intentLIST = [i for i in intentLIST["result"]["intent"].keys()]
+    print(intentLIST)
 
     resultLIST = []
+
     for intent_s in intentLIST:
         payload = {
             "project": accDICT["loki_project"],
