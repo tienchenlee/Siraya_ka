@@ -54,8 +54,8 @@ def tmpAskLoki(inputSTR):
     }
     response = post(url="https://nlu.droidtown.co/Loki_EN/Call/", json=payload)
     print(f"getIntent:{response}")
-    response = response.json()
-    intentLIST = [i for i in intentLIST["result"]["intent"].keys()]
+    response = response.json()["result"]["intent"].keys()
+    #intentLIST = [i for i in intentLIST]
     print(intentLIST)
 
     resultLIST = []
