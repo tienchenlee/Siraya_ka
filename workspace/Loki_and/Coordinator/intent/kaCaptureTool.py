@@ -106,9 +106,7 @@ def getKaCharIdx(inputSTR, utterPat, targetArgINT):
         if k_t[2] == "ka":
             kaPosIdx = k_t[0]
             outputSTR = re.sub(G_posTagPAT, " ", inputPosSTR[:kaPosIdx]).replace("  ", " ").strip()
-            print(outputSTR)
-            print(len(outputSTR))
-            kaCharIdx = len(outputSTR) - 3
+            kaCharIdx = len(outputSTR)
 
     return kaCharIdx
 
