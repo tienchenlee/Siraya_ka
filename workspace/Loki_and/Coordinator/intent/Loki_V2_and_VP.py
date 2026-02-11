@@ -81,7 +81,7 @@ def tmpAskLoki(inputSTR):
             response = response.json()
             resultLIST.append(response)
 
-            if response["results"] != []:
+            if response.get("results"):
                 break
 
         except Exception as e:
@@ -410,12 +410,13 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                         tmpInputSTR = inputSTR[:kaIdx]
                         #tmpRefDICT = {"inputSTR":[inputSTR], "utterance": [], "ka_index":[], "utter_index":[0], "COMP":[], "and":[], "REL":[]}
                         tmpLokiResultLIST = tmpAskLoki(tmpInputSTR)
-                        if all(tmpLokiDICT["results"] == [] for tmpLokiDICT in tmpLokiResultLIST):
+                        if any(tmpLokiDICT.get("results") for tmpLokiDICT in tmpLokiResultLIST):
                             if Cord:
                                 resultDICT["and"].append({INTENT_NAME: True})
                                 resultDICT["utterance"].append(utterance)
                         else:
                             pass
+
                 #</ka_capture_test>
 
 
