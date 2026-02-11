@@ -84,7 +84,9 @@ def tmpAskLoki(inputSTR):
                 break
 
         except:
+            print(payload)
             print(f"askLoki:{response}")
+            break
 
     return resultLIST
 
