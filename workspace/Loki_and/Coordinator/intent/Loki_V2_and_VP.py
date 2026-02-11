@@ -318,7 +318,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                     checkLIST.append(m.group(1))
 
             if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                Cord = kaCapture(args, patstrain -PV you .PL .GEN NOM mosquito ka swallow -PV you .PL .GEN NOM large.animal ka cametern, inputSTR, resultDICT)
+                Cord = kaCapture(args, pattern, inputSTR, resultDICT)
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
                     resultDICT["utterance"].append(utterance)
