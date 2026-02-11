@@ -175,18 +175,22 @@ def main(inputSTR, utterIdx):
 if __name__ == "__main__":
     #kaTestingLIST = createTestingLIST()
 
+    kaPATH = Path.cwd().parent / "data" / "andFP.json"
+    with open(kaPATH, "r", encoding="utf-8") as f:
+        andFPLIST = json.load(f)
+
     predictionLIST = []
     #for utterIdx, inputSTR in enumerate(kaTestingLIST):
-    inputSTR = "many .AV OBL multitudes ka hear .AV OBL word this PAST- say .AV truly .AV DET this.person NOM prophet that"
-    resultLIST = main(inputSTR, 0)
-    predictionLIST.extend(resultLIST)
-    print(predictionLIST)
+    for utterIdx, inputSTR in enumerate(andFPLIST):
+        resultLIST = main(inputSTR, utterIdx)
+        predictionLIST.extend(resultLIST)
+        #print(predictionLIST)
 
-    #trainingDIR = Path.cwd().parent / "data" / "training"
-    #trainingDIR.mkdir(exist_ok=True, parents=True)
+    trainingDIR = Path.cwd().parent / "data" / "training"
+    trainingDIR.mkdir(exist_ok=True, parents=True)
 
-    #with open(trainingDIR / "predictionLIST.json", "w", encoding="utf-8") as f:
-        #json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
+    with open(trainingDIR / "predictionLIST.json", "w", encoding="utf-8") as f:
+        json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
 
 
     ##<單筆測試>
