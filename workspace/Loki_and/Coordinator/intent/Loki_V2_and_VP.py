@@ -75,7 +75,7 @@ def tmpAskLoki(inputSTR):
             "intent": intent_s
         }
         print("askLoki")
-        response = post(url, json=payload)
+        response = post(f"{url}/Loki_EN/BulkAPI/", json=payload)
 
         try:
             response = response.json()
