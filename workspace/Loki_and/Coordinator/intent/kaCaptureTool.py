@@ -105,10 +105,10 @@ def getKaCharIdx(inputSTR, utterPat, targetArgINT):
     for k_t in [(k.start(targetArgINT+1), k.end(targetArgINT+1), k.group(targetArgINT+1)) for k in utterPat.finditer(inputPosSTR)]:
         if k_t[2] == "ka":
             kaPosIdx = k_t[0]
-            outputSTR = re.sub(G_posTagPAT, " ", inputPosSTR[:kaPosIdx]).strip()
+            outputSTR = re.sub(G_posTagPAT, " ", inputPosSTR[:kaPosIdx]).replace("  ", " ").strip()
             print(outputSTR)
             print(len(outputSTR))
-            kaCharIdx = len(outputSTR)
+            kaCharIdx = len(outputSTR) - 3
 
     return kaCharIdx
 
