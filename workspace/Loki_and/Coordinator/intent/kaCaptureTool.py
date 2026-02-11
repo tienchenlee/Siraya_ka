@@ -40,6 +40,7 @@ USER_DEFINED_FILE = MODULE_DICT["Account"].USER_DEFINED_FILE
 USER_DEFINED_DICT = MODULE_DICT["Account"].USER_DEFINED_DICT
 getLLM = MODULE_DICT["LLM"].getLLM
 accDICT = json.load(open(f"{Path(CWD_PATH).parent}/account.info", "r", encoding="utf-8"))
+G_posTagPAT = re.compile("</?[a-zA-Z]+(_[a-zA-Z]+)?>")
 
 def tmpAskLoki(inputSTR):
     url = accDICT["server"]
@@ -102,9 +103,12 @@ def getKaCharIdx(inputSTR, utterPat, targetArgINT):
         inputPosSTR = engArticut["result_pos"][0].replace("> <", "><")
 
     for k_t in [(k.start(targetArgINT+1), k.end(targetArgINT+1), k.group(targetArgINT+1)) for k in utterPat.finditer(inputPosSTR)]:
-        print(k_t)
         if k_t[2] == "ka":
-            kaCharIdx = k_t[0]
+            kaPosIdx = k_t[0]
+            outputSTR = re.sub(G_posTagPAT, " ", inputPosSTR[:kaPosIdx]).strip()
+            print(outputSTR)
+            print(len(outputSTR))
+            kaCharIdx = len(outputSTR)
 
     return kaCharIdx
 
