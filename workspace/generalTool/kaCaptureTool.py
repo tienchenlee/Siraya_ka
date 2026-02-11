@@ -94,7 +94,7 @@ def tmpAskLoki(inputSTR):
             print(e)
             print(payload)
             print(f"askLoki:{response}")
-            raise
+            logging.error(f"跳過此句: {inputSTR}")
 
     return resultLIST
 
