@@ -58,7 +58,7 @@ def tmpAskLoki(inputSTR):
         if response["status"] == True:
             intentDICT = response["result"]["intent"]
             intentLIST = [intent for intent in intentDICT.keys()]
-            print(intentLIST)
+            #print(intentLIST)
         else:
             print(f"getIntent:{response}")
             return None

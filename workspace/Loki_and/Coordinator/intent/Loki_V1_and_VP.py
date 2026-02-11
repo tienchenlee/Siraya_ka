@@ -198,12 +198,14 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
 
                 #<ka_capture_test>
                 for i in range(0, len(args)):
+                    print(args)
                     if args[i] == "ka":
                         utterPat = re.compile(pattern)
                         kaIdx = getKaCharIdx(inputSTR=inputSTR, utterPat=utterPat, targetArgINT=i)
                         tmpInputSTR = inputSTR[:kaIdx]
                         tmpLokiResultLIST = tmpAskLoki(tmpInputSTR)
-                        print(tmpInputSTR)
+                        print(f"kaIdx: {kaIdx}")
+                        print(f"tmpInputSTR: {tmpInputSTR}")
                         if any(tmpLokiDICT.get("results") for tmpLokiDICT in tmpLokiResultLIST):
                             if Cord:
                                 resultDICT["and"].append({INTENT_NAME: True})
