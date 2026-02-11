@@ -3,8 +3,8 @@
 
 from importlib.util import module_from_spec
 from importlib.util import spec_from_file_location
-from random import sample
 from requests import post
+from pathlib import Path
 import json
 import logging
 import os
@@ -40,6 +40,7 @@ USER_DEFINED_FILE = MODULE_DICT["Account"].USER_DEFINED_FILE
 USER_DEFINED_DICT = MODULE_DICT["Account"].USER_DEFINED_DICT
 getLLM = MODULE_DICT["LLM"].getLLM
 accDICT = json.load(open(f"{Path(CWD_PATH).parent}/account.info", "r", encoding="utf-8"))
+G_posTagPAT = re.compile("</?[a-zA-Z]+(_[a-zA-Z]+)?>")
 
 def tmpAskLoki(inputSTR):
     url = accDICT["server"]
@@ -58,7 +59,7 @@ def tmpAskLoki(inputSTR):
         if response["status"] == True:
             intentDICT = response["result"]["intent"]
             intentLIST = [intent for intent in intentDICT.keys()]
-            print(intentLIST)
+            #print(intentLIST)
         else:
             print(f"getIntent:{response}")
             return None
@@ -103,7 +104,9 @@ def getKaCharIdx(inputSTR, utterPat, targetArgINT):
 
     for k_t in [(k.start(targetArgINT+1), k.end(targetArgINT+1), k.group(targetArgINT+1)) for k in utterPat.finditer(inputPosSTR)]:
         if k_t[2] == "ka":
-            kaCharIdx = k_t[0]
+            kaPosIdx = k_t[0]
+            outputSTR = re.sub(G_posTagPAT, " ", inputPosSTR[:kaPosIdx]).replace("  ", " ").strip()
+            kaCharIdx = len(outputSTR)
 
     return kaCharIdx
 
