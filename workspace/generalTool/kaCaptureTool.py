@@ -5,6 +5,7 @@ from importlib.util import module_from_spec
 from importlib.util import spec_from_file_location
 from requests import post
 from pathlib import Path
+from time import sleep
 import json
 import logging
 import os
@@ -42,9 +43,7 @@ getLLM = MODULE_DICT["LLM"].getLLM
 accDICT = json.load(open(f"{Path(CWD_PATH).parent}/account.info", "r", encoding="utf-8"))
 G_posTagPAT = re.compile("</?[a-zA-Z]+(_[a-zA-Z]+)?>")
 
-def tmpAskLoki(inputSTR):
-    url = accDICT["server"]
-    intentLIST = []
+def _getIntent():
     payload = {
         "username" : accDICT["username"],
         "loki_key": accDICT["loki_key"],
@@ -59,14 +58,21 @@ def tmpAskLoki(inputSTR):
         if response["status"] == True:
             intentDICT = response["result"]["intent"]
             intentLIST = [intent for intent in intentDICT.keys()]
-            #print(intentLIST)
+            return intentLIST
         else:
             print(f"getIntent:{response}")
             return None
     except:
         print(response["msg"])
 
+def tmpAskLoki(inputSTR):
+    url = accDICT["server"]
     resultLIST = []
+
+    intentLIST = _getIntent()
+    if not intentLIST:
+        sleep(0.8)
+        intentLIST = _getIntent()
 
     for intent_s in intentLIST:
         payload = {
