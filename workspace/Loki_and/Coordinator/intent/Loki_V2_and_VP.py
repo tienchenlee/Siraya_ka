@@ -52,6 +52,7 @@ def tmpAskLoki(inputSTR):
         "func": "get_info",
         "data": {}
     }
+    print("getIntent")
     response = post(url="https://nlu.droidtown.co/Loki_EN/Call/", json=payload)
     try:
         response = response.json()
@@ -73,7 +74,7 @@ def tmpAskLoki(inputSTR):
             "input_str": inputSTR,
             "intent": intent_s
         }
-
+        print("askLoki")
         response = post(url, json=payload)
 
         try:
