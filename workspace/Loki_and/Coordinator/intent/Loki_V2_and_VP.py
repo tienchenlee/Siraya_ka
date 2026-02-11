@@ -53,7 +53,7 @@ def tmpAskLoki(inputSTR):
         "data": {}
     }
     response = post(url, json=payload)
-    print(response)
+    print(f"getIntent:{response}")
     response = response.json()
     intentLIST = [i for i in intentLIST["result"]["intent"].keys()]
     print(intentLIST)
@@ -68,7 +68,7 @@ def tmpAskLoki(inputSTR):
         }
 
         response = post(url, json=payload)
-        print(response)
+        print(f"askLoki:{response}")
         response = response.json()
         resultLIST.append(response)
 
