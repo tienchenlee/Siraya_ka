@@ -83,10 +83,11 @@ def tmpAskLoki(inputSTR):
             if response["results"] != []:
                 break
 
-        except:
+        except Exception as e:
+            print(e)
             print(payload)
             print(f"askLoki:{response}")
-            break
+            raise
 
     return resultLIST
 
