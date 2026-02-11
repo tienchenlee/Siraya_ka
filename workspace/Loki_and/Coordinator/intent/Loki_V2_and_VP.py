@@ -54,7 +54,17 @@ def tmpAskLoki(inputSTR):
     }
     response = post(url="https://nlu.droidtown.co/Loki_EN/Call/", json=payload)
     print(f"getIntent:{response}")
-    response = response.json()["result"]["intent"].keys()
+    #response = response.json()["result"]["intent"].keys()
+    try:
+        response = response.json()
+        if response["status_code"] == "200":
+            intentLIST = response["result"]["intent"].keys()
+        else:
+            print(response)
+            return None
+    except:
+        print(response["msg"])
+
     #intentLIST = [i for i in intentLIST]
     print(intentLIST)
 

@@ -43,7 +43,6 @@ getLLM = MODULE_DICT["LLM"].getLLM
 
 def getKaCharIdx(inputSTR, utterPat, targetArgINT):
     """"""
-    print("articut")
     engArticut = ARTICUT.parse(inputSTR, USER_DEFINED_FILE)
     if engArticut["status"] == True:
         if "," in engArticut["result_pos"]:
