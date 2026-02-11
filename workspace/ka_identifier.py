@@ -175,13 +175,13 @@ def main(inputSTR, utterIdx):
 if __name__ == "__main__":
     #kaTestingLIST = createTestingLIST()
 
-    kaPATH = Path.cwd().parent / "data" / "andFP.json"
+    kaPATH = Path.cwd().parent / "data" / "andFP_relTP.json.json"
     with open(kaPATH, "r", encoding="utf-8") as f:
-        andFPLIST = json.load(f)
+        intersectionLIST = json.load(f)
 
     predictionLIST = []
     #for utterIdx, inputSTR in enumerate(kaTestingLIST):
-    for utterIdx, inputSTR in enumerate(andFPLIST):
+    for utterIdx, inputSTR in enumerate(intersectionLIST):
         resultLIST = main(inputSTR, utterIdx)
         predictionLIST.extend(resultLIST)
         #print(predictionLIST)
