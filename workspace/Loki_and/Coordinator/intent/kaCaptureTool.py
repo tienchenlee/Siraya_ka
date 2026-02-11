@@ -3,8 +3,8 @@
 
 from importlib.util import module_from_spec
 from importlib.util import spec_from_file_location
-from random import sample
 from requests import post
+from pathlib import Path
 import json
 import logging
 import os
@@ -81,7 +81,7 @@ def tmpAskLoki(inputSTR):
             resultLIST.append(response)
 
             if response.get("results"):
-                break
+                breakkaCaptureTool.py
 
         except Exception as e:
             print(e)
@@ -98,7 +98,7 @@ def getKaCharIdx(inputSTR, utterPat, targetArgINT):
         if "," in engArticut["result_pos"]:
             posSTR = ",".join(engArticut["result_pos"]).replace(",", "")
             engArticut["result_pos"] = [posSTR]
-
+kaCaptureTool.py
         inputPosSTR = engArticut["result_pos"][0].replace("> <", "><")
 
     for k_t in [(k.start(targetArgINT+1), k.end(targetArgINT+1), k.group(targetArgINT+1)) for k in utterPat.finditer(inputPosSTR)]:
