@@ -358,6 +358,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                         kaIdx = getKaCharIdx(inputSTR=inputSTR, utterPat=utterPat, targetArgINT=i)
                         tmpInputSTR = inputSTR[:kaIdx]
                         tmpLokiResultLIST = tmpAskLoki(tmpInputSTR)
+                        print(tmpInputSTR)
                         if any(tmpLokiDICT.get("results") for tmpLokiDICT in tmpLokiResultLIST):
                             if Cord:
                                 resultDICT["and"].append({INTENT_NAME: True})
