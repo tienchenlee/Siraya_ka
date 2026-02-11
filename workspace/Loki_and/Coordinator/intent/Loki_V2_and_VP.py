@@ -52,7 +52,7 @@ def tmpAskLoki(inputSTR):
         "func": "get_info",
         "data": {}
     }
-    response = post(url, json=payload)
+    response = post(url="https://nlu.droidtown.co/Loki_EN/Call/", json=payload)
     print(f"getIntent:{response}")
     response = response.json()
     intentLIST = [i for i in intentLIST["result"]["intent"].keys()]
@@ -318,7 +318,7 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                     checkLIST.append(m.group(1))
 
             if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                Cord = kaCapture(args, pattern, inputSTR, resultDICT)
+                Cord = kaCapture(args, patstrain -PV you .PL .GEN NOM mosquito ka swallow -PV you .PL .GEN NOM large.animal ka cametern, inputSTR, resultDICT)
                 if Cord:
                     resultDICT["and"].append({INTENT_NAME: True})
                     resultDICT["utterance"].append(utterance)
