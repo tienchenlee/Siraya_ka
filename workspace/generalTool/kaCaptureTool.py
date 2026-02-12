@@ -113,7 +113,10 @@ def tmpAskLoki(inputSTR):
     return resultLIST
 
 def getKaCharIdx(inputSTR, utterPat, targetArgINT):
-    """"""
+    """
+    以 character 計算 ka 起始的 index。
+    """
+    kaCharIdx = -1
     engArticut = ARTICUT.parse(inputSTR, USER_DEFINED_FILE)
     if engArticut["status"] == True:
         if "," in engArticut["result_pos"]:
@@ -123,14 +126,12 @@ def getKaCharIdx(inputSTR, utterPat, targetArgINT):
         inputPosSTR = engArticut["result_pos"][0].replace("> <", "><")
 
     for k_t in [(k.start(targetArgINT+1), k.end(targetArgINT+1), k.group(targetArgINT+1)) for k in utterPat.finditer(inputPosSTR)]:
-        print(f"k_t: {k_t}")
         if k_t[2] == "ka":
             kaPosIdx = k_t[0]
             outputSTR = re.sub(G_posTagPAT, " ", inputPosSTR[:kaPosIdx]).replace("  ", " ").strip()
             kaCharIdx = len(outputSTR)
-        else:
-            logging.error(f"找不到 kaCharIdx: {inputSTR}")
-            return -1
+    if kaCharIdx == -1:
+            logging.error(f"找不到 kaCharIdx: {inputPosSTR}")
 
     return kaCharIdx
 

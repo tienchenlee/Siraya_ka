@@ -24,6 +24,7 @@ import os
 import re
 from pathlib import Path
 import sys
+import logging
 
 G_mainPath = Path(sys.argv[0]).resolve()
 if G_mainPath.name in ["ka_testing.py", "ka_identifier.py"]:
@@ -201,15 +202,18 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                     if args[i] == "ka":
                         utterPat = re.compile(pattern)
                         kaIdx = getKaCharIdx(inputSTR=inputSTR, utterPat=utterPat, targetArgINT=i)
-                        tmpInputSTR = inputSTR[:kaIdx]
-                        tmpLokiResultLIST = tmpAskLoki(tmpInputSTR)
-                        print(f"tmpInputSTR: {tmpInputSTR}")
-                        if any(tmpLokiDICT.get("results") for tmpLokiDICT in tmpLokiResultLIST):
-                            if Cord:
-                                resultDICT["and"].append({INTENT_NAME: True})
-                                resultDICT["utterance"].append(utterance)
+                        if kaIdx == -1:
+                            logging.error(f"沒有成功進行第二次 askLoki：{inputSTR}")
                         else:
-                            pass
+                            tmpInputSTR = inputSTR[:kaIdx]
+                            tmpLokiResultLIST = tmpAskLoki(tmpInputSTR)
+                            print(f"tmpInputSTR: {tmpInputSTR}")
+                            if any(tmpLokiDICT.get("results") for tmpLokiDICT in tmpLokiResultLIST):
+                                if Cord:
+                                    resultDICT["and"].append({INTENT_NAME: True})
+                                    resultDICT["utterance"].append(utterance)
+                            else:
+                                pass
                 #</ka_capture_test>
 
     if utterance == "greatly .AV PAST- marvel .AV NOM they ka PAST- say .AV":
