@@ -20,6 +20,7 @@ ud/var 會是三個 Project 共用，一次調整好某一個 Project 的 ud/var
 下載 ud/var，更新到 `data/userDefined.json` 和 `data/VARIABLE.json` 。  
 #### 1.2.2 執行 udVarUpdater.py 工具
 執行 `workspace/generalTool/udVarUpdater.py` 將 ud/var 更新至三個 Project。
+`workspace/account.info` 需要包含三個 Project 的 loki_key。
 #### 1.2.3 Loki 介面調整
 在 Loki 介面調整 ka 的捕獲組，並部署所有 intent。  
 
@@ -30,7 +31,7 @@ ud/var 會是三個 Project 共用，一次調整好某一個 Project 的 ud/var
 ## 1.3 github 更新
 將本機更動 git push。
 ## 1.4 atm 更新
-下載 Loki_bk 將 atm 更新到遠端主機，git pull 所有更動後，即部署完成。
+下載 Loki_bk 將 atm 更新到遠端主機，git pull 所有更動後，確認 Loki Project 的 account.info 中 server 是遠端主機，即部署完成。
 
 # 2. askLoki
 1. 使用 `workspace/ka_identifier.py` 進行模型測試。  
