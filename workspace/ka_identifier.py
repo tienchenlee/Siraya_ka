@@ -180,12 +180,14 @@ if __name__ == "__main__":
     #kaTestingLIST = createTestingLIST()
 
     # 測資來源
-    kaPATH = Path.cwd().parent / "data" / "kaLIST.json"
+    kaPATH = Path.cwd().parent / "data" / "andFP_relTP.json"
     with open(kaPATH, "r", encoding="utf-8") as f:
-        kaLIST = json.load(f)
+        intersectionLIST = json.load(f)
 
     predictionLIST = []
-    for utterIdx, inputSTR in enumerate(kaLIST):
+    #for utterIdx, inputSTR in enumerate(kaTestingLIST):
+    #for utterIdx, inputSTR in enumerate(kaLIST):
+    for utterIdx, inputSTR in enumerate(intersectionLIST):
         resultLIST = main(inputSTR, utterIdx)
         predictionLIST.extend(resultLIST)
         #print(predictionLIST)
