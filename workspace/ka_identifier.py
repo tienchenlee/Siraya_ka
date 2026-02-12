@@ -26,7 +26,11 @@ with open(accountPATH, "r", encoding="utf-8") as f:
     accountDICT = json.load(f)
 
 def _getIntentLIST(kaFunction):
-    """"""
+    """
+    拿到該 Project 的所有 intent。
+
+    回傳：intentLIST
+    """
     intentLIST = []
     url = "https://nlu.droidtown.co/Loki_EN/Call/"
 
@@ -112,14 +116,14 @@ def createTestingLIST():
         json.dump(kaTestingLIST, f, ensure_ascii=False, indent=4)
 
     ansTestPATH = Path.cwd().parent / "data" / "ansLIST_test.json"
-    with open(ansTestPATH, "r", encoding="utf-8") as f:
+    with open(ansTestPATH, "w", encoding="utf-8") as f:
         json.dump(ansTestingLIST, f, ensure_ascii=False, indent=4)
 
     return kaTestingLIST
 
 def main(inputSTR, utterIdx):
     """
-    將 ka1, ka2, ka3 的比對順序設為 COMP, and, REL。
+    在 functionDICT 選擇此次 askLoki 的專案。
     如果句首是 ka，則預設為「然後的 and」。
     """
     resultLIST = []
@@ -163,7 +167,7 @@ def main(inputSTR, utterIdx):
                 else:
                     success = True
 
-                    if lokiResultDICT["ka_index"] and lokiResultDICT["and"]:
+                    if lokiResultDICT["ka_index"] and lokiResultDICT[kaSTR]:
                         resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
                         logging.info(lokiResultDICT)
 
@@ -175,13 +179,13 @@ def main(inputSTR, utterIdx):
 if __name__ == "__main__":
     #kaTestingLIST = createTestingLIST()
 
-    kaPATH = Path.cwd().parent / "data" / "andFP_relTP.json"
+    # 測資來源
+    kaPATH = Path.cwd().parent / "data" / "kaLIST.json"
     with open(kaPATH, "r", encoding="utf-8") as f:
-        intersectionLIST = json.load(f)
+        kaLIST = json.load(f)
 
     predictionLIST = []
-    #for utterIdx, inputSTR in enumerate(kaTestingLIST):
-    for utterIdx, inputSTR in enumerate(intersectionLIST):
+    for utterIdx, inputSTR in enumerate(kaLIST):
         resultLIST = main(inputSTR, utterIdx)
         predictionLIST.extend(resultLIST)
         #print(predictionLIST)
@@ -189,6 +193,7 @@ if __name__ == "__main__":
     trainingDIR = Path.cwd().parent / "data" / "training"
     trainingDIR.mkdir(exist_ok=True, parents=True)
 
+    # 紀錄結果
     with open(trainingDIR / "predictionLIST.json", "w", encoding="utf-8") as f:
         json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
 

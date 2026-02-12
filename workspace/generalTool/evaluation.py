@@ -31,11 +31,11 @@ def createAnswer():
     - word_index：該句中詞彙（word）的索引位置。
 
     """
-    kaPATH = Path.cwd().parent.parent / "data" / "kaLIST_test.json"
+    kaPATH = Path.cwd().parent.parent / "data" / "kaLIST.json"
     with open(kaPATH, "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
-    ansPATH = Path.cwd().parent.parent / "data" / "ansLIST_test.json"
+    ansPATH = Path.cwd().parent.parent / "data" / "ansLIST.json"
     with open(ansPATH, "r", encoding="utf-8") as f:
         ansLIST = json.load(f)
 
@@ -90,14 +90,15 @@ def createAnswer():
 
 def makePrediction():
     """
-    將 predictionLIST 中各個 project 的 lokiResultDICT 分別寫出與 answer/ 一樣的資料結構。
+    將 predictionLIST 中的 lokiResultDICT 分別寫出與 answer/ 一樣的資料結構。
+    在 mapDICT 選擇此次 askLoki 的專案。
     """
     COMPLIST = []
     andLIST = []
     RELLIST = []
 
-    mapDICT = {"COMP": COMPLIST,
-               "and": andLIST,
+    mapDICT = {#"COMP": COMPLIST,
+               #"and": andLIST,
                "REL": RELLIST}
 
     with open(f"{G_trainingDIR}/predictionLIST.json", "r", encoding="utf-8") as f:
@@ -116,7 +117,14 @@ def makePrediction():
         with open(f"{G_predictionDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
             json.dump(mapDICT[keySTR], f, ensure_ascii=False, indent=4)
 
-    return COMPLIST, andLIST, RELLIST
+    with open(f"{G_predictionDIR}/COMP.json", "r", encoding="utf-8") as f:
+        COMPPredLIST = json.load(f)
+    with open(f"{G_predictionDIR}/and.json", "r", encoding="utf-8") as f:
+        andPredLIST = json.load(f)
+    with open(f"{G_predictionDIR}/REL.json", "r", encoding="utf-8") as f:
+        RELPredLIST = json.load(f)
+
+    return COMPPredLIST, andPredLIST, RELPredLIST
 
 def getCoverage(predLIST, ansLIST):
     """
@@ -209,6 +217,7 @@ def tryPermutation(COMPPredLIST, andPredLIST, RELPredLIST,
             print(f"[{keySTR}]")
             getCoverage(newPredDICT[keySTR], ansMapDICT[keySTR])
             getFalsePositive(newPredDICT[keySTR], ansMapDICT[keySTR])
+            print()
             #findUncoveredAnswer(newPredDICT[keySTR], ansMapDICT[keySTR], keySTR)
 
 if __name__ == "__main__":
