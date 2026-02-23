@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
     COMPintentLIST = ["V2_short", "V2", "V3", "Left_Periphery", "nominalComplement", "unsolved", "vague"]
 
-    refDICT = {"inputSTR":[], "ka_index":[], "utter_index":[], "COMP":[], "and":[], "REL":[]}
+    refDICT = {"inputSTR":[], "ka_index":[], "utter_index":[], "COMP":[], "and":[], "REL":[], "utterance": []}
     fewIntentLIST = ["nominalComplement", "overlap", "V3", "V2_short", "V2", "or", "Left_Periphery"]
     for key_s, test_s in testDICT.items():
         resultLIST = []
