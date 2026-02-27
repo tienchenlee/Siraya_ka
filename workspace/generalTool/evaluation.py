@@ -13,6 +13,8 @@ G_predictionDIR = Path.cwd().parent.parent / "data" / "prediction"
 G_predictionDIR.mkdir(exist_ok=True, parents=True)
 G_trainingDIR = Path.cwd().parent.parent / "data" / "training"
 G_trainingDIR.mkdir(exist_ok=True, parents=True)
+G_fpDIR = Path.cwd().parent.parent / "data" / "FP"
+G_fpDIR.mkdir(exist_ok=True, parents=True)
 
 def createAnswer():
     """
@@ -97,25 +99,25 @@ def makePrediction():
     andLIST = []
     RELLIST = []
 
-    mapDICT = {#"COMP": COMPLIST,
-               #"and": andLIST,
-               "REL": RELLIST}
+    #mapDICT = {#"COMP": COMPLIST,
+               ##"and": andLIST,
+               #"REL": RELLIST}
 
-    with open(f"{G_trainingDIR}/predictionLIST.json", "r", encoding="utf-8") as f:
-        predictionLIST = json.load(f)
+    #with open(f"{G_trainingDIR}/predictionLIST.json", "r", encoding="utf-8") as f:
+        #predictionLIST = json.load(f)
 
-    for lokiResultDICT in predictionLIST:   #處理每個 prediction item
-        for keySTR in mapDICT.keys():
-            if keySTR in lokiResultDICT.keys():
-                ka_indexLIST = lokiResultDICT["ka_index"]
-                utter_index = lokiResultDICT["utter_index"][0]
-                for ka_index in ka_indexLIST:
-                    if [utter_index, ka_index] not in mapDICT[keySTR]:
-                        mapDICT[keySTR].append([utter_index, ka_index])
+    #for lokiResultDICT in predictionLIST:   #處理每個 prediction item
+        #for keySTR in mapDICT.keys():
+            #if keySTR in lokiResultDICT.keys():
+                #ka_indexLIST = lokiResultDICT["ka_index"]
+                #utter_index = lokiResultDICT["utter_index"][0]
+                #for ka_index in ka_indexLIST:
+                    #if [utter_index, ka_index] not in mapDICT[keySTR]:
+                        #mapDICT[keySTR].append([utter_index, ka_index])
 
-    for keySTR in mapDICT:
-        with open(f"{G_predictionDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
-            json.dump(mapDICT[keySTR], f, ensure_ascii=False, indent=4)
+    #for keySTR in mapDICT:
+        #with open(f"{G_predictionDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
+            #json.dump(mapDICT[keySTR], f, ensure_ascii=False, indent=4)
 
     with open(f"{G_predictionDIR}/COMP.json", "r", encoding="utf-8") as f:
         COMPPredLIST = json.load(f)
@@ -155,14 +157,20 @@ def findUncoveredAnswer(predLIST, ansLIST, kaFunction):
     with open(f"{G_trainingDIR}/{kaFunction}.json", "w", encoding="utf-8") as f:
         json.dump(missedLIST, f, ensure_ascii=False, indent=4)
 
-def getFalsePositive(predLIST, ansLIST):
+def getFalsePositive(predLIST, ansLIST, kaFunction):
     """
     不是正確答案，卻被模型預測到的資料。
     """
+    fpLIST = []
+
     incorrect = 0
     for item_l in predLIST:
         if item_l not in ansLIST:
             incorrect += 1
+            fpLIST.append(item_l)
+
+    with open(f"{G_fpDIR}/{kaFunction}.json", "w", encoding="utf-8") as f:
+        json.dump(fpLIST, f, ensure_ascii=False, indent=4)
 
     print(f"錯誤預測：{incorrect}")
     print(f"正確答案：{len(ansLIST)}")
@@ -234,11 +242,11 @@ if __name__ == "__main__":
     for keySTR, (predLIST, ansLIST) in functionDICT.items():
         print(f"[{keySTR}]")
         getCoverage(predLIST, ansLIST)
-        getFalsePositive(predLIST, ansLIST)
-        findUncoveredAnswer(predLIST, ansLIST, keySTR)
+        getFalsePositive(predLIST, ansLIST, keySTR)
+        #findUncoveredAnswer(predLIST, ansLIST, keySTR)
 
-    print("===== 排列實驗結果 =====")
-    tryPermutation(
-        COMPPredLIST, andPredLIST, RELPredLIST,
-        COMPAnsLIST, andAnsLIST, RELAnsLIST
-    )
+    #print("===== 排列實驗結果 =====")
+    #tryPermutation(
+        #COMPPredLIST, andPredLIST, RELPredLIST,
+        #COMPAnsLIST, andAnsLIST, RELAnsLIST
+    #)
