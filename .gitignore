@@ -197,5 +197,9 @@ account.info
 /workspace/generalTool/Relativizer
 
 #sandBox
-sandBox/
+sandBox/debug_ref
+sandBox/ka_Backups
+sandBox/Loki_and
+sandBox/Loki_COMP
+sandBox/Loki_REL
 sandBox.zip
