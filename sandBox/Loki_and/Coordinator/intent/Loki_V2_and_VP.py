@@ -28,7 +28,7 @@ import sys
 import logging
 
 G_mainPath = Path(sys.argv[0]).resolve()
-if G_mainPath.name in ["ka_testing.py", "ka_identifier.py"]:
+if G_mainPath.name in ["ka_testing.py", "ka_identifier.py", "kaDebug.py"]:
     try:
         from Loki_and.Coordinator.intent.kaCaptureTool import kaCapture, getKaCharIdx, tmpAskLoki
     except:
