@@ -168,16 +168,16 @@ def findUtterAND(inputSTR):
 if __name__ == "__main__":
 
     MODE = "online"
-    USERNAME = "peter.w@droidtown.co"
+    USERNAME = "appielee4305@gmail.com"
 
     refFILE = "./ka_Backups/Loki_Backup/Coordinator/ref/CP_taking_Verb.ref"
     refDIR =  "./ka_Backups/Loki_Backup/Coordinator/ref/"
-    inputLIST = json.load(open("./ka_Backups/data/andFP_relTP.json", encoding="utf-8"))
+    inputLIST = json.load(open("./ka_Backups/data/FP_sentence/and.json", encoding="utf-8"))
 
-    #debEnvBuilder(refFILE, refDIR, inputLIST)
+    #debEnvBuilder(refFILE, refDIR, inputLIST, mode, username)
     #=======
 
-    debugData = "./ka_Backups/data/andFP_relTP.json"
+    debugData = "./ka_Backups/data/FP_sentence/and.json"
     inputLIST = json.load(open(debugData, encoding="utf-8"))
     inputSTR = inputLIST[0]
     print("除錯:", inputSTR)
