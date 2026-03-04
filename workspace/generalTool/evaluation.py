@@ -15,6 +15,8 @@ G_trainingDIR = Path.cwd().parent.parent / "data" / "training"
 G_trainingDIR.mkdir(exist_ok=True, parents=True)
 G_fpDIR = Path.cwd().parent.parent / "data" / "FP"
 G_fpDIR.mkdir(exist_ok=True, parents=True)
+G_fpSentenceDIR = Path.cwd().parent.parent / "data" / "FP_sentence"
+G_fpSentenceDIR.mkdir(exist_ok=True, parents=True)
 
 def createAnswer():
     """
@@ -161,16 +163,27 @@ def getFalsePositive(predLIST, ansLIST, kaFunction):
     """
     不是正確答案，卻被模型預測到的資料。
     """
+    kaPATH = Path.cwd().parent.parent / "data" / "kaLIST.json"
+    with open(kaPATH, "r", encoding="utf-8") as f:
+        kaLIST = json.load(f)
+
     fpLIST = []
+    fpSentenceLIST = []
 
     incorrect = 0
     for item_l in predLIST:
         if item_l not in ansLIST:
             incorrect += 1
             fpLIST.append(item_l)
+            sentenceSTR = kaLIST[item_l[0]]
+            if sentenceSTR not in fpSentenceLIST:
+                fpSentenceLIST.append(sentenceSTR)
 
     with open(f"{G_fpDIR}/{kaFunction}.json", "w", encoding="utf-8") as f:
         json.dump(fpLIST, f, ensure_ascii=False, indent=4)
+
+    with open(f"{G_fpSentenceDIR}/{kaFunction}.json", "w", encoding="utf-8") as f:
+        json.dump(fpSentenceLIST, f, ensure_ascii=False, indent=4)
 
     print(f"錯誤預測：{incorrect}")
     print(f"正確答案：{len(ansLIST)}")

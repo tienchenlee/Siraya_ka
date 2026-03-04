@@ -175,6 +175,7 @@ John
 training
 All Questions, Catechism, 2025.1.26
 Catechism
+FP_sentence
 
 # json
 /corpus/ka_gloss_LIST.json
@@ -194,3 +195,7 @@ account.info
 /workspace/generalTool/Complementizer
 /workspace/generalTool/Coordinator
 /workspace/generalTool/Relativizer
+
+#sandBox
+sandBox/
+sandBox.zip
