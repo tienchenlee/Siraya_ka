@@ -10,16 +10,60 @@ import sys
 import os
 
 from datetime import datetime
+from pathlib import Path
 from requests import post
 from time import sleep
 
 
 from Loki_and.Coordinator.main import askLoki as askLokiAND
 
-def _varPacker(refFILE, inputLIST):
+accountPATH = Path.cwd() / "account.info"
+with open(accountPATH, "r", encoding="utf-8") as f:
+    accountDICT = json.load(f)
+
+def _getInfo(mode="offline", dockerurl=None, username="", loki_key=""):
+    """"""
+    print("getInfo")
+    print("mode =", mode)
+
+    if mode == "offline":
+        url = dockerurl
+        payload = {
+            "project": "debugger_ka",
+            "func": "get_info",
+            "data": {}
+        }
+    else:
+        url = "https://nlu.droidtown.co/Loki_EN/Call/"
+        payload = {
+            "username" : username,
+            "loki_key": loki_key,
+            "func": "get_info",
+            "data": {}
+        }
+    response = post(url, json=payload)
+    print(f"status of getting info:{response.status_code}")
+
+    try:
+        resultDICT = response.json()
+        return resultDICT
+    except:
+        print(response.status_code)
+        print(response.text)
+
+def _varPacker(refFILE, inputLIST, mode, username, loki_key):
     """
     read *.ref file and shrink down the size of all var.
     """
+
+    #get_utterance
+    #inputLIST = inputlist.extend(get_utterance_result)
+    resultDICT = _getInfo(mode=mode, username=username, loki_key=loki_key)
+    intentDICT = resultDICT["result"]["intent"]
+
+    for valueLIST in intentDICT.values():
+        inputLIST.extend(valueLIST)
+
     jFILE = json.load(open(refFILE, encoding="utf-8"))
     varDICT = jFILE["var"]
     resultDICT = {}
@@ -32,6 +76,7 @@ def _varPacker(refFILE, inputLIST):
     for v in resultDICT:
         if resultDICT[v] == [""]:
             resultDICT[v] = []
+
     return resultDICT
 
 def _refCreator(refDIR, varDICT):
@@ -45,7 +90,7 @@ def _refCreator(refDIR, varDICT):
         var = refDICT["var"]
         for k in refDICT["var"]:
             if k in varDICT and varDICT[k] != []:
-                var[k] = "|".join(varDICT[k])
+                var[k] = "(?:" + "|".join(varDICT[k]) + ")"
             else:
                 var[k] = refDICT["var"][k]
         refDICT["var"] = var
@@ -81,11 +126,13 @@ def _createProject(mode="offline", dockerurl=None, username=""):
         return e
 
 def _deployModel(mode="offline", dockerurl=None, username="", loki_key=""):
+    print("[Deploy Model]")
+    print("mode =", mode)
     if mode == "offline":
         url = dockerurl
         payload = {
             "project": "debugger_ka",
-            "func": "deploy_model",
+            "func": "deploy_big_model",
             "data": {}
         }
     else:
@@ -93,19 +140,28 @@ def _deployModel(mode="offline", dockerurl=None, username="", loki_key=""):
         payload = {
             "username" : username,
             "loki_key" : loki_key,
-            "func": "deploy_model",
+            "func": "deploy_big_model",
             "data": {}
         }
+
+    response = post(url, json=payload)
+    print(f"status of deploy model:{response.status_code}")
+    if response.status_code == 504:
+        return response.status_code
+
     try:
-        response = post(url, json=payload).json()
+        response = response.json()
+        print(f"response of deploy model:{response}")
         if response["status"] == True:
-            return response
+            return True
         else:
             return response["msg"]
     except Exception as e:
         return e
 
 def _checkModel(mode="offline", dockerurl=None, username="", loki_key=""):
+    print("[Check Model]")
+    print("mode =", mode)
     if mode == "offline":
         url = dockerurl
         payload = {
@@ -114,24 +170,32 @@ def _checkModel(mode="offline", dockerurl=None, username="", loki_key=""):
             "data": {}
         }
     else:
+        url = "https://nlu.droidtown.co/Loki_EN/Call/"  #英文版線上 URL
         payload = {
             "username" : username,
             "loki_key" : loki_key,
             "func": "check_model",
             "data": {}
         }
+
+    response = post(url, json=payload)
+    print(f"status of checking model:{response.status_code}")
+
     try:
-        response = post(url, json=payload).json()
-        if response["status"] == True:
-            return response
-        else:
-            return response["msg"]
+        response = response.json()
+        print(response)
+        return response
+        #if response["status"] == True:
+            #print(f"reponse of checking model:{response}")
+            #return response
+        #else:
+            #return response["msg"]
     except Exception as e:
         return e
 
 #=======
 def debEnvBuilder(refFILE, refDIR, inputLIST, mode, username):
-    varDICT = _varPacker(refFILE, inputLIST)
+    varDICT = _varPacker(refFILE, inputLIST, mode=mode, username=username, loki_key=accountDICT["Coordinator"])
     _refCreator(refDIR, varDICT)
 
     createResult = _createProject(mode=mode, username=username)
@@ -145,24 +209,65 @@ def debEnvBuilder(refFILE, refDIR, inputLIST, mode, username):
     pause = input("按下 Enter 開始部署模型！[Enter to continue.]")
     pause = input("模型部署中，請稍候… [Enter to continue.]")
     STARTTIME = datetime.now()
-    deployResult = _deployModel(mode=MODE, username=USERNAME, loki_key=loki_key)
+    deployResult = _deployModel(mode=mode, username=username, loki_key=loki_key)
 
-    #counter = 3
-    #sleep(1)
-    #if deployResult == True:
-    ENDTIME = datetime.now()
-    print(deployResult)
-    if "504 Gateway Time-out" in deployResult:
-        pause = input("還…還在部署中，請稍候… [Enter to continue.]")
-        sleep(60)
+    if deployResult == True or deployResult == 504:
+        print("[Deployment Succeed]")
+
+        while True:
+            checkResult = _checkModel(mode=mode, username=username, loki_key=loki_key)
+
+            if checkResult["status"] == True:
+                if checkResult["progress_status"] == "completed":
+                    ENDTIME = datetime.now()
+                    print(f"Model is ready")
+                    break
+
+            print(f"Model is not ready....")
+            sleep(5)
 
     print(f"總共花了：{ENDTIME-STARTTIME} 時間完成部署。")
-    return loki_key
 
-def findUtterAND(inputSTR):
-    refDICT = {"utterance":[], "intent":[], "pattern":[], "and":[]}
-    resultDICT = askLokiAND(inputSTR, refDICT=refDICT)
-    return resultDICT
+def findUtterAND(inputSTR, mode, username):
+    refDICT = {"inputSTR":[], "utterance":[], "and":[], "ka_index": []}
+    intentLIST = []
+
+    resultDICT = _getInfo(mode=mode, username=username, loki_key=accountDICT["Coordinator"])
+    intentDICT = resultDICT["result"]["intent"]
+
+    for keySTR in intentDICT.keys():
+        intentLIST.append(keySTR)
+
+    resultLIST = []
+
+    for intent_s in intentLIST:
+        print(f"intent: {intent_s}")
+        attempts = 0
+        success = False
+
+        while attempts < 3 and not success:
+            lokiResultDICT = askLokiAND(inputSTR, filterLIST=[intent_s], refDICT=refDICT)
+            print(lokiResultDICT)
+            print()
+            sleep(0.8)
+
+            if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
+                attempts += 1
+                sleep(5)
+                #logging.warning(f"第 {attempts} 次嘗試，{lokiResultDICT['msg']}: {lokiResultDICT}")
+            else:
+                success = True
+
+                if lokiResultDICT["ka_index"] and lokiResultDICT["and"]:
+                    resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
+                    #logging.info(lokiResultDICT)
+
+        #if not success:
+            #logging.error(f"連續 3 次嘗試失敗，跳過此測試句: {intent_s}")
+
+    return resultLIST
+    #resultDICT = askLokiAND(inputSTR, refDICT=refDICT)
+    #return resultDICT
 
 
 if __name__ == "__main__":
@@ -174,12 +279,12 @@ if __name__ == "__main__":
     refDIR =  "./ka_Backups/Loki_Backup/Coordinator/ref/"
     inputLIST = json.load(open("./ka_Backups/data/FP_sentence/and.json", encoding="utf-8"))
 
-    #debEnvBuilder(refFILE, refDIR, inputLIST, mode, username)
+    #debEnvBuilder(refFILE, refDIR, inputLIST, mode=MODE, username=USERNAME)
     #=======
 
     debugData = "./ka_Backups/data/FP_sentence/and.json"
     inputLIST = json.load(open(debugData, encoding="utf-8"))
-    inputSTR = inputLIST[0]
+    inputSTR = inputLIST[1]
     print("除錯:", inputSTR)
-    debugResult = findUtterAND(inputSTR)
-    print(debugResult)
+    debugResult = findUtterAND(inputSTR, mode=MODE, username=USERNAME)
+    #print(debugResult)
