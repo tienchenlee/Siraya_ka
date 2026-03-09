@@ -195,11 +195,11 @@ account.info
 /workspace/generalTool/Complementizer
 /workspace/generalTool/Coordinator
 /workspace/generalTool/Relativizer
+sandBox/generalTool/Complementizer
+sandBox/generalTool/Coordinator
+sandBox/generalTool/Relativizer
 
 #sandBox
 sandBox/debug_ref
 sandBox/ka_Backups
-sandBox/Loki_and
-sandBox/Loki_COMP
-sandBox/Loki_REL
 sandBox.zip
