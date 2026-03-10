@@ -40,9 +40,14 @@ else:
 INTENT_NAME = "CP_V1_and_VP"
 CWD_PATH = os.path.dirname(os.path.abspath(__file__))
 G_notVerbPAT = r"(?<=<UserDefined>)([a-zA-Z\-\.]{1,19})$"
+G_verbPAT = r"([a-zA-Z\-\.]{1,19})(?=</[a-zA-Z_]+>)"
 
 with open(f"{CWD_PATH}/USER_DEFINED.json", "r", encoding="utf-8") as f:
     udDICT = json.load(f)
+with open(f"{CWD_PATH}/V_before.json", "r", encoding="utf-8") as f:
+    vBeforeLIST = json.load(f)
+with open(f"{CWD_PATH}/V_after.json", "r", encoding="utf-8") as f:
+    vAfterLIST = json.load(f)
 
 verbLIST = udDICT["_asVerb_"]
 nounLIST = udDICT["ENTITY_noun"]
@@ -119,6 +124,8 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["source"] = "reply"
         else:
             checkLIST = []
+            verbCheckLIST = []
+
             for arg in args:
                 if not isinstance(arg, str):
                     continue
@@ -127,11 +134,16 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if m:
                     checkLIST.append(m.group(1))
 
+                n = re.search(G_verbPAT, arg)
+                if n:
+                    verbCheckLIST.append(n.group(1))
+
             if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                Cord = kaCapture(args, pattern, inputSTR, resultDICT)
-                if Cord:
-                    resultDICT["and"].append({INTENT_NAME: True})
-                    resultDICT["utterance"].append(utterance)
+                if len(verbCheckLIST) == 2 and verbCheckLIST[0] in vBeforeLIST and verbCheckLIST[1] in vAfterLIST:
+                    Cord = kaCapture(args, pattern, inputSTR, resultDICT)
+                    if Cord:
+                        resultDICT["and"].append({INTENT_NAME: True})
+                        resultDICT["utterance"].append(utterance)
 
     if utterance == "PAST- see -LV we .EXCL .GEN you .SG -OBL ka hungry .AV ka thirsty .AV ka be.stranger .AV ka naked .AV ka sick .AV ka LOC prison or ka not we .EXCL .GEN PAST- hear -PV serve you .SG -OBL":
         if CHATBOT:
@@ -141,6 +153,8 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["source"] = "reply"
         else:
             checkLIST = []
+            verbCheckLIST = []
+
             for arg in args:
                 if not isinstance(arg, str):
                     continue
@@ -149,11 +163,16 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if m:
                     checkLIST.append(m.group(1))
 
+                n = re.search(G_verbPAT, arg)
+                if n:
+                    verbCheckLIST.append(n.group(1))
+
             if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                Cord = kaCapture(args, pattern, inputSTR, resultDICT)
-                if Cord:
-                    resultDICT["and"].append({INTENT_NAME: True})
-                    resultDICT["utterance"].append(utterance)
+                if len(verbCheckLIST) == 2 and verbCheckLIST[0] in vBeforeLIST and verbCheckLIST[1] in vAfterLIST:
+                    Cord = kaCapture(args, pattern, inputSTR, resultDICT)
+                    if Cord:
+                        resultDICT["and"].append({INTENT_NAME: True})
+                        resultDICT["utterance"].append(utterance)
 
     if utterance == "PAST- see .AV NOM multitudes ka not.have there NOM DET Jesus OBL disciple also his PAST- go.in.boat .AV also NOM they go .AV LOC Capernaum ka seek .AV DET Jesus -OBL":
         if CHATBOT:
@@ -163,6 +182,8 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["source"] = "reply"
         else:
             checkLIST = []
+            verbCheckLIST = []
+
             for arg in args:
                 if not isinstance(arg, str):
                     continue
@@ -171,11 +192,16 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if m:
                     checkLIST.append(m.group(1))
 
+                n = re.search(G_verbPAT, arg)
+                if n:
+                    verbCheckLIST.append(n.group(1))
+
             if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                Cord = kaCapture(args, pattern, inputSTR, resultDICT)
-                if Cord:
-                    resultDICT["and"].append({INTENT_NAME: True})
-                    resultDICT["utterance"].append(utterance)
+                if len(verbCheckLIST) == 2 and verbCheckLIST[0] in vBeforeLIST and verbCheckLIST[1] in vAfterLIST:
+                    Cord = kaCapture(args, pattern, inputSTR, resultDICT)
+                    if Cord:
+                        resultDICT["and"].append({INTENT_NAME: True})
+                        resultDICT["utterance"].append(utterance)
 
     if utterance == "Same .AV ka not come .AV -PFV NOM son OBL man LOC work -LV .IRR him -OBL rather LOC PC. self -LV .IRR he .GEN work .AV ka give -LV .IRR -also NOM life his LOC redeem -PV recompensate .AV OBL many .AV":
         if CHATBOT:
@@ -185,6 +211,8 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["source"] = "reply"
         else:
             checkLIST = []
+            verbCheckLIST = []
+
             for arg in args:
                 if not isinstance(arg, str):
                     continue
@@ -193,11 +221,16 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if m:
                     checkLIST.append(m.group(1))
 
+                n = re.search(G_verbPAT, arg)
+                if n:
+                    verbCheckLIST.append(n.group(1))
+
             if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                Cord = kaCapture(args, pattern, inputSTR, resultDICT)
-                if Cord:
-                    resultDICT["and"].append({INTENT_NAME: True})
-                    resultDICT["utterance"].append(utterance)
+                if len(verbCheckLIST) == 2 and verbCheckLIST[0] in vBeforeLIST and verbCheckLIST[1] in vAfterLIST:
+                    Cord = kaCapture(args, pattern, inputSTR, resultDICT)
+                    if Cord:
+                        resultDICT["and"].append({INTENT_NAME: True})
+                        resultDICT["utterance"].append(utterance)
 
     if utterance == "not PAST- believe .AV NOM Jew him -OBL ka PAST- blind NOM he before ka see .AV -PFV now":
         if CHATBOT:
@@ -207,6 +240,8 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["source"] = "reply"
         else:
             checkLIST = []
+            verbCheckLIST = []
+
             for arg in args:
                 if not isinstance(arg, str):
                     continue
@@ -215,11 +250,16 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if m:
                     checkLIST.append(m.group(1))
 
+                n = re.search(G_verbPAT, arg)
+                if n:
+                    verbCheckLIST.append(n.group(1))
+
             if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                Cord = kaCapture(args, pattern, inputSTR, resultDICT)
-                if Cord:
-                    resultDICT["and"].append({INTENT_NAME: True})
-                    resultDICT["utterance"].append(utterance)
+                if len(verbCheckLIST) == 2 and verbCheckLIST[0] in vBeforeLIST and verbCheckLIST[1] in vAfterLIST:
+                    Cord = kaCapture(args, pattern, inputSTR, resultDICT)
+                    if Cord:
+                        resultDICT["and"].append({INTENT_NAME: True})
+                        resultDICT["utterance"].append(utterance)
 
     if utterance == "say .AV him -OBL servant ka evil .AV ka lazy .AV know -PV you .SG .GEN ka harvest .AV I .NOM LOC not I .GEN PAST sow ka cause.gather .AV I .NOM OBL not I .GEN PAST scatter":
         if CHATBOT:
@@ -229,6 +269,8 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 resultDICT["source"] = "reply"
         else:
             checkLIST = []
+            verbCheckLIST = []
+
             for arg in args:
                 if not isinstance(arg, str):
                     continue
@@ -237,11 +279,16 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                 if m:
                     checkLIST.append(m.group(1))
 
+                n = re.search(G_verbPAT, arg)
+                if n:
+                    verbCheckLIST.append(n.group(1))
+
             if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                Cord = kaCapture(args, pattern, inputSTR, resultDICT)
-                if Cord:
-                    resultDICT["and"].append({INTENT_NAME: True})
-                    resultDICT["utterance"].append(utterance)
+                if len(verbCheckLIST) == 2 and verbCheckLIST[0] in vBeforeLIST and verbCheckLIST[1] in vAfterLIST:
+                    Cord = kaCapture(args, pattern, inputSTR, resultDICT)
+                    if Cord:
+                        resultDICT["and"].append({INTENT_NAME: True})
+                        resultDICT["utterance"].append(utterance)
 
     return resultDICT
 
