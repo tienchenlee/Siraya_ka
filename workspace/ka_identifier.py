@@ -130,8 +130,8 @@ def main(inputSTR, utterIdx):
     #kaIdxSET = set()
 
     functionDICT = {
-        "and": askLokiAND,
-        #"COMP": askLokiCOMP,
+        #"and": askLokiAND,
+        "COMP": askLokiCOMP,
         #"REL": askLokiREL
     }
 
@@ -180,7 +180,7 @@ if __name__ == "__main__":
     #kaTestingLIST = createTestingLIST()
 
     # 測資來源
-    kaPATH = Path.cwd().parent / "data" / "kaLIST.json"
+    kaPATH = Path.cwd().parent / "data" / "FP_sentence" / "COMP.json"
     with open(kaPATH, "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
@@ -196,7 +196,7 @@ if __name__ == "__main__":
     trainingDIR.mkdir(exist_ok=True, parents=True)
 
     # 紀錄結果
-    with open(trainingDIR / "predictionLIST.json", "w", encoding="utf-8") as f:
+    with open(trainingDIR / "COMP_FP.json", "w", encoding="utf-8") as f:
         json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
 
 
