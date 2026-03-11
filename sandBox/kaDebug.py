@@ -16,6 +16,8 @@ from time import sleep
 
 
 from Loki_and.Coordinator.main import askLoki as askLokiAND
+from Loki_REL.Relativizer.main import askLoki as askLokiREL
+from Loki_COMP.Complementizer.main import askLoki as askLokiCOMP
 
 accountPATH = Path.cwd() / "account.info"
 with open(accountPATH, "r", encoding="utf-8") as f:
@@ -56,8 +58,6 @@ def _varPacker(refFILE, inputLIST, mode, username, loki_key):
     read *.ref file and shrink down the size of all var.
     """
 
-    #get_utterance
-    #inputLIST = inputlist.extend(get_utterance_result)
     resultDICT = _getInfo(mode=mode, username=username, loki_key=loki_key)
     intentDICT = resultDICT["result"]["intent"]
 
@@ -194,8 +194,8 @@ def _checkModel(mode="offline", dockerurl=None, username="", loki_key=""):
         return e
 
 #=======
-def debEnvBuilder(refFILE, refDIR, inputLIST, mode, username):
-    varDICT = _varPacker(refFILE, inputLIST, mode=mode, username=username, loki_key=accountDICT["Coordinator"])
+def debEnvBuilder(refFILE, refDIR, inputLIST, mode, username, kaFunction):
+    varDICT = _varPacker(refFILE, inputLIST, mode=mode, username=username, loki_key=accountDICT[kaFunction])
     _refCreator(refDIR, varDICT)
 
     createResult = _createProject(mode=mode, username=username)
@@ -254,37 +254,106 @@ def findUtterAND(inputSTR, mode, username):
             if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
                 attempts += 1
                 sleep(5)
-                #logging.warning(f"第 {attempts} 次嘗試，{lokiResultDICT['msg']}: {lokiResultDICT}")
             else:
                 success = True
 
                 if lokiResultDICT["ka_index"] and lokiResultDICT["and"]:
                     resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
-                    #logging.info(lokiResultDICT)
-
-        #if not success:
-            #logging.error(f"連續 3 次嘗試失敗，跳過此測試句: {intent_s}")
 
     return resultLIST
-    #resultDICT = askLokiAND(inputSTR, refDICT=refDICT)
-    #return resultDICT
+
+def findUtterREL(inputSTR, mode, username):
+    refDICT = {"inputSTR":[], "utterance":[], "REL": [], "ka_index": []}
+    intentLIST = []
+
+    resultDICT = _getInfo(mode=mode, username=username, loki_key=accountDICT["Relativizer"])
+    intentDICT = resultDICT["result"]["intent"]
+
+    for keySTR in intentDICT.keys():
+        intentLIST.append(keySTR)
+
+    resultLIST = []
+
+    for intent_s in intentLIST:
+        print(f"intent: {intent_s}")
+        attempts = 0
+        success = False
+
+        while attempts < 3 and not success:
+            lokiResultDICT = askLokiREL(inputSTR, filterLIST=[intent_s], refDICT=refDICT)
+            print(lokiResultDICT)
+            print()
+            sleep(0.8)
+
+            if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
+                attempts += 1
+                sleep(5)
+            else:
+                success = True
+
+                if lokiResultDICT["ka_index"] and lokiResultDICT["REL"]:
+                    resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
+
+    return resultLIST
+
+def findUtterCOMP(inputSTR, mode, username):
+    refDICT = {"inputSTR":[inputSTR], "utterance":[], "COMP": [], "ka_index": [], "debug_info": []}
+    intentLIST = []
+
+    resultDICT = _getInfo(mode=mode, username=username, loki_key=accountDICT["Complementizer"])
+    intentDICT = resultDICT["result"]["intent"]
+
+    for keySTR in intentDICT.keys():
+        intentLIST.append(keySTR)
+
+    resultLIST = []
+
+    #for intent_s in intentLIST:
+        #print(f"intent: {intent_s}")
+    attempts = 0
+    success = False
+
+    while attempts < 3 and not success:
+        lokiResultDICT = askLokiCOMP(inputSTR, filterLIST=["overlap"], refDICT=refDICT)
+        print(lokiResultDICT)
+        print()
+        sleep(0.8)
+
+        if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
+            attempts += 1
+            sleep(5)
+        else:
+            success = True
+
+            if lokiResultDICT["ka_index"] and lokiResultDICT["COMP"]:
+                resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
+
+    return resultLIST
 
 
 if __name__ == "__main__":
 
     MODE = "online"
     USERNAME = "appielee4305@gmail.com"
+    kaFUNCTION = "Complementizer" #Relativizer, Complementizer, Coordinator
 
-    refFILE = "./ka_Backups/Loki_Backup/Coordinator/ref/CP_taking_Verb.ref"
-    refDIR =  "./ka_Backups/Loki_Backup/Coordinator/ref/"
-    inputLIST = json.load(open("./ka_Backups/data/FP_sentence/and.json", encoding="utf-8"))
+    refFILE = f"./ka_Backups/Loki_Backup/{kaFUNCTION}/ref/V2.ref"    # Complementizer: V2
+    refDIR =  f"./ka_Backups/Loki_Backup/{kaFUNCTION}/ref/"
+    inputLIST = json.load(open("./ka_Backups/data/kaLIST.json", encoding="utf-8"))
 
-    #debEnvBuilder(refFILE, refDIR, inputLIST, mode=MODE, username=USERNAME)
+    #debEnvBuilder(refFILE, refDIR, inputLIST, mode=MODE, username=USERNAME, kaFunction=kaFUNCTION)
     #=======
 
-    debugData = "./ka_Backups/data/FP_sentence/and.json"
+    debugData = "./ka_Backups/data/kaLIST.json"
     inputLIST = json.load(open(debugData, encoding="utf-8"))
-    inputSTR = inputLIST[1]
-    print("除錯:", inputSTR)
-    debugResult = findUtterAND(inputSTR, mode=MODE, username=USERNAME)
-    #print(debugResult)
+    #inputSTR = inputLIST[0]
+    #inputSTR = "LOC hear -PV OBL this OBL disciple his greatly .AV PAST- marvel .AV NOM they ka PAST- say .AV who NOM PC. able -LV .IRR if that save .AV"
+
+    resultLIST = []
+    for inputSTR in inputLIST:
+        print("除錯:", inputSTR)
+        debugResult = findUtterCOMP(inputSTR, mode=MODE, username=USERNAME)
+        resultLIST.extend(debugResult)
+    #debugResult = findUtterREL(inputSTR, mode=MODE, username=USERNAME)
+    #debugResult = findUtterAND(inputSTR, mode=MODE, username=USERNAME)
+    print(resultLIST)

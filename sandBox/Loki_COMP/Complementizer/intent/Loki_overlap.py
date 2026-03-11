@@ -46,6 +46,7 @@ with open(f"{CWD_PATH}/USER_DEFINED.json", "r", encoding="utf-8") as f:
 
 verbLIST = udDICT["_asVerb_"]
 nounLIST = udDICT["ENTITY_noun"]
+V1DICT = {'marvel': ['say'], 'hear': ['chief', 'one', 'other', 'win', 'know'], 'say': ['be.at', 'chief', 'come', 'speak.from.begin', 'believe', '-children', 'see', 'heal', 'come.out', 'return', 'do', 'from-Nazareth', 'from-Jerusalem'], 'see': ['see', 'cause.high', 'choose', 'dumb', 'make.great', 'bleed', 'gluttonous', 'fly', 'chief', 'bright', 'from-cloud', 'anyone', 'hand.over', 'sit', 'follow', 'tell', 'work', 'bring', 'lie', 'give', 'resurrect', 'go', 'open', 'walk', 'go.upward', 'love'], 'angry': ['send.forth'], 'send.forth': ['sell', 'say', 'cause.collect', 'live', 'chief'], 'good': ['sow'], 'Same': ['take'], 'same': ['search', 'cast.into.sea', 'cause.appear', 'take', 'liar'], 'know': ['come', 'want', 'evil', 'all.things', 'know', 'understand', 'see', 'be.at', 'send.forth'], 'reply': ['evil', 'chief', 'say', 'say.so', 'from-Nazareth'], 'so': ['before', 'want'], 'preach': ['good'], 'answer': ['say'], 'remember': ['say'], 'find': ['carry.on.back', 'say'], 'tell': ['do'], 'how.long': ['be.together'], 'think': ['men', 'always'], 'rejoice': ['take.away'], 'believe': ['originate', 'speak', 'have', 'see', 'send.forth', 'understand'], 'speak': ['keep'], 'understand': ['cause.free'], 'speak.so': ['cause.distinct'], 'write': ['do'], 'witness': ['shout'], 'call.name': ['interpret'], 'ask': ['give', 'chief']}
 
 def import_from_path(module_name, file_path):
     spec = spec_from_file_location(module_name, file_path)
@@ -128,10 +129,14 @@ def getResult(inputSTR, utterance, args, resultDICT, refDICT, pattern="", toolki
                     checkLIST.append(m.group(1))
 
             if all((word not in verbLIST) or (word in nounLIST) for word in checkLIST):
-                COMP = kaCapture(args, pattern, inputSTR, resultDICT)
-                if COMP:
-                    resultDICT["COMP"].append({INTENT_NAME: True})
-                    resultDICT["utterance"].append(utterance)
+                print(args)
+                CPtakingVerb = (args[0], args[2])
+                if args[0] in V1DICT.keys() and args[2] not in V1DICT[args[0]]:
+                    resultDICT["debug_info"].append((CPtakingVerb, inputSTR))
+                    COMP = kaCapture(args, pattern, inputSTR, resultDICT)
+                    if COMP:
+                        resultDICT["COMP"].append({INTENT_NAME: True})
+                        resultDICT["utterance"].append(utterance)
 
     if utterance == "know .AV or NOM anyone ka at.where .AV NOM he":
         if CHATBOT:
