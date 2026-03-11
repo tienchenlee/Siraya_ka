@@ -308,25 +308,25 @@ def findUtterCOMP(inputSTR, mode, username):
 
     resultLIST = []
 
-    #for intent_s in intentLIST:
-        #print(f"intent: {intent_s}")
-    attempts = 0
-    success = False
+    for intent_s in intentLIST:
+        print(f"intent: {intent_s}")
+        attempts = 0
+        success = False
 
-    while attempts < 3 and not success:
-        lokiResultDICT = askLokiCOMP(inputSTR, filterLIST=["overlap"], refDICT=refDICT)
-        print(lokiResultDICT)
-        print()
-        sleep(0.8)
+        while attempts < 3 and not success:
+            lokiResultDICT = askLokiCOMP(inputSTR, filterLIST=[intent_s], refDICT=refDICT)
+            print(lokiResultDICT)
+            print()
+            sleep(0.8)
 
-        if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
-            attempts += 1
-            sleep(5)
-        else:
-            success = True
+            if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
+                attempts += 1
+                sleep(5)
+            else:
+                success = True
 
-            if lokiResultDICT["ka_index"] and lokiResultDICT["COMP"]:
-                resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
+                if lokiResultDICT["ka_index"] and lokiResultDICT["COMP"]:
+                    resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
 
     return resultLIST
 
@@ -346,7 +346,7 @@ if __name__ == "__main__":
 
     debugData = "./ka_Backups/data/kaLIST.json"
     inputLIST = json.load(open(debugData, encoding="utf-8"))
-    #inputSTR = inputLIST[0]
+    #inputSTR = inputLIST[1]
     #inputSTR = "LOC hear -PV OBL this OBL disciple his greatly .AV PAST- marvel .AV NOM they ka PAST- say .AV who NOM PC. able -LV .IRR if that save .AV"
 
     resultLIST = []
@@ -357,3 +357,8 @@ if __name__ == "__main__":
     #debugResult = findUtterREL(inputSTR, mode=MODE, username=USERNAME)
     #debugResult = findUtterAND(inputSTR, mode=MODE, username=USERNAME)
     print(resultLIST)
+
+    predictionDIR = Path(f"{Path.cwd()}/ka_Backups/data/prediction")
+    predictionDIR.mkdir(exist_ok=True, parents=True)
+    with open(f"{predictionDIR}/COMP.json", "w", encoding="utf-8") as f:
+        json.dump(resultLIST, f, ensure_ascii=False, indent=4)
