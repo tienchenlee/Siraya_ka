@@ -82,8 +82,7 @@ def main(phase=None):
     Phase3: agent skills
     """
     # Phase 1
-    PROMPT_PHASE1 = """The multifunctional ka in Siraya serves a broad range of syntactic functions,
-    which introduces relative clauses, complement clauses, and coordinating clauses.
+    PROMPT_PHASE1 = """The multifunctional ka in Siraya serves a broad range of syntactic functions, which introduces relative clauses, complement clauses, and coordinating clauses.
     Your task is to identify the function of ka in Siraya in the following sentence.
     Return ONLY valid JSON with the following schema: {{'inputSTR': {jsonTestSTR}, 'status': 'Succeeded', 'REL': [], 'COMP': [], 'and': []}}.
     The values in the JSON should be the 0-based word index of 'ka' (split by spaces).
@@ -91,9 +90,8 @@ def main(phase=None):
     Now identify the function of ka in following sentence: {testSTR}"""
 
     # Phase 2
-    PROMPT_PHASE2 = """The multifunctional ka in Siraya serves a broad range of syntactic functions,
-    which introduces relative clauses, complement clauses, and coordinating clauses.
-    Below are the example sentences: {utteranceLIST}
+    PROMPT_PHASE2 = """The multifunctional ka in Siraya serves a broad range of syntactic functions, which introduces relative clauses, complement clauses, and coordinating clauses.
+    Below are the example sentences: {utteranceLIST}.
     Your task is to identify the function of ka in Siraya in the following sentence.
     Return ONLY valid JSON with the following schema: {{'inputSTR': {jsonTestSTR}, 'status': 'Succeeded', 'REL': [], 'COMP': [], 'and': []}}.
     The values in the JSON should be the 0-based word index of 'ka' (split by spaces).
@@ -101,8 +99,7 @@ def main(phase=None):
     Now identify the function of ka in following sentence: {testSTR}"""
 
     # Phase 3
-    PROMPT_PHASE3 = """The multifunctional ka in Siraya serves a broad range of syntactic functions,
-    which introduces relative clauses, complement clauses, and coordinating clauses.
+    PROMPT_PHASE3 = """The multifunctional ka in Siraya serves a broad range of syntactic functions, which introduces relative clauses, complement clauses, and coordinating clauses.
     Below are three skills describing in different functions of 'ka':
     {REL_skill}
     {COMP_skill}
