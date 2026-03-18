@@ -63,7 +63,7 @@ def _askLLM(promptSTR):
     client = genai.Client(api_key=G_accountDICT["gemini_api_key"])
 
     response = client.models.generate_content(
-        model="gemini-3-flash-preview",
+        model="gemini-3.1-flash-lite-preview",
         contents=promptSTR,
         config=GenerateContentConfig(
             system_instruction="You are a syntactician."
