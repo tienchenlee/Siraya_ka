@@ -85,7 +85,7 @@ def main(phase=None):
     # Phase 1
     PROMPT_PHASE1 = """The multifunctional ka in Siraya serves a broad range of syntactic functions, which introduces relative clauses, complement clauses, and coordinating clauses.
     Your task is to identify the function of ka in Siraya in the following sentence.
-    Return ONLY valid JSON with the following schema: {{'inputSTR': {jsonTestSTR}, 'status': 'Succeeded', 'REL': [], 'COMP': [], 'and': []}}.
+    Return ONLY valid JSON with the following schema: {{"inputSTR": {jsonTestSTR}, "status": "Succeeded", "REL": [], "COMP": [], "and": []}}.
     The values in the JSON should be the 0-based word index of 'ka' (split by spaces).
     The abbreviations used in the sentence: AV: actor voice; COMP: complementizer; DET: determiner; EXCL: exclusive; FOC: focus marker; GEN: genitive; IRR: irrealis mood; IV: instrument voice; LOC: locative case; LV: locative voice; NOM: nominative case; OBL: oblique case; PART: partitive case; PAST: past tense; PC: prefix concord; PFV: perfective; PL: plural; PRES: present; PTP: participle; PV: patient voice; REL: relativizer marker; SG: singular.
     Now identify the function of ka in following sentence: {testSTR}"""
@@ -94,7 +94,7 @@ def main(phase=None):
     PROMPT_PHASE2 = """The multifunctional ka in Siraya serves a broad range of syntactic functions, which introduces relative clauses, complement clauses, and coordinating clauses.
     Below are the example sentences: {utteranceLIST}.
     Your task is to identify the function of ka in Siraya in the following sentence.
-    Return ONLY valid JSON with the following schema: {{'inputSTR': {jsonTestSTR}, 'status': 'Succeeded', 'REL': [], 'COMP': [], 'and': []}}.
+    Return ONLY valid JSON with the following schema: {{"inputSTR": {jsonTestSTR}, "status": "Succeeded", "REL": [], "COMP": [], "and": []}}.
     The values in the JSON should be the 0-based word index of 'ka' (split by spaces).
     The abbreviations used in the sentence: AV: actor voice; COMP: complementizer; DET: determiner; EXCL: exclusive; FOC: focus marker; GEN: genitive; IRR: irrealis mood; IV: instrument voice; LOC: locative case; LV: locative voice; NOM: nominative case; OBL: oblique case; PART: partitive case; PAST: past tense; PC: prefix concord; PFV: perfective; PL: plural; PRES: present; PTP: participle; PV: patient voice; REL: relativizer marker; SG: singular.
     Now identify the function of ka in following sentence: {testSTR}"""
@@ -106,7 +106,7 @@ def main(phase=None):
     {COMP_skill}
     {and_skill}
     Your task is to identify the function of 'ka' in the following sentence and determine which skill to apply.
-    Return ONLY valid JSON with the following schema: {{'inputSTR': {jsonTestSTR}, 'status': 'Succeeded', 'REL': [], 'COMP': [], 'and': []}}.
+    Return ONLY valid JSON with the following schema: {{"inputSTR": {jsonTestSTR}, "status": "Succeeded", "REL": [], "COMP": [], "and": []}}.
     The values in the JSON should be the 0-based word index of 'ka' (split by spaces).
     The abbreviations used in the sentence: AV: actor voice; COMP: complementizer; DET: determiner; EXCL: exclusive; FOC: focus marker; GEN: genitive; IRR: irrealis mood; IV: instrument voice; LOC: locative case; LV: locative voice; NOM: nominative case; OBL: oblique case; PART: partitive case; PAST: past tense; PC: prefix concord; PFV: perfective; PL: plural; PRES: present; PTP: participle; PV: patient voice; REL: relativizer marker; SG: singular.
     Now identify the function of ka in following sentence: {testSTR}"""
@@ -150,6 +150,7 @@ def main(phase=None):
 
         attempt = 0
         match = None
+        success = False
         while attempt < max_retries:
             responseSTR = _askLLM(promptSTR)
             sleep(4)
@@ -157,13 +158,18 @@ def main(phase=None):
 
             if match:
                 jsonSTR = match.group()
-                dataDICT = json.loads(jsonSTR)
-                resultLIST.append(dataDICT)
-                break
+
+                try:
+                    dataDICT = json.loads(jsonSTR)
+                    resultLIST.append(dataDICT)
+                    break
+                except json.JSONDecodeError:
+                    attempt += 1
+                    continue
 
             attempt += 1
 
-        if not match:
+        if not success:
             dataDICT = {
                 "inputSTR": testSTR,
                 "status": "LLM failed to return JSON after 3 retries.",
