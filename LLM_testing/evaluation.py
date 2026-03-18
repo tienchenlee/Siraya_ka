@@ -3,20 +3,15 @@
 
 import json
 import re
-from itertools import permutations
 from pathlib import Path
 
 G_kaPat = re.compile(r"\bka\b")
-G_ansDIR = Path.cwd().parent.parent / "data" / "answer"
+G_ansDIR = Path.cwd() / "answer"
 G_ansDIR.mkdir(exist_ok=True, parents=True)
-G_predictionDIR = Path.cwd().parent.parent / "data" / "prediction"
+G_predictionDIR = Path.cwd() / "prediction"
 G_predictionDIR.mkdir(exist_ok=True, parents=True)
-G_trainingDIR = Path.cwd().parent.parent / "data" / "training"
-G_trainingDIR.mkdir(exist_ok=True, parents=True)
-G_fpDIR = Path.cwd().parent.parent / "data" / "FP"
-G_fpDIR.mkdir(exist_ok=True, parents=True)
-G_fpSentenceDIR = Path.cwd().parent.parent / "data" / "FP_sentence"
-G_fpSentenceDIR.mkdir(exist_ok=True, parents=True)
+G_dataDIR = Path.cwd().parent / "data"
+G_resultDIR = Path.cwd() / "results"
 
 def createAnswer():
     """
@@ -35,11 +30,11 @@ def createAnswer():
     - word_index：該句中詞彙（word）的索引位置。
 
     """
-    kaPATH = Path.cwd().parent.parent / "data" / "kaLIST.json"
+    kaPATH = G_dataDIR / "kaLIST_eval.json"
     with open(kaPATH, "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
-    ansPATH = Path.cwd().parent.parent / "data" / "ansLIST.json"
+    ansPATH = G_dataDIR / "ansLIST_eval.json"
     with open(ansPATH, "r", encoding="utf-8") as f:
         ansLIST = json.load(f)
 
@@ -94,30 +89,37 @@ def createAnswer():
 
 def makePrediction():
     """
-    將 predictionLIST 中的 lokiResultDICT 分別寫出與 answer/ 一樣的資料結構。
-    在 mapDICT 選擇此次 askLoki 的專案。
+    將 results/ 中的 LLM 預測 分別寫出與 answer/ 一樣的資料結構。
     """
     COMPLIST = []
     andLIST = []
     RELLIST = []
 
     mapDICT = {
-               #"COMP": COMPLIST,
+               "COMP": COMPLIST,
                "and": andLIST,
-               #"REL": RELLIST
+               "REL": RELLIST
                }
 
-    with open(f"{G_trainingDIR}/and_pred.json", "r", encoding="utf-8") as f:
-        predictionLIST = json.load(f)
+    with open(f"{G_resultDIR}/phase_1.json", "r", encoding="utf-8") as f:
+        resultLIST = json.load(f)
 
-    for lokiResultDICT in predictionLIST:   #處理每個 prediction item
-        for keySTR in mapDICT.keys():
-            if keySTR in lokiResultDICT.keys():
-                ka_indexLIST = lokiResultDICT["ka_index"]
-                utter_index = lokiResultDICT["utter_index"][0]
-                for ka_index in ka_indexLIST:
-                    if [utter_index, ka_index] not in mapDICT[keySTR]:
-                        mapDICT[keySTR].append([utter_index, ka_index])
+    with open(f"{G_dataDIR}/kaLIST_eval.json", "r", encoding="utf-8") as f:
+        kaLIST = json.load(f)
+
+    for llmResultDICT in resultLIST:   #處理每個 prediction item
+        if llmResultDICT["status"] == "Succeeded":
+            for keySTR in mapDICT.keys():
+                if keySTR in llmResultDICT.keys() and llmResultDICT[keySTR]:
+                    ka_indexLIST = llmResultDICT[keySTR]
+                    inputSTR = llmResultDICT["inputSTR"]
+
+                    utterDICT = {s: i for i, s in enumerate(kaLIST)}
+                    utter_index = utterDICT.get(inputSTR)
+
+                    for ka_index in ka_indexLIST:
+                        if [utter_index, ka_index] not in mapDICT[keySTR]:
+                            mapDICT[keySTR].append([utter_index, ka_index])
 
     for keySTR in mapDICT:
         with open(f"{G_predictionDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
@@ -132,38 +134,33 @@ def makePrediction():
 
     return COMPPredLIST, andPredLIST, RELPredLIST
 
-def _getTP(predLIST, ansLIST):
-    """"""
-    TP = 0
-    for item_l in predLIST:
-        if item_l in ansLIST:
-            TP += 1
-
-    return TP
-
 def getRecall(predLIST, ansLIST):
     """
     實際為真的樣本中，正確預測的比例。
     recall = (∣Prediction ∩ Answer∣​ / |Answer∣) * 100
     """
-    TP = _getTP(predLIST, ansLIST)
+    TP = 0
+    for item_l in predLIST:
+        if item_l in ansLIST:
+            TP += 1
 
-    print(f"TP：{TP}")
-    print(f"TP+FN：{len(ansLIST)}")
+    print(f"正確預測：{TP}")
+    print(f"正確答案：{len(ansLIST)}")
     recall = TP / len(ansLIST)
     print(f"recall: {recall * 100:.2f}%")
     print(f"================================")
 
-    return TP
-
-def getPrecision(predLIST, ansLIST):
+def getPrecision(predLIST, ansLIST, kaFunction):
     """
     陽性樣本中，正確預測的比例。
     """
-    TP = _getTP(predLIST, ansLIST)
+    TP = 0
+    for item_l in predLIST:
+        if item_l in ansLIST:
+            TP += 1
 
-    print(f"TP：{TP}")
-    print(f"TP+FP：{len(predLIST)}")
+    print(f"正確預測：{TP}")
+    print(f"正確答案：{len(ansLIST)}")
     precision = TP / len(predLIST)
     print(f"precision: {precision * 100:.2f}%")
     print(f"================================")
@@ -181,10 +178,7 @@ def getAccuracy(predLIST, ansLIST, allAnsLIST):
         elif item_l not in predLIST and item_l not in ansLIST:
             TN += 1
 
-    accuracy = (TP + TN) / len(allAnsLIST)
-    print(f"TN: {TN}")
-    print(f"TP+TN: {TP + TN}")
-    print(f"TP+TN+FP+FN: {len(allAnsLIST)}")
+    accuracy = TP + TN / len(allAnsLIST)
     print(f"accuracy: {accuracy * 100:.2f}%")
     print(f"================================")
 
@@ -200,16 +194,8 @@ if __name__ == "__main__":
 
     allAnsLIST = COMPAnsLIST + andAnsLIST + RELAnsLIST
     print(f"===== 個別 Project 結果 =====")
-    totalTP = 0
-
     for keySTR, (predLIST, ansLIST) in functionDICT.items():
         print(f"[{keySTR}]")
         getRecall(predLIST, ansLIST)
-        getPrecision(predLIST, ansLIST)
+        getPrecision(predLIST, ansLIST, keySTR)
         getAccuracy(predLIST, ansLIST, allAnsLIST)
-        TP = _getTP(predLIST, ansLIST)
-        totalTP += TP
-
-    #模型在此次資料中的正確預測能力: total_TP / total_occurance
-    coverage = totalTP / len(allAnsLIST)
-    print(f"overall coverage: {coverage * 100:.2f}%")
