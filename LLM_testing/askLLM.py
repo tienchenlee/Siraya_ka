@@ -7,6 +7,7 @@ from google import genai
 from google.genai.types import GenerateContentConfig
 from pathlib import Path
 from requests import post
+from time import sleep
 
 G_jsonPAT = re.compile(r"\{.*\}", re.DOTALL)
 
@@ -151,6 +152,7 @@ def main(phase=None):
         match = None
         while attempt < max_retries:
             responseSTR = _askLLM(promptSTR)
+            sleep(4)
             match = re.search(G_jsonPAT, responseSTR)
 
             if match:
