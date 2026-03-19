@@ -1,0 +1,4872 @@
+[
+    {
+        "inputSTR": "ka cause.sure -PV we .INCL .NOM OBL it NOM truthfulness OBL faith our .INCL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka cause.sure -PV we .INCL .NOM OBL it NOM truthfulness OBL faith our .INCL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "cause.know -LV OBL it when beneficia -LV .IRR we .INCL .NOM NOM DET Christ ka accept -PV .IRR we .INCL .GEN him -OBL ka savior us .INCL -OBL",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [
+            14
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "cause.know -LV OBL it when beneficia -LV .IRR we .INCL .NOM NOM DET Christ ka accept -PV .IRR we .INCL .GEN him -OBL ka savior us .INCL -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka not conflict .AV NOM it",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka not conflict .AV NOM it",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- die .AV NOM he",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- die .AV NOM he",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka PAST- teach -LV we .INCL .NOM GEN Christ ka call.name -LV .IRR we .INCL .GEN NOM God OBL verse this father",
+        "status": "Succeeded",
+        "REL": [
+            7
+        ],
+        "COMP": [],
+        "and": [
+            1
+        ]
+    },
+    {
+        "inputSTR": "why ka PAST- teach -LV we .INCL .NOM GEN Christ ka call.name -LV .IRR we .INCL .GEN NOM God OBL verse this father",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "require -LV also NOM what OBL other so ka cause.go -PV .IRR NOM work our .INCL LOC glory OBL God",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            9
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "require -LV also NOM what OBL other so ka cause.go -PV .IRR NOM work our .INCL LOC glory OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka sit .AV NOM DET Christ say .PV you .SG .GEN",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka sit .AV NOM DET Christ say .PV you .SG .GEN",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC this ka ruler NOM he OBL far.above OBL heaven OBL earth LOC name OBL father his",
+        "status": "Succeeded",
+        "REL": [
+            2
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC this ka ruler NOM he OBL far.above OBL heaven OBL earth LOC name OBL father his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "think.so -LV we .INCL .NOM Q so OBL God as.if .AV ka truly .AV we .INCL .NOM righteous .AV LOC PART nature our .INCL ka not we .INCL .NOM sin .PV always .AV",
+        "status": "Succeeded",
+        "REL": [
+            5,
+            14
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "think.so -LV we .INCL .NOM Q so OBL God as.if .AV ka truly .AV we .INCL .NOM righteous .AV LOC PART nature our .INCL ka not we .INCL .NOM sin .PV always .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "righteous .AV Q NOM it OBL God ka punish -PV .IRR OBL death NOM sin even.though when small .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            6
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "righteous .AV Q NOM it OBL God ka punish -PV .IRR OBL death NOM sin even.though when small .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "for know -PV I .GEN ka not be.in .AV me -OBL that -PFV LOC flesh my NOM good .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            4
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "for know -PV I .GEN ka not be.in .AV me -OBL that -PFV LOC flesh my NOM good .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka greatly .AV PAST- cause.high -PV NOM he LOC brightness LOC greatness also OBL status",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka greatly .AV PAST- cause.high -PV NOM he LOC brightness LOC greatness also OBL status",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "for not still I .NOM PC. know -PFV ka sin NOM greed if don't tell .AV NOM law not you .SG .NOM greedy .AV -IRR",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            5
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "for not still I .NOM PC. know -PFV ka sin NOM greed if don't tell .AV NOM law not you .SG .NOM greedy .AV -IRR",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka father NOM he GEN Jesus Christ",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka father NOM he GEN Jesus Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because OBL what ka PAST- save NOM God us .INCL -OBL",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because OBL what ka PAST- save NOM God us .INCL -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "can .AV we .INCL .NOM Q know .AV LOC world here ka truly .AV cause.have.part -LV .IRR we .INCL .NOM OBL completeness OBL greatness that OBL status after .AV OBL life this",
+        "status": "Succeeded",
+        "REL": [
+            7
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "can .AV we .INCL .NOM Q know .AV LOC world here ka truly .AV cause.have.part -LV .IRR we .INCL .NOM OBL completeness OBL greatness that OBL status after .AV OBL life this",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC manner OBL salvation because ka PAST- save .AV NOM he us .INCL -OBL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            4
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC manner OBL salvation because ka PAST- save .AV NOM he us .INCL -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "this ka not resturn .AV -IRR NOM they rise .AV LOC same .AV OBL greatness OBL status",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "this ka not resturn .AV -IRR NOM they rise .AV LOC same .AV OBL greatness OBL status",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka call.name -PV NOM he PC. truly .AV righteous .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka call.name -PV NOM he PC. truly .AV righteous .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "though ka not PAST- unwilling .AV NOM God witness .AV him -OBL self .AV LOC bless -PV us .INCL -OBL from heaven LOC give -LV us .INCL -OBL OBL rain OBL season also OBL bear.fruit -LV LOC cause.full -PV he .GEN NOM heart our .INCL OBL food OBL joy",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "though ka not PAST- unwilling .AV NOM God witness .AV him -OBL self .AV LOC bless -PV us .INCL -OBL from heaven LOC give -LV us .INCL -OBL OBL rain OBL season also OBL bear.fruit -LV LOC cause.full -PV he .GEN NOM heart our .INCL OBL food OBL joy",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka have-together -LV NOM children OBL flesh OBL blood have-together -LV -PFV such NOM he OBL that",
+        "status": "Succeeded",
+        "REL": [
+            1
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka have-together -LV NOM children OBL flesh OBL blood have-together -LV -PFV such NOM he OBL that",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka cause.go -PV .IRR also NOM it LOC glory OBL God",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka cause.go -PV .IRR also NOM it LOC glory OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because OBL what ka cause.come -LV NOM these them -OBL",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because OBL what ka cause.come -LV NOM these them -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "must -PFV Q ka die .AV -IRR NOM he",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "must -PFV Q ka die .AV -IRR NOM he",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka not PAST- PC. able .AV NOM he",
+        "status": "Succeeded",
+        "REL": [
+            1
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka not PAST- PC. able .AV NOM he",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM second OBL requirement so ka come.from .AV -IRR NOM work OBL faith",
+        "status": "Succeeded",
+        "REL": [
+            5
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM second OBL requirement so ka come.from .AV -IRR NOM work OBL faith",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "in.one's.will .AV PAST- appoint .AV NOM DET Christ PC. self .AV him -OBL ka mediate -IV .IRR he .GEN us .INCL -OBL",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "in.one's.will .AV PAST- appoint .AV NOM DET Christ PC. self .AV him -OBL ka mediate -IV .IRR he .GEN us .INCL -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka PAST- want .AV NOM God OBL that",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka PAST- want .AV NOM God OBL that",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka begin .AV NOM they when that love .AV OBL God LOC obedience OBL law his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka begin .AV NOM they when that love .AV OBL God LOC obedience OBL law his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka righteous .AV that",
+        "status": "Succeeded",
+        "REL": [
+            1
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka righteous .AV that",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "know .AV you .SG .NOM Q ka not we .INCL .NOM PC. able -PV PC. righteous .AV show .AV OBL PART blood GEN Christ if not we .INCL .NOM justify -PV also OBL spirit his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            4
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "know .AV you .SG .NOM Q ka not we .INCL .NOM PC. able -PV PC. righteous .AV show .AV OBL PART blood GEN Christ if not we .INCL .NOM justify -PV also OBL spirit his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "for speak -PV I .GEN you .PL .NOM ka not I drink .AV -IRR OBL PART PART fruit OBL vine OBL grape LOC time until while come .AV -PFV NOM kingdom OBL God",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "for speak -PV I .GEN you .PL .NOM ka not I drink .AV -IRR OBL PART PART fruit OBL vine OBL grape LOC time until while come .AV -PFV NOM kingdom OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "how .IRR NOM give.thanks .LV we .INCL .GEN so ka desire -PV .IRR OBL God NOM it",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            7
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "how .IRR NOM give.thanks .LV we .INCL .GEN so ka desire -PV .IRR OBL God NOM it",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "know -PV you .GEN where ka PAST- allow -PV ask .AV OBL things those OBL God",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            3
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "know -PV you .GEN where ka PAST- allow -PV ask .AV OBL things those OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka know .AV -IRR also we .INCL .NOM OBL that",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka know .AV -IRR also we .INCL .NOM OBL that",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "benefit that OBL what brothers my if say .AV NOM someone ka have .AV -PFV OBL faith when not.have .AV him -OBL OBL PART work",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "benefit that OBL what brothers my if say .AV NOM someone ka have .AV -PFV OBL faith when not.have .AV him -OBL OBL PART work",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because OBL this ka PAST- attribute -PV also him -OBL LOC righteousness",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because OBL this ka PAST- attribute -PV also him -OBL LOC righteousness",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "if however do .AV you .SG .NOM OBL not good .AV fear .AV -IRR because ka not in.vain .AV NOM carry.sword -PV he .GEN",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            9
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "if however do .AV you .SG .NOM OBL not good .AV fear .AV -IRR because ka not in.vain .AV NOM carry.sword -PV he .GEN",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PC. more -PV .IRR he .GEN strengthen .AV them -OBL OBL people his LOC faith their",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PC. more -PV .IRR he .GEN strengthen .AV them -OBL OBL people his LOC faith their",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka call.name -PV NOM he savior",
+        "status": "Succeeded",
+        "REL": [
+            1
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka call.name -PV NOM he savior",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM reason ka repeatedly -IRR we .INCL .NOM return .AV LOC Lord's.Supper",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM reason ka repeatedly -IRR we .INCL .NOM return .AV LOC Lord's.Supper",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what.is.that.which.is ka PAST- go.down .AV NOM DET Christ LOC hell",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what.is.that.which.is ka PAST- go.down .AV NOM DET Christ LOC hell",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka obey .AV -IRR also we .INCL .NOM OBL law OBL God",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka obey .AV -IRR also we .INCL .NOM OBL law OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "bad corruption Q NOM it to.such.an.extent .AV great .AV ka sinner NOM man",
+        "status": "Succeeded",
+        "REL": [
+            7
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "bad corruption Q NOM it to.such.an.extent .AV great .AV ka sinner NOM man",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "same .AV ka PAST- warn -PV NOM man OBL death so ka bear .AV -IRR NOM man self .AV OBL punishment because OBL sin his.",
+        "status": "Succeeded",
+        "REL": [
+            2
+        ],
+        "COMP": [],
+        "and": [
+            6
+        ]
+    },
+    {
+        "inputSTR": "same .AV ka PAST- warn -PV NOM man OBL death so ka bear .AV -IRR NOM man self .AV OBL punishment because OBL sin his.",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "how ka expect .AV OBL far.above OBL heaven NOM believer",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "how ka expect .AV OBL far.above OBL heaven NOM believer",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "promise -PV we .INCL .NOM GEN Christ where ka strengthen -LV .IRR he .GEN refresh .AV us .INCL -OBL LOC soul our .INCL OBL PART flesh OBL PART blood his",
+        "status": "Succeeded",
+        "REL": [
+            5
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "promise -PV we .INCL .NOM GEN Christ where ka strengthen -LV .IRR he .GEN refresh .AV us .INCL -OBL LOC soul our .INCL OBL PART flesh OBL PART blood his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- cleanse -PV he .GEN NOM seed GEN Maria OBL inheritance OBL sin",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- cleanse -PV he .GEN NOM seed GEN Maria OBL inheritance OBL sin",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not you .PL .NOM fear .AV -IRR OBL face OBL people because ka judgment belong.to .AV God NOM it",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            8
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "not you .PL .NOM fear .AV -IRR OBL face OBL people because ka judgment belong.to .AV God NOM it",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka reverse.inside .AV plant .AV them -OBL DET Christ -OBL cause.have.a.part also them -OBL OBL goodness his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka reverse.inside .AV plant .AV them -OBL DET Christ -OBL cause.have.a.part also them -OBL OBL goodness his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka not PAST- take.root -PV NOM assurrance our .INCL this LOC worthiness our .INCL self .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka not PAST- take.root -PV NOM assurrance our .INCL this LOC worthiness our .INCL self .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka call.name -PV NOM he truly .AV righteous .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka call.name -PV NOM he truly .AV righteous .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PAST- not .PV PC. able .AV bear .AV NOM nature OBL human GEN Christ OBL wrath OBL God because us .INCL -OBL if PAST- not cause.strong .AV -IRR NOM it OBL nature his OBL God",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PAST- not .PV PC. able .AV bear .AV NOM nature OBL human GEN Christ OBL wrath OBL God because us .INCL -OBL if PAST- not cause.strong .AV -IRR NOM it OBL nature his OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka father -also our .INCL NOM he because DET Christ -OBL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka father -also our .INCL NOM he because DET Christ -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "will that OBL God ka reason -PV he .GEN revenge .AV OBL sin",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "will that OBL God ka reason -PV he .GEN revenge .AV OBL sin",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q because OBL it ka speak.so .AV .you ka PART grace NOM forgiveness OBL sin our because ka not PAST- require -PV NOM punishment us .INCL -OBL rather PAST- require -LV instead LOC guarantor us .INCL -OBL",
+        "status": "Succeeded",
+        "REL": [
+            4,
+            9
+        ],
+        "COMP": [],
+        "and": [
+            17
+        ]
+    },
+    {
+        "inputSTR": "not Q because OBL it ka speak.so .AV .you ka PART grace NOM forgiveness OBL sin our because ka not PAST- require -PV NOM punishment us .INCL -OBL rather PAST- require -LV instead LOC guarantor us .INCL -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka not",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka not",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka truly .AV righteous .AV NOM he him -OBL self .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka truly .AV righteous .AV NOM he him -OBL self .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PC. only .AV Q LOC this NOM comfort your when discern .AV you .SG .NOM ka belong.to-Christ you .SG .NOM",
+        "status": "Succeeded",
+        "REL": [
+            11
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PC. only .AV Q LOC this NOM comfort your when discern .AV you .SG .NOM ka belong.to-Christ you .SG .NOM",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka from man NOM death from man also NOM return -LV .IRR rise .AV OBL PAST- die .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka from man NOM death from man also NOM return -LV .IRR rise .AV OBL PAST- die .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "cause.know -LV OBL what ka take .AV OBL bread OBL wine OBL grape that NOM believer LOC Lord's.Supper",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            4
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "cause.know -LV OBL what ka take .AV OBL bread OBL wine OBL grape that NOM believer LOC Lord's.Supper",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PAST- warn .AV OBL this PC. truly .AV forbid .AV NOM God us .INCL -OBL LOC commendment his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PAST- warn .AV OBL this PC. truly .AV forbid .AV NOM God us .INCL -OBL LOC commendment his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not you .PL .NOM Q know .AV ka not you .PL .NOM yours .PL self -LV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            4
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "not you .PL .NOM Q know .AV ka not you .PL .NOM yours .PL self -LV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "must -PFV ka accomplish -PV .IRR he .GEN NOM law OBL God exchange .AV us .INCL -OBL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            2
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "must -PFV ka accomplish -PV .IRR he .GEN NOM law OBL God exchange .AV us .INCL -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "so ka not we .INCL .NOM stop .AV -IRR be.under .AV OBL God",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "so ka not we .INCL .NOM stop .AV -IRR be.under .AV OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka lead .AV -IRR NOM God rule .AV us .INCL -OBL OBL word OBL spirit also his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka lead .AV -IRR NOM God rule .AV us .INCL -OBL OBL word OBL spirit also his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC this PAST- cause.high -PV OBL status NOM father my ka PC. abundant .AV you .PL .NOM bear.fruit .AV OBL fruit",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC this PAST- cause.high -PV OBL status NOM father my ka PC. abundant .AV you .PL .NOM bear.fruit .AV OBL fruit",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka call.name -PV flesh -PFV say .PV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka call.name -PV flesh -PFV say .PV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q head also NOM DET Christ OBL church his before ka not yet go.to.heaven .AV",
+        "status": "Succeeded",
+        "REL": [
+            11
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q head also NOM DET Christ OBL church his before ka not yet go.to.heaven .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC this -also ka reverse.inside .AV plant .AV us .INCL -OBL DET Christ -OBL ka cause.a.part .AV us -OBL OBL goodness his",
+        "status": "Succeeded",
+        "REL": [
+            2
+        ],
+        "COMP": [
+            9
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC this -also ka reverse.inside .AV plant .AV us .INCL -OBL DET Christ -OBL ka cause.a.part .AV us -OBL OBL goodness his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka must -PFV ka rise .AV -IRR NOM DET Christ OBL PAST- death his",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka must -PFV ka rise .AV -IRR NOM DET Christ OBL PAST- death his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "if save .AV -IRR NOM DET Christ us .INCL -OBL OBL death must -PFV ka PC. self .AV -IRR die .AV NOM he",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            9
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "if save .AV -IRR NOM DET Christ us .INCL -OBL OBL death must -PFV ka PC. self .AV -IRR die .AV NOM he",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- bear .AV NOM DET Christ because us .INCL -OBL OBL suffering OBL heaviness OBL hell LOC soul his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- bear .AV NOM DET Christ because us .INCL -OBL OBL suffering OBL heaviness OBL hell LOC soul his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka know .AV -IRR we .INCL ka what NOM salvation OBL man",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            4
+        ],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka know .AV -IRR we .INCL ka what NOM salvation OBL man",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka not",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka not",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because instead ka honor -LV .IRR NOM name your .SG LOC always .LV be.lasting .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            2
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because instead ka honor -LV .IRR NOM name your .SG LOC always .LV be.lasting .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka in.debt -PV we .INCL .NOM OBL PAST- obedient -PV GEN Christ same OBL PAST- obedient -PV we .INCL .GEN self",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka in.debt -PV we .INCL .NOM OBL PAST- obedient -PV GEN Christ same OBL PAST- obedient -PV we .INCL .GEN self",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- see .AV ka naked NOM they",
+        "status": "Succeeded",
+        "REL": [
+            0
+        ],
+        "COMP": [],
+        "and": [
+            4
+        ]
+    },
+    {
+        "inputSTR": "ka PAST- see .AV ka naked NOM they",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "cause.complete .AV Q cause.sure .AV you -OBL NOM PAST- crucify -PV DET Christ -OBL ka PAST- save -PV you .SG .NOM now OBL evil your",
+        "status": "Succeeded",
+        "REL": [
+            9
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "cause.complete .AV Q cause.sure .AV you -OBL NOM PAST- crucify -PV DET Christ -OBL ka PAST- save -PV you .SG .NOM now OBL evil your",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "For must -PFV ka PC. all -LV .IRR we .INCL .NOM cause.in.openness .AV LOC front OBL chair OBL judgment GEN Christ so ka receive .AV -IRR NOM everyone OBL PAST- accomplish -PV LOC body OBL PART work his as good .AV as not good .AV",
+        "status": "Succeeded",
+        "REL": [
+            2,
+            14
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "For must -PFV ka PC. all -LV .IRR we .INCL .NOM cause.in.openness .AV LOC front OBL chair OBL judgment GEN Christ so ka receive .AV -IRR NOM everyone OBL PAST- accomplish -PV LOC body OBL PART work his as good .AV as not good .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "say.what .AV NOM word this ka righteous .AV we .INCL .NOM be.in .AV DET Christ -OBL",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "say.what .AV NOM word this ka righteous .AV we .INCL .NOM be.in .AV DET Christ -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka cause.root NOM trust our .INCL this LOC PAST- payment GEN Jesus Christ",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka cause.root NOM trust our .INCL this LOC PAST- payment GEN Jesus Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PAST- cause.low -PV when that NOM DET Christ OBL death so.that PAST- separate .AV NOM soul OBL body his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PAST- cause.low -PV when that NOM DET Christ OBL death so.that PAST- separate .AV NOM soul OBL body his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- PC. prior .AV we .EXCL .NOM tell .AV together .AV OBL Jew OBL Greek ka all NOM they be.under .AV OBL sin",
+        "status": "Succeeded",
+        "REL": [
+            9
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- PC. prior .AV we .EXCL .NOM tell .AV together .AV OBL Jew OBL Greek ka all NOM they be.under .AV OBL sin",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "tell me -OBL why ka not conceit OBL heart NOM it",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            3
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "tell me -OBL why ka not conceit OBL heart NOM it",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PAST- strengthen -PV nature his OBL human OBL power OBL nature his OBL God",
+        "status": "Succeeded",
+        "REL": [
+            1
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PAST- strengthen -PV nature his OBL human OBL power OBL nature his OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka call.name -PV NOM he spirit",
+        "status": "Succeeded",
+        "REL": [
+            1
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka call.name -PV NOM he spirit",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka come.from .AV -IRR NOM work our .INCL OBL faith DET Jesus Christ -OBL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka come.from .AV -IRR NOM work our .INCL OBL faith DET Jesus Christ -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka destroy .AV NOM all OBL sin OBL law OBL God",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka destroy .AV NOM all OBL sin OBL law OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "when attribute .AV NOM God us .INCL -OBL OBL righteousness GEN Christ similar .AV ka righteous our .INCL that self .AV",
+        "status": "Succeeded",
+        "REL": [
+            11
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "when attribute .AV NOM God us .INCL -OBL OBL righteousness GEN Christ similar .AV ka righteous our .INCL that self .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not think .AV NOM God OBL iniquity our .INCL same .AV ka not we .INCL .NOM sin .PV always .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0,
+            7
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not think .AV NOM God OBL iniquity our .INCL same .AV ka not we .INCL .NOM sin .PV always .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because OBL what ka appear .AV -IRR so .AV NOM DET Christ",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because OBL what ka appear .AV -IRR so .AV NOM DET Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PAST- primarily .AV do.labor .AV NOM DET Christ OBL obtain -PV .IRR he .GEN NOM greatness OBL ministry that LOC PAST- suffer -PV he .GEN OBL death",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PAST- primarily .AV do.labor .AV NOM DET Christ OBL obtain -PV .IRR he .GEN NOM greatness OBL ministry that LOC PAST- suffer -PV he .GEN OBL death",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "if speak -PV ka cause.righteous -PV we .INCL .NOM PC. openly .AV OBL faith not we .INCL .NOM Q cause.righteous -PV when that OBL PART work",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            3
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "if speak -PV ka cause.righteous -PV we .INCL .NOM PC. openly .AV OBL faith not we .INCL .NOM Q cause.righteous -PV when that OBL PART work",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka only OBL God NOM have.authority OBL this",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka only OBL God NOM have.authority OBL this",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "same .AV ka PAST- write -PV yet live .AV -IRR NOM righteous .AV OBL faith",
+        "status": "Succeeded",
+        "REL": [
+            2
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "same .AV ka PAST- write -PV yet live .AV -IRR NOM righteous .AV OBL faith",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "how ka PAST- bear .AV OBL punishment that NOM DET Christ",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "how ka PAST- bear .AV OBL punishment that NOM DET Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "if ka PAST- return .AV NOM man again -LV -PFV cause.new .AV LOC image OBL God PC. able .AV Q NOM he that PC. completely .AV follow .AV OBL law OBL God",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "if ka PAST- return .AV NOM man again -LV -PFV cause.new .AV LOC image OBL God PC. able .AV Q NOM he that PC. completely .AV follow .AV OBL law OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PAST- work.for.pay -LV we .INCL .GEN NOM death OBL sin our .INCL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because ka PAST- work.for.pay -LV we .INCL .GEN NOM death OBL sin our .INCL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka not PAST- die .AV OBL other OBL death",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "why ka not PAST- die .AV OBL other OBL death",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "for body.parts we .INCL .NOM ka PC. one.another .AV NOM we .INCL",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "for body.parts we .INCL .NOM ka PC. one.another .AV NOM we .INCL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "yet primary .AV NOM DET Jesus Christ ka son OBL God",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "yet primary .AV NOM DET Jesus Christ ka son OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "all OBL duty ka serve -PV .IRR we .INCL .GEN OBL people ka other",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": [
+            10
+        ]
+    },
+    {
+        "inputSTR": "all OBL duty ka serve -PV .IRR we .INCL .GEN OBL people ka other",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "three NOM testify .AV LOC far.above OBL heaven NOM father NOM Word NOM spirit ka truly .AV righteous .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            11
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "three NOM testify .AV LOC far.above OBL heaven NOM father NOM Word NOM spirit ka truly .AV righteous .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "when however come .AV -IRR -PFV NOM comforter ka send.forth -LV .IRR I .GEN you .PL -OBL OBL father NOM spirit OBL truth ka cause.come -LV OBL father he NOM testify .AV -IRR me -OBL",
+        "status": "Succeeded",
+        "REL": [
+            6,
+            20
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "when however come .AV -IRR -PFV NOM comforter ka send.forth -LV .IRR I .GEN you .PL -OBL OBL father NOM spirit OBL truth ka cause.come -LV OBL father he NOM testify .AV -IRR me -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "leave .AV -IRR me -OBL you .PL .GEN ka PAST- work .AV OBL iniquity not I .GEN you .PL .NOM PAST- know -PV always .AV",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "leave .AV -IRR me -OBL you .PL .GEN ka PAST- work .AV OBL iniquity not I .GEN you .PL .NOM PAST- know -PV always .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "this anyone NOM believe .AV OBL son OBL God have-life .AV ka always .AV be.lasting .AV",
+        "status": "Succeeded",
+        "REL": [
+            9
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "this anyone NOM believe .AV OBL son OBL God have-life .AV ka always .AV be.lasting .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "can .AV NOM God how cause.like .AV him -OBL OBL work our .INCL ka such .AV not PC. completely .AV good .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            9
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "can .AV NOM God how cause.like .AV him -OBL OBL work our .INCL ka such .AV not PC. completely .AV good .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "rest ka from DET Jehova LOC all OBL place your .PL",
+        "status": "Succeeded",
+        "REL": [
+            1
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "rest ka from DET Jehova LOC all OBL place your .PL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC above here ka fly -PV OBL birds",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC above here ka fly -PV OBL birds",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "who NOM they those ka come .AV -IRR LOC hold -LV OBL PART rite ka sign -PV",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": [
+            13
+        ]
+    },
+    {
+        "inputSTR": "who NOM they those ka come .AV -IRR LOC hold -LV OBL PART rite ka sign -PV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "Acts3:22 see LOC question ka 28 (a)",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            4
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "Acts3:22 see LOC question ka 28 (a)",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "for not we .INCL .NOM know .AV what NOM pray -PV .IRR we .INCL .GEN ka appropriate .AV rather spirit instead self .AV NOM pray .AV because us .INCL -OBL OBL PC. great -PV sigh .AV ka not PC. able -PV utter .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            13,
+            27
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "for not we .INCL .NOM know .AV what NOM pray -PV .IRR we .INCL .GEN ka appropriate .AV rather spirit instead self .AV NOM pray .AV because us .INCL -OBL OBL PC. great -PV sigh .AV ka not PC. able -PV utter .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "have Q OBL benefit NOM they ka belong.to .AV church GEN Christ",
+        "status": "Succeeded",
+        "REL": [
+            5
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "have Q OBL benefit NOM they ka belong.to .AV church GEN Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- suffer .AV also Q LOC soul ka other",
+        "status": "Succeeded",
+        "REL": [
+            7
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- suffer .AV also Q LOC soul ka other",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not only forbid .AV NOM God OBL stealing that OBL robbery ka pubish -PV OBL ruler yet stealing also say .AV NOM God all OBL PC. in.adavnce .AV in.heart .AV ka evil .AV ka take.as.reason -PV -we .INCL .GEN think .AV cause.go .AV us .INCL -OBL OBL possession ka belong.to .AV people ka other though LOC PC. huge -LV coerce .AV rob .AV though LOC appearance OBL honesty like .AV LOC scaling ka false .AV LOC measuring OBL cubit LOC measuring ka vessel LOC trading LOC partitioning OBL silver ka not honest .AV LOC PC. overly -PV benefit .AV OBL interest LOC OBL silver other or OBL things OBL kind ka PART forbid .PV OBL God",
+        "status": "Succeeded",
+        "REL": [
+            26,
+            35,
+            44,
+            52,
+            57,
+            64,
+            73
+        ],
+        "COMP": [
+            7,
+            17
+        ],
+        "and": [
+            19
+        ]
+    },
+    {
+        "inputSTR": "not only forbid .AV NOM God OBL stealing that OBL robbery ka pubish -PV OBL ruler yet stealing also say .AV NOM God all OBL PC. in.adavnce .AV in.heart .AV ka evil .AV ka take.as.reason -PV -we .INCL .GEN think .AV cause.go .AV us .INCL -OBL OBL possession ka belong.to .AV people ka other though LOC PC. huge -LV coerce .AV rob .AV though LOC appearance OBL honesty like .AV LOC scaling ka false .AV LOC measuring OBL cubit LOC measuring ka vessel LOC trading LOC partitioning OBL silver ka not honest .AV LOC PC. overly -PV benefit .AV OBL interest LOC OBL silver other or OBL things OBL kind ka PART forbid .PV OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM third ka exist -LV OBL fellowship this OBL PC. truly .AV righteous .AV",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM third ka exist -LV OBL fellowship this OBL PC. truly .AV righteous .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not can .AV similar .AV OBL tree ka lack .AV good .AV if always .AV not bear.fruit .AV OBL fruit ka good .AV",
+        "status": "Succeeded",
+        "REL": [
+            6,
+            17
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not can .AV similar .AV OBL tree ka lack .AV good .AV if always .AV not bear.fruit .AV OBL fruit ka good .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "promise OBL news ka good .AV",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "promise OBL news ka good .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "speak.so .AV .IRR NOM he them -OBL leave .AV -IRR me -OBL NOM you .PL ka PAST- work OBL iniquity not I .GEN you .PL .NOM know -PV always .AV",
+        "status": "Succeeded",
+        "REL": [
+            11
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "speak.so .AV .IRR NOM he them -OBL leave .AV -IRR me -OBL NOM you .PL ka PAST- work OBL iniquity not I .GEN you .PL .NOM know -PV always .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q PC. more .AV -IRR NOM blood GEN Christ ka PAST- offer .AV LOC not.have .AV OBL sin him -OBL self .AV OBL God LOC spirit ka always .AV be.lasting .AV make.clean .AV OBL knowledge OBL heart your .PL OBL PART deed ka dead -PFV so OBL worship -PV .IRR NOM God ka live .AV",
+        "status": "Succeeded",
+        "REL": [
+            6,
+            17,
+            28
+        ],
+        "COMP": [],
+        "and": [
+            35
+        ]
+    },
+    {
+        "inputSTR": "not Q PC. more .AV -IRR NOM blood GEN Christ ka PAST- offer .AV LOC not.have .AV OBL sin him -OBL self .AV OBL God LOC spirit ka always .AV be.lasting .AV make.clean .AV OBL knowledge OBL heart your .PL OBL PART deed ka dead -PFV so OBL worship -PV .IRR NOM God ka live .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "now not.have .AV OBL power us .EXCL -OBL against .AV OBL multitude this ka huge .AV ka outnumber .AV us .EXCL -OBL",
+        "status": "Succeeded",
+        "REL": [
+            8,
+            10
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "now not.have .AV OBL power us .EXCL -OBL against .AV OBL multitude this ka huge .AV ka outnumber .AV us .EXCL -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "baptism NOM PART rite ka sign -PV OBL cause.go -LV us .INCL -OBL LOC church GEN Christ that.is LOC life that ka LOC nature ka from-spirit .AV",
+        "status": "Succeeded",
+        "REL": [
+            3,
+            14,
+            17
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "baptism NOM PART rite ka sign -PV OBL cause.go -LV us .INCL -OBL LOC church GEN Christ that.is LOC life that ka LOC nature ka from-spirit .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC interitance ka not perish .AV ka -not contaminate -PV ka -not wither .AV ka PAST- keep -PV LOC far.above OBL heaven you .PL -OBL",
+        "status": "Succeeded",
+        "REL": [
+            2,
+            4,
+            6,
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC interitance ka not perish .AV ka -not contaminate -PV ka -not wither .AV ka PAST- keep -PV LOC far.above OBL heaven you .PL -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- not.have .AV Q OBL be.at .AV DET Christ -OBL ka go.far.above .AV NOM he",
+        "status": "Succeeded",
+        "REL": [
+            7
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- not.have .AV Q OBL be.at .AV DET Christ -OBL ka go.far.above .AV NOM he",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PC. all .AV Q good .AV NOM good ka PC. only .AV PC. apparantly .AV agree .AV OBL law OBL God",
+        "status": "Succeeded",
+        "REL": [
+            7
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PC. all .AV Q good .AV NOM good ka PC. only .AV PC. apparantly .AV agree .AV OBL law OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "think .AV -IRR we .INCL .NOM OBL what them -OBL ka always .AV not care .AV OBL good -LV .IRR OBL companion their ka believer",
+        "status": "Succeeded",
+        "REL": [
+            18
+        ],
+        "COMP": [
+            6
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "think .AV -IRR we .INCL .NOM OBL what them -OBL ka always .AV not care .AV OBL good -LV .IRR OBL companion their ka believer",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "they ka not PC. truly .AV work .AV OBL faith approach .AV DET Christ -OBL take .AV OBL what NOM they LOC Lord's.Supper",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "they ka not PC. truly .AV work .AV OBL faith approach .AV DET Christ -OBL take .AV OBL what NOM they LOC Lord's.Supper",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "things those ka believe -IV .IRR we .INCL .GEN OBL God father",
+        "status": "Succeeded",
+        "REL": [
+            2
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "things those ka believe -IV .IRR we .INCL .GEN OBL God father",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "in.this.way .AV all OBL tree ka good .AV bear.fruit .AV OBL fruit ka good .AV",
+        "status": "Succeeded",
+        "REL": [
+            4,
+            9
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "in.this.way .AV all OBL tree ka good .AV bear.fruit .AV OBL fruit ka good .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "bless -PV .IRR praise .AV NOM God ka father OBL lord our .INCL ka Jesus Christ ka PAST- PC. again .AV cause.birth .AV PAST- PC. again .AV beget .AV us .INCL -OBL OBL mercy his ka much .AV LOC hope ka live .AV LOC PAST- rise -PV GEN Jesus Christ OBL PAST- death",
+        "status": "Succeeded",
+        "REL": [
+            4,
+            9,
+            21
+        ],
+        "COMP": [],
+        "and": [
+            12,
+            18
+        ]
+    },
+    {
+        "inputSTR": "bless -PV .IRR praise .AV NOM God ka father OBL lord our .INCL ka Jesus Christ ka PAST- PC. again .AV cause.birth .AV PAST- PC. again .AV beget .AV us .INCL -OBL OBL mercy his ka much .AV LOC hope ka live .AV LOC PAST- rise -PV GEN Jesus Christ OBL PAST- death",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC how.many OBL manner ka cause.grab -PV us .INCL -OBL NOM righteous GEN Christ",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC how.many OBL manner ka cause.grab -PV us .INCL -OBL NOM righteous GEN Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what that ka exchange -PV -we .INCL .GEN commit .AV OBL God LOC baptism us .INCL -OBL",
+        "status": "Succeeded",
+        "REL": [
+            2
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what that ka exchange -PV -we .INCL .GEN commit .AV OBL God LOC baptism us .INCL -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "able .AV Q NOM someone ka PAST- make .PV from nothing bear .AV OBL death ka always .AV be.lasting .AV in.exchange .AV OBL others",
+        "status": "Succeeded",
+        "REL": [
+            4,
+            9
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "able .AV Q NOM someone ka PAST- make .PV from nothing bear .AV OBL death ka always .AV be.lasting .AV in.exchange .AV OBL others",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "place OBL what ka PAST- leave -PV GEN Christ",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "place OBL what ka PAST- leave -PV GEN Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "he NOM baptize .AV -IRR you .PL -OBL OBL spirit ka truly .AV righteous .AV OBL fire also",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "he NOM baptize .AV -IRR you .PL -OBL OBL spirit ka truly .AV righteous .AV OBL fire also",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "six OBL day accomplish -PV .IRR NOM work yet LOC day ka seven NOM Sabbath OBL rest OBL congregation OBL PC. truly .AV righteous .AV not you .PL .NOM do .AV -IRR OBL work OBL anything",
+        "status": "Succeeded",
+        "REL": [
+            9
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "six OBL day accomplish -PV .IRR NOM work yet LOC day ka seven NOM Sabbath OBL rest OBL congregation OBL PC. truly .AV righteous .AV not you .PL .NOM do .AV -IRR OBL work OBL anything",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "death ka always .AV be.lasting .AV LOC body LOC soul",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "death ka always .AV be.lasting .AV LOC body LOC soul",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "appear .AV where NOM PAST- heaviness GEN Christ ka even.such .AV great .AV LOC cross",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "appear .AV where NOM PAST- heaviness GEN Christ ka even.such .AV great .AV LOC cross",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM manner ka first OBL not they .GEN agree -LV",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM manner ka first OBL not they .GEN agree -LV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "how.many OBL manner ka form .AV NOM spirit ka truly .AV righteous .AV OBL faith us .INCL -OBL",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": [
+            7
+        ]
+    },
+    {
+        "inputSTR": "how.many OBL manner ka form .AV NOM spirit ka truly .AV righteous .AV OBL faith us .INCL -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "NOM trust -LV PC. in.heart .AV LOC promise OBL news ka good .AV",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "NOM trust -LV PC. in.heart .AV LOC promise OBL news ka good .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "establish .AV -IRR OBL fence ka stone OBL Jerusalem",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            5
+        ]
+    },
+    {
+        "inputSTR": "establish .AV -IRR OBL fence ka stone OBL Jerusalem",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "know -PV you .GEN NOM what OBL life ka always .AV be.lasting .AV",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "know -PV you .GEN NOM what OBL life ka always .AV be.lasting .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "appear .AV where NOM PAST- heaviness his that ka even.such .AV great .AV LOC garden ka Gethsemane",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": [
+            12
+        ]
+    },
+    {
+        "inputSTR": "appear .AV where NOM PAST- heaviness his that ka even.such .AV great .AV LOC garden ka Gethsemane",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not obey .AV OBL parents them -OBL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not obey .AV OBL parents them -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC mountain ka produce.fruit .AV OBL oil",
+        "status": "Succeeded",
+        "REL": [
+            2
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC mountain ka produce.fruit .AV OBL oil",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC power whose ka in.sure .AV we .INCL .NOM LOC fight ka be.against .AV OBL flesh our .INCL",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": [
+            8
+        ]
+    },
+    {
+        "inputSTR": "LOC power whose ka in.sure .AV we .INCL .NOM LOC fight ka be.against .AV OBL flesh our .INCL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "all OBL this ka need -PV OBL body OBL soul",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "all OBL this ka need -PV OBL body OBL soul",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "all NOM they ka be.at .AV LOC covenant OBL God",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "all NOM they ka be.at .AV LOC covenant OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "when instead that numerous .AV NOM different .PV OBL god ka PAST- pray -PV OBL elders your .PL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            9
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "when instead that numerous .AV NOM different .PV OBL god ka PAST- pray -PV OBL elders your .PL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "Christian Q ka true .AV NOM they ka not do .AV OBL this",
+        "status": "Succeeded",
+        "REL": [
+            2
+        ],
+        "COMP": [
+            6
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "Christian Q ka true .AV NOM they ka not do .AV OBL this",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "yes have OBL benefit ka huge .AV LOC greatness",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "yes have OBL benefit ka huge .AV LOC greatness",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "how NOM work their ka not believer ka not yet PAST- repent -PV",
+        "status": "Succeeded",
+        "REL": [
+            3,
+            5
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "how NOM work their ka not believer ka not yet PAST- repent -PV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM satisfaction that ka say .PV you .SG .GEN",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            4
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM satisfaction that ka say .PV you .SG .GEN",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q come .AV now you .SG -OBL NOM things ka bad .AV corruption LOC life this",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q come .AV now you .SG -OBL NOM things ka bad .AV corruption LOC life this",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "only Q theirs NOM promise OBL news ka good .AV ka feel -PV OBL heart NOM badness their",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [
+            9
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "only Q theirs NOM promise OBL news ka good .AV ka feel -PV OBL heart NOM badness their",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what also ka not come.from .AV OBL faith sin NOM it",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            2
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "what also ka not come.from .AV OBL faith sin NOM it",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "work those ka cause.go -LV LOC glory OBL God PC. all .AV Q good .AV NOM those",
+        "status": "Succeeded",
+        "REL": [
+            2
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "work those ka cause.go -LV LOC glory OBL God PC. all .AV Q good .AV NOM those",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PART woman ka not PAST- lie.together .AV OBL man",
+        "status": "Succeeded",
+        "REL": [
+            2
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PART woman ka not PAST- lie.together .AV OBL man",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "speak.how .PV .you .SG .GEN OBL man ka such .AV OBL large.amount ka always .AV live .AV LOC all OBL manner OBL sin ka show .AV still speak.openly .AV OBL world OBL faith their",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [
+            19
+        ],
+        "and": [
+            9
+        ]
+    },
+    {
+        "inputSTR": "speak.how .PV .you .SG .GEN OBL man ka such .AV OBL large.amount ka always .AV live .AV LOC all OBL manner OBL sin ka show .AV still speak.openly .AV OBL world OBL faith their",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "how.many NOM word LOC tablet ka first",
+        "status": "Succeeded",
+        "REL": [
+            5
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "how.many NOM word LOC tablet ka first",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "deed word OBL thought our .INCL ka sin",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "deed word OBL thought our .INCL ka sin",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "bread OBL wine OBL grape together .AV also OBL rite worship .AV ka add -LV there",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            10
+        ]
+    },
+    {
+        "inputSTR": "bread OBL wine OBL grape together .AV also OBL rite worship .AV ka add -LV there",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "call.by.name -PV -PFV how NOM three OBL law those ka different .AV",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "call.by.name -PV -PFV how NOM three OBL law those ka different .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "who NOM officiate .AV LOC service OBL PART rite ka sign -PV",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "who NOM officiate .AV LOC service OBL PART rite ka sign -PV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "compensate -PV OBL mediate -PV also OBL guarantor us .INCL -OBL ka DET Jesus Christ",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            9
+        ]
+    },
+    {
+        "inputSTR": "compensate -PV OBL mediate -PV also OBL guarantor us .INCL -OBL ka DET Jesus Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "if however not you .PL .NOM forgive .AV not forgive -LV .IRR NOM other OBL father your .PL ka LOC far.above OBL heaven OBL PAST- sinning your .PL",
+        "status": "Succeeded",
+        "REL": [
+            15
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "if however not you .PL .NOM forgive .AV not forgive -LV .IRR NOM other OBL father your .PL ka LOC far.above OBL heaven OBL PAST- sinning your .PL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "make.sure .AV OBL this how us .INCL -OBL NOM spirit ka truly .AV righteous .AV",
+        "status": "Succeeded",
+        "REL": [
+            7
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "make.sure .AV OBL this how us .INCL -OBL NOM spirit ka truly .AV righteous .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "make.sure .AV -IRR NOM DET Jehovah OBL PART word your ka PAST- prophesize .PV you .SG .GEN",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "make.sure .AV -IRR NOM DET Jehovah OBL PART word your ka PAST- prophesize .PV you .SG .GEN",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "love .AV -IRR you .SG .NOM OBL God ka Lord your .SG LOC heart your .SG ka whole .AV LOC soul your .SG ka whole .AV LOC conscience your .SG ka whole LOC all -also OBL strength your .SG",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": [
+            9,
+            14,
+            19
+        ]
+    },
+    {
+        "inputSTR": "love .AV -IRR you .SG .NOM OBL God ka Lord your .SG LOC heart your .SG ka whole .AV LOC soul your .SG ka whole .AV LOC conscience your .SG ka whole LOC all -also OBL strength your .SG",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- primary -PV they .GEN cause.doubt .AV ka scribe ka Pharisee many .AV also OBL people ka Jew",
+        "status": "Succeeded",
+        "REL": [
+            5,
+            7,
+            12
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- primary -PV they .GEN cause.doubt .AV ka scribe ka Pharisee many .AV also OBL people ka Jew",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PC. able -PV release .AV NOM who OBL badness corruption his if not PC. all .AV obey .AV NOM he OBL law OBL God if not bear .AV also OBL punishment OBL death ka always .AV be.lasting .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            26
+        ]
+    },
+    {
+        "inputSTR": "PC. able -PV release .AV NOM who OBL badness corruption his if not PC. all .AV obey .AV NOM he OBL law OBL God if not bear .AV also OBL punishment OBL death ka always .AV be.lasting .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC which.many OBL day ka PAST- bury .PV NOM DET Christ",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC which.many OBL day ka PAST- bury .PV NOM DET Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- cause.join.together .PV Q LOC prayer this NOM all OBL things ka need -PV OBL body our .INCL OBL good -LV .IRR also OBL soul our .INCL",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- cause.join.together .PV Q LOC prayer this NOM all OBL things ka need -PV OBL body our .INCL OBL good -LV .IRR also OBL soul our .INCL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "same .AV Q big .AV OBL share NOM body.part GEN Christ ka all LOC gift.given those",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "same .AV Q big .AV OBL share NOM body.part GEN Christ ka all LOC gift.given those",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "satisfaction -PFV ka worth .AV OBL status ka give.back .AV PC. completely .AV OBL debt OBL sin our .INCL",
+        "status": "Succeeded",
+        "REL": [
+            2
+        ],
+        "COMP": [
+            6
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "satisfaction -PFV ka worth .AV OBL status ka give.back .AV PC. completely .AV OBL debt OBL sin our .INCL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because OBL that while not PAST- have.sex.with.male -PV PAST- impregnate -PV NOM she OBL power OBL spirit ka truly .AV righteous .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            14
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because OBL that while not PAST- have.sex.with.male -PV PAST- impregnate -PV NOM she OBL power OBL spirit ka truly .AV righteous .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "means OBL strengthen -PV OBL refresh -PV OBL soul our .INCL OBL PART flesh GEN Jesus Christ ka PAST- crucify -PV OBL PART blood also his ka PAST- pour.out -PV",
+        "status": "Succeeded",
+        "REL": [
+            12,
+            18
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "means OBL strengthen -PV OBL refresh -PV OBL soul our .INCL OBL PART flesh GEN Jesus Christ ka PAST- crucify -PV OBL PART blood also his ka PAST- pour.out -PV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "faith DET Christ -OBL fruit -PFV Q NOM it OBL word ka preach -PV",
+        "status": "Succeeded",
+        "REL": [
+            7
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "faith DET Christ -OBL fruit -PFV Q NOM it OBL word ka preach -PV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "if PAST- PC. truly .PV such .AV make.righteous .AV NOM man LOC beginning PAST- do.what .AV now NOM nature his ka such .AV bad .AV corrupt .AV",
+        "status": "Succeeded",
+        "REL": [
+            16
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "if PAST- PC. truly .PV such .AV make.righteous .AV NOM man LOC beginning PAST- do.what .AV now NOM nature his ka such .AV bad .AV corrupt .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "if receive .AV NOM anyone ka not believe .AV OBL sign those possess.along Q NOM he OBL things those ka symbolize -PV OBL those",
+        "status": "Succeeded",
+        "REL": [
+            3,
+            16
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "if receive .AV NOM anyone ka not believe .AV OBL sign those possess.along Q NOM he OBL things those ka symbolize -PV OBL those",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "take -PV .IRR Q GEN Christ cause.go .AV him -OBL all NOM they ka PAST- baptize -LV LOC name his",
+        "status": "Succeeded",
+        "REL": [
+            7
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "take -PV .IRR Q GEN Christ cause.go .AV him -OBL all NOM they ka PAST- baptize -LV LOC name his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "particularly .AV huge .AV LOC garden ka Gethsmane LOC be.in -LV also he .GEN LOC cross",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "particularly .AV huge .AV LOC garden ka Gethsmane LOC be.in -LV also he .GEN LOC cross",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "who NOM they those ka find .AV LOC power OBL spirit ka truly .AV righteous .AV OBL goodness this",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": [
+            8
+        ]
+    },
+    {
+        "inputSTR": "who NOM they those ka find .AV LOC power OBL spirit ka truly .AV righteous .AV OBL goodness this",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM one OBL method ka that",
+        "status": "Succeeded",
+        "REL": [
+            5
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM one OBL method ka that",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "yes you .SG NOM ruler ka chief all OBL kingdom OBL heathen",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "yes you .SG NOM ruler ka chief all OBL kingdom OBL heathen",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM first ka cause.show.up .AV OBL this",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "what NOM first ka cause.show.up .AV OBL this",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q so .AV OBL manner NOM man ka not PAST- rebirth -PV",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q so .AV OBL manner NOM man ka not PAST- rebirth -PV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "they ka PAST- cause.different .PV LOC repentance ka true .AV OBL children OBL world this",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": [
+            1
+        ]
+    },
+    {
+        "inputSTR": "they ka PAST- cause.different .PV LOC repentance ka true .AV OBL children OBL world this",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC widerness LOC mountain ka Sinai",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC widerness LOC mountain ka Sinai",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "know -PV you .GEN NOM what OBL news ka good .AV",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "know -PV you .GEN NOM what OBL news ka good .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "see .AV -IRR all OBL PART deed OBL PART word OBL thought ka be.in .AV LOC all OBL manner OBL PAST- be.a.human -LV",
+        "status": "Succeeded",
+        "REL": [
+            9
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "see .AV -IRR all OBL PART deed OBL PART word OBL thought ka be.in .AV LOC all OBL manner OBL PAST- be.a.human -LV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not change -LV NOM those LOC existence their rather signify -PV cause.seal -PV also OBL these PC. sure .AV us .INCL -OBL NOM forgiveness OBL sin our .INCL NOM refreshing also OBL soul our .INCL because DET Christ -OBL ka PAST- crucify -PV if take -PV we .INCL .GEN NOM those LOC faith ka true .AV",
+        "status": "Succeeded",
+        "REL": [
+            26,
+            36
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not change -LV NOM those LOC existence their rather signify -PV cause.seal -PV also OBL these PC. sure .AV us .INCL -OBL NOM forgiveness OBL sin our .INCL NOM refreshing also OBL soul our .INCL because DET Christ -OBL ka PAST- crucify -PV if take -PV we .INCL .GEN NOM those LOC faith ka true .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC which.many OBL day ka PAST- rise .AV NOM DET Christ OBL PAST- bury -LV",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC which.many OBL day ka PAST- rise .AV NOM DET Christ OBL PAST- bury -LV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "full .AV -IRR NOM they OBL joy be.in .AV OBL God ka not PC. able -LV .IRR describe .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            9
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "full .AV -IRR NOM they OBL joy be.in .AV OBL God ka not PC. able -LV .IRR describe .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q reason -PFV that OBL cause.believe -PV OBL some.people OBL people ka more .AV supposedly PAST- good.natured .AV righteous .AV NOM they OBL others OBL people",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q reason -PFV that OBL cause.believe -PV OBL some.people OBL people ka more .AV supposedly PAST- good.natured .AV righteous .AV NOM they OBL others OBL people",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "believe .AV you .SG .NOM OBL what OBL spirit ka truly .AV righteous .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            7
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "believe .AV you .SG .NOM OBL what OBL spirit ka truly .AV righteous .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "these fellowship OBL PC. truly .AV righteous .AV forgiveness OBL sin returning rise OBL flesh.body life also ka always .AV be.lasting .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            14
+        ]
+    },
+    {
+        "inputSTR": "these fellowship OBL PC. truly .AV righteous .AV forgiveness OBL sin returning rise OBL flesh.body life also ka always .AV be.lasting .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "Ephesians 4:8,11-13. see .AV LOC question ka 30.(a).",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "Ephesians 4:8,11-13. see .AV LOC question ka 30.(a).",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- PC. obtain -PV I .NOM take .AV LOC sin OBL mother my",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- PC. obtain -PV I .NOM take .AV LOC sin OBL mother my",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q only minister .AV NOM they LOC PAST- be.reason -PV -you .PL .GEN believe .AV ka so.also .AV OBL this same .AV OBL PAST- give -LV OBL lord NOM everyone",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            12
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q only minister .AV NOM they LOC PAST- be.reason -PV -you .PL .GEN believe .AV ka so.also .AV OBL this same .AV OBL PAST- give -LV OBL lord NOM everyone",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "change -LV Q NOM bread NOM wine so.that become.flesh -PV ka become.blood -PV NOM these GEN Jesus Christ",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            9
+        ]
+    },
+    {
+        "inputSTR": "change -LV Q NOM bread NOM wine so.that become.flesh -PV ka become.blood -PV NOM these GEN Jesus Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not cause.under -PV NOM it OBL law OBL God",
+        "status": "Succeeded",
+        "REL": [
+            0
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not cause.under -PV NOM it OBL law OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "then ka sell -PV .IRR we .EXCL .GEN NOM chaff OBL corn",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            1
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "then ka sell -PV .IRR we .EXCL .GEN NOM chaff OBL corn",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka speak.so .AV .also .IRR OBL word OBL elders OBL city his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka speak.so .AV .also .IRR OBL word OBL elders OBL city his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV NOM DET Jesus DET I OBL Father -also one we .EXCL .NOM",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV NOM DET Jesus DET I OBL Father -also one we .EXCL .NOM",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka share -also us .INCL -OBL while in.the.future .AV LOC far.above OBL heaven OBL greatness OBL glory his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka share -also us .INCL -OBL while in.the.future .AV LOC far.above OBL heaven OBL greatness OBL glory his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka don't -we .INCL .GEN quit .AV OBL assembling we .INCL .GEN self .AV same .AV OBL getting.used OBL some.people yet same .AV encourage .AV we .INCL .GEN OBL companions our .INCL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka don't -we .INCL .GEN quit .AV OBL assembling we .INCL .GEN self .AV same .AV OBL getting.used OBL some.people yet same .AV encourage .AV we .INCL .GEN OBL companions our .INCL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- add -LV LOC day that them -OBL three about thousand OBL soul",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka PAST- add -LV LOC day that them -OBL three about thousand OBL soul",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka judge NOM PC. end .AV -IRR ask .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka judge NOM PC. end .AV -IRR ask .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "spinkle .AV -IRR me -OBL OBL hyssop ka clean .AV -IRR -PFV I .SG .NOM",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "spinkle .AV -IRR me -OBL OBL hyssop ka clean .AV -IRR -PFV I .SG .NOM",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka innocent .AV not you .SG .NOM say .AV OBL PAST- sin .AV ka see .AV -also you .SG .NOM punish .AV OBL PAST- iniquity OBL fathers LOC children LOC grandchildren also LOC third LOC fourth OBL generation",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka innocent .AV not you .SG .NOM say .AV OBL PAST- sin .AV ka see .AV -also you .SG .NOM punish .AV OBL PAST- iniquity OBL fathers LOC children LOC grandchildren also LOC third LOC fourth OBL generation",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "when take.away -PV you .GEN NOM breath their complete .AV PC. breathe .AV ka return .AV LOC dust NOM they",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            13
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "when take.away -PV you .GEN NOM breath their complete .AV PC. breathe .AV ka return .AV LOC dust NOM they",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka destroy .AV -IRR OBL devil all -also OBL power his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka destroy .AV -IRR OBL devil all -also OBL power his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka that -IRR -PFV NOM sign OBL PAST- covenant in.between .AV me -OBL in.between .AV also you .PL -OBL",
+        "status": "Succeeded",
+        "REL": [
+            0
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka that -IRR -PFV NOM sign OBL PAST- covenant in.between .AV me -OBL in.between .AV also you .PL -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "cause.grab .AV NOM God OBL righteousness GEN Christ us .INCL -OBL ka on.one's.will .AV also cause.grab .AV him -OBL NOM man OBL righteousness GEN Christ",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "cause.grab .AV NOM God OBL righteousness GEN Christ us .INCL -OBL ka on.one's.will .AV also cause.grab .AV him -OBL NOM man OBL righteousness GEN Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka anyone NOM marry.as.wife .AV -IRR OBL PAST- cause.leave -PV -PFV fornicator also NOM he",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka anyone NOM marry.as.wife .AV -IRR OBL PAST- cause.leave -PV -PFV fornicator also NOM he",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka because him -OBL have -LV we .INCL .GEN NOM redeem -PV OBL PART blood his it NOM annul -LV OBL sin our .INCL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka because him -OBL have -LV we .INCL .GEN NOM redeem -PV OBL PART blood his it NOM annul -LV OBL sin our .INCL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka only him -OBL NOM fountain OBL life only also him -OBL NOM have-power .AV OBL life",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka only him -OBL NOM fountain OBL life only also him -OBL NOM have-power .AV OBL life",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "show -PV .IRR me -OBL NOM faith your .SG LOC PART work your .SG ka show .AV -IRR I .NOM you .SG -OBL LOC PART work my OBL faith my",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            12
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "show -PV .IRR me -OBL NOM faith your .SG LOC PART work your .SG ka show .AV -IRR I .NOM you .SG -OBL LOC PART work my OBL faith my",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV NOM DET Jehovah DET Moses -OBL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV NOM DET Jehovah DET Moses -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC first when cause.go -LV NOM work our .INCL LOC show -PV OBL love -PV -our .INCL OBL cause.down -PV -our .INCL OBL heart ka obey -PV -our .INCL OBL God",
+        "status": "Succeeded",
+        "REL": [
+            18
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC first when cause.go -LV NOM work our .INCL LOC show -PV OBL love -PV -our .INCL OBL cause.down -PV -our .INCL OBL heart ka obey -PV -our .INCL OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not we .INCL .NOM PC. able -PV cause.together .AV DET Christ -OBL when not we .INCL .NOM cause.share -PV OBL spirit GEN Christ LOC walk -PV OBL will his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not we .INCL .NOM PC. able -PV cause.together .AV DET Christ -OBL when not we .INCL .NOM cause.share -PV OBL spirit GEN Christ LOC walk -PV OBL will his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "cause.hide -PV .IRR NOM face your .SG OBL PAST- sinning my ka PC. all -PV .IRR -PFV destroy .AV NOM PAST- iniquity my",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "cause.hide -PV .IRR NOM face your .SG OBL PAST- sinning my ka PC. all -PV .IRR -PFV destroy .AV NOM PAST- iniquity my",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not .AV -IRR also we .INCL .NOM praise .AV LOC other OBL manner worhsip .AV him -OBL only OBL PART command his LOC word his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka not .AV -IRR also we .INCL .NOM praise .AV LOC other OBL manner worhsip .AV him -OBL only OBL PART command his LOC word his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- command -PV I .GEN LOC time that OBL judge you .PL -OBL say .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- command -PV I .GEN LOC time that OBL judge you .PL -OBL say .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka work OBL flesh NOM apparent .AV",
+        "status": "Succeeded",
+        "REL": [
+            0
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka work OBL flesh NOM apparent .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "yet DET I NOM say .AV you .PL -OBL if anyone NOM cause.leave .AV -IRR OBL wife his ka not.have .AV OBL issue OBL fornication cause.fornicate .AV her -OBL OBL another.one OBL man",
+        "status": "Succeeded",
+        "REL": [
+            11
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "yet DET I NOM say .AV you .PL -OBL if anyone NOM cause.leave .AV -IRR OBL wife his ka not.have .AV OBL issue OBL fornication cause.fornicate .AV her -OBL OBL another.one OBL man",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "for not understand .AV us .EXCL -OBL NOM DET Abraham not know .AV us .EXCL -OBL NOM DET Israel you .SG Jehovah NOM father our .EXCL OBL redeemer -also us .EXCL -OBL from old -PFV NOM name your .SG",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "for not understand .AV us .EXCL -OBL NOM DET Abraham not know .AV us .EXCL -OBL NOM DET Israel you .SG Jehovah NOM father our .EXCL OBL redeemer -also us .EXCL -OBL from old -PFV NOM name your .SG",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka form .AV also NOM father NOM son OBL faith inside .AV us .INCL -OBL",
+        "status": "Succeeded",
+        "REL": [
+            0
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka form .AV also NOM father NOM son OBL faith inside .AV us .INCL -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "no rather PAST- PC. quickly -PV PC. completely .AV cause.bad .AV cause.corrupt .AV NOM nature his ka PAST- come .AV -PFV NOM death him -OBL",
+        "status": "Succeeded",
+        "REL": [
+            12
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "no rather PAST- PC. quickly -PV PC. completely .AV cause.bad .AV cause.corrupt .AV NOM nature his ka PAST- come .AV -PFV NOM death him -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "particularly .AV LOC praying OBL God ka help -LV .IRR we .INCL .NOM OBL spirit his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            5
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "particularly .AV LOC praying OBL God ka help -LV .IRR we .INCL .NOM OBL spirit his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- bury .PV ka PAST- raise .PV also LOC third OBL day LOC accordance OBL PART scripture",
+        "status": "Succeeded",
+        "REL": [
+            0,
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- bury .PV ka PAST- raise .PV also LOC third OBL day LOC accordance OBL PART scripture",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not you .PL .NOM supposedly give .AV -IRR -PFV them -OBL OBL enoughness cause.soft .AV OBL body their benefit that OBL what",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka not you .PL .NOM supposedly give .AV -IRR -PFV them -OBL OBL enoughness cause.soft .AV OBL body their benefit that OBL what",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka call .AV -IRR me -OBL LOC day OBL difficulty save -PV .IRR I .GEN you .SG .NOM ka glorify .AV -IRR you .SG .NOM me -OBL",
+        "status": "Succeeded",
+        "REL": [
+            0
+        ],
+        "COMP": [
+            12
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka call .AV -IRR me -OBL LOC day OBL difficulty save -PV .IRR I .GEN you .SG .NOM ka glorify .AV -IRR you .SG .NOM me -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "then know .AV we .INCL .NOM not PC. complete .AV ka prophesize .AV we .INCL .NOM not PC. PC. compete .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            6
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "then know .AV we .INCL .NOM not PC. complete .AV ka prophesize .AV we .INCL .NOM not PC. PC. compete .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "therefore PAST- strengthen .AV me -OBL NOM arm my ka PAST- support .AV me -OBL NOM anger my",
+        "status": "Succeeded",
+        "REL": [
+            7
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "therefore PAST- strengthen .AV me -OBL NOM arm my ka PAST- support .AV me -OBL NOM anger my",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "yes FOC must -PFV ka LOC not.have .AV hypothetically OBL one OBL kind OBL three these LOC work not PC. able .AV good .AV NOM work",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            3
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "yes FOC must -PFV ka LOC not.have .AV hypothetically OBL one OBL kind OBL three these LOC work not PC. able .AV good .AV NOM work",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "renew .AV comfort .AV ka always .AV be.at .AV NOM he them -OBL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            2
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "renew .AV comfort .AV ka always .AV be.at .AV NOM he them -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- PC. dedicated .AV also pray .AV OBL father his say .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- PC. dedicated .AV also pray .AV OBL father his say .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka similar .AV OBL this NOM second",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka similar .AV OBL this NOM second",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka those NOM good .AV OBL benefit also LOC man -LV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka those NOM good .AV OBL benefit also LOC man -LV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV NOM snake OBL woman",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV NOM snake OBL woman",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- issue.command -PV OBL God NOM man say.so .PV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- issue.command -PV OBL God NOM man say.so .PV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "truly .AV not he .GEN PAST- take .AV NOM nature OBL angel ka PAST- take .PV instead he .GEN NOM PART seed GEN Abraham",
+        "status": "Succeeded",
+        "REL": [
+            9
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "truly .AV not he .GEN PAST- take .AV NOM nature OBL angel ka PAST- take .PV instead he .GEN NOM PART seed GEN Abraham",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka man OBL woman also PAST- make .AV them -OBL",
+        "status": "Succeeded",
+        "REL": [
+            0
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka man OBL woman also PAST- make .AV them -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because OBL this give.up .AV we .INCL .GEN OBL work OBL darkness ka put.on .PV -we .INCL .GEN OBL things.to.hold OBL fighting OBL brightness",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            10
+        ]
+    },
+    {
+        "inputSTR": "because OBL this give.up .AV we .INCL .GEN OBL work OBL darkness ka put.on .PV -we .INCL .GEN OBL things.to.hold OBL fighting OBL brightness",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "love -PV children we .INCL .NOM OBL God now ka not yet apparent .AV what -IRR we .INCL .NOM",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            6
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "love -PV children we .INCL .NOM OBL God now ka not yet apparent .AV what -IRR we .INCL .NOM",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka have -LV we .INCL .GEN him -OBL NOM not timid -PV OBL heart OBL access -PV also LOC PC. sure -PV think .AV OBL faith him -OBL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka have -LV we .INCL .GEN him -OBL NOM not timid -PV OBL heart OBL access -PV also LOC PC. sure -PV think .AV OBL faith him -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not.have .AV OBL help -LV .IRR OBL eye your",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not.have .AV OBL help -LV .IRR OBL eye your",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka things also OBL desire -PV grab .AV -IRR NOM they",
+        "status": "Succeeded",
+        "REL": [
+            0
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka things also OBL desire -PV grab .AV -IRR NOM they",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV NOM God",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV NOM God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "yet speak.so.also .AV .IRR supposedly OBL word NOM someome have .AV you .SG .NOM OBL faith you .SG ka have .AV I .NOM OBL PART work DET I",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            14
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "yet speak.so.also .AV .IRR supposedly OBL word NOM someome have .AV you .SG .NOM OBL faith you .SG ka have .AV I .NOM OBL PART work DET I",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not PC. able -PV also",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka not PC. able -PV also",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka buy -PV .IRR we .EXCL .GEN OBL silver NOM poor .AV NOM needy .AV also OBL things OBL one pair OBL shoe",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka buy -PV .IRR we .EXCL .GEN OBL silver NOM poor .AV NOM needy .AV also OBL things OBL one pair OBL shoe",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka seek -PV OBL father NOM such .AV bend.on.knees .AV worship .AV him -OBL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka seek -PV OBL father NOM such .AV bend.on.knees .AV worship .AV him -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not obtain .AV -IRR NOM they OBL comfort OBL anything ka would.have PC. more .PV good .PV NOM not PAST- baptize -LV them -OBL",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not obtain .AV -IRR NOM they OBL comfort OBL anything ka would.have PC. more .PV good .PV NOM not PAST- baptize -LV them -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "NOM multitude OBL all OBL believer ka be.at .AV LOC all OBL world",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "NOM multitude OBL all OBL believer ka be.at .AV LOC all OBL world",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- write.upon .AV NOM DET Jehova OBL tablet OBL word OBL PAST- covenant OBL commendment OBL one ten",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- write.upon .AV NOM DET Jehova OBL tablet OBL word OBL PAST- covenant OBL commendment OBL one ten",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV NOM DET Jesus her -OBL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV NOM DET Jesus her -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka immediately .AV call .AV PC. along .AV OBL tear NOM father OBL child PAST- say .AV believe .AV I .NOM lord help .AV me -OBL with lack -PV I .GEN believe .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka immediately .AV call .AV PC. along .AV OBL tear NOM father OBL child PAST- say .AV believe .AV I .NOM lord help .AV me -OBL with lack -PV I .GEN believe .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "be.like .AV -IRR NOM they OBL angel LOC righteousness ka worship .AV -IRR NOM they always .AV praise .AV OBL God",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "be.like .AV -IRR NOM they OBL angel LOC righteousness ka worship .AV -IRR NOM they always .AV praise .AV OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka now what NOM hesitate -PV you .SG .GEN wait .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka now what NOM hesitate -PV you .SG .GEN wait .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka while PAST- PC. finish .PV he .GEN NOM this PAST- move.upward -PV LOC sight their ka PAST- take .AV NOM cloud him -OBL from front OBL eye their",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": [
+            7
+        ]
+    },
+    {
+        "inputSTR": "ka while PAST- PC. finish .PV he .GEN NOM this PAST- move.upward -PV LOC sight their ka PAST- take .AV NOM cloud him -OBL from front OBL eye their",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka believe .AV -IRR NOM they how OBL not they .GEN PAST- hear -PV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka believe .AV -IRR NOM they how OBL not they .GEN PAST- hear -PV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka God OBL peace NOM quick .AV -IRR crush .AV OBL devil cause.under .AV OBL foot your .PL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka God OBL peace NOM quick .AV -IRR crush .AV OBL devil cause.under .AV OBL foot your .PL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "can how eat .AV NOM believer DET Christ -OBL self .AV LOC Lord's.Supper when not change -LV NOM bread NOM wine so.that become.flesh -PV ka become.blood -PV NOM these GEN Jesus Christ",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            16
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "can how eat .AV NOM believer DET Christ -OBL self .AV LOC Lord's.Supper when not change -LV NOM bread NOM wine so.that become.flesh -PV ka become.blood -PV NOM these GEN Jesus Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka who NOM DET Paul who NOM DET Apollos",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka who NOM DET Paul who NOM DET Apollos",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "because OBL that ka PAST- speak.so .AV NOM DET Christ",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            3
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "because OBL that ka PAST- speak.so .AV NOM DET Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka protect .AV -IRR cause.become.numerous .AV OBL church his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka protect .AV -IRR cause.become.numerous .AV OBL church his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "don't fear .AV for be.together .AV I .NOM you -OBL bring -PV .IRR I .GEN NOM seed your .SG LOC rise .LV OBL sun ka cause.gather -LV .IRR I .GEN you .SG .NOM come.from.sunset .AV OBL sun",
+        "status": "Succeeded",
+        "REL": [
+            18
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "don't fear .AV for be.together .AV I .NOM you -OBL bring -PV .IRR I .GEN NOM seed your .SG LOC rise .LV OBL sun ka cause.gather -LV .IRR I .GEN you .SG .NOM come.from.sunset .AV OBL sun",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV him -OBL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV him -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "look.mercifully .AV -IRR OBL badness my OBL trouble also my ka release -PV .IRR all OBL sin my",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "look.mercifully .AV -IRR OBL badness my OBL trouble also my ka release -PV .IRR all OBL sin my",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka cause.right .AV -IRR OBL conduct your .PL walk .AV LOC middle OBL heathen",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka cause.right .AV -IRR OBL conduct your .PL walk .AV LOC middle OBL heathen",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not their .GEN know -PV NOM road OBL peace",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka not their .GEN know -PV NOM road OBL peace",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka teach .AV -IRR also OBL apostle -LV .IRR his LOC minister -LV .IRR their",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka teach .AV -IRR also OBL apostle -LV .IRR his LOC minister -LV .IRR their",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "NOM eat .AV OBL flesh my NOM drink .AV OBL blood my be.at .AV me -OBL ka be.at .AV also I him -OBL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            8
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "NOM eat .AV OBL flesh my NOM drink .AV OBL blood my be.at .AV me -OBL ka be.at .AV also I him -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "therefore come.from .AV NOM faith OBL hear -PV ka hear -PV also OBL PART word OBL God",
+        "status": "Succeeded",
+        "REL": [
+            6
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "therefore come.from .AV NOM faith OBL hear -PV ka hear -PV also OBL PART word OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV OBL lord NOM PAST- apostle add -LV .IRR we .EXCL OBL faith",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV OBL lord NOM PAST- apostle add -LV .IRR we .EXCL OBL faith",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "lord hear .AV -IRR lord forgive .AV -IRR lord pay.attention .AV -IRR ka do -PV .IRR don't defer .AV -IRR because you -OBL self .AV God my",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            9
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "lord hear .AV -IRR lord forgive .AV -IRR lord pay.attention .AV -IRR ka do -PV .IRR don't defer .AV -IRR because you -OBL self .AV God my",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- die .AV also NOM rich that ka PAST- bury .PV NOM he",
+        "status": "Succeeded",
+        "REL": [
+            7
+        ],
+        "COMP": [],
+        "and": [
+            0
+        ]
+    },
+    {
+        "inputSTR": "ka PAST- die .AV also NOM rich that ka PAST- bury .PV NOM he",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PART children we .INCL .NOM OBL wrath LOC wordly.nature our .INCL same .AV OBL others",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PART children we .INCL .NOM OBL wrath LOC wordly.nature our .INCL same .AV OBL others",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "if eat .AV you .SG .NOM OBL fruit this open -PV .IRR when that OBL eye your .SG ka same .AV -IRR you .SG .NOM OBL God LOC know -PV OBL good .AV OBL not good .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            14
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "if eat .AV you .SG .NOM OBL fruit this open -PV .IRR when that OBL eye your .SG ka same .AV -IRR you .SG .NOM OBL God LOC know -PV OBL good .AV OBL not good .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "then watchful .AV -IRR pray .AV ka not you .PL .GEN go -LV .IRR LOC temptation",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            4
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "then watchful .AV -IRR pray .AV ka not you .PL .GEN go -LV .IRR LOC temptation",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "wash .AV -IRR me -OBL ka more .AV -IRR -PFV I .NOM white .AV OBL snow",
+        "status": "Succeeded",
+        "REL": [
+            4
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "wash .AV -IRR me -OBL ka more .AV -IRR -PFV I .NOM white .AV OBL snow",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "DET I DET I NOM DET Jehovah ka not.exist .AV OBL savior except me -OBL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            6
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "DET I DET I NOM DET Jehovah ka not.exist .AV OBL savior except me -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- thirsty -PV I .GEN ka not you .PL .GEN PAST- cause.drink .PV me -OBL",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- thirsty -PV I .GEN ka not you .PL .GEN PAST- cause.drink .PV me -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV NOM DET Maria OBL angel be.like .AV -IRR -PFV that OBL what because for -not I .NOM PAST- lie.together .AV OBL man",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- say .AV NOM DET Maria OBL angel be.like .AV -IRR -PFV that OBL what because for -not I .NOM PAST- lie.together .AV OBL man",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not only despise -PV they .GEN NOM God ka slander -PV also because OBL sin their NOM name OBL God LOC middle OBL heathen",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            6
+        ]
+    },
+    {
+        "inputSTR": "not only despise -PV they .GEN NOM God ka slander -PV also because OBL sin their NOM name OBL God LOC middle OBL heathen",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- receive .AV cause.warm .AV me -OBL LOC sin NOM mother my",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- receive .AV cause.warm .AV me -OBL LOC sin NOM mother my",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "Yet PC. first .AV -IRR seek .AV OBL kingdom OBL God OBL righteousness also his ka all OBL things these give.as.gift -LV .IRR you .PL .NOM FOC",
+        "status": "Succeeded",
+        "REL": [
+            9
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "Yet PC. first .AV -IRR seek .AV OBL kingdom OBL God OBL righteousness also his ka all OBL things these give.as.gift -LV .IRR you .PL .NOM FOC",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka if say .AV -IRR -PFV supposedly there OBL word them -OBL NOM someone you .PL -OBL leave .AV -IRR LOC peace warm .AV -IRR be.satiated .AV -IRR",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka if say .AV -IRR -PFV supposedly there OBL word them -OBL NOM someone you .PL -OBL leave .AV -IRR LOC peace warm .AV -IRR be.satiated .AV -IRR",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka see -LV .IRR testimony that NOM speaking.lie .AV witness .AV PAST- testify .AV NOM he speak-lie .AV OBL brother his",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka see -LV .IRR testimony that NOM speaking.lie .AV witness .AV PAST- testify .AV NOM he speak-lie .AV OBL brother his",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "change -LV Q NOM water LOC baptism ka become.blood -PV NOM it GEN Jesus Christ",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            6
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "change -LV Q NOM water LOC baptism ka become.blood -PV NOM it GEN Jesus Christ",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q PAST PC. self .PV we .INCL .GEN work.for.payment .AV ka forgive -LV OBL God NOM sin our .INCL",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            7
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "not Q PAST PC. self .PV we .INCL .GEN work.for.payment .AV ka forgive -LV OBL God NOM sin our .INCL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- ill -PV I .GEN ka PAST- be.in -PV I .GEN LOC prison ka not you .PL .GEN PAST- see -LV me -OBL",
+        "status": "Succeeded",
+        "REL": [
+            3
+        ],
+        "COMP": [
+            9
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "PAST- ill -PV I .GEN ka PAST- be.in -PV I .GEN LOC prison ka not you .PL .GEN PAST- see -LV me -OBL",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PC. more -PV NOM they raise .AV OBL it same .AV OBL PART stimuli ka go.complete -LV .IRR they .GEN OBL PART example our .INCL from faith LOC faith from devotion LOC devotion worship .AV OBL God",
+        "status": "Succeeded",
+        "REL": [
+            8
+        ],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "PC. more -PV NOM they raise .AV OBL it same .AV OBL PART stimuli ka go.complete -LV .IRR they .GEN OBL PART example our .INCL from faith LOC faith from devotion LOC devotion worship .AV OBL God",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "LOC openness eat .AV we .INCL .NOM OBL bread ka drink .AV we .INCL .NOM OBL wine OBL grape",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [],
+        "and": [
+            9
+        ]
+    },
+    {
+        "inputSTR": "LOC openness eat .AV we .INCL .NOM OBL bread ka drink .AV we .INCL .NOM OBL wine OBL grape",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- promise -PV GEN Jacob NOM promise say .AV",
+        "status": "Succeeded",
+        "REL": [],
+        "COMP": [
+            0
+        ],
+        "and": []
+    },
+    {
+        "inputSTR": "ka PAST- promise -PV GEN Jacob NOM promise say .AV",
+        "status": "LLM failed to return JSON after 3 retries.",
+        "REL": [],
+        "COMP": [],
+        "and": []
+    }
+]
