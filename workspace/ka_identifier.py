@@ -16,17 +16,19 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",        # 格式：時間 - 等級 - 訊息
     handlers=[
-        logging.FileHandler(Path.cwd() / "ka_identifier.log", encoding="utf-8", mode="w"),
+        logging.FileHandler(Path(f"{Path.cwd()}/ka_identifier.log"), encoding="utf-8", mode="w"),
         logging.StreamHandler()
     ]
 )
 
-accountPATH = Path.cwd() / "account.info"
-with open(accountPATH, "r", encoding="utf-8") as f:
+with open(f"{Path.cwd()}/account.info", "r", encoding="utf-8") as f:
     accountDICT = json.load(f)
 
-srcDIR = Path.cwd().parent / "data" / "src"
+dataDIR = Path(f"{Path.cwd().parent}/data")
+srcDIR = Path(f"{Path.cwd().parent}/data/src")
 srcDIR.mkdir(exist_ok=True, parents=True)
+trainingDIR = Path(f"{Path.cwd().parent}/data/training")
+trainingDIR.mkdir(exist_ok=True, parents=True)
 
 def _getIntentLIST(kaFunction):
     """
@@ -91,12 +93,10 @@ def createTestingLIST():
 
             allExcludeLIST.extend(excludeLIST)
 
-    kaPATH = Path.cwd().parent / "data" / "kaLIST.json"
-    with open(kaPATH, "r", encoding="utf-8") as f:
+    with open(f"{dataDIR}/kaLIST.json", "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
-    ansPATH = Path.cwd().parent / "data" / "ansLIST.json"
-    with open(ansPATH, "r", encoding="utf-8") as f:
+    with open(f"{dataDIR}/ansLIST.json", "r", encoding="utf-8") as f:
         ansLIST = json.load(f)
 
     excludeIdxSET = set()
@@ -114,31 +114,36 @@ def createTestingLIST():
             kaTestingLIST.append(ka_s)
             ansTestingLIST.append(ans_s)
 
-    kaTestPATH = srcDIR / "kaLIST_test.json"
-    with open(kaTestPATH, "w", encoding="utf-8") as f:
+    with open(f"{srcDIR}/kaLIST_test.json", "w", encoding="utf-8") as f:
         json.dump(kaTestingLIST, f, ensure_ascii=False, indent=4)
 
-    ansTestPATH = srcDIR / "ansLIST_test.json"
-    with open(ansTestPATH, "w", encoding="utf-8") as f:
+    with open(f"{srcDIR}/ansLIST_test.json", "w", encoding="utf-8") as f:
         json.dump(ansTestingLIST, f, ensure_ascii=False, indent=4)
 
     return kaTestingLIST
 
-def main(inputSTR, utterIdx):
+def main(inputSTR, utterIdx, ka_type):
     """
     在 functionDICT 選擇此次 askLoki 的專案。
     如果句首是 ka，則預設為「然後的 and」。
     """
     resultLIST = []
-    #kaIdxSET = set()
 
-    functionDICT = {
-        #"and": askLokiAND,
+    FUNCTION_MAP = {
         "COMP": askLokiCOMP,
-        #"REL": askLokiREL
+        "and": askLokiAND,
+        "REL": askLokiREL
     }
 
-    refDICT = {"inputSTR":[inputSTR], "utterance": [], "ka_index":[], "utter_index":[utterIdx], "COMP":[], "and":[], "REL":[]}
+    refDICT = {
+        "inputSTR":[inputSTR],
+        "utterance": [],
+        "ka_index":[],
+        "utter_index":[utterIdx],
+        "COMP":[],
+        "and":[],
+        "REL":[]
+    }
 
     # <句首為 ka 預設為「然後的 and」>
     inputWordLIST = inputSTR.split(" ")
@@ -153,53 +158,64 @@ def main(inputSTR, utterIdx):
         resultLIST.append(defaultKaDICT)
     # <句首為 ka 預設為「然後的 and」>
 
-    for kaSTR, func in functionDICT.items():
-        intentLIST = _getIntentLIST(kaSTR)   # 跑單一 intent 結果 in case of timeout when running all intents
-        for intent_s in intentLIST:
-            attempts = 0
-            success = False
+    func = FUNCTION_MAP[ka_type]
+    intentLIST = _getIntentLIST(ka_type)   # 跑單一 intent 結果 in case of timeout when running all intents
+    for intent_s in intentLIST:
+        attempts = 0
+        success = False
 
-            while attempts < 3 and not success:
-                lokiResultDICT = func(inputSTR, filterLIST=[intent_s], refDICT=refDICT)
-                #sleep(0.8)
+        while attempts < 3 and not success:
+            lokiResultDICT = func(inputSTR, filterLIST=[intent_s], refDICT=refDICT)
+            #sleep(0.8)
 
-                if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
-                    attempts += 1
-                    sleep(5)
-                    logging.warning(f"第 {attempts} 次嘗試，{lokiResultDICT['msg']}: {lokiResultDICT}")
-                else:
-                    success = True
+            if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
+                attempts += 1
+                sleep(5)
+                logging.warning(f"第 {attempts} 次嘗試，{lokiResultDICT['msg']}: {lokiResultDICT}")
+            else:
+                success = True
 
-                    if lokiResultDICT["ka_index"] and lokiResultDICT[kaSTR]:
-                        resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
-                        logging.info(lokiResultDICT)
+                if lokiResultDICT["ka_index"] and lokiResultDICT[ka_type]:
+                    resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
+                    logging.info(lokiResultDICT)
 
-            if not success:
-                logging.error(f"連續 3 次嘗試失敗，跳過此測試句: {intent_s}")
+        if not success:
+            logging.error(f"連續 3 次嘗試失敗，跳過此測試句: {intent_s}")
 
     return resultLIST
 
 if __name__ == "__main__":
-    kaTestingLIST = createTestingLIST()
+    MODE = "evaluation" #test, evaluation
+    KA = "COMP" #COMP, and, REL
 
-    # 測資來源
-    #kaPATH = Path.cwd().parent / "data" / "kaLIST.json"
-    #with open(kaPATH, "r", encoding="utf-8") as f:
-        #kaLIST = json.load(f)
+    if MODE == "test":
+        #kaTestingLIST = createTestingLIST()
+        # 測資來源
+        with open(f"{dataDIR}/kaLIST.json", "r", encoding="utf-8") as f:
+            kaTestingLIST = json.load(f)
 
-    predictionLIST = []
-    for utterIdx, inputSTR in enumerate(kaTestingLIST):
-    #for utterIdx, inputSTR in enumerate(kaLIST):
-        resultLIST = main(inputSTR, utterIdx)
-        predictionLIST.extend(resultLIST)
-        #print(predictionLIST)
+        predictionLIST = []
+        for utterIdx, inputSTR in enumerate(kaTestingLIST):
+            resultLIST = main(inputSTR, utterIdx, ka_type=KA)
+            predictionLIST.extend(resultLIST)
 
-    trainingDIR = Path.cwd().parent / "data" / "training"
-    trainingDIR.mkdir(exist_ok=True, parents=True)
+        # 紀錄結果
+        with open(f"{trainingDIR}/{KA}_test.json", "w", encoding="utf-8") as f:
+            json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
 
-    # 紀錄結果
-    with open(trainingDIR / "and_pred.json", "w", encoding="utf-8") as f:
-        json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
+    elif MODE == "evaluation":
+        # 測資來源
+        with open(f"{dataDIR}/kaLIST_eval.json", "r", encoding="utf-8") as f:
+            kaEvalLIST = json.load(f)
+
+        predictionLIST = []
+        for utterIdx, inputSTR in enumerate(kaEvalLIST):
+            resultLIST = main(inputSTR, utterIdx, ka_type=KA)
+            predictionLIST.extend(resultLIST)
+
+        # 紀錄結果
+        with open(f"{trainingDIR}/{KA}_eval.json", "w", encoding="utf-8") as f:
+            json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
 
 
     ##<單筆測試>
