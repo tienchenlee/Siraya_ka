@@ -200,7 +200,7 @@ if __name__ == "__main__":
 
     allAnsLIST = COMPAnsLIST + andAnsLIST + RELAnsLIST
     print(f"gemini-3.1-flash-lite-preview")
-    print(f"===== 個別 Project 結果 =====")
+    print(f"=== [階段 {PHASE}] 個別 Project 結果 ===")
     for keySTR, (predLIST, ansLIST) in functionDICT.items():
         print(f"[{keySTR}]")
         getRecall(predLIST, ansLIST)
