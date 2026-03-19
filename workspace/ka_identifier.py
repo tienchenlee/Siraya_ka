@@ -25,6 +25,9 @@ accountPATH = Path.cwd() / "account.info"
 with open(accountPATH, "r", encoding="utf-8") as f:
     accountDICT = json.load(f)
 
+srcDIR = Path.cwd().parent / "data" / "src"
+srcDIR.mkdir(exist_ok=True, parents=True)
+
 def _getIntentLIST(kaFunction):
     """
     拿到該 Project 的所有 intent。
@@ -111,11 +114,11 @@ def createTestingLIST():
             kaTestingLIST.append(ka_s)
             ansTestingLIST.append(ans_s)
 
-    kaTestPATH = Path.cwd().parent / "data" / "kaLIST_test.json"
+    kaTestPATH = srcDIR / "kaLIST_test.json"
     with open(kaTestPATH, "w", encoding="utf-8") as f:
         json.dump(kaTestingLIST, f, ensure_ascii=False, indent=4)
 
-    ansTestPATH = Path.cwd().parent / "data" / "ansLIST_test.json"
+    ansTestPATH = srcDIR / "ansLIST_test.json"
     with open(ansTestPATH, "w", encoding="utf-8") as f:
         json.dump(ansTestingLIST, f, ensure_ascii=False, indent=4)
 
@@ -130,8 +133,8 @@ def main(inputSTR, utterIdx):
     #kaIdxSET = set()
 
     functionDICT = {
-        "and": askLokiAND,
-        #"COMP": askLokiCOMP,
+        #"and": askLokiAND,
+        "COMP": askLokiCOMP,
         #"REL": askLokiREL
     }
 
@@ -177,17 +180,16 @@ def main(inputSTR, utterIdx):
     return resultLIST
 
 if __name__ == "__main__":
-    #kaTestingLIST = createTestingLIST()
+    kaTestingLIST = createTestingLIST()
 
     # 測資來源
-    kaPATH = Path.cwd().parent / "data" / "kaLIST.json"
-    with open(kaPATH, "r", encoding="utf-8") as f:
-        kaLIST = json.load(f)
+    #kaPATH = Path.cwd().parent / "data" / "kaLIST.json"
+    #with open(kaPATH, "r", encoding="utf-8") as f:
+        #kaLIST = json.load(f)
 
     predictionLIST = []
-    #for utterIdx, inputSTR in enumerate(kaTestingLIST):
-    for utterIdx, inputSTR in enumerate(kaLIST):
-    #for utterIdx, inputSTR in enumerate(intersectionLIST):
+    for utterIdx, inputSTR in enumerate(kaTestingLIST):
+    #for utterIdx, inputSTR in enumerate(kaLIST):
         resultLIST = main(inputSTR, utterIdx)
         predictionLIST.extend(resultLIST)
         #print(predictionLIST)
