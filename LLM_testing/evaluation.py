@@ -87,7 +87,7 @@ def createAnswer():
 
     return COMPLIST, andLIST, RELLIST
 
-def makePrediction():
+def makePrediction(phase=None):
     """
     將 results/ 中的 LLM 預測 分別寫出與 answer/ 一樣的資料結構。
     """
@@ -101,7 +101,7 @@ def makePrediction():
                "REL": RELLIST
                }
 
-    with open(f"{G_resultDIR}/phase_1.json", "r", encoding="utf-8") as f:
+    with open(f"{G_resultDIR}/phase_{phase}.json", "r", encoding="utf-8") as f:
         resultLIST = json.load(f)
 
     with open(f"{G_dataDIR}/kaLIST_eval.json", "r", encoding="utf-8") as f:
@@ -121,15 +121,17 @@ def makePrediction():
                         if [utter_index, ka_index] not in mapDICT[keySTR]:
                             mapDICT[keySTR].append([utter_index, ka_index])
 
+    phaseDIR = Path(f"{G_predictionDIR}/phase_{phase}")
+    phaseDIR.mkdir(exist_ok=True, parents=True)
     for keySTR in mapDICT:
-        with open(f"{G_predictionDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
+        with open(f"{phaseDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
             json.dump(mapDICT[keySTR], f, ensure_ascii=False, indent=4)
 
-    with open(f"{G_predictionDIR}/COMP.json", "r", encoding="utf-8") as f:
+    with open(f"{phaseDIR}/COMP.json", "r", encoding="utf-8") as f:
         COMPPredLIST = json.load(f)
-    with open(f"{G_predictionDIR}/and.json", "r", encoding="utf-8") as f:
+    with open(f"{phaseDIR}/and.json", "r", encoding="utf-8") as f:
         andPredLIST = json.load(f)
-    with open(f"{G_predictionDIR}/REL.json", "r", encoding="utf-8") as f:
+    with open(f"{phaseDIR}/REL.json", "r", encoding="utf-8") as f:
         RELPredLIST = json.load(f)
 
     return COMPPredLIST, andPredLIST, RELPredLIST
@@ -144,8 +146,8 @@ def getRecall(predLIST, ansLIST):
         if item_l in ansLIST:
             TP += 1
 
-    print(f"正確預測：{TP}")
-    print(f"正確答案：{len(ansLIST)}")
+    print(f"TP：{TP}")
+    print(f"TP+FN：{len(ansLIST)}")
     recall = TP / len(ansLIST)
     print(f"recall: {recall * 100:.2f}%")
     print(f"================================")
@@ -159,8 +161,8 @@ def getPrecision(predLIST, ansLIST, kaFunction):
         if item_l in ansLIST:
             TP += 1
 
-    print(f"正確預測：{TP}")
-    print(f"正確答案：{len(ansLIST)}")
+    print(f"TP：{TP}")
+    print(f"TP+FP：{len(predLIST)}")
     precision = TP / len(predLIST)
     print(f"precision: {precision * 100:.2f}%")
     print(f"================================")
@@ -178,13 +180,17 @@ def getAccuracy(predLIST, ansLIST, allAnsLIST):
         elif item_l not in predLIST and item_l not in ansLIST:
             TN += 1
 
-    accuracy = TP + TN / len(allAnsLIST)
+    accuracy = (TP + TN) / len(allAnsLIST)
+    print(f"TN: {TN}")
+    print(f"TP+TN: {TP + TN}")
+    print(f"TP+TN+FP+FN: {len(allAnsLIST)}")
     print(f"accuracy: {accuracy * 100:.2f}%")
     print(f"================================")
 
 if __name__ == "__main__":
+    PHASE = 1
     COMPAnsLIST, andAnsLIST, RELAnsLIST = createAnswer()
-    COMPPredLIST, andPredLIST, RELPredLIST = makePrediction()   # The prediction is made respectively
+    COMPPredLIST, andPredLIST, RELPredLIST = makePrediction(phase=PHASE)   # The prediction is made respectively
 
     functionDICT = {
         "COMP": (COMPPredLIST, COMPAnsLIST),
@@ -193,6 +199,7 @@ if __name__ == "__main__":
     }
 
     allAnsLIST = COMPAnsLIST + andAnsLIST + RELAnsLIST
+    print(f"gemini-3.1-flash-lite-preview")
     print(f"===== 個別 Project 結果 =====")
     for keySTR, (predLIST, ansLIST) in functionDICT.items():
         print(f"[{keySTR}]")

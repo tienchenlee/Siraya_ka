@@ -154,23 +154,28 @@ def main(phase=None):
         while attempt < max_retries:
             try:
                 responseSTR = _askLLM(promptSTR)
-                sleep(5)
+                sleep(5 ** attempt)
                 match = re.search(G_jsonPAT, responseSTR)
 
-                if match:
-                    jsonSTR = match.group()
+                if not match:
+                    attempt += 1
+                    continue
 
-                    try:
-                        dataDICT = json.loads(jsonSTR)
-                        resultLIST.append(dataDICT)
-                        break
-                    except json.JSONDecodeError:
-                        attempt += 1
-                        continue
+                jsonSTR = match.group()
 
-                attempt += 1
+                try:
+                    dataDICT = json.loads(jsonSTR)
+                    resultLIST.append(dataDICT)
+                    success = True
+                    break
+
+                except json.JSONDecodeError as e:
+                    print(f"JSON decode error: {e}")
+                    attempt += 1
+                    continue
+
             except Exception as e:
-                print(f"API error: e")
+                print(f"API error: {e}")
                 attempt += 1
                 sleep(30)
                 continue
