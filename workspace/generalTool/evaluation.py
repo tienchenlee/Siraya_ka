@@ -11,8 +11,8 @@ G_ansDIR = Path.cwd().parent.parent / "data" / "answer"
 G_ansDIR.mkdir(exist_ok=True, parents=True)
 G_predictionDIR = Path.cwd().parent.parent / "data" / "prediction"
 G_predictionDIR.mkdir(exist_ok=True, parents=True)
-G_trainingDIR = Path.cwd().parent.parent / "data" / "training"
-G_trainingDIR.mkdir(exist_ok=True, parents=True)
+G_resultDIR = Path.cwd().parent.parent / "data" / "result"
+G_resultDIR.mkdir(exist_ok=True, parents=True)
 G_fpDIR = Path.cwd().parent.parent / "data" / "FP"
 G_fpDIR.mkdir(exist_ok=True, parents=True)
 G_fpSentenceDIR = Path.cwd().parent.parent / "data" / "FP_sentence"
@@ -102,26 +102,29 @@ def makePrediction():
     RELLIST = []
 
     mapDICT = {
-               #"COMP": COMPLIST,
-               "and": andLIST,
-               #"REL": RELLIST
+        "COMP": COMPLIST,
+        "and": andLIST,
+        "REL": RELLIST
                }
 
-    with open(f"{G_trainingDIR}/and_pred.json", "r", encoding="utf-8") as f:
-        predictionLIST = json.load(f)
+    kaLIST = ["COMP", "and", "REL"]
 
-    for lokiResultDICT in predictionLIST:   #處理每個 prediction item
-        for keySTR in mapDICT.keys():
-            if keySTR in lokiResultDICT.keys():
-                ka_indexLIST = lokiResultDICT["ka_index"]
-                utter_index = lokiResultDICT["utter_index"][0]
-                for ka_index in ka_indexLIST:
-                    if [utter_index, ka_index] not in mapDICT[keySTR]:
-                        mapDICT[keySTR].append([utter_index, ka_index])
+    for KA in kaLIST:
+        with open(f"{G_resultDIR}/{KA}_test.json", "r", encoding="utf-8") as f:
+            predictionLIST = json.load(f)
 
-    for keySTR in mapDICT:
-        with open(f"{G_predictionDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
-            json.dump(mapDICT[keySTR], f, ensure_ascii=False, indent=4)
+        for lokiResultDICT in predictionLIST:   #處理每個 prediction item
+            for keySTR in mapDICT.keys():
+                if keySTR in lokiResultDICT.keys():
+                    ka_indexLIST = lokiResultDICT["ka_index"]
+                    utter_index = lokiResultDICT["utter_index"][0]
+                    for ka_index in ka_indexLIST:
+                        if [utter_index, ka_index] not in mapDICT[keySTR]:
+                            mapDICT[keySTR].append([utter_index, ka_index])
+
+        for keySTR in mapDICT:
+            with open(f"{G_predictionDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
+                json.dump(mapDICT[keySTR], f, ensure_ascii=False, indent=4)
 
     with open(f"{G_predictionDIR}/COMP.json", "r", encoding="utf-8") as f:
         COMPPredLIST = json.load(f)
