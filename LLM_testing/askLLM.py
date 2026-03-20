@@ -165,6 +165,16 @@ def main(phase=None):
 
                 try:
                     dataDICT = json.loads(jsonSTR)
+                    if (
+                        dataDICT.get("status") == "Succeeded" and
+                        not dataDICT.get("REL") and
+                        not dataDICT.get("COMP") and
+                        not dataDICT.get("and")
+                    ):
+                        print("Empty result, retrying...")
+                        attempt += 1
+                        continue
+
                     resultLIST.append(dataDICT)
                     success = True
                     break
