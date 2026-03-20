@@ -154,7 +154,7 @@ def main(phase=None):
         while attempt < max_retries:
             try:
                 responseSTR = _askLLM(promptSTR)
-                sleep(5 ** attempt)
+                sleep(5)
                 match = re.search(G_jsonPAT, responseSTR)
 
                 if not match:
