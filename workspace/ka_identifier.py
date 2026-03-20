@@ -2,13 +2,13 @@
 # -*- coding:utf-8 -*-
 
 import json
+import re
 import logging
 
 from Loki_and.Coordinator.main import askLoki as askLokiAND
 from Loki_REL.Relativizer.main import askLoki as askLokiREL
 from Loki_COMP.Complementizer.main import askLoki as askLokiCOMP
 from pathlib import Path
-#from preLokiTool import udFilter
 from requests import post
 from time import sleep
 
@@ -27,8 +27,8 @@ with open(f"{Path.cwd()}/account.info", "r", encoding="utf-8") as f:
 dataDIR = Path(f"{Path.cwd().parent}/data")
 srcDIR = Path(f"{Path.cwd().parent}/data/src")
 srcDIR.mkdir(exist_ok=True, parents=True)
-trainingDIR = Path(f"{Path.cwd().parent}/data/training")
-trainingDIR.mkdir(exist_ok=True, parents=True)
+resultDIR = Path(f"{Path.cwd().parent}/data/results")
+resultDIR.mkdir(exist_ok=True, parents=True)
 
 def _getIntentLIST(kaFunction):
     """
@@ -76,22 +76,19 @@ def createTestingLIST():
     使用 kaTestingLIST 作為測試資料。
     """
     projectLIST = ["Complementizer", "Coordinator", "Relativizer"]
-    excludeLIST = ["vague.ref", "unsolved.ref", "test.ref"]
+    excludeRefLIST = ["vague.ref", "unsolved.ref", "test.ref"]
+
+    allUtterSET = set()
 
     for projectSTR in projectLIST:
-        refDIR = Path(f"{Path.cwd()}/{projectSTR}/ref/")
-        refLIST = [file for file in refDIR.glob("*.ref") if file.name not in excludeLIST]
-
-        excludeLIST = []
-        allExcludeLIST = []
+        refDIR = Path(f"{Path.cwd()}/generalTool/{projectSTR}/ref/")
+        refLIST = [file for file in refDIR.glob("*.ref") if file.name not in excludeRefLIST]
 
         for refFILE in refLIST:
             refDICT = json.load(open(refFILE, encoding="utf-8"))
-            for utteranceSTR in refDICT["utterance"]:
-                if utteranceSTR not in excludeLIST:
-                    excludeLIST.append(utteranceSTR)
+            allUtterSET.update(refDICT["utterance"])
 
-            allExcludeLIST.extend(excludeLIST)
+    allUtterLIST = list(allUtterSET)
 
     with open(f"{dataDIR}/kaLIST.json", "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
@@ -101,9 +98,9 @@ def createTestingLIST():
 
     excludeIdxSET = set()
 
-    for utteranceSTR in allExcludeLIST:
+    for utteranceSTR in allUtterLIST:
         for idx, ka_s in enumerate(kaLIST):
-            if utteranceSTR in ka_s:
+            if re.search(rf"\b{re.escape(utteranceSTR)}\b", ka_s):
                 excludeIdxSET.add(idx)
 
     kaTestingLIST = []
@@ -185,14 +182,11 @@ def main(inputSTR, utterIdx, ka_type):
     return resultLIST
 
 if __name__ == "__main__":
-    MODE = "evaluation" #test, evaluation
+    MODE = "test" #test, evaluation
     KA = "COMP" #COMP, and, REL
 
     if MODE == "test":
-        #kaTestingLIST = createTestingLIST()
-        # 測資來源
-        with open(f"{dataDIR}/kaLIST.json", "r", encoding="utf-8") as f:
-            kaTestingLIST = json.load(f)
+        kaTestingLIST = createTestingLIST()
 
         predictionLIST = []
         for utterIdx, inputSTR in enumerate(kaTestingLIST):
@@ -200,7 +194,7 @@ if __name__ == "__main__":
             predictionLIST.extend(resultLIST)
 
         # 紀錄結果
-        with open(f"{trainingDIR}/{KA}_test.json", "w", encoding="utf-8") as f:
+        with open(f"{resultDIR}/{KA}_test.json", "w", encoding="utf-8") as f:
             json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
 
     elif MODE == "evaluation":
@@ -214,7 +208,7 @@ if __name__ == "__main__":
             predictionLIST.extend(resultLIST)
 
         # 紀錄結果
-        with open(f"{trainingDIR}/{KA}_eval.json", "w", encoding="utf-8") as f:
+        with open(f"{resultDIR}/{KA}_eval.json", "w", encoding="utf-8") as f:
             json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
 
 
