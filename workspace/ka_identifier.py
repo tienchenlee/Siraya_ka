@@ -117,7 +117,7 @@ def createTestingLIST():
     with open(f"{srcDIR}/ansLIST_test.json", "w", encoding="utf-8") as f:
         json.dump(ansTestingLIST, f, ensure_ascii=False, indent=4)
 
-    return kaTestingLIST
+    #return kaTestingLIST
 
 def main(inputSTR, utterIdx, ka_type):
     """
@@ -186,10 +186,13 @@ if __name__ == "__main__":
     KA = "COMP" #COMP, and, REL
 
     if MODE == "test":
-        kaTestingLIST = createTestingLIST()
+        createTestingLIST()
+        # 測資來源
+        with open(f"{srcDIR}/kaLIST_test.json", "r", encoding="utf-8") as f:
+            kaTestingLIST = json.load(f)
 
         predictionLIST = []
-        for utterIdx, inputSTR in enumerate(kaTestingLIST):
+        for utterIdx, inputSTR in enumerate(kaTestingLIST[:5]):
             resultLIST = main(inputSTR, utterIdx, ka_type=KA)
             predictionLIST.extend(resultLIST)
 
