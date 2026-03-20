@@ -35,11 +35,11 @@ def createAnswer():
     - word_index：該句中詞彙（word）的索引位置。
 
     """
-    kaPATH = Path.cwd().parent.parent / "data" / "kaLIST.json"
+    kaPATH = Path.cwd().parent.parent / "data" / "src" / "kaLIST_test.json"
     with open(kaPATH, "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
-    ansPATH = Path.cwd().parent.parent / "data" / "ansLIST.json"
+    ansPATH = Path.cwd().parent.parent / "data" / "src" / "ansLIST_test.json"
     with open(ansPATH, "r", encoding="utf-8") as f:
         ansLIST = json.load(f)
 
