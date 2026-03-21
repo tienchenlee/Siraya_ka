@@ -207,5 +207,5 @@ def main(phase=None):
         json.dump(resultLIST, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__":
-    main(phase=2)
+    main(phase=3)
 
