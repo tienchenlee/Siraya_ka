@@ -176,6 +176,7 @@ training
 All Questions, Catechism, 2025.1.26
 Catechism
 FP_sentence
+/data/src/
 
 # json
 /corpus/ka_gloss_LIST.json
@@ -183,10 +184,6 @@ FP_sentence
 /data/globalDICT.json
 /data/verbDICT.json
 /data/kaDICT.json
-/data/kaLIST.json
-/data/ansLIST.json
-/data/kaLIST_eval.json
-/data/ansLIST_eval.json
 
 #account.info
 account.info
