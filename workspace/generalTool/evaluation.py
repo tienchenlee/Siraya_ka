@@ -7,18 +7,11 @@ from itertools import permutations
 from pathlib import Path
 
 G_kaPat = re.compile(r"\bka\b")
-G_ansDIR = Path.cwd().parent.parent / "data" / "answer"
-G_ansDIR.mkdir(exist_ok=True, parents=True)
-G_predictionDIR = Path.cwd().parent.parent / "data" / "prediction"
-G_predictionDIR.mkdir(exist_ok=True, parents=True)
-G_resultDIR = Path.cwd().parent.parent / "data" / "results"
+G_resultDIR = Path(f"{Path.cwd().parent.parent}/data/results")
 G_resultDIR.mkdir(exist_ok=True, parents=True)
-G_fpDIR = Path.cwd().parent.parent / "data" / "FP"
-G_fpDIR.mkdir(exist_ok=True, parents=True)
-G_fpSentenceDIR = Path.cwd().parent.parent / "data" / "FP_sentence"
-G_fpSentenceDIR.mkdir(exist_ok=True, parents=True)
+G_srcDIR = Path(f"{Path.cwd().parent.parent}/data/src")
 
-def createAnswer():
+def createAnswer(phase=None):
     """
     將 kaLIST 與 ansLIST 各自分詞（以空白分割），逐詞比對：
     若 Siraya 詞為 "ka"，則檢查 ansLIST 中相同詞位的對應標記：
@@ -35,12 +28,10 @@ def createAnswer():
     - word_index：該句中詞彙（word）的索引位置。
 
     """
-    kaPATH = Path.cwd().parent.parent / "data" / "src" / "kaLIST_test.json"
-    with open(kaPATH, "r", encoding="utf-8") as f:
+    with open(f"{G_srcDIR}/kaLIST_{phase}.json", "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
-    ansPATH = Path.cwd().parent.parent / "data" / "src" / "ansLIST_test.json"
-    with open(ansPATH, "r", encoding="utf-8") as f:
+    with open(f"{G_srcDIR}/ansLIST_{phase}.json", "r", encoding="utf-8") as f:
         ansLIST = json.load(f)
 
     targetLIST = []
@@ -81,18 +72,21 @@ def createAnswer():
     else:
         raise ValueError(f"!!!正解與測資的 ka 數量不一致，請檢查 errorLIST!!!")
 
-    with open(G_ansDIR / "REL.json", "w", encoding="utf-8") as f:
+    ansPhaseDIR = Path(f"{Path.cwd().parent.parent}/data/answer/{phase}")
+    ansPhaseDIR.mkdir(exist_ok=True, parents=True)
+
+    with open(f"{ansPhaseDIR}/REL.json", "w", encoding="utf-8") as f:
         json.dump(RELLIST, f, ensure_ascii=False, indent=4)
 
-    with open(G_ansDIR / "COMP.json", "w", encoding="utf-8") as f:
+    with open(f"{ansPhaseDIR}/COMP.json", "w", encoding="utf-8") as f:
         json.dump(COMPLIST, f, ensure_ascii=False, indent=4)
 
-    with open(G_ansDIR / "and.json", "w", encoding="utf-8") as f:
+    with open(f"{ansPhaseDIR}/and.json", "w", encoding="utf-8") as f:
         json.dump(andLIST, f, ensure_ascii=False, indent=4)
 
     return COMPLIST, andLIST, RELLIST
 
-def makePrediction():
+def makePrediction(phase=None):
     """
     將 predictionLIST 中的 lokiResultDICT 分別寫出與 answer/ 一樣的資料結構。
     在 mapDICT 選擇此次 askLoki 的專案。
@@ -108,9 +102,11 @@ def makePrediction():
                }
 
     kaLIST = ["COMP", "and", "REL"]
+    predPhaseDIR = Path(f"{Path.cwd().parent.parent}/data/prediction/{phase}")
+    predPhaseDIR.mkdir(exist_ok=True, parents=True)
 
     for KA in kaLIST:
-        with open(f"{G_resultDIR}/{KA}_test.json", "r", encoding="utf-8") as f:
+        with open(f"{G_resultDIR}/{KA}_{phase}.json", "r", encoding="utf-8") as f:
             predictionLIST = json.load(f)
 
         for lokiResultDICT in predictionLIST:   #處理每個 prediction item
@@ -123,14 +119,15 @@ def makePrediction():
                             mapDICT[keySTR].append([utter_index, ka_index])
 
         for keySTR in mapDICT:
-            with open(f"{G_predictionDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
+            with open(f"{predPhaseDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
                 json.dump(mapDICT[keySTR], f, ensure_ascii=False, indent=4)
 
-    with open(f"{G_predictionDIR}/COMP.json", "r", encoding="utf-8") as f:
+
+    with open(f"{predPhaseDIR}/COMP.json", "r", encoding="utf-8") as f:
         COMPPredLIST = json.load(f)
-    with open(f"{G_predictionDIR}/and.json", "r", encoding="utf-8") as f:
+    with open(f"{predPhaseDIR}/and.json", "r", encoding="utf-8") as f:
         andPredLIST = json.load(f)
-    with open(f"{G_predictionDIR}/REL.json", "r", encoding="utf-8") as f:
+    with open(f"{predPhaseDIR}/REL.json", "r", encoding="utf-8") as f:
         RELPredLIST = json.load(f)
 
     return COMPPredLIST, andPredLIST, RELPredLIST
@@ -192,8 +189,10 @@ def getAccuracy(predLIST, ansLIST, allAnsLIST):
     print(f"================================")
 
 if __name__ == "__main__":
-    COMPAnsLIST, andAnsLIST, RELAnsLIST = createAnswer()
-    COMPPredLIST, andPredLIST, RELPredLIST = makePrediction()   # The prediction is made respectively
+    PHASE = "test" #test, eval
+
+    COMPAnsLIST, andAnsLIST, RELAnsLIST = createAnswer(phase=PHASE)
+    COMPPredLIST, andPredLIST, RELPredLIST = makePrediction(phase=PHASE)   # The prediction is made respectively
 
     functionDICT = {
         "COMP": (COMPPredLIST, COMPAnsLIST),
@@ -202,8 +201,8 @@ if __name__ == "__main__":
     }
 
     allAnsLIST = COMPAnsLIST + andAnsLIST + RELAnsLIST
-    print(f"language models constructed using Loki ")
-    print(f"===== 個別 Project 結果 =====")
+    print(f"language models constructed using Loki")
+    print(f"=== [{PHASE}] 個別 Project 結果 ===")
     totalTP = 0
 
     for keySTR, (predLIST, ansLIST) in functionDICT.items():

@@ -24,11 +24,10 @@ logging.basicConfig(
 with open(f"{Path.cwd()}/account.info", "r", encoding="utf-8") as f:
     accountDICT = json.load(f)
 
-dataDIR = Path(f"{Path.cwd().parent}/data")
-srcDIR = Path(f"{Path.cwd().parent}/data/src")
-srcDIR.mkdir(exist_ok=True, parents=True)
-resultDIR = Path(f"{Path.cwd().parent}/data/results")
-resultDIR.mkdir(exist_ok=True, parents=True)
+G_srcDIR = Path(f"{Path.cwd().parent}/data/src")
+G_srcDIR.mkdir(exist_ok=True, parents=True)
+G_resultDIR = Path(f"{Path.cwd().parent}/data/results")
+G_resultDIR.mkdir(exist_ok=True, parents=True)
 
 def _getIntentLIST(kaFunction):
     """
@@ -90,10 +89,10 @@ def createTestingLIST():
 
     allUtterLIST = list(allUtterSET)
 
-    with open(f"{dataDIR}/kaLIST.json", "r", encoding="utf-8") as f:
+    with open(f"{G_srcDIR}/kaLIST.json", "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
-    with open(f"{dataDIR}/ansLIST.json", "r", encoding="utf-8") as f:
+    with open(f"{G_srcDIR}/ansLIST.json", "r", encoding="utf-8") as f:
         ansLIST = json.load(f)
 
     excludeIdxSET = set()
@@ -111,10 +110,10 @@ def createTestingLIST():
             kaTestingLIST.append(ka_s)
             ansTestingLIST.append(ans_s)
 
-    with open(f"{srcDIR}/kaLIST_test.json", "w", encoding="utf-8") as f:
+    with open(f"{G_srcDIR}/kaLIST_test.json", "w", encoding="utf-8") as f:
         json.dump(kaTestingLIST, f, ensure_ascii=False, indent=4)
 
-    with open(f"{srcDIR}/ansLIST_test.json", "w", encoding="utf-8") as f:
+    with open(f"{G_srcDIR}/ansLIST_test.json", "w", encoding="utf-8") as f:
         json.dump(ansTestingLIST, f, ensure_ascii=False, indent=4)
 
     return kaTestingLIST
@@ -194,12 +193,12 @@ if __name__ == "__main__":
             predictionLIST.extend(resultLIST)
 
         # 紀錄結果
-        with open(f"{resultDIR}/{KA}_test.json", "w", encoding="utf-8") as f:
+        with open(f"{G_resultDIR}/{KA}_test.json", "w", encoding="utf-8") as f:
             json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
 
     elif MODE == "evaluation":
         # 測資來源
-        with open(f"{dataDIR}/kaLIST_eval.json", "r", encoding="utf-8") as f:
+        with open(f"{G_srcDIR}/kaLIST_eval.json", "r", encoding="utf-8") as f:
             kaEvalLIST = json.load(f)
 
         predictionLIST = []
@@ -208,7 +207,7 @@ if __name__ == "__main__":
             predictionLIST.extend(resultLIST)
 
         # 紀錄結果
-        with open(f"{resultDIR}/{KA}_eval.json", "w", encoding="utf-8") as f:
+        with open(f"{G_resultDIR}/{KA}_eval.json", "w", encoding="utf-8") as f:
             json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
 
 
