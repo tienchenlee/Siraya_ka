@@ -11,7 +11,7 @@ G_ansDIR = Path.cwd().parent.parent / "data" / "answer"
 G_ansDIR.mkdir(exist_ok=True, parents=True)
 G_predictionDIR = Path.cwd().parent.parent / "data" / "prediction"
 G_predictionDIR.mkdir(exist_ok=True, parents=True)
-G_resultDIR = Path.cwd().parent.parent / "data" / "result"
+G_resultDIR = Path.cwd().parent.parent / "data" / "results"
 G_resultDIR.mkdir(exist_ok=True, parents=True)
 G_fpDIR = Path.cwd().parent.parent / "data" / "FP"
 G_fpDIR.mkdir(exist_ok=True, parents=True)
@@ -202,6 +202,7 @@ if __name__ == "__main__":
     }
 
     allAnsLIST = COMPAnsLIST + andAnsLIST + RELAnsLIST
+    print(f"language models constructed using Loki ")
     print(f"===== 個別 Project 結果 =====")
     totalTP = 0
 
