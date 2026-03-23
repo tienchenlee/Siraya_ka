@@ -149,7 +149,7 @@ def getRecall(predLIST, ansLIST):
     print(f"TP：{TP}")
     print(f"TP+FN：{len(ansLIST)}")
     recall = TP / len(ansLIST)
-    print(f"recall: {recall * 100:.1f}%")
+    print(f"recall: {recall * 100:.2f}%")
     print(f"================================")
 
 def getPrecision(predLIST, ansLIST, kaFunction):
@@ -164,7 +164,7 @@ def getPrecision(predLIST, ansLIST, kaFunction):
     print(f"TP：{TP}")
     print(f"TP+FP：{len(predLIST)}")
     precision = TP / len(predLIST)
-    print(f"precision: {precision * 100:.1f}%")
+    print(f"precision: {precision * 100:.2f}%")
     print(f"================================")
 
 def getAccuracy(predLIST, ansLIST, allAnsLIST):
@@ -184,7 +184,7 @@ def getAccuracy(predLIST, ansLIST, allAnsLIST):
     print(f"TN: {TN}")
     print(f"TP+TN: {TP + TN}")
     print(f"TP+TN+FP+FN: {len(allAnsLIST)}")
-    print(f"accuracy: {accuracy * 100:.1f}%")
+    print(f"accuracy: {accuracy * 100:.2f}%")
     print(f"================================")
 
 if __name__ == "__main__":
