@@ -10,7 +10,7 @@ G_ansDIR = Path.cwd() / "answer"
 G_ansDIR.mkdir(exist_ok=True, parents=True)
 G_predictionDIR = Path.cwd() / "prediction"
 G_predictionDIR.mkdir(exist_ok=True, parents=True)
-G_dataDIR = Path.cwd().parent / "data"
+G_srcDIR = Path.cwd().parent / "data" / "src"
 G_resultDIR = Path.cwd() / "results"
 
 def createAnswer():
@@ -30,11 +30,11 @@ def createAnswer():
     - word_index：該句中詞彙（word）的索引位置。
 
     """
-    kaPATH = G_dataDIR / "kaLIST_eval.json"
+    kaPATH = G_srcDIR / "kaLIST_eval.json"
     with open(kaPATH, "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
-    ansPATH = G_dataDIR / "ansLIST_eval.json"
+    ansPATH = G_srcDIR / "ansLIST_eval.json"
     with open(ansPATH, "r", encoding="utf-8") as f:
         ansLIST = json.load(f)
 
@@ -104,7 +104,7 @@ def makePrediction(phase=None):
     with open(f"{G_resultDIR}/phase_{phase}.json", "r", encoding="utf-8") as f:
         resultLIST = json.load(f)
 
-    with open(f"{G_dataDIR}/kaLIST_eval.json", "r", encoding="utf-8") as f:
+    with open(f"{G_srcDIR}/kaLIST_eval.json", "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
     for llmResultDICT in resultLIST:   #處理每個 prediction item
@@ -149,7 +149,7 @@ def getRecall(predLIST, ansLIST):
     print(f"TP：{TP}")
     print(f"TP+FN：{len(ansLIST)}")
     recall = TP / len(ansLIST)
-    print(f"recall: {recall * 100:.2f}%")
+    print(f"recall: {recall * 100:.1f}%")
     print(f"================================")
 
 def getPrecision(predLIST, ansLIST, kaFunction):
@@ -164,7 +164,7 @@ def getPrecision(predLIST, ansLIST, kaFunction):
     print(f"TP：{TP}")
     print(f"TP+FP：{len(predLIST)}")
     precision = TP / len(predLIST)
-    print(f"precision: {precision * 100:.2f}%")
+    print(f"precision: {precision * 100:.1f}%")
     print(f"================================")
 
 def getAccuracy(predLIST, ansLIST, allAnsLIST):
@@ -184,11 +184,11 @@ def getAccuracy(predLIST, ansLIST, allAnsLIST):
     print(f"TN: {TN}")
     print(f"TP+TN: {TP + TN}")
     print(f"TP+TN+FP+FN: {len(allAnsLIST)}")
-    print(f"accuracy: {accuracy * 100:.2f}%")
+    print(f"accuracy: {accuracy * 100:.1f}%")
     print(f"================================")
 
 if __name__ == "__main__":
-    PHASE = 1
+    PHASE = 3
     COMPAnsLIST, andAnsLIST, RELAnsLIST = createAnswer()
     COMPPredLIST, andPredLIST, RELPredLIST = makePrediction(phase=PHASE)   # The prediction is made respectively
 
