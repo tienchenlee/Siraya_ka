@@ -151,7 +151,7 @@ def getRecall(predLIST, ansLIST):
     print(f"TP：{TP}")
     print(f"TP+FN：{len(ansLIST)}")
     recall = TP / len(ansLIST)
-    print(f"recall: {recall * 100:.2f}%")
+    print(f"recall: {recall * 100:.1f}%")
     print(f"================================")
 
     return TP
@@ -165,7 +165,7 @@ def getPrecision(predLIST, ansLIST):
     print(f"TP：{TP}")
     print(f"TP+FP：{len(predLIST)}")
     precision = TP / len(predLIST)
-    print(f"precision: {precision * 100:.2f}%")
+    print(f"precision: {precision * 100:.1f}%")
     print(f"================================")
 
 def getAccuracy(predLIST, ansLIST, allAnsLIST):
@@ -185,11 +185,11 @@ def getAccuracy(predLIST, ansLIST, allAnsLIST):
     print(f"TN: {TN}")
     print(f"TP+TN: {TP + TN}")
     print(f"TP+TN+FP+FN: {len(allAnsLIST)}")
-    print(f"accuracy: {accuracy * 100:.2f}%")
+    print(f"accuracy: {accuracy * 100:.1f}%")
     print(f"================================")
 
 if __name__ == "__main__":
-    PHASE = "test" #test, eval
+    PHASE = "eval" #test, eval
 
     COMPAnsLIST, andAnsLIST, RELAnsLIST = createAnswer(phase=PHASE)
     COMPPredLIST, andPredLIST, RELPredLIST = makePrediction(phase=PHASE)   # The prediction is made respectively
@@ -215,4 +215,4 @@ if __name__ == "__main__":
 
     #模型在此次資料中的正確預測能力: total_TP / total_occurance
     coverage = totalTP / len(allAnsLIST)
-    print(f"overall coverage: {coverage * 100:.2f}%")
+    print(f"overall coverage: {coverage * 100:.1f}%")
