@@ -182,7 +182,7 @@ def main(inputSTR, utterIdx, ka_type):
 
 if __name__ == "__main__":
     MODE = "test" #test, evaluation
-    KA = "COMP" #COMP, and, REL
+    KA = "and" #COMP, and, REL
 
     if MODE == "test":
         kaTestingLIST = createTestingLIST()
