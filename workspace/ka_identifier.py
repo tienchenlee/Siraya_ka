@@ -181,8 +181,8 @@ def main(inputSTR, utterIdx, ka_type):
     return resultLIST
 
 if __name__ == "__main__":
-    MODE = "evaluation" #test, evaluation
-    KA = "REL" #COMP, and, REL
+    MODE = "test" #test, evaluation
+    KA = "COMP" #COMP, and, REL
 
     if MODE == "test":
         kaTestingLIST = createTestingLIST()
