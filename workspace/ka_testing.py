@@ -2,97 +2,146 @@
 # -*- coding:utf-8 -*-
 
 import json
+import logging
+
+from Loki_and.Coordinator.main import askLoki as askLokiAND
+from Loki_REL.Relativizer.main import askLoki as askLokiREL
+from Loki_COMP.Complementizer.main import askLoki as askLokiCOMP
 from pathlib import Path
+from requests import post
 from time import sleep
 
-#from Loki_AND.Coordinator.main import askLoki as askLokiAND
-#from Loki_REL.Relativizer.main import askLoki as askLokiREL
-from Loki_COMP.Complementizer.main import askLoki as askLokiCOMP
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",        # 格式：時間 - 等級 - 訊息
+    handlers=[
+        logging.FileHandler(Path(f"{Path.cwd()}/ka_testing.log"), encoding="utf-8", mode="w"),
+        logging.StreamHandler()
+    ]
+)
 
+with open(f"{Path.cwd()}/account.info", "r", encoding="utf-8") as f:
+    accountDICT = json.load(f)
 
-def main():
-    """"""
-    return None
+def _getIntentLIST(kaFunction):
+    """
+    拿到該 Project 的所有 intent。
 
+    回傳：intentLIST
+    """
+    intentLIST = []
+    url = "https://nlu.droidtown.co/Loki_EN/Call/"
+
+    projectDICT = {
+        "and": "Coordinator",
+        "COMP": "Complementizer",
+        "REL": "Relativizer"
+    }
+
+    project = projectDICT[kaFunction]
+
+    payload = {
+        "username" : accountDICT["username"],
+        "loki_key": accountDICT[project],
+        "project": project,
+        "func": "get_info",
+        "data": {}
+    }
+
+    response = post(url, json=payload)
+
+    try:
+        resultDICT = response.json()
+        intentDICT = resultDICT["result"]["intent"]
+
+        for keySTR in intentDICT.keys():
+            intentLIST.append(keySTR)
+
+        return intentLIST
+
+    except:
+        print(response.status_code)
+        print(response.text)
+
+def main(inputSTR, utterIdx, ka_type):
+    """
+    在 functionDICT 選擇此次 askLoki 的專案。
+    如果句首是 ka，則預設為「然後的 and」。
+    """
+    resultLIST = []
+
+    FUNCTION_MAP = {
+        "COMP": askLokiCOMP,
+        "and": askLokiAND,
+        "REL": askLokiREL
+    }
+
+    refDICT = {
+        "inputSTR":[inputSTR],
+        "utterance": [],
+        "ka_index":[],
+        "utter_index":[utterIdx],
+        "COMP":[],
+        "and":[],
+        "REL":[]
+    }
+
+    # <句首為 ka 預設為「然後的 and」>
+    inputWordLIST = inputSTR.split(" ")
+    if inputWordLIST[0] == "ka":
+        defaultKaDICT = {
+            "inputSTR": [inputSTR],
+            "and": [{"then": True}],
+            "ka_index": [0],
+            "utter_index": [utterIdx],
+        }
+
+        resultLIST.append(defaultKaDICT)
+    # <句首為 ka 預設為「然後的 and」>
+
+    func = FUNCTION_MAP[ka_type]
+    #intentLIST = _getIntentLIST(ka_type)   # 跑單一 intent 結果 in case of timeout when running all intents
+    intentLIST = ["Left_Periphery"]
+    for intent_s in intentLIST:
+        attempts = 0
+        success = False
+
+        while attempts < 3 and not success:
+            lokiResultDICT = func(inputSTR, filterLIST=[intent_s], refDICT=refDICT)
+            sleep(0.8)
+
+            if "msg" in lokiResultDICT.keys():   # Server Error 會回傳 status
+                attempts += 1
+                sleep(5)
+                logging.warning(f"第 {attempts} 次嘗試，{lokiResultDICT['msg']}: {lokiResultDICT}")
+            else:
+                success = True
+
+                if lokiResultDICT["ka_index"] and lokiResultDICT[ka_type]:
+                    print(lokiResultDICT)
+                    resultLIST.append(lokiResultDICT)   # 跑單一 project 的結果
+                    #logging.info(lokiResultDICT)
+
+                else:
+                    print(f"Does not match any utterance in [{intent_s}]")
+
+        if not success:
+            logging.error(f"連續 3 次嘗試失敗，跳過此測試句: {intent_s}")
+
+    return resultLIST
 
 if __name__ == "__main__":
-    attempts = 0
-    success = False
-    testLIST = []
+    inputSTR = "because ka PAST- work.for.pay -LV we .INCL .GEN NOM death OBL sin our .INCL"   #testing sentence
+    utterIdx = -1   #default
+    ka_type = "COMP"    #COMP, and, REL
 
-    kaPATH = Path.cwd().parent / "data" / "kaLIST.json"
-    with open(kaPATH, "r", encoding="utf-8") as f:
-        kaLIST = json.load(f)
+    print(f"Loki 測試句：")
+    print(inputSTR)
+    print()
 
-    toDoLIST = [1582]
-    for utterINT in toDoLIST:
-        testDICT = {utterINT: kaLIST[utterINT]}
-        #testDICT = {utterINT: "angry .AV Q you .PL .NOM me -OBL ka PAST- PC. entire .PV I .GEN cure .AV NOM man LOC day OBL sabbath"}
-        print(f"Loki 測試句：")
-        print(kaLIST[utterINT])
-        print()
-        #testLIST.append(kaLIST[utterINT])
+    originalSTR = inputSTR.replace(" -", "-").replace("- ", "-").replace(" .", ".").replace(". ", ".").replace(" ,", ",")
+    print(f"VS Code 原句：")
+    print(originalSTR)
+    print()
 
-    for key_s, test_s in testDICT.items():
-        originalSTR = test_s.replace(" -", "-").replace("- ", "-").replace(" .", ".").replace(". ", ".").replace(" ,", ",")
-        print(f"VS Code 原句：")
-        print(originalSTR)
-        print()
-
-    #RELintentLIST = ["clauseQ", "clauseQ_and_VP",
-                  #"CP_Nominal_Predicate", "CP_taking_Verb", "CP_taking_Verb_short", "CP_TP_and_V2", "CP_V1_and_VP",
-                  #"Nominal_Predicate_RC6", "Nominal_Predicate",
-                  #"Phrase", "RC_and_VP", "unsolved", "vague",
-                  #"TopNP_and_VP", "TopNP_CP", "TopNP_V1", "TopNP_V1_short", "TopNP_V2", "TopNP_V2_short", "TopNP_V3"
-                  #"TP_and_V1", "TP_and_V2",
-                  #"V1_and_VP_and_VP_and_VP_and_VP", "V1_and_VP_and_VP", "V1_and_VP",
-                  #"V1_AV_RC2", "V1_AV_RC3", "V1_AV_RC4", "V1_AV_RC5", "V1_AV", "V1_AV_short",
-                  #"V1_NAV_RC5", "V1_NAV",
-                  #"V2_and_VP_and_VP", "V2_and_VP", "V2",
-                  #"V2_AV_RC2", "V2_AV_RC3", "V2_AV_RC4", "V2_AV_RC5", "V2_AV", "V2_AV_short",
-                  #"V2_NAV_RC3", "V2_NAV_RC4", "V2_NAV", "V2_NAV_short",
-                  #"V3_AV", "V3_NAV"]
-
-    COMPintentLIST = ["V2_short", "V2", "V3", "Left_Periphery", "nominalComplement", "unsolved", "vague"]
-
-    refDICT = {"inputSTR":[], "ka_index":[], "utter_index":[], "COMP":[], "and":[], "REL":[], "utterance": []}
-    fewIntentLIST = ["nominalComplement", "overlap", "V3", "V2_short", "V2", "or", "Left_Periphery"]
-    for key_s, test_s in testDICT.items():
-        resultLIST = []
-
-        for intent_s in fewIntentLIST:
-            attempts = 0
-            success = False
-
-            while attempts < 3 and not success:
-                print(intent_s)
-                lokiResultDICT = askLokiCOMP(test_s, filterLIST=[intent_s] ,refDICT=refDICT)
-                sleep(0.8)
-
-                if "msg" in lokiResultDICT.keys():
-                    attempts += 1
-                    print(f"第 {attempts} 次嘗試，{lokiResultDICT['msg']}: {lokiResultDICT}")
-                    sleep(5)
-                else:
-                    success = True
-                    resultLIST.append(lokiResultDICT)   # 跑單一 project、each intent
-                    print(lokiResultDICT)
-                    print()
-
-        #kaLIST = []
-        #matchIntentLIST=[]
-        #for result_d in resultLIST:
-            #if result_d["ka_index"]:
-                #kaLIST.append(result_d["ka_index"])
-                #matchIntentLIST.append(result_d["REL"])
-                #allInetentResultDICT = {
-                    #"inputSTR":[test_s],
-                    #"ka_index": list(set(kaLIST)),
-                    #"utter_index":[key_s],
-                    #"COMP":[],
-                    #"and":[],
-                    #"REL":matchIntentLIST
-                    # }
-
-        #print(resultLIST)
-        #print(allInetentResultDICT)
+    main(inputSTR, utterIdx, ka_type)
