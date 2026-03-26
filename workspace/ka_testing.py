@@ -101,7 +101,7 @@ def main(inputSTR, utterIdx, ka_type):
 
     func = FUNCTION_MAP[ka_type]
     #intentLIST = _getIntentLIST(ka_type)   # 跑單一 intent 結果 in case of timeout when running all intents
-    intentLIST = ["Left_Periphery"]
+    intentLIST = ["TopNP_V2", "TopNP_V2_short", "TopNP_V3"]
     for intent_s in intentLIST:
         attempts = 0
         success = False
@@ -131,9 +131,9 @@ def main(inputSTR, utterIdx, ka_type):
     return resultLIST
 
 if __name__ == "__main__":
-    inputSTR = "because ka PAST- work.for.pay -LV we .INCL .GEN NOM death OBL sin our .INCL"   #testing sentence
+    inputSTR = "they ka not PC. truly .AV work .AV OBL faith approach .AV DET Christ -OBL take .AV OBL what NOM they LOC Lord's.Supper"   #testing sentence
     utterIdx = -1   #default
-    ka_type = "COMP"    #COMP, and, REL
+    ka_type = "REL"    #COMP, and, REL
 
     print(f"Loki 測試句：")
     print(inputSTR)
