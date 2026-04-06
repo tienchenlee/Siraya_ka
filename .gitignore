@@ -178,6 +178,7 @@ Catechism
 FP_sentence
 /data/src/*
 !data/src/kaLIST_eval.json
+!data/src/utteranceLIST.json
 
 # json
 /corpus/ka_gloss_LIST.json
