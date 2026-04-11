@@ -14,7 +14,7 @@ G_jsonPAT = re.compile(r"\{.*\}", re.DOTALL)
 with open(f"{Path.cwd()}/account.info", "r", encoding="utf-8") as f:
     G_accountDICT = json.load(f)
 
-with open(f"{Path.cwd().parent}/data/kaLIST_eval.json") as f:
+with open(f"{Path.cwd().parent}/data/src/kaLIST_eval.json") as f:
     G_testLIST = json.load(f)
 
 def _getInfo(loki_key):

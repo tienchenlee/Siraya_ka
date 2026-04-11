@@ -10,6 +10,8 @@ G_kaPat = re.compile(r"\bka\b")
 G_resultDIR = Path(f"{Path.cwd().parent.parent}/data/results")
 G_resultDIR.mkdir(exist_ok=True, parents=True)
 G_srcDIR = Path(f"{Path.cwd().parent.parent}/data/src")
+G_performanceDIR = Path(f"{Path.cwd().parent.parent}/data/performance")
+G_performanceDIR.mkdir(exist_ok=True, parents=True)
 
 def createAnswer(phase=None):
     """
@@ -141,32 +143,51 @@ def _getTP(predLIST, ansLIST):
 
     return TP
 
+def extractFN(predLIST, ansLIST):
+    """"""
+    with open(f"{G_srcDIR}/ansLIST_eval.json", "r", encoding="utf-8") as f:
+        evalLIST = json.load(f)
+
+    utterIdxSET = set()
+    fnLIST = []
+
+    for item_l in ansLIST:
+        if item_l not in predLIST:
+            utterIdxSET.add(item_l[0])
+
+    for i in utterIdxSET:
+        fnLIST.append(evalLIST[i])
+
+    return fnLIST
+
 def getRecall(predLIST, ansLIST):
     """
     實際為真的樣本中，正確預測的比例。
     recall = (∣Prediction ∩ Answer∣​ / |Answer∣) * 100
     """
     TP = _getTP(predLIST, ansLIST)
+    FN = len(ansLIST) - TP
 
     print(f"TP：{TP}")
+    print(f"FN: {FN}")
     print(f"TP+FN：{len(ansLIST)}")
     recall = TP / len(ansLIST)
     print(f"recall: {recall * 100:.2f}%")
-    print(f"================================")
-
-    return TP
+    print(f"--------------------------------")
 
 def getPrecision(predLIST, ansLIST):
     """
     陽性樣本中，正確預測的比例。
     """
     TP = _getTP(predLIST, ansLIST)
+    FP = len(predLIST) - TP
 
     print(f"TP：{TP}")
+    print(f"FP: {FP}")
     print(f"TP+FP：{len(predLIST)}")
     precision = TP / len(predLIST)
     print(f"precision: {precision * 100:.2f}%")
-    print(f"================================")
+    print(f"--------------------------------")
 
 def getAccuracy(predLIST, ansLIST, allAnsLIST):
     """
@@ -182,10 +203,22 @@ def getAccuracy(predLIST, ansLIST, allAnsLIST):
             TN += 1
 
     accuracy = (TP + TN) / len(allAnsLIST)
-    print(f"TN: {TN}")
     print(f"TP+TN: {TP + TN}")
     print(f"TP+TN+FP+FN: {len(allAnsLIST)}")
     print(f"accuracy: {accuracy * 100:.2f}%")
+    print(f"--------------------------------")
+
+def getCoverage(predLIST, ansLIST):
+    """
+    TP / Total，句型模型對此次語料的覆蓋程度。
+    """
+    TP = _getTP(predLIST, ansLIST)
+    Total = len(ansLIST)
+
+    coverage = TP / Total
+    print(f"TP: {TP}")
+    print(f"Total: {Total}")
+    print(f"coverage: {coverage * 100:.2f}%")
     print(f"================================")
 
 if __name__ == "__main__":
@@ -195,24 +228,27 @@ if __name__ == "__main__":
     COMPPredLIST, andPredLIST, RELPredLIST = makePrediction(phase=PHASE)   # The prediction is made respectively
 
     functionDICT = {
+        "REL":  (RELPredLIST,  RELAnsLIST),
         "COMP": (COMPPredLIST, COMPAnsLIST),
         "and":  (andPredLIST,  andAnsLIST),
-        "REL":  (RELPredLIST,  RELAnsLIST),
     }
 
     allAnsLIST = COMPAnsLIST + andAnsLIST + RELAnsLIST
     print(f"language models constructed using Loki")
     print(f"=== [{PHASE}] 個別 Project 結果 ===")
-    totalTP = 0
+
+    allFnLIST = []
 
     for keySTR, (predLIST, ansLIST) in functionDICT.items():
         print(f"[{keySTR}]")
         getRecall(predLIST, ansLIST)
         getPrecision(predLIST, ansLIST)
         getAccuracy(predLIST, ansLIST, allAnsLIST)
-        TP = _getTP(predLIST, ansLIST)
-        totalTP += TP
+        getCoverage(predLIST, ansLIST)
 
-    #模型在此次資料中的正確預測能力: total_TP / total_occurance
-    coverage = totalTP / len(allAnsLIST)
-    print(f"overall coverage: {coverage * 100:.2f}%")
+        if PHASE == "eval":
+            fnLIST = extractFN(predLIST, ansLIST)
+            allFnLIST.extend(fnLIST)
+
+            with open(f"{G_performanceDIR}/eval/missedLIST.json", "w", encoding="utf-8") as f:
+                json.dump(allFnLIST, f, ensure_ascii=False, indent=4)
