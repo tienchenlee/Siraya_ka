@@ -175,6 +175,8 @@ def getRecall(predLIST, ansLIST):
     print(f"recall: {recall * 100:.2f}%")
     print(f"--------------------------------")
 
+    return FN
+
 def getPrecision(predLIST, ansLIST):
     """
     陽性樣本中，正確預測的比例。
@@ -189,22 +191,24 @@ def getPrecision(predLIST, ansLIST):
     print(f"precision: {precision * 100:.2f}%")
     print(f"--------------------------------")
 
-def getAccuracy(predLIST, ansLIST, allAnsLIST):
+    return FP
+
+def getAccuracy(predLIST, ansLIST, allAnsLIST, FN, FP):
     """
     預測正確的比例。
     """
-    TP = 0
-    TN = 0
+    TP = _getTP(predLIST, ansLIST)
 
+    TN = 0
     for item_l in allAnsLIST:
-        if item_l in predLIST and item_l in ansLIST:
-            TP += 1
-        elif item_l not in predLIST and item_l not in ansLIST:
+        if item_l not in predLIST and item_l not in ansLIST:
             TN += 1
 
-    accuracy = (TP + TN) / len(allAnsLIST)
+    print(f"TN: {TN}")
+
+    accuracy = (TP + TN) / (TP + TN + FN + FP)
     print(f"TP+TN: {TP + TN}")
-    print(f"TP+TN+FP+FN: {len(allAnsLIST)}")
+    print(f"TP+TN+FP+FN: {TP + TN + FN + FP}")
     print(f"accuracy: {accuracy * 100:.2f}%")
     print(f"--------------------------------")
 
@@ -241,9 +245,9 @@ if __name__ == "__main__":
 
     for keySTR, (predLIST, ansLIST) in functionDICT.items():
         print(f"[{keySTR}]")
-        getRecall(predLIST, ansLIST)
-        getPrecision(predLIST, ansLIST)
-        getAccuracy(predLIST, ansLIST, allAnsLIST)
+        FN = getRecall(predLIST, ansLIST)
+        FP = getPrecision(predLIST, ansLIST)
+        getAccuracy(predLIST, ansLIST, allAnsLIST, FN, FP)
         getCoverage(predLIST, ansLIST)
 
         if PHASE == "eval":

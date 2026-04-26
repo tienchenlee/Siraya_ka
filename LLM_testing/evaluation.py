@@ -136,66 +136,76 @@ def makePrediction(phase=None):
 
     return COMPPredLIST, andPredLIST, RELPredLIST
 
+def _getTP(predLIST, ansLIST):
+    """"""
+    TP = 0
+    for item_l in predLIST:
+        if item_l in ansLIST:
+            TP += 1
+
+    return TP
+
 def getRecall(predLIST, ansLIST):
     """
     實際為真的樣本中，正確預測的比例。
     recall = (∣Prediction ∩ Answer∣​ / |Answer∣) * 100
     """
-    TP = 0
-    for item_l in predLIST:
-        if item_l in ansLIST:
-            TP += 1
+    TP = _getTP(predLIST, ansLIST)
+    FN = len(ansLIST) - TP
 
     print(f"TP：{TP}")
+    print(f"FN: {FN}")
     print(f"TP+FN：{len(ansLIST)}")
     recall = TP / len(ansLIST)
     print(f"recall: {recall * 100:.2f}%")
-    print(f"================================")
+    print(f"--------------------------------")
 
-def getPrecision(predLIST, ansLIST, kaFunction):
+    return FN
+
+def getPrecision(predLIST, ansLIST):
     """
     陽性樣本中，正確預測的比例。
     """
-    TP = 0
-    for item_l in predLIST:
-        if item_l in ansLIST:
-            TP += 1
+    TP = _getTP(predLIST, ansLIST)
+    FP = len(predLIST) - TP
 
     print(f"TP：{TP}")
+    print(f"FP: {FP}")
     print(f"TP+FP：{len(predLIST)}")
     precision = TP / len(predLIST)
     print(f"precision: {precision * 100:.2f}%")
-    print(f"================================")
+    print(f"--------------------------------")
 
-def getAccuracy(predLIST, ansLIST, allAnsLIST):
+    return FP
+
+def getAccuracy(predLIST, ansLIST, allAnsLIST, FN, FP):
     """
     預測正確的比例。
     """
-    TP = 0
-    TN = 0
+    TP = _getTP(predLIST, ansLIST)
 
+    TN = 0
     for item_l in allAnsLIST:
-        if item_l in predLIST and item_l in ansLIST:
-            TP += 1
-        elif item_l not in predLIST and item_l not in ansLIST:
+        if item_l not in predLIST and item_l not in ansLIST:
             TN += 1
 
-    accuracy = (TP + TN) / len(allAnsLIST)
     print(f"TN: {TN}")
+
+    accuracy = (TP + TN) / (TP + TN + FN + FP)
     print(f"TP+TN: {TP + TN}")
-    print(f"TP+TN+FP+FN: {len(allAnsLIST)}")
+    print(f"TP+TN+FP+FN: {TP + TN + FN + FP}")
     print(f"accuracy: {accuracy * 100:.2f}%")
     print(f"================================")
 
 if __name__ == "__main__":
-    PHASE = 3
+    PHASE = 1
     COMPAnsLIST, andAnsLIST, RELAnsLIST = createAnswer()
     COMPPredLIST, andPredLIST, RELPredLIST = makePrediction(phase=PHASE)   # The prediction is made respectively
 
     functionDICT = {
+        "REL":  (RELPredLIST,  RELAnsLIST),
         "COMP": (COMPPredLIST, COMPAnsLIST),
         "and":  (andPredLIST,  andAnsLIST),
-        "REL":  (RELPredLIST,  RELAnsLIST),
     }
 
     allAnsLIST = COMPAnsLIST + andAnsLIST + RELAnsLIST
@@ -203,6 +213,6 @@ if __name__ == "__main__":
     print(f"=== [階段 {PHASE}] 個別 Project 結果 ===")
     for keySTR, (predLIST, ansLIST) in functionDICT.items():
         print(f"[{keySTR}]")
-        getRecall(predLIST, ansLIST)
-        getPrecision(predLIST, ansLIST, keySTR)
-        getAccuracy(predLIST, ansLIST, allAnsLIST)
+        FN = getRecall(predLIST, ansLIST)
+        FP = getPrecision(predLIST, ansLIST)
+        getAccuracy(predLIST, ansLIST, allAnsLIST, FN, FP)
