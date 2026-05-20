@@ -34,4 +34,5 @@
 2. Loki：三個獨立之句型模型
 
 # 語料來源
-國立清華大學 語言學研究所 林宗宏 教授 
+國立清華大學 語言學研究所 林宗宏 教授  
+**The corpus may only be used with the permission of the compiler.**
