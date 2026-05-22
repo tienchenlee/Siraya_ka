@@ -208,9 +208,10 @@ if __name__ == "__main__":
             inputLIST = json.load(f)
 
     predictionLIST = []
+    logging.info(f"PHASE:{MODE}, COVERAGE:{COVERAGE}, KA:{KA}, 測資數量:{len(inputLIST)}")
+
     for utterIdx, inputSTR in enumerate(inputLIST):
         resultLIST = main(inputSTR, utterIdx, ka_type=KA)
-        logging.info(f"PHASE:{MODE}, COVERAGE:{COVERAGE}, KA:{KA}, 測資數量:{len(inputLIST)}")
         predictionLIST.extend(resultLIST)
 
     # 紀錄結果
