@@ -104,17 +104,28 @@ def createTestingLIST():
 
     kaTestingLIST = []
     ansTestingLIST = []
+    kaUtterLIST = []
+    ansUtterLIST = []
 
     for idx, (ka_s, ans_s) in enumerate(zip(kaLIST, ansLIST)):
         if idx not in excludeIdxSET:
             kaTestingLIST.append(ka_s)
             ansTestingLIST.append(ans_s)
+        elif idx in excludeIdxSET:
+            kaUtterLIST.append(ka_s)
+            ansUtterLIST.append(ans_s)
 
     with open(f"{G_srcDIR}/kaLIST_test.json", "w", encoding="utf-8") as f:
         json.dump(kaTestingLIST, f, ensure_ascii=False, indent=4)
 
     with open(f"{G_srcDIR}/ansLIST_test.json", "w", encoding="utf-8") as f:
         json.dump(ansTestingLIST, f, ensure_ascii=False, indent=4)
+
+    with open(f"{G_srcDIR}/kaLIST_utter.json", "w", encoding="utf-8") as f:
+        json.dump(kaUtterLIST, f, ensure_ascii=False, indent=4)
+
+    with open(f"{G_srcDIR}/ansLIST_utter.json", "w", encoding="utf-8") as f:
+        json.dump(ansUtterLIST, f, ensure_ascii=False, indent=4)
 
     return kaTestingLIST
 
@@ -181,41 +192,36 @@ def main(inputSTR, utterIdx, ka_type):
     return resultLIST
 
 if __name__ == "__main__":
-    MODE = "test" #test, evaluation
-    KA = "REL" #COMP, and, REL
+    MODE = "test" #test, eval
+    COVERAGE = True #True, False
+    KA = "COMP" #COMP, and, REL
 
     if MODE == "test":
-        kaTestingLIST = createTestingLIST()
+        if COVERAGE:
+            with open(f"{G_srcDIR}/kaLIST.json", "r", encoding="utf-8") as f:
+                inputLIST = json.load(f)
+        else:
+            inputLIST = createTestingLIST()
 
-        predictionLIST = []
-        for utterIdx, inputSTR in enumerate(kaTestingLIST):
-            resultLIST = main(inputSTR, utterIdx, ka_type=KA)
-            predictionLIST.extend(resultLIST)
-
-        # 紀錄結果
-        with open(f"{G_resultDIR}/{KA}_test.json", "w", encoding="utf-8") as f:
-            json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
-
-    elif MODE == "evaluation":
-        # 測資來源
+    elif MODE == "eval":
         with open(f"{G_srcDIR}/kaLIST_eval.json", "r", encoding="utf-8") as f:
-            kaEvalLIST = json.load(f)
+            inputLIST = json.load(f)
 
-        predictionLIST = []
-        for utterIdx, inputSTR in enumerate(kaEvalLIST):
-            resultLIST = main(inputSTR, utterIdx, ka_type=KA)
-            predictionLIST.extend(resultLIST)
+    predictionLIST = []
+    for utterIdx, inputSTR in enumerate(inputLIST):
+        resultLIST = main(inputSTR, utterIdx, ka_type=KA)
+        logging.info(f"PHASE:{MODE}, COVERAGE:{COVERAGE}, KA:{KA}, 測資數量:{len(inputLIST)}")
+        predictionLIST.extend(resultLIST)
 
-        # 紀錄結果
-        with open(f"{G_resultDIR}/{KA}_eval.json", "w", encoding="utf-8") as f:
-            json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
-
+    # 紀錄結果
+    SUFFIX = "_coverage" if COVERAGE else ""
+    with open(f"{G_resultDIR}/{KA}_{MODE}{SUFFIX}.json", "w", encoding="utf-8") as f:
+        json.dump(predictionLIST, f, ensure_ascii=False, indent=4)
 
     ##<單筆測試>
-    #inputSTR ="So.much.so .AV ka PAST- marvel .AV NOM multitudes while see -LV they .GEN ka speak .AV NOM dumb .AV ka well .AV NOM maimed .AV ka walk .AV NOM lame .AV ka see .AV NOM blind .AV ka PAST- cause.high .AV NOM they cause.great -PV OBL status OBL God OBL Israel"
+    #inputSTR ="therefore anything ka speak -LV .IRR they .GEN cause.obey .AV you .PL -OBL obey -PV .IRR you .GEN FOC do -PV .IRR -also NOM it yet PART work their not obey -PV .IRR"
 
-    ##filterSTR = udFilter(inputSTR)
-    #resultLIST = main(inputSTR, 0)  # 預設句子 index = 0
+    #resultLIST = main(inputSTR, 0, ka_type="COMP")  # 預設句子 index = 0
     #print()
     #print(resultLIST)
     ##</單筆測試>
