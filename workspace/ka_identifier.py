@@ -194,7 +194,7 @@ def main(inputSTR, utterIdx, ka_type):
 if __name__ == "__main__":
     MODE = "test" #test, eval
     COVERAGE = True #True, False
-    KA = "and" #COMP, and, REL
+    KA = "REL" #COMP, and, REL
 
     if MODE == "test":
         if COVERAGE:
