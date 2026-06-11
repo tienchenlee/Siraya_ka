@@ -6,12 +6,12 @@ import re
 from pathlib import Path
 
 G_kaPat = re.compile(r"\bka\b")
-G_ansDIR = Path.cwd() / "answer"
+G_ansDIR = Path(f"{Path.cwd()}/answer")
 G_ansDIR.mkdir(exist_ok=True, parents=True)
-G_predictionDIR = Path.cwd() / "prediction"
+G_predictionDIR = Path(f"{Path.cwd()}/prediction")
 G_predictionDIR.mkdir(exist_ok=True, parents=True)
-G_srcDIR = Path.cwd().parent / "data" / "src"
-G_resultDIR = Path.cwd() / "results"
+G_srcDIR = Path(f"{Path.cwd().parent}/data/src")
+G_resultDIR = Path(f"{Path.cwd()}/results")
 
 def createAnswer():
     """
@@ -85,21 +85,13 @@ def createAnswer():
     with open(G_ansDIR / "and.json", "w", encoding="utf-8") as f:
         json.dump(andLIST, f, ensure_ascii=False, indent=4)
 
-    return COMPLIST, andLIST, RELLIST
+    return COMPLIST, andLIST, RELLIST, len(targetLIST)
 
 def makePrediction(phase=None):
     """
     將 results/ 中的 LLM 預測 分別寫出與 answer/ 一樣的資料結構。
     """
-    COMPLIST = []
-    andLIST = []
-    RELLIST = []
-
-    mapDICT = {
-               "COMP": COMPLIST,
-               "and": andLIST,
-               "REL": RELLIST
-               }
+    mapDICT = {"COMP": set(), "and": set(), "REL": set()}
 
     with open(f"{G_resultDIR}/phase_{phase}.json", "r", encoding="utf-8") as f:
         resultLIST = json.load(f)
@@ -107,34 +99,31 @@ def makePrediction(phase=None):
     with open(f"{G_srcDIR}/kaLIST_eval.json", "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
+    utterDICT = {s: i for i, s in enumerate(kaLIST)}
+
     for llmResultDICT in resultLIST:   #處理每個 prediction item
-        if llmResultDICT["status"] == "Succeeded":
-            for keySTR in mapDICT.keys():
-                if keySTR in llmResultDICT.keys() and llmResultDICT[keySTR]:
-                    ka_indexLIST = llmResultDICT[keySTR]
-                    inputSTR = llmResultDICT["inputSTR"]
+        if llmResultDICT["status"] != "Succeeded":
+            continue
 
-                    utterDICT = {s: i for i, s in enumerate(kaLIST)}
-                    utter_index = utterDICT.get(inputSTR)
-
-                    for ka_index in ka_indexLIST:
-                        if [utter_index, ka_index] not in mapDICT[keySTR]:
-                            mapDICT[keySTR].append([utter_index, ka_index])
+        utter_index = utterDICT.get(llmResultDICT["inputSTR"])
+        for keySTR in mapDICT.keys():
+            if keySTR in llmResultDICT.keys() and llmResultDICT[keySTR]:
+                for ka_index in llmResultDICT[keySTR]:
+                    mapDICT[keySTR].add((utter_index, ka_index))
 
     phaseDIR = Path(f"{G_predictionDIR}/phase_{phase}")
     phaseDIR.mkdir(exist_ok=True, parents=True)
+
+    resultDICT = {}
     for keySTR in mapDICT:
+        resultDICT[keySTR] = sorted(
+            [list(pair_t) for pair_t in mapDICT[keySTR]],
+            key=lambda x: (x[0], x[1])
+        )
         with open(f"{phaseDIR}/{keySTR}.json", "w", encoding="utf-8") as f:
-            json.dump(mapDICT[keySTR], f, ensure_ascii=False, indent=4)
+            json.dump(resultDICT[keySTR], f, ensure_ascii=False, indent=4)
 
-    with open(f"{phaseDIR}/COMP.json", "r", encoding="utf-8") as f:
-        COMPPredLIST = json.load(f)
-    with open(f"{phaseDIR}/and.json", "r", encoding="utf-8") as f:
-        andPredLIST = json.load(f)
-    with open(f"{phaseDIR}/REL.json", "r", encoding="utf-8") as f:
-        RELPredLIST = json.load(f)
-
-    return COMPPredLIST, andPredLIST, RELPredLIST
+    return resultDICT["COMP"], resultDICT["and"], resultDICT["REL"]
 
 def _getTP(predLIST, ansLIST):
     """"""
@@ -178,28 +167,23 @@ def getPrecision(predLIST, ansLIST):
 
     return FP
 
-def getAccuracy(predLIST, ansLIST, allAnsLIST, FN, FP):
+def getAccuracy(totalKaINT, FN, FP):
     """
     預測正確的比例。
     """
     TP = _getTP(predLIST, ansLIST)
-
-    TN = 0
-    for item_l in allAnsLIST:
-        if item_l not in predLIST and item_l not in ansLIST:
-            TN += 1
+    TN = totalKaINT - TP - FP - FN
+    accuracy = (TP + TN) / (TP + TN + FP + FN)
 
     print(f"TN: {TN}")
-
-    accuracy = (TP + TN) / (TP + TN + FN + FP)
     print(f"TP+TN: {TP + TN}")
-    print(f"TP+TN+FP+FN: {TP + TN + FN + FP}")
+    print(f"TP+TN+FP+FN: {TP + TN + FP + FN}")
     print(f"accuracy: {accuracy * 100:.2f}%")
     print(f"================================")
 
 if __name__ == "__main__":
     PHASE = 1
-    COMPAnsLIST, andAnsLIST, RELAnsLIST = createAnswer()
+    COMPAnsLIST, andAnsLIST, RELAnsLIST, totalKaINT = createAnswer()
     COMPPredLIST, andPredLIST, RELPredLIST = makePrediction(phase=PHASE)   # The prediction is made respectively
 
     functionDICT = {
@@ -215,4 +199,4 @@ if __name__ == "__main__":
         print(f"[{keySTR}]")
         FN = getRecall(predLIST, ansLIST)
         FP = getPrecision(predLIST, ansLIST)
-        getAccuracy(predLIST, ansLIST, allAnsLIST, FN, FP)
+        getAccuracy(totalKaINT, FN, FP)
