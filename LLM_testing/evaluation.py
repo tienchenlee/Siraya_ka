@@ -94,14 +94,14 @@ def makePrediction(phase=None):
     mapDICT = {"COMP": set(), "and": set(), "REL": set()}
 
     with open(f"{G_resultDIR}/phase_{phase}.json", "r", encoding="utf-8") as f:
-        resultLIST = json.load(f)
+        predictionLIST = json.load(f)
 
     with open(f"{G_srcDIR}/kaLIST_eval.json", "r", encoding="utf-8") as f:
         kaLIST = json.load(f)
 
     utterDICT = {s: i for i, s in enumerate(kaLIST)}
 
-    for llmResultDICT in resultLIST:   #處理每個 prediction item
+    for llmResultDICT in predictionLIST:   #處理每個 prediction item
         if llmResultDICT["status"] != "Succeeded":
             continue
 

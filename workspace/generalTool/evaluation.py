@@ -44,10 +44,11 @@ def createAnswer(phase=None, coverage=False):
         with open(f"{G_srcDIR}/ansLIST_{phase}.json", "r", encoding="utf-8") as f:
             ansLIST = json.load(f)
 
-    targetLIST = []
+    # 計算全部 ka 的總量，存入 totalKaLIST
+    totalKaLIST = []
     for i, s in enumerate(kaLIST):
         for m in re.finditer(G_kaPat, s):
-            targetLIST.append((i, m.start(), m.end()))
+            totalKaLIST.append((i, m.start(), m.end()))
 
     RELLIST = []
     COMPLIST = []
@@ -57,26 +58,26 @@ def createAnswer(phase=None, coverage=False):
     kaWordLIST = [s.split() for s in kaLIST]
     ansWordLIST = [s.split() for s in ansLIST]
 
-    for string_i, (ka_s, ans_s) in enumerate(zip(kaWordLIST, ansWordLIST)):
+    for sentence_i, (ka_s, ans_s) in enumerate(zip(kaWordLIST, ansWordLIST)):
         for word_i, kaSTR in enumerate(ka_s):
             if kaSTR == "ka":
                 ansSTR = ans_s[word_i]  # 對應 ansLIST 同位置的 word
 
                 if ansSTR == "REL":
-                    RELLIST.append([string_i, word_i])
+                    RELLIST.append([sentence_i, word_i])
                 elif ansSTR == "COMP":
-                    COMPLIST.append([string_i, word_i])
+                    COMPLIST.append([sentence_i, word_i])
                 elif ansSTR.lower() == "and":
-                    andLIST.append([string_i, word_i])
-                else:
-                    errorLIST.append([string_i, word_i, ansSTR])
+                    andLIST.append([sentence_i, word_i])
+                else: # 前處理錯誤導致 ansSTR 不是 REL/COMP/and
+                    errorLIST.append([sentence_i, word_i, ansSTR])
 
     print(f"COMP: {len(COMPLIST)} 個")
     print(f"and: {len(andLIST)} 個")
     print(f"REL: {len(RELLIST)} 個")
-    print(f"total: {len(targetLIST)} 個")
+    print(f"total: {len(totalKaLIST)} 個")
 
-    if len(RELLIST) + len(COMPLIST) + len(andLIST) == len(targetLIST):
+    if len(RELLIST) + len(COMPLIST) + len(andLIST) == len(totalKaLIST):
         print(f"正解與測資的 ka 數量一致")
         print(f"================================")
     else:
@@ -94,12 +95,12 @@ def createAnswer(phase=None, coverage=False):
     with open(f"{ansPhaseDIR}/and{SUFFIX}.json", "w", encoding="utf-8") as f:
         json.dump(andLIST, f, ensure_ascii=False, indent=4)
 
-    return COMPLIST, andLIST, RELLIST, len(targetLIST)
+    return COMPLIST, andLIST, RELLIST, len(totalKaLIST)
 
 def makePrediction(phase=None, coverage=False):
     """
     將 predictionLIST 中的 lokiResultDICT 分別寫出與 answer/ 一樣的資料結構。
-    在 mapDICT 選擇此次 askLoki 的專案。
+    計算模型預測的各個 ka 的 index。
     """
     SUFFIX = "_coverage" if coverage else ""
     kaLIST = ["COMP", "and", "REL"]
@@ -141,14 +142,14 @@ def extractFN(predLIST, ansLIST):
     with open(f"{G_srcDIR}/ansLIST_eval.json", "r", encoding="utf-8") as f:
         evalLIST = json.load(f)
 
-    utterIdxSET = set()
+    utterIdxLIST = []
     fnLIST = []
 
     for item_l in ansLIST:
         if item_l not in predLIST:
-            utterIdxSET.add(item_l[0])
+            utterIdxLIST.append(item_l[0])
 
-    for i in utterIdxSET:
+    for i in set(utterIdxLIST):
         fnLIST.append(evalLIST[i])
 
     return fnLIST
@@ -156,7 +157,7 @@ def extractFN(predLIST, ansLIST):
 def getRecall(predLIST, ansLIST, coverage=False):
     """
     實際為真的樣本中，正確預測的比例。
-    recall = (∣Prediction ∩ Answer∣​ / |Answer∣) * 100
+    recall = ((Prediction ∩ Answer)​ / Answer) * 100
     """
     TP = _getTP(predLIST, ansLIST)
     FN = len(ansLIST) - TP
@@ -216,7 +217,7 @@ def getAccuracy(totalKaINT, FN, FP, coverage=False):
 
 def getCoverage(predLIST, ansLIST):
     """
-    TP / Total，句型模型對此次語料的覆蓋程度。
+    TP / Total，句型模型對此次訓練語料的覆蓋程度。
     """
     TP = _getTP(predLIST, ansLIST)
     Total = len(ansLIST)
@@ -238,7 +239,7 @@ def getF1score(recall, precision):
     print(f"================================")
 
 if __name__ == "__main__":
-    PHASE = "test" #test, eval
+    PHASE = "eval" #test, eval
     COVERAGE = False #True, False
 
     COMPAnsLIST, andAnsLIST, RELAnsLIST, totalKaINT = createAnswer(phase=PHASE, coverage=COVERAGE)
@@ -250,10 +251,10 @@ if __name__ == "__main__":
         "and":  (andPredLIST,  andAnsLIST),
     }
 
-    allAnsLIST = COMPAnsLIST + andAnsLIST + RELAnsLIST
     print(f"language models constructed using Loki")
     print(f"=== [{PHASE}] 個別 Project 結果 ===")
 
+    # all false negative examples: allFnLIST
     allFnLIST = []
 
     for keySTR, (predLIST, ansLIST) in functionDICT.items():
@@ -261,7 +262,7 @@ if __name__ == "__main__":
 
         if COVERAGE:
             getCoverage(predLIST, ansLIST)
-            # for calculating TN, FP, FN
+            # for calculating FN, FP, TN
             FN, recall = getRecall(predLIST, ansLIST, coverage=COVERAGE)
             FP, precision = getPrecision(predLIST, ansLIST, coverage=COVERAGE)
             getAccuracy(totalKaINT, FN, FP, coverage=COVERAGE)
